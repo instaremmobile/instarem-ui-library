@@ -1,0 +1,70 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "no-console": "error",
+    "react/display-name": "off",
+    "no-debugger": "error",
+    "no-duplicate-imports": "error",
+    "camelcase": "off",
+    "comma-dangle": ["error", "never"],
+    "no-inline-comments": "off",
+    "max-len": ["error", { "code": 140 }],
+    "prefer-promise-reject-errors": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prop-types": "warn",
+    "no-return-assign": "off",
+    "no-useless-escape": "off",
+    "no-param-reassign": "off",
+    "func-names": ["error", "never"],
+    "react/react-in-jsx-scope": 0,
+    "no-irregular-whitespace": [
+      "error",
+      { "skipStrings": true, "skipTemplates": true }
+    ],
+    "react/forbid-foreign-prop-types": 0
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts", "src/**/*.tsx"],
+      "extends": ["eslint:recommended", "plugin:react/recommended"],
+      "settings": {
+        "react": {
+          "version": "detect"
+        },
+        "import/resolver": {
+          "typescript": {}
+        }
+      },
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+      },
+      "plugins": ["react", "import"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/prop-types": "off",
+        "react/display-name": "off",
+        "no-redeclare": "off",
+        "@typescript-eslint/no-redeclare": "warn",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/await-thenable": "off",
+        "@typescript-eslint/restrict-plus-operands": "off"
+      }
+    }
+  ],
+  "globals": {
+    "NodeJS": true
+  }
+}
