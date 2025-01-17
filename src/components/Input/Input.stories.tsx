@@ -110,7 +110,7 @@ const ButtonWithFetchFunction = (props: any) => {
       return;
     }
     const data = await resposne.json();
-    const names = data.map((user: Record<string, any>) => user.name);
+    const names = data.map((user: Record<string, any>) => user.username);
     return names;
   };
 

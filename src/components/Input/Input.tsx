@@ -1,6 +1,6 @@
 import React from "react";
 import { LoaderCircle } from "lucide-react";
-import { cn, NetworkManager, RetryConfig, Trie } from "../../lib";
+import { cn, NetworkManager, RetryConfig, Trie } from "@lib";
 import "./input.scss";
 import debounce from "lodash/debounce";
 import isEmpty from "lodash/isEmpty";
