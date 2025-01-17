@@ -16,7 +16,8 @@
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
     "paths": {
-      "@lib": ["./src/lib/"]
+      "@lib": ["./src/lib/"],
+      "@styles/*": ["./src/styles/*"]
     }
   }
 }
