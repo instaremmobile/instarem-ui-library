@@ -74,6 +74,24 @@
       cursor: not-allowed;
     }
   }
+  &.outlined {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #a9a9a9;
+    .text-field-label {
+      background-color: transparent;
+    }
+    &.error {
+      border-bottom: 1px solid #f92929;
+    }
+
+    &.focused {
+      border-bottom: 1px solid black;
+    }
+    &.has-value {
+      border-bottom: 1px solid black;
+    }
+  }
 }
 
 .text-field-icon {
@@ -198,6 +216,7 @@
 
 .suggestion-item {
   display: flex;
+  white-space: pre-wrap;
   align-items: center;
   height: 50px;
   padding: 0 16px;
@@ -213,4 +232,10 @@
   &:last-child {
     border-bottom: none;
   }
+}
+
+.suggestion-item .highlight {
+  color: #fe0095;
+  font-weight: 700;
+  font-family: "hellix-bold";
 }

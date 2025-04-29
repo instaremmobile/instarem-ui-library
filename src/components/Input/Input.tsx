@@ -25,6 +25,7 @@ export interface InputFieldProps
   fetchFunction?: () => Promise<unknown>;
   retryConfig?: Partial<RetryConfig>;
   handleChange?: (value: string) => void;
+  outlined?: boolean;
 }
 
 export interface IconProps {
@@ -63,6 +64,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       fetchFunction,
       retryConfig = { maxAttempt: 5 },
       handleChange,
+      outlined = false,
       ...props
     },
     ref,
@@ -248,6 +250,24 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       }
     }, []);
 
+    const renderSuggestions = (suggestion: string, query: string) => {
+      if (!query) return suggestion;
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\\s]/g, "\\$&");
+      const regex = new RegExp(`(${escapedQuery})`, "gi");
+      const parts = suggestion.split(regex);
+      return parts.map((part, index) => {
+        console.log(part);
+        if (index % 2 === 1) {
+          return (
+            <span className="highlight" key={index}>
+              {part}
+            </span>
+          );
+        }
+        return <span key={index}>{part}</span>;
+      });
+    };
+
     const focusOnInput = (event: KeyboardEvent) => {
       if (event.key === "/") {
         // This is to prevent "/" character to get typed in
@@ -295,6 +315,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
             hasValue ? "has-value" : "",
             startAdornment ? "has-left-icon" : "",
             endAdorenment || clearable ? "has-right-icon" : "",
+            outlined ? "outlined" : "",
           )}
         >
           {renderIcon(startAdornment, "left")}
@@ -348,7 +369,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
                   )}
                   onClick={() => handleSuggestionSelect(suggestion)}
                 >
-                  {suggestion}
+                  {renderSuggestions(suggestion, currentValue as string)}
                 </li>
               ))
             ) : (
