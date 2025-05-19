@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { Search, Eye } from "lucide-react";
 import Input from "./Input";
-import { Button } from "../Button";
 
 const meta = {
   title: "Components/Input",
