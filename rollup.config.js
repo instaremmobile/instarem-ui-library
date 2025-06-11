@@ -16,8 +16,8 @@ export default [
       {
         file: packageJson.main,
         format: 'esm',
-        sourcemap: true,
-      },
+        sourcemap: true
+      }
     ],
     plugins: [
       // NEW
@@ -28,13 +28,13 @@ export default [
       commonjs(),
 
       // NEW
-      terser(),
-    ],
+      terser()
+    ]
   },
   {
     input: 'dist/cjs/types/src/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts.default()],
-    external: [/\.css$/],
-  },
+    external: [/\.css$/]
+  }
 ];

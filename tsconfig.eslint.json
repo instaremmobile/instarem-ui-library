@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "*.js",
+    "*.ts",
+    "eslint.config.js",
+    "jest.config.ts",
+    ".storybook/**/*"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true
+  }
+}
