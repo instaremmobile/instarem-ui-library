@@ -7,7 +7,8 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@lib$': '<rootDir>/src/lib'
   },
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   transform: {
