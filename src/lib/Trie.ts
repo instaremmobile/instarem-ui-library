@@ -123,7 +123,7 @@ class Trie {
     currentNode.children.set(prefix, newNode);
     return newNode;
   }
-
+  // great article - https://medium.com/basecs/compressing-radix-trees-without-too-many-tears-a2e658adb9a0
   private splitNode(
     currentNode: TrieNode,
     edge: string,
