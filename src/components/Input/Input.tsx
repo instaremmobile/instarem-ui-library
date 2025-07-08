@@ -52,7 +52,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       endAdorenment,
       disabled,
       id,
-      defaultValue,
+      defaultValue = "",
       onIconClick,
       iconSize = 18,
       clearable,
@@ -108,7 +108,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
 
     const renderIcon = React.useCallback(
       (iconProps: IconProps | undefined, position: "left" | "right") => {
-        if (isEmpty(iconProps)) return;
+        if (!isEmpty(iconProps) || !iconProps) return;
 
         const { icon, onClick, toolTip, disabled, className = "" } = iconProps;
         return (

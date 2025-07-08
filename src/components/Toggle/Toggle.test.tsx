@@ -1,5 +1,4 @@
-import React from "react";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { Toggle } from "./Toggle";
@@ -18,20 +17,17 @@ describe("Toggle Component", () => {
   describe("Rendering", () => {
     it("Renders with a label", () => {
       render(<Toggle {...defaultProps} />);
-
       expect(screen.getByLabelText("Test Toggle")).toBeInTheDocument();
     });
 
     it("renders without label when not provided", () => {
       render(<Toggle onChange={jest.fn()} />);
-
       const toggle = screen.getByRole("checkbox");
       expect(toggle).toBeInTheDocument();
       expect(toggle).not.toHaveAccessibleName();
     });
     it("renders with custom id", () => {
       render(<Toggle {...defaultProps} id="custom-toggle" />);
-
       expect(screen.getByRole("checkbox")).toHaveAttribute(
         "id",
         "custom-toggle",
@@ -39,7 +35,6 @@ describe("Toggle Component", () => {
     });
     it("renders with aria-label when provided", () => {
       render(<Toggle onChange={jest.fn()} aria-label="Custom toggle label" />);
-
       expect(screen.getByLabelText("Custom toggle label")).toBeInTheDocument();
     });
   });
@@ -47,25 +42,21 @@ describe("Toggle Component", () => {
   describe("Initial State", () => {
     it("is unchecked by default", () => {
       render(<Toggle {...defaultProps} />);
-
       expect(screen.getByRole("checkbox")).not.toBeChecked();
     });
 
     it("renders as checked when checked prop is true", () => {
       render(<Toggle {...defaultProps} checked={true} />);
-
       expect(screen.getByRole("checkbox")).toBeChecked();
     });
 
     it("renders as enabled by default", () => {
       render(<Toggle {...defaultProps} />);
-
       expect(screen.getByRole("checkbox")).toBeEnabled();
     });
 
     it("renders as disabled when disabled prop is true", () => {
       render(<Toggle {...defaultProps} disabled={true} />);
-
       expect(screen.getByRole("checkbox")).toBeDisabled();
     });
   });
@@ -75,7 +66,6 @@ describe("Toggle Component", () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Toggle {...defaultProps} onChange={handleChange} />);
-
       const toggle = screen.getByRole("checkbox");
       await user.click(toggle);
 
@@ -88,7 +78,6 @@ describe("Toggle Component", () => {
       render(
         <Toggle {...defaultProps} checked={true} onChange={handleChange} />,
       );
-
       const toggle = screen.getByRole("checkbox");
       await user.click(toggle);
 
@@ -101,7 +90,6 @@ describe("Toggle Component", () => {
       render(
         <Toggle {...defaultProps} disabled={true} onChange={handleChange} />,
       );
-
       const toggle = screen.getByRole("checkbox");
       await user.click(toggle);
 
@@ -112,7 +100,6 @@ describe("Toggle Component", () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Toggle {...defaultProps} onChange={handleChange} />);
-
       const toggle = screen.getByRole("checkbox");
       toggle.focus();
       await user.keyboard(" ");
