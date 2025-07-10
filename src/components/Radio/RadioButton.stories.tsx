@@ -38,14 +38,14 @@ const RadioButtonGroup = () => {
     <div style={{ display: "flex", gap: 16 }}>
       <RadioButton
         label="Option 1"
-        name="radio1"
+        name="radio"
         value="option1"
         checked={currentlySelected === "option1"}
         onChange={handleOnChange}
       />
       <RadioButton
         label="Option 2"
-        name="radio2"
+        name="radio"
         value="option2"
         checked={currentlySelected === "option2"}
         onChange={handleOnChange}

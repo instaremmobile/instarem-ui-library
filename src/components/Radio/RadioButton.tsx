@@ -48,6 +48,38 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
         onChange(e);
       }
     };
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      // Handle arrow key navigation within radio groups
+      if (
+        event.key === "ArrowUp" ||
+        event.key === "ArrowDown" ||
+        event.key === "ArrowLeft" ||
+        event.key === "ArrowRight"
+      ) {
+        event.preventDefault();
+
+        const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
+        const radioArray = Array.from(radioGroup) as HTMLInputElement[];
+        const currentIndex = radioArray.findIndex(
+          (radio) => radio === event.target,
+        );
+
+        let nextIndex;
+        if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+          nextIndex =
+            currentIndex > 0 ? currentIndex - 1 : radioArray.length - 1;
+        } else {
+          nextIndex =
+            currentIndex < radioArray.length - 1 ? currentIndex + 1 : 0;
+        }
+
+        const nextRadio = radioArray[nextIndex];
+        if (nextRadio && !nextRadio.disabled) {
+          nextRadio.focus();
+          nextRadio.click();
+        }
+      }
+    };
 
     return (
       <div
@@ -69,6 +101,7 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
           checked={checked}
           disabled={disabled}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           onFocus={onFocus}
           onBlur={onBlur}
           className="radio-button__input"
