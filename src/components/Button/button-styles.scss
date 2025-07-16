@@ -1,0 +1,345 @@
+// Button.scss
+
+// Variables
+$primary-color: #fe0095;
+$primary-color-blue: #007aff;
+$primary-hover: darken($primary-color, 10%);
+$primary-active: darken($primary-color, 15%);
+$secondary-color: #6b7280;
+$secondary-hover: darken($secondary-color, 10%);
+$white: #ffffff;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-900: #111827;
+$border-radius: 4px;
+$transition-duration: 0.2s;
+$transition-timing: ease-in-out;
+$max-width: 450px;
+$button-disabled-color: #a9a9a9;
+
+$font-family:
+  "hellix-bold",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+
+// Mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-duration $transition-timing;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+  max-width: $max-width;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+
+  // Focus styles for accessibility
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  // Hover animation
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform $transition-duration $transition-timing;
+  }
+}
+
+@mixin button-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: $button-disabled-color;
+
+  &::before {
+    display: none;
+  }
+}
+
+// Base button styles
+.btn {
+  @include button-base;
+
+  &__text {
+    position: relative;
+    z-index: 1;
+    transition: opacity $transition-duration $transition-timing;
+
+    &--loading {
+      opacity: 0;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    &--start {
+      margin-right: 4px;
+    }
+
+    &--end {
+      margin-left: 4px;
+    }
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    &-icon {
+      width: 1.2em;
+      height: 1.2em;
+      animation: spin 1s linear infinite;
+
+      circle {
+        animation: dash 1.5s ease-in-out infinite;
+      }
+    }
+  }
+
+  // Variants
+  &--primary {
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-hover;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $primary-active;
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba($primary-color, 0.2);
+    }
+
+    &:focus-visible {
+      outline-color: $primary-color;
+    }
+  }
+
+  &--secondary {
+    border: 2px solid $primary-color;
+    background-color: $white;
+    color: $primary-color;
+
+    &:hover:not(:disabled) {
+      background-color: $gray-200;
+    }
+
+    &:disabled {
+      background-color: transparent !important;
+      cursor: not-allowed;
+      pointer-events: none;
+      color: $button-disabled-color;
+      border: 2px solid $button-disabled-color;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $gray-300;
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba($gray-500, 0.1);
+    }
+
+    &:focus-visible {
+      outline-color: $gray-500;
+    }
+  }
+
+  &--text {
+    background-color: transparent;
+    color: $primary-color-blue;
+
+    &:disabled {
+      color: $button-disabled-color;
+      cursor: not-allowed;
+      pointer-events: none;
+      background-color: transparent !important;
+    }
+    &:focus-visible {
+      outline-color: $primary-color;
+    }
+  }
+
+  // Sizes
+  &--small {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-height: 36px;
+    gap: 6px;
+  }
+
+  &--medium {
+    padding: 12px 24px;
+    font-size: 16px;
+    min-height: 44px;
+    gap: 8px;
+  }
+
+  &--large {
+    padding: 16px 32px;
+    font-size: 18px;
+    min-height: 52px;
+    gap: 10px;
+  }
+
+  // States
+  &--loading {
+    pointer-events: none;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &:disabled {
+    @include button-disabled;
+  }
+}
+
+// Animations
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .btn {
+    &--small {
+      padding: 10px 16px;
+      min-height: 40px;
+    }
+
+    &--medium {
+      padding: 14px 24px;
+      min-height: 48px;
+    }
+
+    &--large {
+      padding: 18px 32px;
+      min-height: 56px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    max-width: 100%;
+
+    &--small {
+      font-size: 14px;
+    }
+
+    &--medium {
+      font-size: 16px;
+    }
+
+    &--large {
+      font-size: 17px;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .btn {
+    &--primary {
+      border: 2px solid transparent;
+
+      &:focus-visible {
+        outline-width: 3px;
+      }
+    }
+
+    &--secondary {
+      border: 2px solid $gray-600;
+
+      &:focus-visible {
+        outline-width: 3px;
+      }
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+
+    &::before {
+      display: none;
+    }
+
+    &:hover:not(:disabled) {
+      transform: none;
+    }
+
+    &:active:not(:disabled) {
+      transform: none;
+    }
+
+    &__spinner-icon {
+      animation: none;
+
+      circle {
+        animation: none;
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}
