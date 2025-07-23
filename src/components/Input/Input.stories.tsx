@@ -20,6 +20,7 @@ const meta = {
       control: "boolean",
     },
     iconSize: { control: "number" },
+    helperText: { control: "text", type: "string" },
     fullWidth: {
       control: "boolean",
       description:

@@ -11,6 +11,8 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     isOpen: { type: "boolean", control: "boolean" },
+    closeOverlayClick: { type: "boolean", control: "boolean" },
+    title: { type: "string", control: "text" },
   },
 } satisfies Meta<typeof Modal>;
 
