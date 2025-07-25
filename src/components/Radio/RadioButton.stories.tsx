@@ -1,6 +1,7 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { fn } from "@storybook/test";
-import RadioButton, { RadioButtonProps } from "./RadioButton";
+import { action } from "@storybook/addon-actions";
+import RadioButton from "./RadioButton";
+import { RadioButtonProps } from "./RadioButton.types";
 import React from "react";
 
 const meta = {
@@ -13,7 +14,7 @@ const meta = {
   argTypes: {
     label: { control: "text", type: "string" },
   },
-  args: { onChange: fn() },
+  args: { onChange: action("onChange") },
 } satisfies Meta<RadioButtonProps>;
 
 export default meta;

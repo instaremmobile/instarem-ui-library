@@ -231,8 +231,8 @@ class Trie {
   ): number {
     let sourceStringLength = sourceString.length;
     let targetStringLength = targetString.length;
-    const diffrence = Math.abs(sourceStringLength - targetStringLength);
-    if (diffrence > maxDistance * 1.4) return Infinity;
+    const difference = Math.abs(sourceStringLength - targetStringLength);
+    if (difference > maxDistance * 1.4) return Infinity;
 
     if (sourceStringLength > targetStringLength) {
       const tempString = sourceString;
@@ -336,9 +336,9 @@ class Trie {
       }
     }
 
-    const umatchedPenalty =
+    const unmatchedPenalty =
       Math.abs(sourceWords.length - targetWords.length) * 1.5;
-    return totalDistance + umatchedPenalty;
+    return totalDistance + unmatchedPenalty;
   };
 
   private calculateScore(result: SearchResult, query: string): number {
@@ -355,13 +355,13 @@ class Trie {
       Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
     const prefixMatchBonus = result.prefixMatch ? 1.5 : 1;
     const wordCountDiff = Math.abs(queryWords.length - resultWords.length);
-    const wordCoundPenalty = wordCountDiff === 0 ? 0 : wordCountDiff * 0.1;
+    const wordCountPenalty = wordCountDiff === 0 ? 0 : wordCountDiff * 0.1;
 
     return (
       distanceFactor *
       frequencyFactor *
       prefixMatchBonus *
-      (1 - wordCoundPenalty)
+      (1 - wordCountPenalty)
     );
   }
 
@@ -399,7 +399,7 @@ class Trie {
         const word = caseSensitive ? node.value : node.value.toLowerCase();
         if (!seen.has(word)) {
           let distance;
-          let isPrefixmatch = false;
+          let isPrefixMatch = false;
           if (matchType === "partial") {
             distance = this.getPartialDistance(
               processedQuery,
@@ -410,7 +410,7 @@ class Trie {
             distance = prefixOnly
               ? prefixDistance
               : this.getLevenshtienDistance(processedQuery, word, maxDistance);
-            isPrefixmatch = prefixOnly && prefixDistance <= maxDistance;
+            isPrefixMatch = prefixOnly && prefixDistance <= maxDistance;
           }
           const wordCount = node.value.trim().split(/\s+/).length;
           const adjustableDistance =
@@ -421,7 +421,7 @@ class Trie {
               distance,
               score: 0,
               frequency: node.frequency || 1,
-              prefixMatch: isPrefixmatch,
+              prefixMatch: isPrefixMatch,
             };
             result.score = this.calculateScore(result, processedQuery);
             priorityQueue.push(result);
@@ -474,7 +474,7 @@ class Trie {
     const results = priorityQueue.get();
     if (this.cache.size >= Trie.CACHE_SIZE) {
       const firstKey = this.cache.keys().next().value;
-      this.cache.delete(firstKey);
+      this.cache.delete(firstKey!);
     }
     this.cache.set(cacheKey, results);
 

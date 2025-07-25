@@ -1,14 +1,7 @@
 import React from "react";
 import { cn } from "@lib";
+import { ToggleProps } from "./Toggle.types";
 import "./toggle-styles.scss";
-
-interface ToggleProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
-  label?: string;
-  onChange?: (value: boolean) => any;
-  checked?: boolean;
-  labelPosition?: "left" | "right";
-}
 
 export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
   (
@@ -28,9 +21,7 @@ export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
     return (
       <label htmlFor={toggleId} className="toggle-switch__container">
         {label && labelPosition === "left" ? (
-          <label className="toggle-switch__label" htmlFor={toggleId}>
-            {label}
-          </label>
+          <span className="toggle-switch__label">{label}</span>
         ) : null}
         <div className="toggle-switch__container">
           <input
@@ -48,9 +39,7 @@ export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
           </div>
         </div>
         {label && labelPosition === "right" ? (
-          <label className="toggle-switch__label" htmlFor={toggleId}>
-            {label}
-          </label>
+          <span className="toggle-switch__label">{label}</span>
         ) : null}
       </label>
     );

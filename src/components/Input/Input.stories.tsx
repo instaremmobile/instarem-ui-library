@@ -20,6 +20,7 @@ const meta = {
       control: "boolean",
     },
     iconSize: { control: "number" },
+    helperText: { control: "text", type: "string" },
     fullWidth: {
       control: "boolean",
       description:
@@ -87,7 +88,7 @@ export const RightIcon: Story = {
   args: {
     type: "text",
     label: "First name",
-    endAdorenment: { icon: <Eye /> },
+    endAdornment: { icon: <Eye /> },
   },
 };
 

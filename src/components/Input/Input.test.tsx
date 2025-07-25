@@ -1,6 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Input, { InputFieldProps } from "./Input";
+import Input from "./Input";
+import { InputFieldProps } from "./Input.types";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("lodash/debounce", () => {

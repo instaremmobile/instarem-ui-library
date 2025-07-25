@@ -22,7 +22,7 @@ export class NetworkManager {
 
   constructor() {
     this.cache = new CacheManager();
-    this.setupNetworkListners();
+    this.setupNetworkListeners();
   }
 
   static getInstance(): NetworkManager {
@@ -32,7 +32,7 @@ export class NetworkManager {
     return NetworkManager.instance;
   }
 
-  private setupNetworkListners(): void {
+  private setupNetworkListeners(): void {
     window.addEventListener("online", this.handleOnline.bind(this));
     window.addEventListener("offline", this.handleOffline.bind(this));
   }
@@ -90,7 +90,7 @@ export class NetworkManager {
             this.fetchWithRetry(key, fetchFn, config),
           );
           this.retryQueue.set(queuedKey, queuedCallbacks);
-          throw new Error("Netowrk is offline");
+          throw new Error("Network is offline");
         }
         const data = await fetchFn();
         this.cache.set(key, data);
@@ -105,6 +105,6 @@ export class NetworkManager {
         );
       }
     }
-    throw new Error("Max retry attemps reached");
+    throw new Error("Max retry attempts reached");
   }
 }
