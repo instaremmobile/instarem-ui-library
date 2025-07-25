@@ -88,7 +88,7 @@ export const RightIcon: Story = {
   args: {
     type: "text",
     label: "First name",
-    endAdorenment: { icon: <Eye /> },
+    endAdornment: { icon: <Eye /> },
   },
 };
 

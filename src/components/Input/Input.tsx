@@ -1,40 +1,10 @@
 import React from "react";
 import { LoaderCircle } from "lucide-react";
-import { cn, NetworkManager, RetryConfig, Trie } from "@lib";
+import isEmpty from "lodash/isEmpty";
+import { cn, NetworkManager, Trie } from "@lib";
+import { InputFieldProps, IconProps } from "./Input.types";
 import "./input.scss";
 import debounce from "lodash/debounce";
-import isEmpty from "lodash/isEmpty";
-
-export interface InputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string | undefined;
-  error?: string | undefined;
-  shrink?: boolean;
-  helperText?: string | undefined;
-  startAdornment?: IconProps;
-  endAdorenment?: IconProps;
-  onIconClick?: (
-    position: "left" | "right",
-    event: React.MouseEvent<HTMLDivElement>,
-  ) => void;
-  iconSize?: number;
-  clearable?: boolean;
-  fullWidth?: boolean;
-  suggestions?: string[];
-  isSearchable?: boolean;
-  fetchFunction?: () => Promise<unknown>;
-  retryConfig?: Partial<RetryConfig>;
-  handleChange?: (value: string) => void;
-  outlined?: boolean;
-}
-
-export interface IconProps {
-  icon: React.ReactElement;
-  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
-  toolTip?: string;
-  disabled?: boolean;
-  className?: string;
-}
 
 const trie = new Trie();
 
@@ -49,7 +19,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       shrink,
       value: controlledValue,
       startAdornment,
-      endAdorenment,
+      endAdornment,
       disabled,
       id,
       defaultValue = "",
@@ -73,11 +43,11 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     const [value, setValue] = React.useState(defaultValue);
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] =
       React.useState<number>(-1);
-    const [filterdSuggestions, setFilteredSuggestions] =
+    const [filteredSuggestions, setFilteredSuggestions] =
       React.useState<string[]>(suggestions);
-    const [orignalFetchedSuggestions, setOriginalFetchedSuggestions] =
+    const [originalFetchedSuggestions, setOriginalFetchedSuggestions] =
       React.useState<string[]>([]);
-    const [sugesstionsVisible, setSuggestionsVisible] =
+    const [suggestionsVisible, setSuggestionsVisible] =
       React.useState<boolean>(false);
 
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -142,14 +112,14 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         style.paddingLeft = `${iconSize + 20}px`;
       }
 
-      if (endAdorenment || (clearable && currentValue)) {
+      if (endAdornment || (clearable && currentValue)) {
         style.paddingRight = `${iconSize + 16}px`;
       }
 
       return style;
     };
 
-    const hanldeFilterSuggestions = debounce((newValue: string) => {
+    const handleFilterSuggestions = debounce((newValue: string) => {
       if (newValue) {
         const newSuggestions = trie.search(newValue, {
           maxDistance: 4,
@@ -160,7 +130,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         if (suggestions.length > 0 && !fetchFunction) {
           setFilteredSuggestions(suggestions);
         } else {
-          setFilteredSuggestions(orignalFetchedSuggestions);
+          setFilteredSuggestions(originalFetchedSuggestions);
         }
       }
     }, 300);
@@ -176,7 +146,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         case "ArrowDown": {
           event.preventDefault();
           setSelectedSuggestionIndex((prev) =>
-            prev < filterdSuggestions.length - 1 ? prev + 1 : prev,
+            prev < filteredSuggestions.length - 1 ? prev + 1 : prev,
           );
           break;
         }
@@ -187,7 +157,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           break;
         }
         case "Enter": {
-          setValue(filterdSuggestions[selectedSuggestionIndex]);
+          setValue(filteredSuggestions[selectedSuggestionIndex]);
           setSuggestionsVisible(false);
           break;
         }
@@ -203,7 +173,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSuggestionsVisible(true);
       setValue(event.target.value);
-      hanldeFilterSuggestions(event.target.value);
+      handleFilterSuggestions(event.target.value);
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -292,7 +262,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       return () => {
         window.removeEventListener("online", handleOnline);
         window.removeEventListener("offline", handleOffline);
-        hanldeFilterSuggestions.cancel();
+        handleFilterSuggestions.cancel();
       };
     }, [isOffline]);
 
@@ -314,7 +284,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
             disabled ? "disabled" : "",
             hasValue ? "has-value" : "",
             startAdornment ? "has-left-icon" : "",
-            endAdorenment || clearable ? "has-right-icon" : "",
+            endAdornment || clearable ? "has-right-icon" : "",
             outlined ? "outlined" : "",
           )}
         >
@@ -336,7 +306,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
             style={getInputStyles()}
             onKeyDown={handleKeyPress}
           />
-          {renderIcon(endAdorenment, "right")}
+          {renderIcon(endAdornment, "right")}
           <label
             htmlFor={id}
             className={cn("text-field-label")}
@@ -351,14 +321,14 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           </div>
         ) : null}
         {helperText ? <span className="helper-text">{helperText}</span> : null}
-        {isSearchable && sugesstionsVisible ? (
+        {isSearchable && suggestionsVisible ? (
           <ul
             className="suggestions-list"
             role="listbox"
-            aria-label={`Sugesstions for ${label}`}
+            aria-label={`Suggestions for ${label}`}
           >
-            {filterdSuggestions.length > 0 ? (
-              filterdSuggestions.map((suggestion, index) => (
+            {filteredSuggestions.length > 0 ? (
+              filteredSuggestions.map((suggestion, index) => (
                 <li
                   aria-selected={index === selectedSuggestionIndex}
                   key={suggestion + index + Math.random() * 1000}
