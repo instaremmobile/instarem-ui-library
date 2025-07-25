@@ -13,27 +13,27 @@ export default [
       parser: typescriptParser,
       parserOptions: {
         project: "./tsconfig.eslint.json",
-        tsconfigRootDir: process.cwd(),
+        tsconfigRootDir: process.cwd()
       },
       globals: {
         ...globals.browser,
         ...globals.es2020,
-        NodeJS: true,
-      },
+        NodeJS: true
+      }
     },
     plugins: {
       react: reactPlugin,
       "@typescript-eslint": typescriptPlugin,
       import: importPlugin,
-      "simple-import-sort": sort,
+      "simple-import-sort": sort
     },
     settings: {
       react: {
-        version: "detect",
+        version: "detect"
       },
       "import/resolver": {
-        typescript: {},
-      },
+        typescript: {}
+      }
     },
     rules: {
       "no-console": "error",
@@ -54,7 +54,7 @@ export default [
       "react/react-in-jsx-scope": "off",
       "no-irregular-whitespace": [
         "error",
-        { skipStrings: true, skipTemplates: true },
+        { skipStrings: true, skipTemplates: true }
       ],
       "react/forbid-foreign-prop-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
@@ -72,7 +72,7 @@ export default [
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "import/no-duplicates": "error",
-      "import/order": "error",
-    },
-  },
+      "import/order": "error"
+    }
+  }
 ];
