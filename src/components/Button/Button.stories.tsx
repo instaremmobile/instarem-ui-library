@@ -3,7 +3,7 @@ import { KeySquare, KeySquareIcon, LogIn, Plus, PlusIcon } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
-import Button, { ButtonProps } from "./Button";
+import Button from "./Button";
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
