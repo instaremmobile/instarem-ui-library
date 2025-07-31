@@ -1,14 +1,29 @@
-import React from "react";
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+  memo,
+  cloneElement,
+  forwardRef,
+  useId,
+  CSSProperties,
+  ChangeEvent,
+  FocusEvent,
+  KeyboardEvent as ReactKeyboardEvent,
+  MouseEvent,
+} from "react";
 import { LoaderCircle } from "lucide-react";
 import isEmpty from "lodash/isEmpty";
+import debounce from "lodash/debounce";
 import { cn, NetworkManager, Trie } from "@lib";
 import { InputFieldProps, IconProps } from "./Input.types";
 import "./input.scss";
-import debounce from "lodash/debounce";
 
-const trie = new Trie();
+const globalTrie = new Trie();
 
-const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
     {
       className = "",
@@ -39,35 +54,35 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     },
     ref,
   ) => {
-    const [isFocused, setIsFocused] = React.useState<boolean>(false);
-    const [value, setValue] = React.useState(defaultValue);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [internalValue, setInternalValue] = useState(defaultValue);
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] =
-      React.useState<number>(-1);
+      useState<number>(-1);
     const [filteredSuggestions, setFilteredSuggestions] =
-      React.useState<string[]>(suggestions);
+      useState<string[]>(suggestions);
     const [originalFetchedSuggestions, setOriginalFetchedSuggestions] =
-      React.useState<string[]>([]);
+      useState<string[]>([]);
     const [suggestionsVisible, setSuggestionsVisible] =
-      React.useState<boolean>(false);
+      useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isOffline, setIsOffline] = useState<boolean>(!navigator.onLine);
+    const [retryAttempt, setRetryAttempt] = useState<number>(0);
 
-    const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [isOffline, setIsOffline] = React.useState<boolean>(
-      !navigator.onLine,
-    );
-    const [retryAttempt, setRetryAttempt] = React.useState<number>(0);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const suggestionListRef = useRef<HTMLUListElement>(null);
 
-    const inputRef = React.useRef<HTMLInputElement>(null);
+    const currentValue =
+      controlledValue !== undefined ? controlledValue : internalValue;
+    const hasValue = Boolean(currentValue);
+    const isControlled = controlledValue !== undefined;
 
-    const currentValue = controlledValue || value;
-    const hasValue = !!currentValue;
+    const networkManager = useMemo(() => NetworkManager.getInstance(), []);
 
-    const networkManager = NetworkManager.getInstance();
-
-    const handleOnIconClick = React.useCallback(
+    const handleOnIconClick = useCallback(
       (
         position: "left" | "right",
         iconProps: IconProps | undefined,
-        event: React.MouseEvent<HTMLDivElement>,
+        event: MouseEvent<HTMLDivElement>,
       ) => {
         if (iconProps?.disabled) return;
         iconProps?.onClick?.(event);
@@ -76,11 +91,19 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       [onIconClick],
     );
 
-    const renderIcon = React.useCallback(
+    const renderIcon = useCallback(
       (iconProps: IconProps | undefined, position: "left" | "right") => {
-        if (isEmpty(iconProps) || !iconProps) return;
+        if (isEmpty(iconProps) || !iconProps) return null;
 
         const { icon, onClick, toolTip, disabled, className = "" } = iconProps;
+
+        const handleKeyDown = (e: ReactKeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleOnIconClick(position, iconProps, e as any);
+          }
+        };
+
         return (
           <div
             className={cn(
@@ -91,122 +114,206 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
               onClick ? "clickable" : "",
             )}
             onClick={(e) => handleOnIconClick(position, iconProps, e)}
+            onKeyDown={handleKeyDown}
             title={toolTip}
             role={onClick ? "button" : "presentation"}
             tabIndex={onClick && !disabled ? 0 : -1}
             aria-label={toolTip}
           >
-            {React.cloneElement(icon, {
+            {cloneElement(icon, {
               size: iconSize,
               className: cn("icon", disabled ? "disabled" : ""),
             })}
           </div>
         );
       },
-      [handleOnIconClick],
+      [handleOnIconClick, iconSize],
     );
 
-    const getInputStyles = () => {
-      const style: React.CSSProperties = {};
+    const inputStyles = useMemo(() => {
+      const style: CSSProperties = {};
       if (startAdornment) {
         style.paddingLeft = `${iconSize + 20}px`;
       }
-
       if (endAdornment || (clearable && currentValue)) {
         style.paddingRight = `${iconSize + 16}px`;
       }
-
       return style;
-    };
+    }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
 
-    const handleFilterSuggestions = debounce((newValue: string) => {
-      if (newValue) {
-        const newSuggestions = trie.search(newValue, {
-          maxDistance: 4,
-          matchType: "partial",
-        });
-        setFilteredSuggestions(newSuggestions);
-      } else {
-        if (suggestions.length > 0 && !fetchFunction) {
-          setFilteredSuggestions(suggestions);
-        } else {
-          setFilteredSuggestions(originalFetchedSuggestions);
-        }
-      }
-    }, 300);
+    const handleFilterSuggestions = useMemo(
+      () =>
+        debounce((newValue: string) => {
+          if (newValue) {
+            const newSuggestions = globalTrie.search(newValue, {
+              maxDistance: 4,
+              matchType: "partial",
+            });
+            setFilteredSuggestions(newSuggestions);
+          } else {
+            const fallbackSuggestions =
+              suggestions.length > 0 && !fetchFunction
+                ? suggestions
+                : originalFetchedSuggestions;
+            setFilteredSuggestions(fallbackSuggestions);
+          }
+        }, 300),
+      [suggestions, fetchFunction, originalFetchedSuggestions],
+    );
 
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (!suggestions || !isSearchable) return;
-      switch (event.key) {
-        case "ArrowUp": {
-          event.preventDefault();
-          setSelectedSuggestionIndex((prev) => (prev > 0 ? prev - 1 : -1));
-          break;
+    const handleKeyPress = useCallback(
+      (event: ReactKeyboardEvent<HTMLInputElement>) => {
+        if (!isSearchable || !suggestionsVisible) return;
+
+        switch (event.key) {
+          case "ArrowUp": {
+            event.preventDefault();
+            setSelectedSuggestionIndex((prev) => {
+              const newIndex =
+                prev > 0 ? prev - 1 : filteredSuggestions.length - 1;
+              // Scroll into view
+              setTimeout(() => {
+                const selectedItem = suggestionListRef.current?.children[
+                  newIndex
+                ] as HTMLElement;
+                selectedItem?.scrollIntoView({ block: "nearest" });
+              }, 0);
+              return newIndex;
+            });
+            break;
+          }
+          case "ArrowDown": {
+            event.preventDefault();
+            setSelectedSuggestionIndex((prev) => {
+              const newIndex =
+                prev < filteredSuggestions.length - 1 ? prev + 1 : 0;
+              // Scroll into view
+              setTimeout(() => {
+                const selectedItem = suggestionListRef.current?.children[
+                  newIndex
+                ] as HTMLElement;
+                selectedItem?.scrollIntoView({ block: "nearest" });
+              }, 0);
+              return newIndex;
+            });
+            break;
+          }
+          case "Escape": {
+            event.preventDefault();
+            setSuggestionsVisible(false);
+            setSelectedSuggestionIndex(-1);
+            break;
+          }
+          case "Enter": {
+            event.preventDefault();
+            if (
+              selectedSuggestionIndex >= 0 &&
+              filteredSuggestions[selectedSuggestionIndex]
+            ) {
+              handleSuggestionSelect(
+                filteredSuggestions[selectedSuggestionIndex],
+              );
+            }
+            break;
+          }
+          case "Tab": {
+            setSuggestionsVisible(false);
+            setSelectedSuggestionIndex(-1);
+            break;
+          }
         }
-        case "ArrowDown": {
-          event.preventDefault();
-          setSelectedSuggestionIndex((prev) =>
-            prev < filteredSuggestions.length - 1 ? prev + 1 : prev,
-          );
-          break;
+      },
+      [
+        isSearchable,
+        suggestionsVisible,
+        selectedSuggestionIndex,
+        filteredSuggestions,
+      ],
+    );
+
+    const handleSuggestionSelect = useCallback(
+      (selectedSuggestion: string) => {
+        const newValue = selectedSuggestion;
+
+        if (!isControlled) {
+          setInternalValue(newValue);
         }
 
-        case "Escape": {
+        handleChange?.(newValue);
+        setSuggestionsVisible(false);
+        setSelectedSuggestionIndex(-1);
+        inputRef.current?.focus();
+      },
+      [isControlled, handleChange],
+    );
+
+    const handleInputChange = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value;
+
+        if (!isControlled) {
+          setInternalValue(newValue);
+        }
+
+        if (isSearchable) {
+          setSuggestionsVisible(true);
+          setSelectedSuggestionIndex(-1);
+          handleFilterSuggestions(newValue);
+        }
+
+        handleChange?.(newValue);
+      },
+      [isControlled, isSearchable, handleFilterSuggestions, handleChange],
+    );
+
+    const handleBlur = useCallback(
+      (event: FocusEvent<HTMLInputElement>) => {
+        setTimeout(() => {
+          setIsFocused(false);
           setSuggestionsVisible(false);
           setSelectedSuggestionIndex(-1);
-          break;
+          onBlur?.(event);
+        }, 150);
+      },
+      [onBlur],
+    );
+
+    const handleFocus = useCallback(
+      (event: FocusEvent<HTMLInputElement>) => {
+        setIsFocused(true);
+        onFocus?.(event);
+
+        if (isSearchable && (filteredSuggestions.length > 0 || isLoading)) {
+          setSuggestionsVisible(true);
         }
-        case "Enter": {
-          setValue(filteredSuggestions[selectedSuggestionIndex]);
-          setSuggestionsVisible(false);
-          break;
-        }
-      }
-    };
+      },
+      [onFocus, isSearchable, filteredSuggestions.length, isLoading],
+    );
 
-    const handleSuggestionSelect = (selectedSuggestion: string) => {
-      setValue(selectedSuggestion);
-      handleChange?.(selectedSuggestion);
-      inputRef?.current?.focus();
-    };
+    // Fetch suggestions function
+    const fetchSuggestions = useCallback(async () => {
+      if (!fetchFunction || retryAttempt > retryConfig.maxAttempt!) return;
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSuggestionsVisible(true);
-      setValue(event.target.value);
-      handleFilterSuggestions(event.target.value);
-    };
+      const cacheKey = `suggestions-${currentValue}`;
 
-    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-      setTimeout(() => {
-        setIsFocused(false);
-        onBlur?.(event);
-        setSuggestionsVisible(false);
-      }, 200);
-    };
-
-    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(true);
-      onFocus?.(event);
-      setSuggestionsVisible(true);
-    };
-
-    const fetchSuggestions = React.useCallback(async () => {
-      if (!fetchFunction) return;
-      if (retryAttempt > retryConfig.maxAttempt!) return;
-      const cacheKey = `suggestions-${value}`;
       try {
         setIsLoading(true);
         const suggestionsResults = (await networkManager.fetchWithRetry(
           cacheKey,
-          fetchFunction!,
+          fetchFunction,
           retryConfig,
         )) as string[];
+
         setFilteredSuggestions(suggestionsResults);
         setOriginalFetchedSuggestions(suggestionsResults);
-        suggestionsResults.forEach((word) => trie.insert(word));
+        setRetryAttempt(0); // Reset retry attempt on success
+
+        suggestionsResults.forEach((word) => globalTrie.insert(word));
       } catch (exception) {
-        console.error("Error fetching suggestions with error", exception);
+        console.error("Error fetching suggestions:", exception);
         setRetryAttempt((prev) => prev + 1);
+
+        // Try to use cached suggestions when offline
         if (isOffline) {
           const cachedSuggestions = networkManager.cache.get(
             cacheKey,
@@ -218,59 +325,82 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       } finally {
         setIsLoading(false);
       }
-    }, []);
+    }, [
+      fetchFunction,
+      retryAttempt,
+      retryConfig,
+      currentValue,
+      networkManager,
+      isOffline,
+    ]);
 
-    const renderSuggestions = (suggestion: string, query: string) => {
-      if (!query) return suggestion;
-      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\\s]/g, "\\$&");
-      const regex = new RegExp(`(${escapedQuery})`, "gi");
-      const parts = suggestion.split(regex);
-      return parts.map((part, index) => {
-        console.log(part);
-        if (index % 2 === 1) {
-          return (
-            <span className="highlight" key={index}>
-              {part}
-            </span>
-          );
+    // Render highlighted suggestions
+    const renderSuggestions = useCallback(
+      (suggestion: string, query: string) => {
+        if (!query) return <span>{suggestion}</span>;
+
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const regex = new RegExp(`(${escapedQuery})`, "gi");
+        const parts = suggestion.split(regex);
+
+        return (
+          <span>
+            {parts.map((part, index) => {
+              const isHighlighted = index % 2 === 1;
+              return isHighlighted ? (
+                <span className="highlight" key={index}>
+                  {part}
+                </span>
+              ) : (
+                <span key={index}>{part}</span>
+              );
+            })}
+          </span>
+        );
+      },
+      [],
+    );
+
+    useEffect(() => {
+      const focusOnInput = (event: KeyboardEvent) => {
+        if (event.key === "/" && !isFocused) {
+          event.preventDefault();
+          inputRef.current?.focus();
         }
-        return <span key={index}>{part}</span>;
-      });
-    };
+      };
 
-    const focusOnInput = (event: KeyboardEvent) => {
-      if (event.key === "/") {
-        // This is to prevent "/" character to get typed in
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-
-    React.useEffect(() => {
       window.addEventListener("keydown", focusOnInput);
       return () => window.removeEventListener("keydown", focusOnInput);
-    }, []);
+    }, [isFocused]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       const handleOnline = () => setIsOffline(false);
       const handleOffline = () => setIsOffline(true);
+
       window.addEventListener("online", handleOnline);
       window.addEventListener("offline", handleOffline);
-      if (fetchFunction) {
-        fetchSuggestions();
-      }
+
       return () => {
         window.removeEventListener("online", handleOnline);
         window.removeEventListener("offline", handleOffline);
         handleFilterSuggestions.cancel();
       };
-    }, [isOffline]);
+    }, [handleFilterSuggestions]);
 
-    React.useEffect(() => {
-      if (suggestions.length > 0) {
-        suggestions.forEach((word) => trie.insert(word));
+    useEffect(() => {
+      if (fetchFunction) {
+        fetchSuggestions();
       }
-    }, [suggestions.length]);
+    }, [fetchSuggestions]);
+
+    useEffect(() => {
+      if (suggestions.length > 0) {
+        suggestions.forEach((word) => globalTrie.insert(word));
+        setFilteredSuggestions(suggestions);
+      }
+    }, [suggestions]);
+
+    const inputId = id || useId();
     return (
       <div
         className={cn("text-field-container", fullWidth ? "full-width" : "")}
@@ -291,7 +421,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           {renderIcon(startAdornment, "left")}
           <input
             {...props}
-            id={id}
+            id={inputId}
             ref={ref || inputRef}
             className={cn(
               "text-field-input",
@@ -303,57 +433,89 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
             onChange={handleInputChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            style={getInputStyles()}
             onKeyDown={handleKeyPress}
+            style={inputStyles}
+            disabled={disabled}
+            aria-invalid={Boolean(error)}
+            aria-describedby={
+              cn(
+                error ? `${inputId}-error` : undefined,
+                helperText ? `${inputId}-helper` : undefined,
+              ).trim() || undefined
+            }
+            aria-expanded={isSearchable ? suggestionsVisible : undefined}
+            aria-haspopup={isSearchable ? "listbox" : undefined}
+            aria-autocomplete={isSearchable ? "list" : undefined}
+            role={isSearchable ? "combobox" : undefined}
           />
           {renderIcon(endAdornment, "right")}
-          <label
-            htmlFor={id}
-            className={cn("text-field-label")}
-            style={startAdornment ? { left: `${iconSize + 16}px` } : undefined}
-          >
-            {label}
-          </label>
+          {label && (
+            <label
+              htmlFor={inputId}
+              className="text-field-label"
+              style={
+                startAdornment ? { left: `${iconSize + 16}px` } : undefined
+              }
+            >
+              {label}
+            </label>
+          )}
         </div>
-        {error ? (
-          <div id={`${id}-error`} className="error-message">
+
+        {error && (
+          <div id={`${inputId}-error`} className="error-message" role="alert">
             {error}
           </div>
-        ) : null}
-        {helperText ? <span className="helper-text">{helperText}</span> : null}
-        {isSearchable && suggestionsVisible ? (
+        )}
+
+        {helperText && (
+          <span id={`${inputId}-helper`} className="helper-text">
+            {helperText}
+          </span>
+        )}
+
+        {isSearchable && suggestionsVisible && (
           <ul
+            ref={suggestionListRef}
             className="suggestions-list"
             role="listbox"
-            aria-label={`Suggestions for ${label}`}
+            aria-label={`Suggestions for ${label || "input"}`}
           >
             {filteredSuggestions.length > 0 ? (
               filteredSuggestions.map((suggestion, index) => (
                 <li
-                  aria-selected={index === selectedSuggestionIndex}
-                  key={suggestion + index + Math.random() * 1000}
+                  key={`${suggestion}-${index}`}
                   role="option"
                   className={cn(
                     "suggestion-item",
                     index === selectedSuggestionIndex ? "selected" : "",
                   )}
+                  aria-selected={index === selectedSuggestionIndex}
                   onClick={() => handleSuggestionSelect(suggestion)}
+                  onMouseEnter={() => setSelectedSuggestionIndex(index)}
                 >
                   {renderSuggestions(suggestion, currentValue as string)}
                 </li>
               ))
             ) : (
-              <li role="option" className="suggestion-item">
-                {isLoading ? <LoaderCircle /> : "No Results"}
+              <li role="option" className="suggestion-item no-results">
+                {isLoading ? (
+                  <div className="loading-container">
+                    <LoaderCircle className="animate-spin" size={16} />
+                    <span>Loading...</span>
+                  </div>
+                ) : (
+                  "No Results"
+                )}
               </li>
             )}
           </ul>
-        ) : null}
+        )}
       </div>
     );
   },
 );
 
-InputField.displayName = "Input";
-const Input = React.memo(InputField);
-export default Input;
+InputField.displayName = "InputField";
+
+export default memo(InputField);

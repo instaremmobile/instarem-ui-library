@@ -1,4 +1,5 @@
 .checkbox-container {
+  font-family: "hellix-regular" !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -73,8 +74,6 @@
   }
 }
 .checkbox-label {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   color: #333;
   line-height: 1.4;

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useId, memo, forwardRef } from "react";
 import { cn } from "@lib";
 import { ToggleProps } from "./Toggle.types";
 import "./toggle-styles.scss";
 
-export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
+export const ToggleComponent = forwardRef<HTMLInputElement, ToggleProps>(
   (
     {
       id,
@@ -17,7 +17,7 @@ export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
     },
     ref,
   ) => {
-    const toggleId = id || `${name}-${label}-toggle`;
+    const toggleId = id || useId();
     return (
       <label htmlFor={toggleId} className="toggle-switch__container">
         {label && labelPosition === "left" ? (
@@ -47,5 +47,5 @@ export const ToggleComponent = React.forwardRef<HTMLInputElement, ToggleProps>(
 );
 
 ToggleComponent.displayName = "Toggle";
-const Toggle = React.memo(ToggleComponent);
+const Toggle = memo(ToggleComponent);
 export { Toggle };

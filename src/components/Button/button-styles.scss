@@ -1,6 +1,3 @@
-// Button.scss
-
-// Variables
 $primary-color: #fe0095;
 $primary-color-blue: #007aff;
 $primary-hover: darken($primary-color, 10%);
@@ -29,7 +26,6 @@ $font-family:
   Roboto,
   sans-serif;
 
-// Mixins
 @mixin button-base {
   display: inline-flex;
   align-items: center;
@@ -50,7 +46,6 @@ $font-family:
   height: 50px;
   font-weight: 700;
 
-  // Focus styles for accessibility
   &:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
