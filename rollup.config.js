@@ -11,27 +11,27 @@ export default {
     {
       file: 'dist/cjs/index.js',
       format: 'cjs',
-      exports: 'named',
+      exports: 'named'
     },
     {
       file: 'dist/esm/index.js',
       format: 'esm',
-      exports: 'named',
-    },
+      exports: 'named'
+    }
   ],
   plugins: [
     peerDepsExternal(),
     resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
     commonjs(),
     postcss({
     extensions: ['.css', '.scss'],
     extract: false, // if true, extracts CSS to separate file
     modules: false, // set to true if you want CSS modules support
-    use: ['sass'], // use node-sass or dart-sass
+    use: ['sass'] // use node-sass or dart-sass
   }),
     typescript({ tsconfig: './tsconfig.json' }),
-    babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' }),
-  ],
+    babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' })
+  ]
 };
