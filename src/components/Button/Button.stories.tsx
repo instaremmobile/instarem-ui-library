@@ -1,5 +1,5 @@
 import React from "react";
-import { KeySquare, KeySquareIcon, LogIn, Plus, PlusIcon } from "lucide-react";
+import { KeySquareIcon, LogIn, PlusIcon } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
