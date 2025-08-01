@@ -31,7 +31,7 @@ export default {
     modules: false, // set to true if you want CSS modules support
     use: ['sass'] // use node-sass or dart-sass
   }),
-    typescript({ tsconfig: './tsconfig.json' }),
+    typescript({ tsconfig: './tsconfig.json', declaration: true, declarationDir: "dist/types", rootDir: "src" }),
     babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' })
   ]
 };

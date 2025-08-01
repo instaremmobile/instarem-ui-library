@@ -5,12 +5,12 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
 
     "resolveJsonModule": true,
     "isolatedModules": true,
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "dist/types",
     "outDir": "dist",
     "jsx": "react-jsx",
     "strict": true,
@@ -20,5 +20,7 @@
       "@styles/*": ["./src/styles/*"],
       "@components": ["./src/components/"]
     }
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
