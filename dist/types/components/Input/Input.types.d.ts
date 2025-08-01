@@ -1,4 +1,4 @@
-import { RetryConfig } from "@lib";
+import { RetryConfig } from "../../lib";
 export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string | undefined;
     error?: string | undefined;

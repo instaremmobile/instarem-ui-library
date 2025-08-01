@@ -11,14 +11,17 @@
     "isolatedModules": true,
     "declaration": true,
     "declarationDir": "dist/types",
-    "outDir": "dist",
+    "outDir": "dist/types",
     "jsx": "react-jsx",
     "strict": true,
+    "rootDir": "src",
     "esModuleInterop": true,
+    "allowJs": false,
+    "baseUrl": ".",
     "paths": {
-      "@lib": ["./src/lib/"],
-      "@styles/*": ["./src/styles/*"],
-      "@components": ["./src/components/"]
+      "@lib": ["src/lib"],
+      "@styles/*": ["src/styles/*"],
+      "@components": ["src/components"]
     }
   },
   "include": ["src"],
