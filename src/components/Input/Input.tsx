@@ -170,24 +170,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     );
 
     const handleFilterSuggestions = useMemo(() => {
-      console.log("test in the useMemo");
       return debounce((newValue: string) => {
-        console.log("filterSuggestions called with:", newValue);
-
         const allSuggestions =
           originalFetchedSuggestions.length > 0
             ? originalFetchedSuggestions
             : normalizeSuggestions(suggestions);
-
-        console.log("Available suggestions for filtering:", allSuggestions);
 
         if (newValue.trim()) {
           const searchResults = globalTrie.search(newValue.trim(), {
             maxDistance: 4,
             matchType: "partial",
           });
-
-          console.log("Trie search results:", searchResults);
 
           const matchedSuggestions: SuggestionType[] = [];
 
@@ -324,7 +317,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const handleInputChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
-        console.log("here in input change");
         const newValue = event.target.value;
 
         if (!isControlled) {
@@ -332,7 +324,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         }
 
         if (isSearchable) {
-          console.log("in search ");
           setSuggestionsVisible(true);
           setSelectedSuggestionIndex(-1);
           handleFilterSuggestions(newValue);
@@ -382,7 +373,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         )) as any[];
 
         const normalizedSuggestions = normalizeSuggestions(suggestionsResults);
-        console.log(normalizedSuggestions, "fetchSuggestions result");
 
         setOriginalFetchedSuggestions(normalizedSuggestions);
         setFilteredSuggestions(normalizedSuggestions);
@@ -390,9 +380,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         setHasFetchedInitialData(true);
 
         normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
-        console.log(globalTrie.search("united state of"));
       } catch (exception) {
-        console.error("Error fetching suggestions:", exception);
         setRetryAttempt((prev) => prev + 1);
 
         if (isOffline) {

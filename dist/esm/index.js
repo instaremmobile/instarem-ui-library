@@ -2154,19 +2154,15 @@ const InputField = forwardRef(({ className = "", helperText, type = "text", labe
         });
     }, []);
     const handleFilterSuggestions = useMemo(() => {
-        console.log("test in the useMemo");
         return debounce$1((newValue) => {
-            console.log("filterSuggestions called with:", newValue);
             const allSuggestions = originalFetchedSuggestions.length > 0
                 ? originalFetchedSuggestions
                 : normalizeSuggestions(suggestions);
-            console.log("Available suggestions for filtering:", allSuggestions);
             if (newValue.trim()) {
                 const searchResults = globalTrie.search(newValue.trim(), {
                     maxDistance: 4,
                     matchType: "partial",
                 });
-                console.log("Trie search results:", searchResults);
                 const matchedSuggestions = [];
                 if (searchResults.length > 0) {
                     searchResults.forEach((resultLabel) => {
@@ -2271,13 +2267,11 @@ const InputField = forwardRef(({ className = "", helperText, type = "text", labe
         inputRef.current?.focus();
     }, [isControlled, handleChange]);
     const handleInputChange = useCallback((event) => {
-        console.log("here in input change");
         const newValue = event.target.value;
         if (!isControlled) {
             setInternalValue(newValue);
         }
         if (isSearchable) {
-            console.log("in search ");
             setSuggestionsVisible(true);
             setSelectedSuggestionIndex(-1);
             handleFilterSuggestions(newValue);
@@ -2308,16 +2302,13 @@ const InputField = forwardRef(({ className = "", helperText, type = "text", labe
             setIsLoading(true);
             const suggestionsResults = (await networkManager.fetchWithRetry(cacheKey, fetchFunction, retryConfig));
             const normalizedSuggestions = normalizeSuggestions(suggestionsResults);
-            console.log(normalizedSuggestions, "fetchSuggestions result");
             setOriginalFetchedSuggestions(normalizedSuggestions);
             setFilteredSuggestions(normalizedSuggestions);
             setRetryAttempt(0);
             setHasFetchedInitialData(true);
             normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
-            console.log(globalTrie.search("united state of"));
         }
         catch (exception) {
-            console.error("Error fetching suggestions:", exception);
             setRetryAttempt((prev) => prev + 1);
             if (isOffline) {
                 const cachedSuggestions = networkManager.cache.get(cacheKey);
