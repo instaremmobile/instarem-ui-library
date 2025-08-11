@@ -150,46 +150,42 @@ class Trie {
             value: (source, target, maxDistance = 3) => {
                 const sourceWords = source.toLowerCase().trim().split(/\s+/);
                 const targetWords = target.toLowerCase().trim().split(/\s+/);
-                if (sourceWords.length === 0 || targetWords.length === 0) {
+                if (sourceWords.length === 0 || targetWords.length === 0)
                     return maxDistance + 1;
-                }
-                if (source.toLowerCase() === target.toLowerCase()) {
+                if (source.toLowerCase() === target.toLowerCase())
                     return 0;
-                }
                 if (source.toLowerCase().includes(target.toLowerCase()) ||
-                    target.toLowerCase().includes(source.toLowerCase())) {
+                    target.toLowerCase().includes(source.toLowerCase()))
                     return 0;
-                }
                 let totalDistance = 0;
+                let matchWords = 0;
                 const usedTargetWords = new Set();
                 sourceWords.sort((a, b) => b.length - a.length);
                 for (const sourceWord of sourceWords) {
                     if (sourceWord.length < Trie.MIN_WORD_LENGTH)
                         continue;
-                    let minWordDistance = maxDistance;
-                    let betMatchIndex = -1;
+                    let minWordDistance = Infinity;
+                    let bestIdx = -1;
                     for (let i = 0; i < targetWords.length; i++) {
                         if (usedTargetWords.has(i))
                             continue;
                         const targetWord = targetWords[i];
-                        if (sourceWord.toLowerCase() === targetWord.toLowerCase()) {
-                            minWordDistance = 0;
-                            betMatchIndex = i;
-                            break;
-                        }
                         if (Math.abs(sourceWord.length - targetWord.length) > maxDistance)
                             continue;
                         const distance = this.getLevenshtienDistance(sourceWord.toLowerCase(), targetWord.toLowerCase(), maxDistance);
-                        if (distance <= minWordDistance) {
+                        if (distance <= maxDistance && distance < minWordDistance) {
                             minWordDistance = distance;
-                            betMatchIndex = i;
+                            bestIdx = i;
                         }
                     }
-                    if (betMatchIndex !== -1) {
-                        usedTargetWords.add(betMatchIndex);
+                    if (bestIdx !== -1) {
+                        usedTargetWords.add(bestIdx);
                         totalDistance += minWordDistance;
+                        matchWords++;
                     }
                 }
+                if (matchWords === 0)
+                    return Infinity;
                 const unmatchedPenalty = Math.abs(sourceWords.length - targetWords.length) * 1.5;
                 return totalDistance + unmatchedPenalty;
             }
@@ -236,7 +232,6 @@ class Trie {
     insert(word, frequency = 1) {
         if (!word)
             return;
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
         const processedWord = word.normalize("NFD"); // unicode normalization
         const trimmedWord = processedWord
             .toLowerCase()
@@ -301,18 +296,15 @@ class Trie {
         }
         let current = new Uint16Array(sourceStringLength + 1);
         let previous = new Uint16Array(sourceStringLength + 1);
-        for (let i = 0; i <= sourceStringLength; i++) {
+        for (let i = 0; i <= sourceStringLength; i++)
             previous[i] = i;
-        }
         let minValue = previous[0];
-        // test case - intention, execution
         for (let i = 1; i <= targetStringLength; i++) {
             current[0] = i;
             minValue = current[0];
             for (let j = 1; j <= sourceStringLength; j++) {
                 const substitutionCost = sourceString[j - 1] === targetString[i - 1] ? 0 : 1;
-                current[j] = Math.min(Math.min(previous[j] + 1, // Deletion cost
-                current[j - 1] + 1), previous[j - 1] + substitutionCost);
+                current[j] = Math.min(Math.min(previous[j] + 1, current[j - 1] + 1), previous[j - 1] + substitutionCost);
                 minValue = Math.min(minValue, current[j]);
             }
             if (minValue > maxDistance * 1.4)
@@ -332,7 +324,7 @@ class Trie {
             .replace(/[^a-zA-Z0-9]/g, "");
         const distanceFactor = 1 / (result.distance + 1);
         const frequencyFactor = Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
-        const prefixMatchBonus = result.prefixMatch ? 1.5 : 1;
+        const prefixMatchBonus = result.prefixMatch ? 2.5 : 1; // was 1.5
         const wordCountDiff = Math.abs(queryWords.length - resultWords.length);
         const wordCountPenalty = wordCountDiff === 0 ? 0 : wordCountDiff * 0.1;
         return (distanceFactor *
@@ -355,16 +347,22 @@ class Trie {
         const seen = new Set();
         const priorityQueue = new PriorityQueue(maxResults);
         const dfs = (node, prefix, depth = 0, prefixDistance = 0) => {
-            if (prefixDistance > maxDistance * 3) {
+            if (prefixDistance > maxDistance * 3)
                 return;
-            }
             if (node.value && node.isEndOfTheWord) {
                 const word = caseSensitive ? node.value : node.value.toLowerCase();
                 if (!seen.has(word)) {
                     let distance;
                     let isPrefixMatch = false;
                     if (matchType === "partial") {
-                        distance = this.getPartialDistance(processedQuery, word, maxDistance);
+                        const loweredWord = word.toLowerCase();
+                        if (loweredWord.startsWith(processedQuery)) {
+                            distance = 0;
+                            isPrefixMatch = true;
+                        }
+                        else {
+                            distance = this.getPartialDistance(processedQuery, loweredWord, maxDistance);
+                        }
                     }
                     else {
                         distance = prefixOnly
@@ -413,12 +411,16 @@ class Trie {
         };
         dfs(this.root, "");
         const results = priorityQueue.get();
+        results.sort((a, b) => b.score - a.score ||
+            a.distance - b.distance ||
+            (b.frequency ?? 0) - (a.frequency ?? 0) ||
+            a.item.localeCompare(b.item));
         if (this.cache.size >= Trie.CACHE_SIZE) {
             const firstKey = this.cache.keys().next().value;
             this.cache.delete(firstKey);
         }
         this.cache.set(cacheKey, results);
-        return results.map((result) => result.item);
+        return results.map((r) => r.item);
     }
     clearCache() {
         this.cache.clear();
@@ -2088,12 +2090,13 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
     const [isFocused, setIsFocused] = React.useState(false);
     const [internalValue, setInternalValue] = React.useState(defaultValue);
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] = React.useState(-1);
-    const [filteredSuggestions, setFilteredSuggestions] = React.useState(suggestions);
+    const [filteredSuggestions, setFilteredSuggestions] = React.useState([]);
     const [originalFetchedSuggestions, setOriginalFetchedSuggestions] = React.useState([]);
     const [suggestionsVisible, setSuggestionsVisible] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
     const [isOffline, setIsOffline] = React.useState(!navigator.onLine);
     const [retryAttempt, setRetryAttempt] = React.useState(0);
+    const [hasFetchedInitialData, setHasFetchedInitialData] = React.useState(false);
     const inputRef = React.useRef(null);
     const suggestionListRef = React.useRef(null);
     const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
@@ -2131,21 +2134,79 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
         }
         return style;
     }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
-    const handleFilterSuggestions = React.useMemo(() => debounce$1((newValue) => {
-        if (newValue) {
-            const newSuggestions = globalTrie.search(newValue, {
-                maxDistance: 4,
-                matchType: "partial",
-            });
-            setFilteredSuggestions(newSuggestions);
+    const normalizeSuggestions = React.useCallback((suggestions) => {
+        if (!suggestions || suggestions.length === 0) {
+            return [];
         }
-        else {
-            const fallbackSuggestions = suggestions.length > 0 && !fetchFunction
-                ? suggestions
-                : originalFetchedSuggestions;
-            setFilteredSuggestions(fallbackSuggestions);
-        }
-    }, 300), [suggestions, fetchFunction, originalFetchedSuggestions]);
+        return suggestions.map((item) => {
+            if (typeof item === "string") {
+                return { label: item, value: item };
+            }
+            else if (typeof item === "object" &&
+                (item.label || item.text || item.name) &&
+                (item.value || item.id || item.code)) {
+                return {
+                    label: item.label || item.text || item.name,
+                    value: item.value || item.id || item.code,
+                };
+            }
+            else {
+                return { label: String(item), value: String(item) };
+            }
+        });
+    }, []);
+    const handleFilterSuggestions = React.useMemo(() => {
+        console.log("test in the useMemo");
+        return debounce$1((newValue) => {
+            console.log("filterSuggestions called with:", newValue);
+            const allSuggestions = originalFetchedSuggestions.length > 0
+                ? originalFetchedSuggestions
+                : normalizeSuggestions(suggestions);
+            console.log("Available suggestions for filtering:", allSuggestions);
+            if (newValue.trim()) {
+                const searchResults = globalTrie.search(newValue.trim(), {
+                    maxDistance: 4,
+                    matchType: "partial",
+                });
+                console.log("Trie search results:", searchResults);
+                const matchedSuggestions = [];
+                if (searchResults.length > 0) {
+                    searchResults.forEach((resultLabel) => {
+                        const matchingSuggestion = allSuggestions.find((item) => {
+                            // Try exact match first, then case-insensitive
+                            return (item.label === resultLabel ||
+                                item.label.toLowerCase() === resultLabel.toLowerCase() ||
+                                item.label
+                                    .toLowerCase()
+                                    .includes(resultLabel.toLowerCase()) ||
+                                resultLabel.toLowerCase().includes(item.label.toLowerCase()));
+                        });
+                        if (matchingSuggestion &&
+                            !matchedSuggestions.find((s) => s.value === matchingSuggestion.value)) {
+                            matchedSuggestions.push(matchingSuggestion);
+                        }
+                    });
+                }
+                if (matchedSuggestions.length === 0) {
+                    console.log("Trie search failed, using fallback filtering");
+                    const query = newValue.toLowerCase().trim();
+                    const filteredByString = allSuggestions.filter((item) => item.label.toLowerCase().includes(query) ||
+                        item.value.toLowerCase().includes(query));
+                    console.log("Fallback filtered results:", filteredByString);
+                    setFilteredSuggestions(filteredByString);
+                }
+                else {
+                    console.log("Using Trie matched results:", matchedSuggestions);
+                    setFilteredSuggestions(matchedSuggestions);
+                }
+            }
+            else {
+                // Show all suggestions when input is empty
+                console.log("Empty input, showing all suggestions");
+                setFilteredSuggestions(allSuggestions);
+            }
+        }, 300);
+    }, [originalFetchedSuggestions, suggestions, normalizeSuggestions]);
     const handleKeyPress = React.useCallback((event) => {
         if (!isSearchable || !suggestionsVisible)
             return;
@@ -2154,7 +2215,6 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
                 event.preventDefault();
                 setSelectedSuggestionIndex((prev) => {
                     const newIndex = prev > 0 ? prev - 1 : filteredSuggestions.length - 1;
-                    // Scroll into view
                     setTimeout(() => {
                         const selectedItem = suggestionListRef.current?.children[newIndex];
                         selectedItem?.scrollIntoView({ block: "nearest" });
@@ -2167,7 +2227,6 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
                 event.preventDefault();
                 setSelectedSuggestionIndex((prev) => {
                     const newIndex = prev < filteredSuggestions.length - 1 ? prev + 1 : 0;
-                    // Scroll into view
                     setTimeout(() => {
                         const selectedItem = suggestionListRef.current?.children[newIndex];
                         selectedItem?.scrollIntoView({ block: "nearest" });
@@ -2203,21 +2262,24 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
         filteredSuggestions,
     ]);
     const handleSuggestionSelect = React.useCallback((selectedSuggestion) => {
-        const newValue = selectedSuggestion;
+        const displayValue = selectedSuggestion.label;
+        const emittedValue = selectedSuggestion.value;
         if (!isControlled) {
-            setInternalValue(newValue);
+            setInternalValue(isSearchable ? displayValue : emittedValue);
         }
-        handleChange?.(newValue);
+        handleChange?.(emittedValue);
         setSuggestionsVisible(false);
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
     }, [isControlled, handleChange]);
     const handleInputChange = React.useCallback((event) => {
+        console.log("here in input change");
         const newValue = event.target.value;
         if (!isControlled) {
             setInternalValue(newValue);
         }
         if (isSearchable) {
+            console.log("in search ");
             setSuggestionsVisible(true);
             setSelectedSuggestionIndex(-1);
             handleFilterSuggestions(newValue);
@@ -2239,27 +2301,32 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
             setSuggestionsVisible(true);
         }
     }, [onFocus, isSearchable, filteredSuggestions.length, isLoading]);
-    // Fetch suggestions function
+    // Fetch suggestions function - now with proper dependency management
     const fetchSuggestions = React.useCallback(async () => {
         if (!fetchFunction || retryAttempt > retryConfig.maxAttempt)
             return;
-        const cacheKey = `suggestions-${currentValue}`;
+        const cacheKey = `suggestions-initial`;
         try {
             setIsLoading(true);
             const suggestionsResults = (await networkManager.fetchWithRetry(cacheKey, fetchFunction, retryConfig));
-            setFilteredSuggestions(suggestionsResults);
-            setOriginalFetchedSuggestions(suggestionsResults);
-            setRetryAttempt(0); // Reset retry attempt on success
-            suggestionsResults.forEach((word) => globalTrie.insert(word));
+            const normalizedSuggestions = normalizeSuggestions(suggestionsResults);
+            console.log(normalizedSuggestions, "fetchSuggestions result");
+            setOriginalFetchedSuggestions(normalizedSuggestions);
+            setFilteredSuggestions(normalizedSuggestions);
+            setRetryAttempt(0);
+            setHasFetchedInitialData(true);
+            normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
+            console.log(globalTrie.search("united state of"));
         }
         catch (exception) {
             console.error("Error fetching suggestions:", exception);
             setRetryAttempt((prev) => prev + 1);
-            // Try to use cached suggestions when offline
             if (isOffline) {
                 const cachedSuggestions = networkManager.cache.get(cacheKey);
                 if (cachedSuggestions?.length > 0) {
-                    setFilteredSuggestions(cachedSuggestions);
+                    const normalizedCachedSuggestions = normalizeSuggestions(cachedSuggestions);
+                    setOriginalFetchedSuggestions(normalizedCachedSuggestions);
+                    setFilteredSuggestions(normalizedCachedSuggestions);
                 }
             }
         }
@@ -2268,11 +2335,11 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
         }
     }, [
         fetchFunction,
-        retryAttempt,
         retryConfig,
-        currentValue,
         networkManager,
         isOffline,
+        retryAttempt,
+        normalizeSuggestions,
     ]);
     // Render highlighted suggestions
     const renderSuggestions = React.useCallback((suggestion, query) => {
@@ -2306,20 +2373,22 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
             window.removeEventListener("offline", handleOffline);
             handleFilterSuggestions.cancel();
         };
-    }, [handleFilterSuggestions]);
+    }, [isOffline]);
     React.useEffect(() => {
-        if (fetchFunction) {
+        if (fetchFunction && !hasFetchedInitialData) {
             fetchSuggestions();
         }
-    }, [fetchSuggestions]);
+    }, [fetchFunction, hasFetchedInitialData, fetchSuggestions]);
+    // Handle static suggestions (non-fetched)
     React.useEffect(() => {
-        if (suggestions.length > 0) {
-            suggestions.forEach((word) => globalTrie.insert(word));
-            setFilteredSuggestions(suggestions);
+        if (!fetchFunction && suggestions.length > 0) {
+            const normalizedSuggestions = normalizeSuggestions(suggestions);
+            normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
+            setFilteredSuggestions(normalizedSuggestions);
         }
-    }, [suggestions]);
+    }, [suggestions, fetchFunction, normalizeSuggestions]);
     const inputId = id || React.useId();
-    return (jsxRuntime.jsxs("div", { className: cn("text-field-container", fullWidth ? "full-width" : ""), children: [jsxRuntime.jsxs("div", { className: cn("input-field-wrapper", shrink ? "shrink" : "", error ? "error" : "", isFocused ? "focused" : "", disabled ? "disabled" : "", hasValue ? "has-value" : "", startAdornment ? "has-left-icon" : "", endAdornment || clearable ? "has-right-icon" : "", outlined ? "outlined" : ""), children: [renderIcon(startAdornment, "left"), jsxRuntime.jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn("text-field-input", disabled ? "disabled" : "", className), type: type, value: currentValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? "listbox" : undefined, "aria-autocomplete": isSearchable ? "list" : undefined, role: isSearchable ? "combobox" : undefined }), renderIcon(endAdornment, "right"), label && (jsxRuntime.jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsxRuntime.jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsxRuntime.jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsxRuntime.jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || "input"}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsxRuntime.jsx("li", { role: "option", className: cn("suggestion-item", index === selectedSuggestionIndex ? "selected" : ""), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion, currentValue) }, `${suggestion}-${index}`)))) : (jsxRuntime.jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxRuntime.jsxs("div", { className: "loading-container", children: [jsxRuntime.jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsxRuntime.jsx("span", { children: "Loading..." })] })) : ("No Results") })) }))] }));
+    return (jsxRuntime.jsxs("div", { className: cn("text-field-container", fullWidth ? "full-width" : ""), children: [jsxRuntime.jsxs("div", { className: cn("input-field-wrapper", shrink ? "shrink" : "", error ? "error" : "", isFocused ? "focused" : "", disabled ? "disabled" : "", hasValue ? "has-value" : "", startAdornment ? "has-left-icon" : "", endAdornment || clearable ? "has-right-icon" : "", outlined ? "outlined" : ""), children: [renderIcon(startAdornment, "left"), jsxRuntime.jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn("text-field-input", disabled ? "disabled" : "", className), type: type, value: currentValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? "listbox" : undefined, "aria-autocomplete": isSearchable ? "list" : undefined, role: isSearchable ? "combobox" : undefined }), renderIcon(endAdornment, "right"), label && (jsxRuntime.jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsxRuntime.jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsxRuntime.jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsxRuntime.jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || "input"}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsxRuntime.jsx("li", { role: "option", className: cn("suggestion-item", index === selectedSuggestionIndex ? "selected" : ""), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, currentValue) }, `${suggestion.value}-${index}`)))) : (jsxRuntime.jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxRuntime.jsxs("div", { className: "loading-container", children: [jsxRuntime.jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsxRuntime.jsx("span", { children: "Loading..." })] })) : ("No Results") })) }))] }));
 });
 InputField.displayName = "InputField";
 var Input = React.memo(InputField);

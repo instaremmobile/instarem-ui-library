@@ -41,7 +41,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     iconSize?: number;
     clearable?: boolean;
     fullWidth?: boolean;
-    suggestions?: string[];
+    suggestions?: SuggestionType[];
     isSearchable?: boolean;
     fetchFunction?: () => Promise<unknown>;
     retryConfig?: Partial<RetryConfig>;
@@ -55,6 +55,11 @@ interface IconProps {
     disabled?: boolean;
     className?: string;
 }
+interface SuggestionTypeObject {
+    label: string;
+    value: string;
+}
+type SuggestionType = SuggestionTypeObject;
 
 declare const _default: React$1.MemoExoticComponent<React$1.ForwardRefExoticComponent<InputFieldProps & React$1.RefAttributes<HTMLInputElement>>>;
 
