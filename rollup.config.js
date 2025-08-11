@@ -24,12 +24,12 @@ module.exports = [
       {
         file: 'dist/cjs/index.js',
         format: 'cjs',
-        exports: 'named',
+        exports: 'named'
       },
       {
         file: 'dist/esm/index.js',
         format: 'esm',
-        exports: 'named',
+        exports: 'named'
       }
     ],
     plugins: [
@@ -40,29 +40,29 @@ module.exports = [
         extensions: ['.css', '.scss'],
         extract: false,
         modules: false,
-        use: ['sass'],
+        use: ['sass']
       }),
       typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: 'dist/types',
-        rootDir: 'src',
+        rootDir: 'src'
       }),
-      babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' }),
+      babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' })
     ]
   },
   {
     input: 'dist/types/index.d.ts',
     output: {
       file: 'dist/index.d.ts',
-      format: 'es',
+      format: 'es'
     },
     plugins: [
       typescriptPaths({
         tsConfigPath: './tsconfig.json'
       }),
       stripScss(),
-      dts(),
-    ],
+      dts()
+    ]
   }
 ];

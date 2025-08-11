@@ -2192,13 +2192,11 @@ const InputField = React.forwardRef(({ className = "", helperText, type = "text"
                     setFilteredSuggestions(filteredByString);
                 }
                 else {
-                    console.log("Using Trie matched results:", matchedSuggestions);
                     setFilteredSuggestions(matchedSuggestions);
                 }
             }
             else {
                 // Show all suggestions when input is empty
-                console.log("Empty input, showing all suggestions");
                 setFilteredSuggestions(allSuggestions);
             }
         }, 300);

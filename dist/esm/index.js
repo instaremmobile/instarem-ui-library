@@ -2190,13 +2190,11 @@ const InputField = forwardRef(({ className = "", helperText, type = "text", labe
                     setFilteredSuggestions(filteredByString);
                 }
                 else {
-                    console.log("Using Trie matched results:", matchedSuggestions);
                     setFilteredSuggestions(matchedSuggestions);
                 }
             }
             else {
                 // Show all suggestions when input is empty
-                console.log("Empty input, showing all suggestions");
                 setFilteredSuggestions(allSuggestions);
             }
         }, 300);
