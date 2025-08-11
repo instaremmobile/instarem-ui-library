@@ -219,12 +219,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             console.log("Fallback filtered results:", filteredByString);
             setFilteredSuggestions(filteredByString);
           } else {
-            console.log("Using Trie matched results:", matchedSuggestions);
             setFilteredSuggestions(matchedSuggestions);
           }
         } else {
           // Show all suggestions when input is empty
-          console.log("Empty input, showing all suggestions");
           setFilteredSuggestions(allSuggestions);
         }
       }, 300);
