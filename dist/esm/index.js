@@ -2309,6 +2309,7 @@ const InputField = forwardRef(({ className = "", helperText, type = "text", labe
             normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
         }
         catch (exception) {
+            console.error("Error fetching suggestions:", exception);
             setRetryAttempt((prev) => prev + 1);
             if (isOffline) {
                 const cachedSuggestions = networkManager.cache.get(cacheKey);

@@ -381,6 +381,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
         normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
       } catch (exception) {
+        console.error("Error fetching suggestions:", exception);
         setRetryAttempt((prev) => prev + 1);
 
         if (isOffline) {
