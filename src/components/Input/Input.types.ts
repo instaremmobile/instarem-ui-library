@@ -15,7 +15,7 @@ export interface InputFieldProps
   iconSize?: number;
   clearable?: boolean;
   fullWidth?: boolean;
-  suggestions?: string[];
+  suggestions?: SuggestionType[];
   isSearchable?: boolean;
   fetchFunction?: () => Promise<unknown>;
   retryConfig?: Partial<RetryConfig>;
@@ -30,3 +30,10 @@ export interface IconProps {
   disabled?: boolean;
   className?: string;
 }
+
+export interface SuggestionTypeObject {
+  label: string;
+  value: string;
+}
+
+export type SuggestionType = SuggestionTypeObject;

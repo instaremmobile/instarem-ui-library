@@ -27,7 +27,6 @@ class TrieNode {
   get isEndOfTheWord() {
     return this._isEndOfTheWord;
   }
-
   set isEndOfTheWord(newValue: boolean) {
     this._isEndOfTheWord = newValue;
   }
@@ -35,7 +34,6 @@ class TrieNode {
   get value() {
     return this._value;
   }
-
   set value(newValue: string | undefined) {
     this._value = newValue;
   }
@@ -43,7 +41,6 @@ class TrieNode {
   get frequency() {
     return this._frequency;
   }
-
   set frequency(newValue: number | undefined) {
     this._frequency = newValue;
   }
@@ -51,7 +48,6 @@ class TrieNode {
   set isWordBoundary(newValue: boolean) {
     this._isWordBoundary = newValue;
   }
-
   get isWordBoundary() {
     return this._isWordBoundary;
   }
@@ -59,7 +55,6 @@ class TrieNode {
   set prefixCount(newValue: number) {
     this._prefixCount = newValue;
   }
-
   get prefixCount() {
     return this._prefixCount;
   }
@@ -67,7 +62,6 @@ class TrieNode {
   incrementPrefix(): void {
     this._prefixCount++;
   }
-
   decrementPrefix(): void {
     this._prefixCount--;
   }
@@ -160,7 +154,6 @@ class Trie {
 
   insert(word: string, frequency = 1) {
     if (!word) return;
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
     const processedWord = word.normalize("NFD"); // unicode normalization
     const trimmedWord = processedWord
       .toLowerCase()
@@ -245,13 +238,10 @@ class Trie {
     let current = new Uint16Array(sourceStringLength + 1);
     let previous = new Uint16Array(sourceStringLength + 1);
 
-    for (let i = 0; i <= sourceStringLength; i++) {
-      previous[i] = i;
-    }
+    for (let i = 0; i <= sourceStringLength; i++) previous[i] = i;
 
     let minValue = previous[0];
 
-    // test case - intention, execution
     for (let i = 1; i <= targetStringLength; i++) {
       current[0] = i;
       minValue = current[0];
@@ -259,16 +249,12 @@ class Trie {
         const substitutionCost =
           sourceString[j - 1] === targetString[i - 1] ? 0 : 1;
         current[j] = Math.min(
-          Math.min(
-            previous[j] + 1, // Deletion cost
-            current[j - 1] + 1, // Addition cost
-          ),
-          previous[j - 1] + substitutionCost, // substitution cost
+          Math.min(previous[j] + 1, current[j - 1] + 1),
+          previous[j - 1] + substitutionCost,
         );
         minValue = Math.min(minValue, current[j]);
       }
       if (minValue > maxDistance * 1.4) return Infinity;
-
       previous.set(current);
     }
     return previous[sourceStringLength];
@@ -282,20 +268,15 @@ class Trie {
     const sourceWords = source.toLowerCase().trim().split(/\s+/);
     const targetWords = target.toLowerCase().trim().split(/\s+/);
 
-    if (sourceWords.length === 0 || targetWords.length === 0) {
+    if (sourceWords.length === 0 || targetWords.length === 0)
       return maxDistance + 1;
-    }
 
-    if (source.toLowerCase() === target.toLowerCase()) {
-      return 0;
-    }
-
+    if (source.toLowerCase() === target.toLowerCase()) return 0;
     if (
       source.toLowerCase().includes(target.toLowerCase()) ||
       target.toLowerCase().includes(source.toLowerCase())
-    ) {
+    )
       return 0;
-    }
 
     let totalDistance = 0;
     let matchWords = 0;
@@ -304,37 +285,37 @@ class Trie {
 
     for (const sourceWord of sourceWords) {
       if (sourceWord.length < Trie.MIN_WORD_LENGTH) continue;
-      let minWordDistance = maxDistance;
-      let betMatchIndex = -1;
+
+      let minWordDistance = Infinity;
+      let bestIdx = -1;
 
       for (let i = 0; i < targetWords.length; i++) {
         if (usedTargetWords.has(i)) continue;
-
         const targetWord = targetWords[i];
-        if (sourceWord.toLowerCase() === targetWord.toLowerCase()) {
-          minWordDistance = 0;
-          betMatchIndex = i;
-          break;
-        }
+
         if (Math.abs(sourceWord.length - targetWord.length) > maxDistance)
           continue;
+
         const distance = this.getLevenshtienDistance(
           sourceWord.toLowerCase(),
           targetWord.toLowerCase(),
           maxDistance,
         );
-        if (distance <= minWordDistance) {
+
+        if (distance <= maxDistance && distance < minWordDistance) {
           minWordDistance = distance;
-          betMatchIndex = i;
+          bestIdx = i;
         }
       }
 
-      if (betMatchIndex !== -1) {
-        usedTargetWords.add(betMatchIndex);
+      if (bestIdx !== -1) {
+        usedTargetWords.add(bestIdx);
         totalDistance += minWordDistance;
         matchWords++;
       }
     }
+
+    if (matchWords === 0) return Infinity;
 
     const unmatchedPenalty =
       Math.abs(sourceWords.length - targetWords.length) * 1.5;
@@ -350,10 +331,11 @@ class Trie {
       .trim()
       .toLowerCase()
       .replace(/[^a-zA-Z0-9]/g, "");
+
     const distanceFactor = 1 / (result.distance + 1);
     const frequencyFactor =
       Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
-    const prefixMatchBonus = result.prefixMatch ? 1.5 : 1;
+    const prefixMatchBonus = result.prefixMatch ? 2.5 : 1; // was 1.5
     const wordCountDiff = Math.abs(queryWords.length - resultWords.length);
     const wordCountPenalty = wordCountDiff === 0 ? 0 : wordCountDiff * 0.1;
 
@@ -383,38 +365,47 @@ class Trie {
     const processedQuery = caseSensitive
       ? query.normalize("NFD")
       : query.toLowerCase().normalize("NFD");
+
     const seen = new Set<string>();
     const priorityQueue = new PriorityQueue(maxResults);
+
     const dfs = (
       node: TrieNode,
       prefix: string,
       depth: number = 0,
       prefixDistance: number = 0,
     ): void => {
-      if (prefixDistance > maxDistance * 3) {
-        return;
-      }
+      if (prefixDistance > maxDistance * 3) return;
 
       if (node.value && node.isEndOfTheWord) {
         const word = caseSensitive ? node.value : node.value.toLowerCase();
         if (!seen.has(word)) {
-          let distance;
+          let distance: number;
           let isPrefixMatch = false;
+
           if (matchType === "partial") {
-            distance = this.getPartialDistance(
-              processedQuery,
-              word,
-              maxDistance,
-            );
+            const loweredWord = word.toLowerCase();
+            if (loweredWord.startsWith(processedQuery)) {
+              distance = 0;
+              isPrefixMatch = true;
+            } else {
+              distance = this.getPartialDistance(
+                processedQuery,
+                loweredWord,
+                maxDistance,
+              );
+            }
           } else {
             distance = prefixOnly
               ? prefixDistance
               : this.getLevenshtienDistance(processedQuery, word, maxDistance);
             isPrefixMatch = prefixOnly && prefixDistance <= maxDistance;
           }
+
           const wordCount = node.value.trim().split(/\s+/).length;
           const adjustableDistance =
             maxDistance * (wordCount > 1 ? wordCount * 1.2 : 1);
+
           if (distance <= adjustableDistance) {
             const result: SearchResult = {
               item: node.value,
@@ -470,15 +461,26 @@ class Trie {
         }
       }
     };
+
     dfs(this.root, "");
+
     const results = priorityQueue.get();
+
+    results.sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.distance - b.distance ||
+        (b.frequency ?? 0) - (a.frequency ?? 0) ||
+        a.item.localeCompare(b.item),
+    );
+
     if (this.cache.size >= Trie.CACHE_SIZE) {
       const firstKey = this.cache.keys().next().value;
       this.cache.delete(firstKey!);
     }
     this.cache.set(cacheKey, results);
 
-    return results.map((result) => result.item);
+    return results.map((r) => r.item);
   }
 
   clearCache() {

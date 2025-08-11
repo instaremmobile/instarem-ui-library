@@ -45,15 +45,15 @@ export const Enabled: Story = {
     fullWidth: false,
     isSearchable: false,
     suggestions: [
-      "Elden Ring",
-      "God Of War",
-      "Red Dead Redemption",
-      "The Last of Us",
-      "Ghost of Tsushima",
-      "Assassins Creed",
-      "Spider Man",
-      "Grand Theft Auto 5",
-      "Uncharted: Among Theives",
+      { label: "Elden Ring", value: "eldenRing" },
+      { label: "God Of War", value: "godOfWar" },
+      { label: "Red Dead Redemption", value: "redDeadRedemption" },
+      { label: "The Last of Us", value: "theLastOfUs" },
+      { label: "Ghost of Tsushima", value: "ghostOfTsushima" },
+      { label: "Assassins Creed", value: "assassinsCreed" },
+      { label: "Spider Man", value: "spiderMan" },
+      { label: "Grand Theft Auto 5", value: "grandTheftAuto5" },
+      { label: "Uncharted: Among Theives", value: "unchartedAmongTheives" },
     ],
   },
 };
@@ -102,29 +102,53 @@ export const HelperText: Story = {
 
 const ButtonWithFetchFunction = (props: any) => {
   const fetchUsers = async () => {
-    const resposne = await fetch("https://jsonplaceholder.typicode.com/users", {
-      method: "get",
-    });
+    const resposne = await fetch(
+      "https://qa.instarem.com/api/v1/public/remitter/countries/dropdown?is_residence_activated=true",
+      {
+        method: "get",
+      },
+    );
     if (!resposne.ok) {
       console.error("Could not fetch users");
       return;
     }
     const data = await resposne.json();
-    const names = data.map((user: Record<string, any>) => user.username);
-    return names;
+    console.log(data);
+    return data.data;
   };
 
   return (
     <Input
-      {...props}
       fetchFunction={fetchUsers}
       label="First name"
-      fullWidth
-      isSearchable
+      fullWidth={true}
+      isSearchable={true}
     />
   );
 };
 
+const fetchUsers = async () => {
+  const resposne = await fetch(
+    "https://qa.instarem.com/api/v1/public/remitter/countries/dropdown?is_residence_activated=true",
+    {
+      method: "get",
+    },
+  );
+  if (!resposne.ok) {
+    console.error("Could not fetch users");
+    return;
+  }
+  const data = await resposne.json();
+  console.log(data);
+  return data.data;
+};
 export const InputReloaded: Story = {
-  render: () => <ButtonWithFetchFunction />,
+  args: {
+    fullWidth: true,
+    fetchFunction: fetchUsers,
+    type: "text",
+    label: "First name",
+    shrink: true,
+    isSearchable: true,
+  },
 };
