@@ -71,6 +71,9 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const [hasFetchedInitialData, setHasFetchedInitialData] =
       useState<boolean>(false);
 
+    // NEW: local text while typing in searchable mode (doesn't touch form value)
+    const [searchText, setSearchText] = useState<string>('');
+
     const inputRef = useRef<HTMLInputElement>(null);
     const suggestionListRef = useRef<HTMLUListElement>(null);
 
@@ -78,6 +81,49 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       controlledValue !== undefined ? controlledValue : internalValue;
     const hasValue = Boolean(currentValue);
     const isControlled = controlledValue !== undefined;
+
+    const normalizeSuggestions = useCallback(
+      (suggestions: any[]): SuggestionType[] => {
+        if (!suggestions || suggestions.length === 0) {
+          return [];
+        }
+        return suggestions.map((item) => {
+          if (typeof item === 'string') {
+            return { label: item, value: item };
+          } else if (
+            typeof item === 'object' &&
+            (item.label || item.text || item.name) &&
+            (item.value || item.id || item.code)
+          ) {
+            return {
+              label: item.label || item.text || item.name,
+              value: item.value || item.id || item.code,
+            };
+          } else {
+            return { label: String(item), value: String(item) };
+          }
+        });
+      },
+      []
+    );
+
+    const allForDisplay =
+      originalFetchedSuggestions.length > 0
+        ? originalFetchedSuggestions
+        : normalizeSuggestions(suggestions);
+
+    const selectedFromValue = useMemo(() => {
+      if (!isSearchable) return null;
+      return allForDisplay.find((s) => s.value === currentValue) || null;
+    }, [isSearchable, allForDisplay, currentValue]);
+
+    const displayValue = isSearchable
+      ? suggestionsVisible
+        ? searchText
+        : selectedFromValue?.label ?? String(currentValue ?? '')
+      : String(currentValue ?? '');
+
+    const inputId = id || useId();
 
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
 
@@ -144,31 +190,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       return style;
     }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
 
-    const normalizeSuggestions = useCallback(
-      (suggestions: any[]): SuggestionType[] => {
-        if (!suggestions || suggestions.length === 0) {
-          return [];
-        }
-        return suggestions.map((item) => {
-          if (typeof item === 'string') {
-            return { label: item, value: item };
-          } else if (
-            typeof item === 'object' &&
-            (item.label || item.text || item.name) &&
-            (item.value || item.id || item.code)
-          ) {
-            return {
-              label: item.label || item.text || item.name,
-              value: item.value || item.id || item.code,
-            };
-          } else {
-            return { label: String(item), value: String(item) };
-          }
-        });
-      },
-      []
-    );
-
     const handleFilterSuggestions = useMemo(() => {
       return debounce((newValue: string) => {
         const allSuggestions =
@@ -187,7 +208,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           if (searchResults.length > 0) {
             searchResults.forEach((resultLabel) => {
               const matchingSuggestion = allSuggestions.find((item) => {
-                // Try exact match first, then case-insensitive
                 return (
                   item.label === resultLabel ||
                   item.label.toLowerCase() === resultLabel.toLowerCase() ||
@@ -209,7 +229,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           }
 
           if (matchedSuggestions.length === 0) {
-            
             const query = newValue.toLowerCase().trim();
             const filteredByString = allSuggestions.filter(
               (item) =>
@@ -221,7 +240,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             setFilteredSuggestions(matchedSuggestions);
           }
         } else {
-          // Show all suggestions when input is empty
           setFilteredSuggestions(allSuggestions);
         }
       }, 300);
@@ -266,6 +284,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             event.preventDefault();
             setSuggestionsVisible(false);
             setSelectedSuggestionIndex(-1);
+
+            setSearchText('');
             break;
           }
           case 'Enter': {
@@ -305,30 +325,36 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         }
 
         handleChange?.(emittedValue);
+
+        setSearchText('');
         setSuggestionsVisible(false);
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
       },
-      [isControlled, handleChange]
+      [isControlled, handleChange, isSearchable]
     );
 
     const handleInputChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
 
-        if (!isControlled) {
-          setInternalValue(newValue);
-        }
-
         if (isSearchable) {
+          setSearchText(newValue);
           setSuggestionsVisible(true);
           setSelectedSuggestionIndex(-1);
           handleFilterSuggestions(newValue);
-        }
 
-        handleChange?.(newValue);
+          if (!isControlled) {
+            setInternalValue(newValue);
+          }
+        } else {
+          if (!isControlled) {
+            setInternalValue(newValue);
+          }
+          handleChange?.(newValue);
+        }
       },
-      [isControlled, isSearchable, handleFilterSuggestions, handleChange]
+      [isControlled, isSearchable, handleFilterSuggestions]
     );
 
     const handleBlur = useCallback(
@@ -348,14 +374,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         setIsFocused(true);
         onFocus?.(event);
 
-        if (isSearchable && (filteredSuggestions.length > 0 || isLoading)) {
+        if (isSearchable) {
           setSuggestionsVisible(true);
+
+          if (selectedFromValue) {
+            setInternalValue(selectedFromValue.label);
+          }
         }
       },
-      [onFocus, isSearchable, filteredSuggestions.length, isLoading]
+      [onFocus, isSearchable, selectedFromValue]
     );
 
-    // Fetch suggestions function - now with proper dependency management
     const fetchSuggestions = useCallback(async () => {
       if (!fetchFunction || retryAttempt > retryConfig.maxAttempt!) return;
 
@@ -402,7 +431,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       normalizeSuggestions,
     ]);
 
-    // Render highlighted suggestions
     const renderSuggestions = useCallback(
       (suggestion: string, query: string) => {
         if (!query) return <span>{suggestion}</span>;
@@ -460,7 +488,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       }
     }, [fetchFunction, hasFetchedInitialData, fetchSuggestions]);
 
-    // Handle static suggestions (non-fetched)
     useEffect(() => {
       if (!fetchFunction && suggestions.length > 0) {
         const normalizedSuggestions = normalizeSuggestions(suggestions);
@@ -469,7 +496,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
 
-    const inputId = id || useId();
     return (
       <div
         className={cn('text-field-container', fullWidth ? 'full-width' : '')}
@@ -498,9 +524,9 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               className
             )}
             type={type}
-            value={currentValue}
+            value={displayValue}
             onChange={handleInputChange}
-            onFocus={handleFocus}
+            onFocus={handleBlur}
             onBlur={handleBlur}
             onKeyDown={handleKeyPress}
             style={inputStyles}
@@ -563,7 +589,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                   onClick={() => handleSuggestionSelect(suggestion)}
                   onMouseEnter={() => setSelectedSuggestionIndex(index)}
                 >
-                  {renderSuggestions(suggestion.label, currentValue as string)}
+                  {renderSuggestions(
+                    suggestion.label,
+                    isSearchable ? searchText : String(currentValue ?? '')
+                  )}
                 </li>
               ))
             ) : (

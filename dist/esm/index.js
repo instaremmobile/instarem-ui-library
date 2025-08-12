@@ -1,5 +1,5 @@
 import { jsxs, jsx } from 'react/jsx-runtime';
-import React, { forwardRef, useId, memo, createElement, useState, useRef, useMemo, useCallback, cloneElement, useEffect, useImperativeHandle } from 'react';
+import React, { forwardRef, useId, memo, createElement, useState, useRef, useCallback, useMemo, cloneElement, useEffect, useImperativeHandle } from 'react';
 
 /*
  * Implements a very basic Max PriorityQueue
@@ -2095,11 +2095,48 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
     const [isOffline, setIsOffline] = useState(!navigator.onLine);
     const [retryAttempt, setRetryAttempt] = useState(0);
     const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
+    // NEW: local text while typing in searchable mode (doesn't touch form value)
+    const [searchText, setSearchText] = useState('');
     const inputRef = useRef(null);
     const suggestionListRef = useRef(null);
     const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
     const hasValue = Boolean(currentValue);
     const isControlled = controlledValue !== undefined;
+    const normalizeSuggestions = useCallback((suggestions) => {
+        if (!suggestions || suggestions.length === 0) {
+            return [];
+        }
+        return suggestions.map((item) => {
+            if (typeof item === 'string') {
+                return { label: item, value: item };
+            }
+            else if (typeof item === 'object' &&
+                (item.label || item.text || item.name) &&
+                (item.value || item.id || item.code)) {
+                return {
+                    label: item.label || item.text || item.name,
+                    value: item.value || item.id || item.code,
+                };
+            }
+            else {
+                return { label: String(item), value: String(item) };
+            }
+        });
+    }, []);
+    const allForDisplay = originalFetchedSuggestions.length > 0
+        ? originalFetchedSuggestions
+        : normalizeSuggestions(suggestions);
+    const selectedFromValue = useMemo(() => {
+        if (!isSearchable)
+            return null;
+        return allForDisplay.find((s) => s.value === currentValue) || null;
+    }, [isSearchable, allForDisplay, currentValue]);
+    const displayValue = isSearchable
+        ? suggestionsVisible
+            ? searchText
+            : selectedFromValue?.label ?? String(currentValue ?? '')
+        : String(currentValue ?? '');
+    const inputId = id || useId();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
     const handleOnIconClick = useCallback((position, iconProps, event) => {
         if (iconProps?.disabled)
@@ -2132,27 +2169,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
         }
         return style;
     }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
-    const normalizeSuggestions = useCallback((suggestions) => {
-        if (!suggestions || suggestions.length === 0) {
-            return [];
-        }
-        return suggestions.map((item) => {
-            if (typeof item === 'string') {
-                return { label: item, value: item };
-            }
-            else if (typeof item === 'object' &&
-                (item.label || item.text || item.name) &&
-                (item.value || item.id || item.code)) {
-                return {
-                    label: item.label || item.text || item.name,
-                    value: item.value || item.id || item.code,
-                };
-            }
-            else {
-                return { label: String(item), value: String(item) };
-            }
-        });
-    }, []);
     const handleFilterSuggestions = useMemo(() => {
         return debounce$1((newValue) => {
             const allSuggestions = originalFetchedSuggestions.length > 0
@@ -2167,7 +2183,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
                 if (searchResults.length > 0) {
                     searchResults.forEach((resultLabel) => {
                         const matchingSuggestion = allSuggestions.find((item) => {
-                            // Try exact match first, then case-insensitive
                             return (item.label === resultLabel ||
                                 item.label.toLowerCase() === resultLabel.toLowerCase() ||
                                 item.label
@@ -2182,11 +2197,9 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
                     });
                 }
                 if (matchedSuggestions.length === 0) {
-                    console.log('Trie search failed, using fallback filtering');
                     const query = newValue.toLowerCase().trim();
                     const filteredByString = allSuggestions.filter((item) => item.label.toLowerCase().includes(query) ||
                         item.value.toLowerCase().includes(query));
-                    console.log('Fallback filtered results:', filteredByString);
                     setFilteredSuggestions(filteredByString);
                 }
                 else {
@@ -2194,7 +2207,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
                 }
             }
             else {
-                // Show all suggestions when input is empty
                 setFilteredSuggestions(allSuggestions);
             }
         }, 300);
@@ -2231,6 +2243,7 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
                 event.preventDefault();
                 setSuggestionsVisible(false);
                 setSelectedSuggestionIndex(-1);
+                setSearchText('');
                 break;
             }
             case 'Enter': {
@@ -2260,22 +2273,29 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             setInternalValue(isSearchable ? displayValue : emittedValue);
         }
         handleChange?.(emittedValue);
+        setSearchText('');
         setSuggestionsVisible(false);
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
-    }, [isControlled, handleChange]);
+    }, [isControlled, handleChange, isSearchable]);
     const handleInputChange = useCallback((event) => {
         const newValue = event.target.value;
-        if (!isControlled) {
-            setInternalValue(newValue);
-        }
         if (isSearchable) {
+            setSearchText(newValue);
             setSuggestionsVisible(true);
             setSelectedSuggestionIndex(-1);
             handleFilterSuggestions(newValue);
+            if (!isControlled) {
+                setInternalValue(newValue);
+            }
         }
-        handleChange?.(newValue);
-    }, [isControlled, isSearchable, handleFilterSuggestions, handleChange]);
+        else {
+            if (!isControlled) {
+                setInternalValue(newValue);
+            }
+            handleChange?.(newValue);
+        }
+    }, [isControlled, isSearchable, handleFilterSuggestions]);
     const handleBlur = useCallback((event) => {
         setTimeout(() => {
             setIsFocused(false);
@@ -2284,14 +2304,16 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             onBlur?.(event);
         }, 150);
     }, [onBlur]);
-    const handleFocus = useCallback((event) => {
+    useCallback((event) => {
         setIsFocused(true);
         onFocus?.(event);
-        if (isSearchable && (filteredSuggestions.length > 0 || isLoading)) {
+        if (isSearchable) {
             setSuggestionsVisible(true);
+            if (selectedFromValue) {
+                setInternalValue(selectedFromValue.label);
+            }
         }
-    }, [onFocus, isSearchable, filteredSuggestions.length, isLoading]);
-    // Fetch suggestions function - now with proper dependency management
+    }, [onFocus, isSearchable, selectedFromValue]);
     const fetchSuggestions = useCallback(async () => {
         if (!fetchFunction || retryAttempt > retryConfig.maxAttempt)
             return;
@@ -2329,7 +2351,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
         retryAttempt,
         normalizeSuggestions,
     ]);
-    // Render highlighted suggestions
     const renderSuggestions = useCallback((suggestion, query) => {
         if (!query)
             return jsx("span", { children: suggestion });
@@ -2367,7 +2388,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             fetchSuggestions();
         }
     }, [fetchFunction, hasFetchedInitialData, fetchSuggestions]);
-    // Handle static suggestions (non-fetched)
     useEffect(() => {
         if (!fetchFunction && suggestions.length > 0) {
             const normalizedSuggestions = normalizeSuggestions(suggestions);
@@ -2375,8 +2395,7 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             setFilteredSuggestions(normalizedSuggestions);
         }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
-    const inputId = id || useId();
-    return (jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : ''), children: [jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : ''), children: [renderIcon(startAdornment, 'left'), jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: currentValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined }), renderIcon(endAdornment, 'right'), label && (jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, currentValue) }, `${suggestion.value}-${index}`)))) : (jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxs("div", { className: "loading-container", children: [jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
+    return (jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : ''), children: [jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : ''), children: [renderIcon(startAdornment, 'left'), jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: displayValue, onChange: handleInputChange, onFocus: handleBlur, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined }), renderIcon(endAdornment, 'right'), label && (jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, isSearchable ? searchText : String(currentValue ?? '')) }, `${suggestion.value}-${index}`)))) : (jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxs("div", { className: "loading-container", children: [jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
 });
 InputField.displayName = 'InputField';
 var Input = memo(InputField);
