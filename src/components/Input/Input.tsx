@@ -71,7 +71,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const [hasFetchedInitialData, setHasFetchedInitialData] =
       useState<boolean>(false);
 
-    // NEW: local text while typing in searchable mode (doesn't touch form value)
+    // Local editable text while dropdown is open (doesn't mutate form value)
     const [searchText, setSearchText] = useState<string>('');
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -82,49 +82,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const hasValue = Boolean(currentValue);
     const isControlled = controlledValue !== undefined;
 
-    const normalizeSuggestions = useCallback(
-      (suggestions: any[]): SuggestionType[] => {
-        if (!suggestions || suggestions.length === 0) {
-          return [];
-        }
-        return suggestions.map((item) => {
-          if (typeof item === 'string') {
-            return { label: item, value: item };
-          } else if (
-            typeof item === 'object' &&
-            (item.label || item.text || item.name) &&
-            (item.value || item.id || item.code)
-          ) {
-            return {
-              label: item.label || item.text || item.name,
-              value: item.value || item.id || item.code,
-            };
-          } else {
-            return { label: String(item), value: String(item) };
-          }
-        });
-      },
-      []
-    );
-
-    const allForDisplay =
-      originalFetchedSuggestions.length > 0
-        ? originalFetchedSuggestions
-        : normalizeSuggestions(suggestions);
-
-    const selectedFromValue = useMemo(() => {
-      if (!isSearchable) return null;
-      return allForDisplay.find((s) => s.value === currentValue) || null;
-    }, [isSearchable, allForDisplay, currentValue]);
-
-    const displayValue = isSearchable
-      ? suggestionsVisible
-        ? searchText
-        : selectedFromValue?.label ?? String(currentValue ?? '')
-      : String(currentValue ?? '');
-
     const inputId = id || useId();
-
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
 
     const handleOnIconClick = useCallback(
@@ -181,14 +139,45 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const inputStyles = useMemo(() => {
       const style: CSSProperties = {};
-      if (startAdornment) {
-        style.paddingLeft = `${iconSize + 20}px`;
-      }
-      if (endAdornment || (clearable && currentValue)) {
+      if (startAdornment) style.paddingLeft = `${iconSize + 20}px`;
+      if (endAdornment || (clearable && currentValue))
         style.paddingRight = `${iconSize + 16}px`;
-      }
       return style;
     }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
+
+    const normalizeSuggestions = useCallback((arr: any[]): SuggestionType[] => {
+      if (!arr || arr.length === 0) return [];
+      return arr.map((item) => {
+        if (typeof item === 'string') return { label: item, value: item };
+        if (
+          typeof item === 'object' &&
+          (item.label || item.text || item.name) &&
+          (item.value || item.id || item.code)
+        ) {
+          return {
+            label: item.label || item.text || item.name,
+            value: item.value || item.id || item.code,
+          };
+        }
+        return { label: String(item), value: String(item) };
+      });
+    }, []);
+
+    const allForDisplay =
+      originalFetchedSuggestions.length > 0
+        ? originalFetchedSuggestions
+        : normalizeSuggestions(suggestions);
+
+    const selectedFromValue = useMemo(() => {
+      if (!isSearchable) return null;
+      return allForDisplay.find((s) => s.value === currentValue) || null;
+    }, [isSearchable, allForDisplay, currentValue]);
+
+    const displayValue = isSearchable
+      ? suggestionsVisible
+        ? searchText
+        : selectedFromValue?.label ?? String(currentValue ?? '')
+      : String(currentValue ?? '');
 
     const handleFilterSuggestions = useMemo(() => {
       return debounce((newValue: string) => {
@@ -203,41 +192,35 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             matchType: 'partial',
           });
 
-          const matchedSuggestions: SuggestionType[] = [];
+          const matched: SuggestionType[] = [];
 
           if (searchResults.length > 0) {
             searchResults.forEach((resultLabel) => {
-              const matchingSuggestion = allSuggestions.find((item) => {
-                return (
+              const hit = allSuggestions.find(
+                (item) =>
                   item.label === resultLabel ||
                   item.label.toLowerCase() === resultLabel.toLowerCase() ||
                   item.label
                     .toLowerCase()
                     .includes(resultLabel.toLowerCase()) ||
                   resultLabel.toLowerCase().includes(item.label.toLowerCase())
-                );
-              });
-              if (
-                matchingSuggestion &&
-                !matchedSuggestions.find(
-                  (s) => s.value === matchingSuggestion.value
-                )
-              ) {
-                matchedSuggestions.push(matchingSuggestion);
-              }
+              );
+              if (hit && !matched.find((s) => s.value === hit.value))
+                matched.push(hit);
             });
           }
 
-          if (matchedSuggestions.length === 0) {
-            const query = newValue.toLowerCase().trim();
-            const filteredByString = allSuggestions.filter(
-              (item) =>
-                item.label.toLowerCase().includes(query) ||
-                item.value.toLowerCase().includes(query)
+          if (matched.length === 0) {
+            const q = newValue.toLowerCase().trim();
+            setFilteredSuggestions(
+              allSuggestions.filter(
+                (i) =>
+                  i.label.toLowerCase().includes(q) ||
+                  i.value.toLowerCase().includes(q)
+              )
             );
-            setFilteredSuggestions(filteredByString);
           } else {
-            setFilteredSuggestions(matchedSuggestions);
+            setFilteredSuggestions(matched);
           }
         } else {
           setFilteredSuggestions(allSuggestions);
@@ -253,30 +236,28 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           case 'ArrowUp': {
             event.preventDefault();
             setSelectedSuggestionIndex((prev) => {
-              const newIndex =
-                prev > 0 ? prev - 1 : filteredSuggestions.length - 1;
+              const ni = prev > 0 ? prev - 1 : filteredSuggestions.length - 1;
               setTimeout(() => {
-                const selectedItem = suggestionListRef.current?.children[
-                  newIndex
+                const el = suggestionListRef.current?.children[
+                  ni
                 ] as HTMLElement;
-                selectedItem?.scrollIntoView({ block: 'nearest' });
+                el?.scrollIntoView({ block: 'nearest' });
               }, 0);
-              return newIndex;
+              return ni;
             });
             break;
           }
           case 'ArrowDown': {
             event.preventDefault();
             setSelectedSuggestionIndex((prev) => {
-              const newIndex =
-                prev < filteredSuggestions.length - 1 ? prev + 1 : 0;
+              const ni = prev < filteredSuggestions.length - 1 ? prev + 1 : 0;
               setTimeout(() => {
-                const selectedItem = suggestionListRef.current?.children[
-                  newIndex
+                const el = suggestionListRef.current?.children[
+                  ni
                 ] as HTMLElement;
-                selectedItem?.scrollIntoView({ block: 'nearest' });
+                el?.scrollIntoView({ block: 'nearest' });
               }, 0);
-              return newIndex;
+              return ni;
             });
             break;
           }
@@ -284,7 +265,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             event.preventDefault();
             setSuggestionsVisible(false);
             setSelectedSuggestionIndex(-1);
-
             setSearchText('');
             break;
           }
@@ -315,25 +295,31 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       ]
     );
 
+    // SELECT from dropdown: show LABEL, emit VALUE (and notify RHF too)
     const handleSuggestionSelect = useCallback(
       (selectedSuggestion: SuggestionType) => {
-        const displayValue = selectedSuggestion.label;
-        const emittedValue = selectedSuggestion.value;
+        const display = selectedSuggestion.label;
+        const emitted = selectedSuggestion.value;
 
         if (!isControlled) {
-          setInternalValue(isSearchable ? displayValue : emittedValue);
+          setInternalValue(isSearchable ? display : emitted);
         }
 
-        handleChange?.(emittedValue);
+        handleChange?.(emitted);
+
+        const anyProps = props as any;
+        const fieldName = anyProps?.name;
+        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
 
         setSearchText('');
         setSuggestionsVisible(false);
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
       },
-      [isControlled, handleChange, isSearchable]
+      [isControlled, handleChange, isSearchable, props]
     );
 
+    // TYPING in input
     const handleInputChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
@@ -344,17 +330,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           setSelectedSuggestionIndex(-1);
           handleFilterSuggestions(newValue);
 
-          if (!isControlled) {
-            setInternalValue(newValue);
-          }
-        } else {
-          if (!isControlled) {
-            setInternalValue(newValue);
-          }
-          handleChange?.(newValue);
+          if (!isControlled) setInternalValue(newValue);
+
+          return;
         }
+
+        if (!isControlled) setInternalValue(newValue);
+
+        (props as any)?.onChange?.(event);
+        handleChange?.(newValue);
       },
-      [isControlled, isSearchable, handleFilterSuggestions]
+      [isControlled, isSearchable, handleFilterSuggestions, handleChange, props]
     );
 
     const handleBlur = useCallback(
@@ -377,12 +363,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         if (isSearchable) {
           setSuggestionsVisible(true);
 
-          if (selectedFromValue) {
-            setInternalValue(selectedFromValue.label);
-          }
+          setSearchText(selectedFromValue?.label ?? String(currentValue ?? ''));
         }
       },
-      [onFocus, isSearchable, selectedFromValue]
+      [onFocus, isSearchable, selectedFromValue, currentValue]
     );
 
     const fetchSuggestions = useCallback(async () => {
@@ -398,25 +382,24 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           retryConfig
         )) as any[];
 
-        const normalizedSuggestions = normalizeSuggestions(suggestionsResults);
+        const normalized = normalizeSuggestions(suggestionsResults);
 
-        setOriginalFetchedSuggestions(normalizedSuggestions);
-        setFilteredSuggestions(normalizedSuggestions);
+        setOriginalFetchedSuggestions(normalized);
+        setFilteredSuggestions(normalized);
         setRetryAttempt(0);
         setHasFetchedInitialData(true);
 
-        normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
+        normalized.forEach((item) => globalTrie.insert(item.label));
       } catch (exception) {
         console.error('Error fetching suggestions:', exception);
         setRetryAttempt((prev) => prev + 1);
 
         if (isOffline) {
-          const cachedSuggestions = networkManager.cache.get(cacheKey) as any[];
-          if (cachedSuggestions?.length > 0) {
-            const normalizedCachedSuggestions =
-              normalizeSuggestions(cachedSuggestions);
-            setOriginalFetchedSuggestions(normalizedCachedSuggestions);
-            setFilteredSuggestions(normalizedCachedSuggestions);
+          const cached = networkManager.cache.get(cacheKey) as any[];
+          if (cached?.length > 0) {
+            const normalizedCached = normalizeSuggestions(cached);
+            setOriginalFetchedSuggestions(normalizedCached);
+            setFilteredSuggestions(normalizedCached);
           }
         }
       } finally {
@@ -434,22 +417,20 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const renderSuggestions = useCallback(
       (suggestion: string, query: string) => {
         if (!query) return <span>{suggestion}</span>;
-
         const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escapedQuery})`, 'gi');
         const parts = suggestion.split(regex);
         return (
           <span>
-            {parts.map((part, index) => {
-              const isHighlighted = index % 2 === 1;
-              return isHighlighted ? (
+            {parts.map((part, index) =>
+              index % 2 === 1 ? (
                 <span className="highlight" key={index}>
                   {part}
                 </span>
               ) : (
                 <span key={index}>{part}</span>
-              );
-            })}
+              )
+            )}
           </span>
         );
       },
@@ -463,7 +444,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           inputRef.current?.focus();
         }
       };
-
       window.addEventListener('keydown', focusOnInput);
       return () => window.removeEventListener('keydown', focusOnInput);
     }, [isFocused]);
@@ -483,16 +463,14 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     }, [isOffline]);
 
     useEffect(() => {
-      if (fetchFunction && !hasFetchedInitialData) {
-        fetchSuggestions();
-      }
+      if (fetchFunction && !hasFetchedInitialData) fetchSuggestions();
     }, [fetchFunction, hasFetchedInitialData, fetchSuggestions]);
 
     useEffect(() => {
       if (!fetchFunction && suggestions.length > 0) {
-        const normalizedSuggestions = normalizeSuggestions(suggestions);
-        normalizedSuggestions.forEach((item) => globalTrie.insert(item.label));
-        setFilteredSuggestions(normalizedSuggestions);
+        const normalized = normalizeSuggestions(suggestions);
+        normalized.forEach((item) => globalTrie.insert(item.label));
+        setFilteredSuggestions(normalized);
       }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
 
@@ -526,7 +504,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             type={type}
             value={displayValue}
             onChange={handleInputChange}
-            onFocus={handleBlur}
+            onFocus={handleFocus}
             onBlur={handleBlur}
             onKeyDown={handleKeyPress}
             style={inputStyles}
