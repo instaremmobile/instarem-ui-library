@@ -50,6 +50,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       retryConfig = { maxAttempt: 5 },
       handleChange,
       outlined = false,
+      borderless = false,
+      format,
+      parse,
+      formatOn = 'blur',
+
       ...props
     },
     ref
@@ -71,8 +76,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const [hasFetchedInitialData, setHasFetchedInitialData] =
       useState<boolean>(false);
 
-    // Local editable text while dropdown is open (doesn't mutate form value)
     const [searchText, setSearchText] = useState<string>('');
+
+    const [displayText, setDisplayText] = useState<string>(
+      String(defaultValue ?? '')
+    );
 
     const inputRef = useRef<HTMLInputElement>(null);
     const suggestionListRef = useRef<HTMLUListElement>(null);
@@ -84,6 +92,15 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const inputId = id || useId();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
+
+    const formatSafe = useCallback(
+      (v: any) => (format ? format(v) : v ?? ''),
+      [format]
+    );
+    const parseSafe = useCallback(
+      (s: string) => (parse ? parse(s) : s),
+      [parse]
+    );
 
     const handleOnIconClick = useCallback(
       (
@@ -177,7 +194,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       ? suggestionsVisible
         ? searchText
         : selectedFromValue?.label ?? String(currentValue ?? '')
-      : String(currentValue ?? '');
+      : displayText ?? String(currentValue ?? '');
+
+    useEffect(() => {
+      if (isSearchable) return;
+      const raw = currentValue;
+      if (formatOn === 'none') {
+        setDisplayText(String(raw ?? ''));
+      } else {
+        setDisplayText(formatSafe(raw));
+      }
+    }, [currentValue, isSearchable, formatOn, formatSafe]);
 
     const handleFilterSuggestions = useMemo(() => {
       return debounce((newValue: string) => {
@@ -295,7 +322,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       ]
     );
 
-    // SELECT from dropdown: show LABEL, emit VALUE (and notify RHF too)
     const handleSuggestionSelect = useCallback(
       (selectedSuggestion: SuggestionType) => {
         const display = selectedSuggestion.label;
@@ -319,28 +345,42 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       [isControlled, handleChange, isSearchable, props]
     );
 
-    // TYPING in input
     const handleInputChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
+        const next = event.target.value;
 
         if (isSearchable) {
-          setSearchText(newValue);
+          setSearchText(next);
           setSuggestionsVisible(true);
           setSelectedSuggestionIndex(-1);
-          handleFilterSuggestions(newValue);
-
-          if (!isControlled) setInternalValue(newValue);
-
+          handleFilterSuggestions(next);
+          if (!isControlled) setInternalValue(next);
           return;
         }
 
-        if (!isControlled) setInternalValue(newValue);
+        setDisplayText(next);
+        const raw = parseSafe(next);
+
+        if (!isControlled) setInternalValue(raw);
 
         (props as any)?.onChange?.(event);
-        handleChange?.(newValue);
+        handleChange?.(raw);
+
+        if (formatOn === 'change') {
+          const formatted = formatSafe(raw);
+          setDisplayText(formatted);
+        }
       },
-      [isControlled, isSearchable, handleFilterSuggestions, handleChange, props]
+      [
+        isSearchable,
+        isControlled,
+        handleFilterSuggestions,
+        parseSafe,
+        handleChange,
+        props,
+        formatOn,
+        formatSafe,
+      ]
     );
 
     const handleBlur = useCallback(
@@ -349,10 +389,16 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           setIsFocused(false);
           setSuggestionsVisible(false);
           setSelectedSuggestionIndex(-1);
+
+          if (!isSearchable && formatOn === 'blur') {
+            const raw = parseSafe(displayText ?? '');
+            setDisplayText(formatSafe(raw));
+          }
+
           onBlur?.(event);
         }, 150);
       },
-      [onBlur]
+      [onBlur, isSearchable, formatOn, parseSafe, displayText, formatSafe]
     );
 
     const handleFocus = useCallback(
@@ -362,11 +408,21 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
         if (isSearchable) {
           setSuggestionsVisible(true);
-
           setSearchText(selectedFromValue?.label ?? String(currentValue ?? ''));
+        } else if (formatOn === 'blur') {
+          const raw = parseSafe(displayText ?? '');
+          setDisplayText(String(raw ?? ''));
         }
       },
-      [onFocus, isSearchable, selectedFromValue, currentValue]
+      [
+        onFocus,
+        isSearchable,
+        selectedFromValue,
+        currentValue,
+        formatOn,
+        parseSafe,
+        displayText,
+      ]
     );
 
     const fetchSuggestions = useCallback(async () => {
@@ -476,7 +532,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <div
-        className={cn('text-field-container', fullWidth ? 'full-width' : '')}
+        className={cn(
+          'text-field-container',
+          fullWidth ? 'full-width' : '',
+          borderless ? 'borderless' : ''
+        )}
       >
         <div
           className={cn(
@@ -488,7 +548,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             hasValue ? 'has-value' : '',
             startAdornment ? 'has-left-icon' : '',
             endAdornment || clearable ? 'has-right-icon' : '',
-            outlined ? 'outlined' : ''
+            outlined ? 'outlined' : '',
+            borderless ? 'borderless' : ''
           )}
         >
           {renderIcon(startAdornment, 'left')}
