@@ -1,4 +1,4 @@
-import { RetryConfig } from "../../lib";
+import { RetryConfig } from '../../lib';
 export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string | undefined;
     error?: string | undefined;
@@ -6,7 +6,7 @@ export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElem
     helperText?: string | undefined;
     startAdornment?: IconProps;
     endAdornment?: IconProps;
-    onIconClick?: (position: "left" | "right", event: React.MouseEvent<HTMLDivElement>) => void;
+    onIconClick?: (position: 'left' | 'right', event: React.MouseEvent<HTMLDivElement>) => void;
     iconSize?: number;
     clearable?: boolean;
     fullWidth?: boolean;
@@ -16,6 +16,10 @@ export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElem
     retryConfig?: Partial<RetryConfig>;
     handleChange?: (value: string) => void;
     outlined?: boolean;
+    format?: (value: any) => string;
+    parse?: (display: string) => any;
+    formatOn?: 'change' | 'blur' | 'none';
+    borderless?: boolean;
 }
 export interface IconProps {
     icon: React.ReactElement;

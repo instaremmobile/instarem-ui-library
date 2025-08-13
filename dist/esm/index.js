@@ -2080,11 +2080,11 @@ var debounce_1 = debounce;
 
 var debounce$1 = /*@__PURE__*/getDefaultExportFromCjs(debounce_1);
 
-var css_248z$2 = ".text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: \"hellix-regular\" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: \"hellix-regular\";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: \"hellix-regular\";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: \"hellix-bold\";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}";
+var css_248z$2 = ".text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: \"hellix-regular\" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: \"hellix-regular\";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: \"hellix-regular\";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: \"hellix-bold\";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}";
 styleInject(css_248z$2);
 
 const globalTrie = new Trie();
-const InputField = forwardRef(({ className = '', helperText, type = 'text', label, error, shrink, value: controlledValue, startAdornment, endAdornment, disabled, id, defaultValue = '', onIconClick, iconSize = 18, clearable, fullWidth = false, suggestions = [], isSearchable = false, onBlur, onFocus, fetchFunction, retryConfig = { maxAttempt: 5 }, handleChange, outlined = false, ...props }, ref) => {
+const InputField = forwardRef(({ className = '', helperText, type = 'text', label, error, shrink, value: controlledValue, startAdornment, endAdornment, disabled, id, defaultValue = '', onIconClick, iconSize = 18, clearable, fullWidth = false, suggestions = [], isSearchable = false, onBlur, onFocus, fetchFunction, retryConfig = { maxAttempt: 5 }, handleChange, outlined = false, borderless = false, format, parse, formatOn = 'blur', ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(defaultValue);
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
@@ -2095,8 +2095,8 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
     const [isOffline, setIsOffline] = useState(!navigator.onLine);
     const [retryAttempt, setRetryAttempt] = useState(0);
     const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
-    // Local editable text while dropdown is open (doesn't mutate form value)
     const [searchText, setSearchText] = useState('');
+    const [displayText, setDisplayText] = useState(String(defaultValue ?? ''));
     const inputRef = useRef(null);
     const suggestionListRef = useRef(null);
     const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
@@ -2104,6 +2104,8 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
     const isControlled = controlledValue !== undefined;
     const inputId = id || useId();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
+    const formatSafe = useCallback((v) => (format ? format(v) : v ?? ''), [format]);
+    const parseSafe = useCallback((s) => (parse ? parse(s) : s), [parse]);
     const handleOnIconClick = useCallback((position, iconProps, event) => {
         if (iconProps?.disabled)
             return;
@@ -2162,7 +2164,18 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
         ? suggestionsVisible
             ? searchText
             : selectedFromValue?.label ?? String(currentValue ?? '')
-        : String(currentValue ?? '');
+        : displayText ?? String(currentValue ?? '');
+    useEffect(() => {
+        if (isSearchable)
+            return;
+        const raw = currentValue;
+        if (formatOn === 'none') {
+            setDisplayText(String(raw ?? ''));
+        }
+        else {
+            setDisplayText(formatSafe(raw));
+        }
+    }, [currentValue, isSearchable, formatOn, formatSafe]);
     const handleFilterSuggestions = useMemo(() => {
         return debounce$1((newValue) => {
             const allSuggestions = originalFetchedSuggestions.length > 0
@@ -2255,7 +2268,6 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
         selectedSuggestionIndex,
         filteredSuggestions,
     ]);
-    // SELECT from dropdown: show LABEL, emit VALUE (and notify RHF too)
     const handleSuggestionSelect = useCallback((selectedSuggestion) => {
         const display = selectedSuggestion.label;
         const emitted = selectedSuggestion.value;
@@ -2271,31 +2283,49 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
     }, [isControlled, handleChange, isSearchable, props]);
-    // TYPING in input
     const handleInputChange = useCallback((event) => {
-        const newValue = event.target.value;
+        const next = event.target.value;
         if (isSearchable) {
-            setSearchText(newValue);
+            setSearchText(next);
             setSuggestionsVisible(true);
             setSelectedSuggestionIndex(-1);
-            handleFilterSuggestions(newValue);
+            handleFilterSuggestions(next);
             if (!isControlled)
-                setInternalValue(newValue);
+                setInternalValue(next);
             return;
         }
+        setDisplayText(next);
+        const raw = parseSafe(next);
         if (!isControlled)
-            setInternalValue(newValue);
+            setInternalValue(raw);
         props?.onChange?.(event);
-        handleChange?.(newValue);
-    }, [isControlled, isSearchable, handleFilterSuggestions, handleChange, props]);
+        handleChange?.(raw);
+        if (formatOn === 'change') {
+            const formatted = formatSafe(raw);
+            setDisplayText(formatted);
+        }
+    }, [
+        isSearchable,
+        isControlled,
+        handleFilterSuggestions,
+        parseSafe,
+        handleChange,
+        props,
+        formatOn,
+        formatSafe,
+    ]);
     const handleBlur = useCallback((event) => {
         setTimeout(() => {
             setIsFocused(false);
             setSuggestionsVisible(false);
             setSelectedSuggestionIndex(-1);
+            if (!isSearchable && formatOn === 'blur') {
+                const raw = parseSafe(displayText ?? '');
+                setDisplayText(formatSafe(raw));
+            }
             onBlur?.(event);
         }, 150);
-    }, [onBlur]);
+    }, [onBlur, isSearchable, formatOn, parseSafe, displayText, formatSafe]);
     const handleFocus = useCallback((event) => {
         setIsFocused(true);
         onFocus?.(event);
@@ -2303,7 +2333,19 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             setSuggestionsVisible(true);
             setSearchText(selectedFromValue?.label ?? String(currentValue ?? ''));
         }
-    }, [onFocus, isSearchable, selectedFromValue, currentValue]);
+        else if (formatOn === 'blur') {
+            const raw = parseSafe(displayText ?? '');
+            setDisplayText(String(raw ?? ''));
+        }
+    }, [
+        onFocus,
+        isSearchable,
+        selectedFromValue,
+        currentValue,
+        formatOn,
+        parseSafe,
+        displayText,
+    ]);
     const fetchSuggestions = useCallback(async () => {
         if (!fetchFunction || retryAttempt > retryConfig.maxAttempt)
             return;
@@ -2381,7 +2423,7 @@ const InputField = forwardRef(({ className = '', helperText, type = 'text', labe
             setFilteredSuggestions(normalized);
         }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
-    return (jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : ''), children: [jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : ''), children: [renderIcon(startAdornment, 'left'), jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: displayValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined }), renderIcon(endAdornment, 'right'), label && (jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, isSearchable ? searchText : String(currentValue ?? '')) }, `${suggestion.value}-${index}`)))) : (jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxs("div", { className: "loading-container", children: [jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
+    return (jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : '', borderless ? 'borderless' : ''), children: [jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : '', borderless ? 'borderless' : ''), children: [renderIcon(startAdornment, 'left'), jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: displayValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined }), renderIcon(endAdornment, 'right'), label && (jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, isSearchable ? searchText : String(currentValue ?? '')) }, `${suggestion.value}-${index}`)))) : (jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxs("div", { className: "loading-container", children: [jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
 });
 InputField.displayName = 'InputField';
 var Input = memo(InputField);

@@ -37,7 +37,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     helperText?: string | undefined;
     startAdornment?: IconProps;
     endAdornment?: IconProps;
-    onIconClick?: (position: "left" | "right", event: React.MouseEvent<HTMLDivElement>) => void;
+    onIconClick?: (position: 'left' | 'right', event: React.MouseEvent<HTMLDivElement>) => void;
     iconSize?: number;
     clearable?: boolean;
     fullWidth?: boolean;
@@ -47,6 +47,10 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     retryConfig?: Partial<RetryConfig>;
     handleChange?: (value: string) => void;
     outlined?: boolean;
+    format?: (value: any) => string;
+    parse?: (display: string) => any;
+    formatOn?: 'change' | 'blur' | 'none';
+    borderless?: boolean;
 }
 interface IconProps {
     icon: React.ReactElement;
