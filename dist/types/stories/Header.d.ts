@@ -8,5 +8,5 @@ export interface HeaderProps {
     onLogout?: () => void;
     onCreateAccount?: () => void;
 }
-export declare const Header: ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => JSX.Element;
+export declare const Header: ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => import("react/jsx-runtime").JSX.Element;
 export {};

@@ -75,6 +75,7 @@
     "storybook": "8.6.14",
     "ts-jest": "29.3.4",
     "ts-node": "10.9.2",
+    "tsc-alias": "^1.8.16",
     "tslib": "2.6.3",
     "typescript": "5.5.4",
     "typescript-eslint": "8.13.0"
