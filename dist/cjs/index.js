@@ -2086,7 +2086,7 @@ var css_248z$2 = ".text-field-container {\n  display: flex;\n  justify-content: 
 styleInject(css_248z$2);
 
 const globalTrie = new Trie();
-const InputField = React.forwardRef(({ className = '', helperText, type = 'text', label, error, shrink, value: controlledValue, startAdornment, endAdornment, disabled, id, defaultValue = '', onIconClick, iconSize = 18, clearable, fullWidth = false, suggestions = [], isSearchable = false, onBlur, onFocus, fetchFunction, retryConfig = { maxAttempt: 5 }, handleChange, outlined = false, borderless = false, format, parse, formatOn = 'blur', ...props }, ref) => {
+const InputField = React.forwardRef(({ className = '', helperText, type = 'text', label, error, shrink, value: controlledValue, startAdornment, endAdornment, disabled, id, defaultValue = '', onIconClick, iconSize = 18, clearable, fullWidth = false, suggestions = [], isSearchable = false, onBlur, onFocus, fetchFunction, retryConfig = { maxAttempt: 5 }, handleChange, outlined = false, borderless = false, format, parse, formatOn = 'blur', rawOnChange = true, maxRawLength, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false);
     const [internalValue, setInternalValue] = React.useState(defaultValue);
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] = React.useState(-1);
@@ -2135,8 +2135,22 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
             style.paddingLeft = `${iconSize + 20}px`;
         if (endAdornment || (clearable && currentValue))
             style.paddingRight = `${iconSize + 16}px`;
+        if (borderless) {
+            style.border = 'none';
+            style.background = 'transparent';
+            style.boxShadow = 'none';
+            style.paddingLeft = 0;
+            style.paddingRight = 0;
+        }
         return style;
-    }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
+    }, [
+        startAdornment,
+        endAdornment,
+        clearable,
+        currentValue,
+        iconSize,
+        borderless,
+    ]);
     const normalizeSuggestions = React.useCallback((arr) => {
         if (!arr || arr.length === 0)
             return [];
@@ -2215,6 +2229,21 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
             }
         }, 300);
     }, [originalFetchedSuggestions, suggestions, normalizeSuggestions]);
+    const handleSuggestionSelect = React.useCallback((selectedSuggestion) => {
+        const display = selectedSuggestion.label;
+        const emitted = selectedSuggestion.value;
+        if (!isControlled) {
+            setInternalValue(isSearchable ? display : emitted);
+        }
+        handleChange?.(emitted);
+        const anyProps = props;
+        const fieldName = anyProps?.name;
+        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
+        setSearchText('');
+        setSuggestionsVisible(false);
+        setSelectedSuggestionIndex(-1);
+        inputRef.current?.focus();
+    }, [isControlled, handleChange, isSearchable, props]);
     const handleKeyPress = React.useCallback((event) => {
         if (!isSearchable || !suggestionsVisible)
             return;
@@ -2269,38 +2298,42 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
         suggestionsVisible,
         selectedSuggestionIndex,
         filteredSuggestions,
+        handleSuggestionSelect,
     ]);
-    const handleSuggestionSelect = React.useCallback((selectedSuggestion) => {
-        const display = selectedSuggestion.label;
-        const emitted = selectedSuggestion.value;
-        if (!isControlled) {
-            setInternalValue(isSearchable ? display : emitted);
-        }
-        handleChange?.(emitted);
-        const anyProps = props;
-        const fieldName = anyProps?.name;
-        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
-        setSearchText('');
-        setSuggestionsVisible(false);
-        setSelectedSuggestionIndex(-1);
-        inputRef.current?.focus();
-    }, [isControlled, handleChange, isSearchable, props]);
     const handleInputChange = React.useCallback((event) => {
-        const next = event.target.value;
+        const nextDisplay = event.target.value;
         if (isSearchable) {
-            setSearchText(next);
+            setSearchText(nextDisplay);
             setSuggestionsVisible(true);
             setSelectedSuggestionIndex(-1);
-            handleFilterSuggestions(next);
+            handleFilterSuggestions(nextDisplay);
             if (!isControlled)
-                setInternalValue(next);
+                setInternalValue(nextDisplay);
             return;
         }
-        setDisplayText(next);
-        const raw = parseSafe(next);
+        setDisplayText(nextDisplay);
+        const raw = parseSafe(nextDisplay);
+        if (typeof maxRawLength === 'number' &&
+            (raw ?? '').toString().length > maxRawLength) {
+            const prev = isControlled ? controlledValue : internalValue;
+            if (formatOn === 'change') {
+                setDisplayText(formatSafe(prev));
+            }
+            else {
+                setDisplayText(String(prev ?? ''));
+            }
+            return;
+        }
         if (!isControlled)
             setInternalValue(raw);
-        props?.onChange?.(event);
+        const anyProps = props;
+        if (rawOnChange) {
+            const fieldName = anyProps?.name;
+            anyProps?.onChange?.({ target: { value: raw, name: fieldName } });
+        }
+        else {
+            anyProps?.onChange?.(event);
+        }
         handleChange?.(raw);
         if (formatOn === 'change') {
             const formatted = formatSafe(raw);
@@ -2315,6 +2348,10 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
         props,
         formatOn,
         formatSafe,
+        controlledValue,
+        internalValue,
+        rawOnChange,
+        maxRawLength,
     ]);
     const handleBlur = React.useCallback((event) => {
         setTimeout(() => {
@@ -2363,7 +2400,6 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
             normalized.forEach((item) => globalTrie.insert(item.label));
         }
         catch (exception) {
-            console.error('Error fetching suggestions:', exception);
             setRetryAttempt((prev) => prev + 1);
             if (isOffline) {
                 const cached = networkManager.cache.get(cacheKey);
@@ -2425,7 +2461,9 @@ const InputField = React.forwardRef(({ className = '', helperText, type = 'text'
             setFilteredSuggestions(normalized);
         }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
-    return (jsxRuntime.jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : '', borderless ? 'borderless' : ''), children: [jsxRuntime.jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : '', borderless ? 'borderless' : ''), children: [renderIcon(startAdornment, 'left'), jsxRuntime.jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: displayValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined }), renderIcon(endAdornment, 'right'), label && (jsxRuntime.jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsxRuntime.jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsxRuntime.jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsxRuntime.jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsxRuntime.jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, isSearchable ? searchText : String(currentValue ?? '')) }, `${suggestion.value}-${index}`)))) : (jsxRuntime.jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxRuntime.jsxs("div", { className: "loading-container", children: [jsxRuntime.jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsxRuntime.jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
+    return (jsxRuntime.jsxs("div", { className: cn('text-field-container', fullWidth ? 'full-width' : '', borderless ? 'borderless' : ''), children: [jsxRuntime.jsxs("div", { className: cn('input-field-wrapper', shrink ? 'shrink' : '', error ? 'error' : '', isFocused ? 'focused' : '', disabled ? 'disabled' : '', hasValue ? 'has-value' : '', startAdornment ? 'has-left-icon' : '', endAdornment || clearable ? 'has-right-icon' : '', outlined ? 'outlined' : '', borderless ? 'borderless' : ''), children: [renderIcon(startAdornment, 'left'), jsxRuntime.jsx("input", { ...props, id: inputId, ref: ref || inputRef, className: cn('text-field-input', disabled ? 'disabled' : '', className), type: type, value: displayValue, onChange: handleInputChange, onFocus: handleFocus, onBlur: handleBlur, onKeyDown: handleKeyPress, style: inputStyles, disabled: disabled, "aria-invalid": Boolean(error), "aria-describedby": cn(error ? `${inputId}-error` : undefined, helperText ? `${inputId}-helper` : undefined).trim() || undefined, "aria-expanded": isSearchable ? suggestionsVisible : undefined, "aria-haspopup": isSearchable ? 'listbox' : undefined, "aria-autocomplete": isSearchable ? 'list' : undefined, role: isSearchable ? 'combobox' : undefined, maxLength: typeof maxRawLength === 'number'
+                            ? undefined
+                            : props?.maxLength }), renderIcon(endAdornment, 'right'), label && (jsxRuntime.jsx("label", { htmlFor: inputId, className: "text-field-label", style: startAdornment ? { left: `${iconSize + 16}px` } : undefined, children: label }))] }), error && (jsxRuntime.jsx("div", { id: `${inputId}-error`, className: "error-message", role: "alert", children: error })), helperText && (jsxRuntime.jsx("span", { id: `${inputId}-helper`, className: "helper-text", children: helperText })), isSearchable && suggestionsVisible && (jsxRuntime.jsx("ul", { ref: suggestionListRef, className: "suggestions-list", role: "listbox", "aria-label": `Suggestions for ${label || 'input'}`, children: filteredSuggestions.length > 0 ? (filteredSuggestions.map((suggestion, index) => (jsxRuntime.jsx("li", { role: "option", className: cn('suggestion-item', index === selectedSuggestionIndex ? 'selected' : ''), "aria-selected": index === selectedSuggestionIndex, onClick: () => handleSuggestionSelect(suggestion), onMouseEnter: () => setSelectedSuggestionIndex(index), children: renderSuggestions(suggestion.label, isSearchable ? searchText : String(currentValue ?? '')) }, `${suggestion.value}-${index}`)))) : (jsxRuntime.jsx("li", { role: "option", className: "suggestion-item no-results", children: isLoading ? (jsxRuntime.jsxs("div", { className: "loading-container", children: [jsxRuntime.jsx(LoaderCircle, { className: "animate-spin", size: 16 }), jsxRuntime.jsx("span", { children: "Loading..." })] })) : ('No Results') })) }))] }));
 });
 InputField.displayName = 'InputField';
 var Input = React.memo(InputField);

@@ -20,6 +20,8 @@ export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElem
     parse?: (display: string) => any;
     formatOn?: 'change' | 'blur' | 'none';
     borderless?: boolean;
+    rawOnChange?: boolean;
+    maxRawLength?: number;
 }
 export interface IconProps {
     icon: React.ReactElement;

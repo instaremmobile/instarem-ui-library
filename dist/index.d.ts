@@ -51,6 +51,8 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     parse?: (display: string) => any;
     formatOn?: 'change' | 'blur' | 'none';
     borderless?: boolean;
+    rawOnChange?: boolean;
+    maxRawLength?: number;
 }
 interface IconProps {
     icon: React.ReactElement;
