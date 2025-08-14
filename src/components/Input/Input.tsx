@@ -54,7 +54,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       format,
       parse,
       formatOn = 'blur',
-
+      rawOnChange = true,
+      maxRawLength,
       ...props
     },
     ref
@@ -75,9 +76,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const [retryAttempt, setRetryAttempt] = useState<number>(0);
     const [hasFetchedInitialData, setHasFetchedInitialData] =
       useState<boolean>(false);
-
     const [searchText, setSearchText] = useState<string>('');
-
     const [displayText, setDisplayText] = useState<string>(
       String(defaultValue ?? '')
     );
@@ -118,16 +117,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const renderIcon = useCallback(
       (iconProps: IconProps | undefined, position: 'left' | 'right') => {
         if (isEmpty(iconProps) || !iconProps) return null;
-
         const { icon, onClick, toolTip, disabled, className = '' } = iconProps;
-
         const handleKeyDown = (e: ReactKeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             handleOnIconClick(position, iconProps, e as any);
           }
         };
-
         return (
           <div
             className={cn(
@@ -159,8 +155,22 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       if (startAdornment) style.paddingLeft = `${iconSize + 20}px`;
       if (endAdornment || (clearable && currentValue))
         style.paddingRight = `${iconSize + 16}px`;
+      if (borderless) {
+        style.border = 'none';
+        style.background = 'transparent';
+        style.boxShadow = 'none';
+        style.paddingLeft = 0;
+        style.paddingRight = 0;
+      }
       return style;
-    }, [startAdornment, endAdornment, clearable, currentValue, iconSize]);
+    }, [
+      startAdornment,
+      endAdornment,
+      clearable,
+      currentValue,
+      iconSize,
+      borderless,
+    ]);
 
     const normalizeSuggestions = useCallback((arr: any[]): SuggestionType[] => {
       if (!arr || arr.length === 0) return [];
@@ -212,15 +222,12 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           originalFetchedSuggestions.length > 0
             ? originalFetchedSuggestions
             : normalizeSuggestions(suggestions);
-
         if (newValue.trim()) {
           const searchResults = globalTrie.search(newValue.trim(), {
             maxDistance: 4,
             matchType: 'partial',
           });
-
           const matched: SuggestionType[] = [];
-
           if (searchResults.length > 0) {
             searchResults.forEach((resultLabel) => {
               const hit = allSuggestions.find(
@@ -236,7 +243,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 matched.push(hit);
             });
           }
-
           if (matched.length === 0) {
             const q = newValue.toLowerCase().trim();
             setFilteredSuggestions(
@@ -255,10 +261,28 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       }, 300);
     }, [originalFetchedSuggestions, suggestions, normalizeSuggestions]);
 
+    const handleSuggestionSelect = useCallback(
+      (selectedSuggestion: SuggestionType) => {
+        const display = selectedSuggestion.label;
+        const emitted = selectedSuggestion.value;
+        if (!isControlled) {
+          setInternalValue(isSearchable ? display : emitted);
+        }
+        handleChange?.(emitted);
+        const anyProps = props as any;
+        const fieldName = anyProps?.name;
+        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
+        setSearchText('');
+        setSuggestionsVisible(false);
+        setSelectedSuggestionIndex(-1);
+        inputRef.current?.focus();
+      },
+      [isControlled, handleChange, isSearchable, props]
+    );
+
     const handleKeyPress = useCallback(
       (event: ReactKeyboardEvent<HTMLInputElement>) => {
         if (!isSearchable || !suggestionsVisible) return;
-
         switch (event.key) {
           case 'ArrowUp': {
             event.preventDefault();
@@ -319,51 +343,48 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         suggestionsVisible,
         selectedSuggestionIndex,
         filteredSuggestions,
+        handleSuggestionSelect,
       ]
-    );
-
-    const handleSuggestionSelect = useCallback(
-      (selectedSuggestion: SuggestionType) => {
-        const display = selectedSuggestion.label;
-        const emitted = selectedSuggestion.value;
-
-        if (!isControlled) {
-          setInternalValue(isSearchable ? display : emitted);
-        }
-
-        handleChange?.(emitted);
-
-        const anyProps = props as any;
-        const fieldName = anyProps?.name;
-        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
-
-        setSearchText('');
-        setSuggestionsVisible(false);
-        setSelectedSuggestionIndex(-1);
-        inputRef.current?.focus();
-      },
-      [isControlled, handleChange, isSearchable, props]
     );
 
     const handleInputChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
-        const next = event.target.value;
+        const nextDisplay = event.target.value;
 
         if (isSearchable) {
-          setSearchText(next);
+          setSearchText(nextDisplay);
           setSuggestionsVisible(true);
           setSelectedSuggestionIndex(-1);
-          handleFilterSuggestions(next);
-          if (!isControlled) setInternalValue(next);
+          handleFilterSuggestions(nextDisplay);
+          if (!isControlled) setInternalValue(nextDisplay);
           return;
         }
 
-        setDisplayText(next);
-        const raw = parseSafe(next);
+        setDisplayText(nextDisplay);
+        const raw = parseSafe(nextDisplay) as string;
+
+        if (
+          typeof maxRawLength === 'number' &&
+          (raw ?? '').toString().length > maxRawLength
+        ) {
+          const prev = isControlled ? controlledValue : internalValue;
+          if (formatOn === 'change') {
+            setDisplayText(formatSafe(prev));
+          } else {
+            setDisplayText(String(prev ?? ''));
+          }
+          return;
+        }
 
         if (!isControlled) setInternalValue(raw);
 
-        (props as any)?.onChange?.(event);
+        const anyProps = props as any;
+        if (rawOnChange) {
+          const fieldName = anyProps?.name;
+          anyProps?.onChange?.({ target: { value: raw, name: fieldName } });
+        } else {
+          anyProps?.onChange?.(event);
+        }
         handleChange?.(raw);
 
         if (formatOn === 'change') {
@@ -380,6 +401,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         props,
         formatOn,
         formatSafe,
+        controlledValue,
+        internalValue,
+        rawOnChange,
+        maxRawLength,
       ]
     );
 
@@ -389,12 +414,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           setIsFocused(false);
           setSuggestionsVisible(false);
           setSelectedSuggestionIndex(-1);
-
           if (!isSearchable && formatOn === 'blur') {
             const raw = parseSafe(displayText ?? '');
             setDisplayText(formatSafe(raw));
           }
-
           onBlur?.(event);
         }, 150);
       },
@@ -405,7 +428,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       (event: FocusEvent<HTMLInputElement>) => {
         setIsFocused(true);
         onFocus?.(event);
-
         if (isSearchable) {
           setSuggestionsVisible(true);
           setSearchText(selectedFromValue?.label ?? String(currentValue ?? ''));
@@ -427,9 +449,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const fetchSuggestions = useCallback(async () => {
       if (!fetchFunction || retryAttempt > retryConfig.maxAttempt!) return;
-
       const cacheKey = `suggestions-initial`;
-
       try {
         setIsLoading(true);
         const suggestionsResults = (await networkManager.fetchWithRetry(
@@ -437,19 +457,14 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           fetchFunction,
           retryConfig
         )) as any[];
-
         const normalized = normalizeSuggestions(suggestionsResults);
-
         setOriginalFetchedSuggestions(normalized);
         setFilteredSuggestions(normalized);
         setRetryAttempt(0);
         setHasFetchedInitialData(true);
-
         normalized.forEach((item) => globalTrie.insert(item.label));
       } catch (exception) {
-        console.error('Error fetching suggestions:', exception);
         setRetryAttempt((prev) => prev + 1);
-
         if (isOffline) {
           const cached = networkManager.cache.get(cacheKey) as any[];
           if (cached?.length > 0) {
@@ -507,10 +522,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     useEffect(() => {
       const handleOnline = () => setIsOffline(false);
       const handleOffline = () => setIsOffline(true);
-
       window.addEventListener('online', handleOnline);
       window.addEventListener('offline', handleOffline);
-
       return () => {
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
@@ -581,6 +594,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             aria-haspopup={isSearchable ? 'listbox' : undefined}
             aria-autocomplete={isSearchable ? 'list' : undefined}
             role={isSearchable ? 'combobox' : undefined}
+            maxLength={
+              typeof maxRawLength === 'number'
+                ? undefined
+                : (props as any)?.maxLength
+            }
           />
           {renderIcon(endAdornment, 'right')}
           {label && (
