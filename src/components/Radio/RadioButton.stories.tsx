@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { StoryObj, Meta } from "@storybook/react-webpack5";
+import { action } from "storybook/actions";
 import RadioButton from "./RadioButton";
 import { RadioButtonProps } from "./RadioButton.types";
 import React from "react";
