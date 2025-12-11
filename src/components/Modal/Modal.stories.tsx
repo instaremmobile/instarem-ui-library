@@ -1,18 +1,18 @@
-import { Meta, StoryObj } from "@storybook/react-webpack5";
-import React from "react";
-import { Modal, ModalProps } from "./Modal";
+import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { Modal, ModalProps } from './Modal';
 
 const meta = {
-  title: "Components/Modal",
+  title: 'Components/Modal',
   component: Modal,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    isOpen: { type: "boolean", control: "boolean" },
-    closeOverlayClick: { type: "boolean", control: "boolean" },
-    title: { type: "string", control: "text" },
+    isOpen: { type: 'boolean', control: 'boolean' },
+    closeOverlayClick: { type: 'boolean', control: 'boolean' },
+    title: { type: 'string', control: 'text' },
   },
 } satisfies Meta<typeof Modal>;
 

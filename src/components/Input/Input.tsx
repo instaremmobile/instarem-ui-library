@@ -140,10 +140,19 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             tabIndex={onClick && !disabled ? 0 : -1}
             aria-label={toolTip}
           >
-            {cloneElement(icon, {
-              size: iconSize,
-              className: cn('icon', disabled ? 'disabled' : ''),
-            })}
+            {React.isValidElement(icon)
+              ? cloneElement(
+                  icon as React.ReactElement<any>,
+                  {
+                    size: iconSize as any,
+                    className: cn(
+                      'icon',
+                      disabled ? 'disabled' : '',
+                      (icon as any)?.props?.className || ''
+                    ),
+                  } as any
+                )
+              : icon}
           </div>
         );
       },

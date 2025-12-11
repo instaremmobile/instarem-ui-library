@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import { Toggle } from "./Toggle";
-import React from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Toggle } from './Toggle';
+import React from 'react';
 
 const meta: Meta<typeof Toggle> = {
-  title: "Components/Toggle",
+  title: 'Components/Toggle',
   component: Toggle,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof Toggle>;
 
 export const Default: Story = {
   args: {
-    label: "Toggle me",
+    label: 'Toggle me',
     checked: false,
   },
 };
@@ -33,7 +33,7 @@ const ToggleWithState = (props: any) => {
       checked={checked}
       onChange={handleChange}
       labelPosition="left"
-      label={`Toggle is ${checked ? "On" : "Off"}`}
+      label={`Toggle is ${checked ? 'On' : 'Off'}`}
     />
   );
 };

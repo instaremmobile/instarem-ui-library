@@ -1,5 +1,5 @@
-import type { Preview } from "@storybook/react-webpack5";
-import "../src/styles/globalStyles.scss";
+import type { Preview } from '@storybook/react';
+import '../src/styles/globalStyles.scss';
 
 export const preview: Preview = {
   parameters: {
