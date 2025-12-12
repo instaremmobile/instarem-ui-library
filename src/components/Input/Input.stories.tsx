@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { Search, Eye } from 'lucide-react';
 import Input from './Input';
@@ -108,11 +108,12 @@ const ButtonWithFetchFunction = (props: any) => {
       }
     );
     if (!resposne.ok) {
+      //eslint-disable-next-line no-console
       console.error('Could not fetch users');
       return;
     }
     const data = await resposne.json();
-    console.log(data);
+
     return data.data;
   };
 
@@ -129,11 +130,12 @@ const fetchUsers = async () => {
     }
   );
   if (!resposne.ok) {
+    //eslint-disable-next-line no-console
     console.error('Could not fetch users');
     return;
   }
   const data = await resposne.json();
-  console.log(data);
+
   return data.data;
 };
 export const InputReloaded: Story = {

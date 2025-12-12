@@ -1,6 +1,6 @@
 import React from 'react';
 import { KeySquareIcon, LogIn, PlusIcon } from 'lucide-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
 import Button from './Button';

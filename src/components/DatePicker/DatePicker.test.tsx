@@ -11,7 +11,7 @@ describe('DatePicker', () => {
 
   it('calls onChange when a date is selected (simulated)', async () => {
     const user = userEvent.setup();
-    const handleChange = vi.fn();
+    const handleChange = jest.fn();
     render(<DatePicker label="Pick" value={null} onChange={handleChange} />);
 
     // Open the picker by focusing the input

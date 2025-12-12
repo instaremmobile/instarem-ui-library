@@ -11,11 +11,11 @@ const config = {
     '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@chromatic-com/storybook',
-    '@storybook/addon-docs',
+    '@storybook/addon-docs'
   ],
   framework: {
     name: '@storybook/react-vite',
-    options: {},
+    options: {}
   },
   // Vite handles SCSS out of the box; keep aliases via viteFinal
   viteFinal: async (config: any) => {
@@ -23,9 +23,9 @@ const config = {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       '@lib': path.resolve(__dirname, '../src/lib'),
-      '@styles/*': path.resolve(__dirname, '../src/styles/*'),
+      '@styles/*': path.resolve(__dirname, '../src/styles/*')
     };
     return config;
-  },
+  }
 };
 export default config;
