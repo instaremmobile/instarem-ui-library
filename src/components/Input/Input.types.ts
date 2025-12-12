@@ -1,17 +1,13 @@
 import { RetryConfig } from '@lib';
 
-export interface InputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string | undefined;
   error?: string | undefined;
   shrink?: boolean;
   helperText?: string | undefined;
   startAdornment?: IconProps;
   endAdornment?: IconProps;
-  onIconClick?: (
-    position: 'left' | 'right',
-    event: React.MouseEvent<HTMLDivElement>
-  ) => void;
+  onIconClick?: (position: 'left' | 'right', event: React.MouseEvent<HTMLDivElement>) => void;
   iconSize?: number;
   clearable?: boolean;
   fullWidth?: boolean;

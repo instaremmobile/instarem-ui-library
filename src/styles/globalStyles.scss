@@ -1,23 +1,23 @@
-$FONT_BASE_URL_HELLIX: "https://cdn.instarem.com/fonts/Helix/";
+$FONT_BASE_URL_HELLIX: 'https://cdn.instarem.com/fonts/Helix/';
 
 @font-face {
-  font-family: "hellix-regular";
+  font-family: 'hellix-regular';
   font-display: swap;
   src:
-    url("#{$FONT_BASE_URL_HELLIX}Hellix-Regular.otf") format("opentype"),
-    url("#{$FONT_BASE_URL_HELLIX}Hellix-Regular.ttf") format("truetype");
+    url('#{$FONT_BASE_URL_HELLIX}Hellix-Regular.otf') format('opentype'),
+    url('#{$FONT_BASE_URL_HELLIX}Hellix-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "hellix-bold";
+  font-family: 'hellix-bold';
   font-display: swap;
   src:
-    url("#{$FONT_BASE_URL_HELLIX}Hellix-Bold.otf") format("opentype"),
-    url("#{$FONT_BASE_URL_HELLIX}Hellix-Bold.ttf") format("truetype");
+    url('#{$FONT_BASE_URL_HELLIX}Hellix-Bold.otf') format('opentype'),
+    url('#{$FONT_BASE_URL_HELLIX}Hellix-Bold.ttf') format('truetype');
 }
 
 body {
-  font-family: "hellix-regular", sans-serif !important;
+  font-family: 'hellix-regular', sans-serif !important;
   margin: 0;
   padding: 0;
 }

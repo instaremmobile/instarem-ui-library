@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { COLORS } from "../../lib";
+import styled from 'styled-components';
+import { COLORS } from '../../lib';
 
 export const InputFieldContainer = styled.div`
   width: 100%;
   max-width: 450px;
   display: flex;
   flex-direction: column;
-  font-family: "hellix-regular";
+  font-family: 'hellix-regular';
 `;
 
 export const InputField = styled.input`
@@ -20,7 +20,7 @@ export const InputField = styled.input`
   width: 100%;
   border-radius: 4px;
   transition: border 0.2s ease;
-  font-family: "Hellix-regular";
+  font-family: 'Hellix-regular';
   &:focus {
     border-color: ${COLORS.colorBlack};
   }
@@ -43,17 +43,14 @@ type LabelType = {
 
 export const Label = styled.label<LabelType>`
   position: absolute;
-  top: ${({ placeholder, label }) => (placeholder && label ? "0" : "1.6em")};
-  left: ${({ placeholder, label }) =>
-    placeholder && label ? "16px" : "1.6em"};
-  font-size: ${({ placeholder, label }) =>
-    placeholder && label ? "14px" : "16px"};
+  top: ${({ placeholder, label }) => (placeholder && label ? '0' : '1.6em')};
+  left: ${({ placeholder, label }) => (placeholder && label ? '16px' : '1.6em')};
+  font-size: ${({ placeholder, label }) => (placeholder && label ? '14px' : '16px')};
   color: ${({ placeholder, label }) =>
     placeholder && label ? COLORS.colorBlack : COLORS.colorBorderGrey};
   pointer-events: none;
   transition: all 0.2s ease;
-  padding: ${({ placeholder, label }) =>
-    placeholder && label ? "0 8px" : "inherit"};
+  padding: ${({ placeholder, label }) => (placeholder && label ? '0 8px' : 'inherit')};
   background-color: ${({ placeholder, label }) =>
-    placeholder && label ? COLORS.colorWhite : "inherit"};
+    placeholder && label ? COLORS.colorWhite : 'inherit'};
 `;

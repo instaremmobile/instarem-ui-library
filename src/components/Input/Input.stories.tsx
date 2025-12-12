@@ -8,7 +8,7 @@ const meta = {
   title: 'Components/Input',
   component: Input,
   parameters: {
-    layout: 'centered',
+    layout: 'centered'
   },
   tags: ['autodocs'],
   argTypes: {
@@ -17,17 +17,16 @@ const meta = {
     placeholder: { control: 'text' },
     error: { control: 'text' },
     shrink: {
-      control: 'boolean',
+      control: 'boolean'
     },
     iconSize: { control: 'number' },
     helperText: { control: 'text', type: 'string' },
     fullWidth: {
       control: 'boolean',
-      description:
-        'Controls wether the input field takes the witdth of 450px or not',
-    },
+      description: 'Controls wether the input field takes the witdth of 450px or not'
+    }
   },
-  args: { onChange: fn() },
+  args: { onChange: fn() }
 } satisfies Meta<typeof Input>;
 
 export default meta;
@@ -53,9 +52,9 @@ export const Enabled: Story = {
       { label: 'Assassins Creed', value: 'assassinsCreed' },
       { label: 'Spider Man', value: 'spiderMan' },
       { label: 'Grand Theft Auto 5', value: 'grandTheftAuto5' },
-      { label: 'Uncharted: Among Theives', value: 'unchartedAmongTheives' },
-    ],
-  },
+      { label: 'Uncharted: Among Theives', value: 'unchartedAmongTheives' }
+    ]
+  }
 };
 
 export const Error: Story = {
@@ -64,40 +63,40 @@ export const Error: Story = {
     label: 'First name',
     placeholder: '',
     error: 'First name is required',
-    shrink: false,
-  },
+    shrink: false
+  }
 };
 
 export const Disabled: Story = {
   args: {
     type: 'text',
     disabled: true,
-    label: 'First name',
-  },
+    label: 'First name'
+  }
 };
 
 export const LeftIcon: Story = {
   args: {
     type: 'text',
     label: 'First name',
-    startAdornment: { icon: <Search /> },
-  },
+    startAdornment: { icon: <Search /> }
+  }
 };
 
 export const RightIcon: Story = {
   args: {
     type: 'text',
     label: 'First name',
-    endAdornment: { icon: <Eye /> },
-  },
+    endAdornment: { icon: <Eye /> }
+  }
 };
 
 export const HelperText: Story = {
   args: {
     type: 'text',
     label: 'First name',
-    helperText: 'Enter your legal first name',
-  },
+    helperText: 'Enter your legal first name'
+  }
 };
 
 const ButtonWithFetchFunction = (props: any) => {
@@ -105,7 +104,7 @@ const ButtonWithFetchFunction = (props: any) => {
     const resposne = await fetch(
       'https://qa.instarem.com/api/v1/public/remitter/countries/dropdown?is_residence_activated=true',
       {
-        method: 'get',
+        method: 'get'
       }
     );
     if (!resposne.ok) {
@@ -118,12 +117,7 @@ const ButtonWithFetchFunction = (props: any) => {
   };
 
   return (
-    <Input
-      fetchFunction={fetchUsers}
-      label="First name"
-      fullWidth={true}
-      isSearchable={true}
-    />
+    <Input fetchFunction={fetchUsers} label="First name" fullWidth={true} isSearchable={true} />
   );
 };
 
@@ -131,7 +125,7 @@ const fetchUsers = async () => {
   const resposne = await fetch(
     'https://qa.instarem.com/api/v1/public/remitter/countries/dropdown?is_residence_activated=true',
     {
-      method: 'get',
+      method: 'get'
     }
   );
   if (!resposne.ok) {
@@ -149,6 +143,6 @@ export const InputReloaded: Story = {
     type: 'text',
     label: 'First name',
     shrink: true,
-    isSearchable: true,
-  },
+    isSearchable: true
+  }
 };

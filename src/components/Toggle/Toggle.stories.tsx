@@ -6,9 +6,9 @@ const meta: Meta<typeof Toggle> = {
   title: 'Components/Toggle',
   component: Toggle,
   parameters: {
-    layout: 'centered',
+    layout: 'centered'
   },
-  tags: ['autodocs'],
+  tags: ['autodocs']
 };
 
 export default meta;
@@ -17,8 +17,8 @@ type Story = StoryObj<typeof Toggle>;
 export const Default: Story = {
   args: {
     label: 'Toggle me',
-    checked: false,
-  },
+    checked: false
+  }
 };
 
 const ToggleWithState = (props: any) => {
@@ -39,5 +39,5 @@ const ToggleWithState = (props: any) => {
 };
 
 export const DynamicToggle: Story = {
-  render: () => <ToggleWithState />,
+  render: () => <ToggleWithState />
 };

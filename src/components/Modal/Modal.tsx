@@ -1,7 +1,7 @@
-import React from "react";
-import { cn } from "../../lib";
+import React from 'react';
+import { cn } from '../../lib';
 
-import "./modal.scss";
+import './modal.scss';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -25,27 +25,27 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
           onClose();
         }
       },
-      [closeOverlayClick, onClose],
+      [closeOverlayClick, onClose]
     );
 
     const handleEscapekey = React.useCallback(
       (e: KeyboardEvent) => {
-        if (isOpen && e.key === "Escape") {
+        if (isOpen && e.key === 'Escape') {
           onClose();
         }
       },
-      [isOpen, onClose],
+      [isOpen, onClose]
     );
 
     React.useEffect(() => {
       if (isOpen) {
-        document.addEventListener("keydown", handleEscapekey);
-        document.body.style.overflow = "hidden";
+        document.addEventListener('keydown', handleEscapekey);
+        document.body.style.overflow = 'hidden';
       }
 
       return () => {
-        document.removeEventListener("keydown", handleEscapekey);
-        document.body.style.overflow = "";
+        document.removeEventListener('keydown', handleEscapekey);
+        document.body.style.overflow = '';
       };
     }, [isOpen, handleEscapekey]);
 
@@ -53,13 +53,13 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
       open: () => {},
       close: () => {
         onClose();
-      },
+      }
     }));
 
     if (!isOpen) return null;
     return (
       <div
-        className={cn("modal", isOpen ? "modal--open" : "", className)}
+        className={cn('modal', isOpen ? 'modal--open' : '', className)}
         role="dialog"
         aria-modal="true"
       >
@@ -68,11 +68,7 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
             {title && (
               <div className="modal__header">
                 <h2 className="modal__title">{title}</h2>
-                <button
-                  className="modal__close-button"
-                  onClick={onClose}
-                  aria-label="Close"
-                >
+                <button className="modal__close-button" onClick={onClose} aria-label="Close">
                   &times;
                 </button>
               </div>
@@ -82,9 +78,9 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 
-Modal.displayName = "Modal Popup";
+Modal.displayName = 'Modal Popup';
 
 export { Modal };

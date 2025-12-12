@@ -20,7 +20,9 @@
     "test:watch": "jest --watch --config jest.config.ts",
     "lint": "eslint ./",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "type-check": "tsc --noEmit --skipLibCheck"
+    "type-check": "tsc --noEmit --skipLibCheck",
+    "format": "prettier --write src/",
+    "precommit": "pretty-quick --staged"
   },
   "author": "Shubham Madankar",
   "license": "MIT",
@@ -81,15 +83,28 @@
     "react": "19.2.1"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.6",
+    "@mui/x-date-pickers": "^8.21.0",
     "@storybook/react-vite": "^10.1.6",
     "@types/lodash": "4.17.21",
     "@typescript-eslint/eslint-plugin": "8.49.0",
     "@typescript-eslint/parser": "8.49.0",
     "axios": "1.13.2",
     "clsx": "2.1.1",
+    "date-fns": "^4.1.0",
     "eslint-import-resolver-typescript": "4.4.4",
     "lodash": "4.17.21",
     "lucide-react": "0.560.0",
+    "prettier": "^3.7.4",
+    "pretty-quick": "^4.2.2",
     "styled-components": "^6.1.19"
-  }
+  },
+  "pre-commit": [
+    "precommit",
+    "lint",
+    "type-check",
+    "test"
+  ]
 }

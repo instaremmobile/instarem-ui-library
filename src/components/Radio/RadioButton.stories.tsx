@@ -8,13 +8,13 @@ const meta = {
   title: 'Components/RadioButton',
   component: RadioButton,
   parameters: {
-    layout: 'centered',
+    layout: 'centered'
   },
   tags: ['autodocs'],
   argTypes: {
-    label: { control: 'text', type: 'string' },
+    label: { control: 'text', type: 'string' }
   },
-  args: { onChange: action('onChange') },
+  args: { onChange: action('onChange') }
 } satisfies Meta<RadioButtonProps>;
 
 export default meta;
@@ -24,13 +24,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Radio button',
-    checked: true,
-  },
+    checked: true
+  }
 };
 
 const RadioButtonGroup = () => {
-  const [currentlySelected, setCurrentlySelected] =
-    React.useState<string>('option1');
+  const [currentlySelected, setCurrentlySelected] = React.useState<string>('option1');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentlySelected(e.target.value);
@@ -56,20 +55,20 @@ const RadioButtonGroup = () => {
 };
 
 export const Group: Story = {
-  render: () => <RadioButtonGroup />,
+  render: () => <RadioButtonGroup />
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     checked: true,
-    label: 'Disabled radio',
-  },
+    label: 'Disabled radio'
+  }
 };
 
 export const Unchecked: Story = {
   args: {
     checked: false,
-    label: 'Unchecked radio',
-  },
+    label: 'Unchecked radio'
+  }
 };

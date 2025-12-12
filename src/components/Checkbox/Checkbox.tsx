@@ -1,12 +1,7 @@
-import React, {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  forwardRef,
-} from "react";
-import { CheckboxProps } from "./Checkbox.types";
-import "./checkbox-styles.scss";
-import { cn } from "@lib";
+import React, { useEffect, useImperativeHandle, useRef, forwardRef } from 'react';
+import { CheckboxProps } from './Checkbox.types';
+import './checkbox-styles.scss';
+import { cn } from '@lib';
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -17,12 +12,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       disabled = false,
       indeterminate = false,
       onChange,
-      className = "",
-      "aria-describedby": ariaDescribedBy,
-      "aria-labelledby": ariaLabelledBy,
-      required = false,
+      className = '',
+      'aria-describedby': ariaDescribedBy,
+      'aria-labelledby': ariaLabelledBy,
+      required = false
     },
-    ref,
+    ref
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!, []);
@@ -37,12 +32,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       }
     };
 
-    const containerClasses = cn(
-      "checkbox-container",
-      disabled ? "disabled" : "",
-      className,
-    );
-    const labelClasses = cn("checkbox-label", disabled ? "disabled" : "");
+    const containerClasses = cn('checkbox-container', disabled ? 'disabled' : '', className);
+    const labelClasses = cn('checkbox-label', disabled ? 'disabled' : '');
 
     return (
       <label className={containerClasses} htmlFor={id}>
@@ -62,6 +53,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         <span className={labelClasses}>{label}</span>
       </label>
     );
-  },
+  }
 );
-Checkbox.displayName = "Checkbox";
+Checkbox.displayName = 'Checkbox';

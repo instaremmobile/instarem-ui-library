@@ -3,7 +3,7 @@
  *
  * */
 
-import { SearchResult } from "./Trie";
+import { SearchResult } from './Trie';
 
 export class PriorityQueue {
   private items: SearchResult[] = [];

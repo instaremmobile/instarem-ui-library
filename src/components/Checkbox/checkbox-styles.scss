@@ -1,5 +1,5 @@
 .checkbox-container {
-  font-family: "hellix-regular" !important;
+  font-family: 'hellix-regular' !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -48,7 +48,7 @@
   transition: all 0.2s ease;
   flex-shrink: 0;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 4px;
     left: 7px;
@@ -61,7 +61,7 @@
     transition: all 0.2s ease;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;

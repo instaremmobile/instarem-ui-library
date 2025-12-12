@@ -12,7 +12,7 @@ import React, {
   ChangeEvent,
   FocusEvent,
   KeyboardEvent as ReactKeyboardEvent,
-  MouseEvent,
+  MouseEvent
 } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import isEmpty from 'lodash/isEmpty';
@@ -62,44 +62,31 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [internalValue, setInternalValue] = useState(defaultValue);
-    const [selectedSuggestionIndex, setSelectedSuggestionIndex] =
-      useState<number>(-1);
-    const [filteredSuggestions, setFilteredSuggestions] = useState<
-      SuggestionType[]
-    >([]);
-    const [originalFetchedSuggestions, setOriginalFetchedSuggestions] =
-      useState<SuggestionType[]>([]);
-    const [suggestionsVisible, setSuggestionsVisible] =
-      useState<boolean>(false);
+    const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState<number>(-1);
+    const [filteredSuggestions, setFilteredSuggestions] = useState<SuggestionType[]>([]);
+    const [originalFetchedSuggestions, setOriginalFetchedSuggestions] = useState<SuggestionType[]>(
+      []
+    );
+    const [suggestionsVisible, setSuggestionsVisible] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isOffline, setIsOffline] = useState<boolean>(!navigator.onLine);
     const [retryAttempt, setRetryAttempt] = useState<number>(0);
-    const [hasFetchedInitialData, setHasFetchedInitialData] =
-      useState<boolean>(false);
+    const [hasFetchedInitialData, setHasFetchedInitialData] = useState<boolean>(false);
     const [searchText, setSearchText] = useState<string>('');
-    const [displayText, setDisplayText] = useState<string>(
-      String(defaultValue ?? '')
-    );
+    const [displayText, setDisplayText] = useState<string>(String(defaultValue ?? ''));
 
     const inputRef = useRef<HTMLInputElement>(null);
     const suggestionListRef = useRef<HTMLUListElement>(null);
 
-    const currentValue =
-      controlledValue !== undefined ? controlledValue : internalValue;
+    const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
     const hasValue = Boolean(currentValue);
     const isControlled = controlledValue !== undefined;
 
     const inputId = id || useId();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
 
-    const formatSafe = useCallback(
-      (v: any) => (format ? format(v) : v ?? ''),
-      [format]
-    );
-    const parseSafe = useCallback(
-      (s: string) => (parse ? parse(s) : s),
-      [parse]
-    );
+    const formatSafe = useCallback((v: any) => (format ? format(v) : (v ?? '')), [format]);
+    const parseSafe = useCallback((s: string) => (parse ? parse(s) : s), [parse]);
 
     const handleOnIconClick = useCallback(
       (
@@ -149,7 +136,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                       'icon',
                       disabled ? 'disabled' : '',
                       (icon as any)?.props?.className || ''
-                    ),
+                    )
                   } as any
                 )
               : icon}
@@ -162,8 +149,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const inputStyles = useMemo(() => {
       const style: CSSProperties = {};
       if (startAdornment) style.paddingLeft = `${iconSize + 20}px`;
-      if (endAdornment || (clearable && currentValue))
-        style.paddingRight = `${iconSize + 16}px`;
+      if (endAdornment || (clearable && currentValue)) style.paddingRight = `${iconSize + 16}px`;
       if (borderless) {
         style.border = 'none';
         style.background = 'transparent';
@@ -172,14 +158,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         style.paddingRight = 0;
       }
       return style;
-    }, [
-      startAdornment,
-      endAdornment,
-      clearable,
-      currentValue,
-      iconSize,
-      borderless,
-    ]);
+    }, [startAdornment, endAdornment, clearable, currentValue, iconSize, borderless]);
 
     const normalizeSuggestions = useCallback((arr: any[]): SuggestionType[] => {
       if (!arr || arr.length === 0) return [];
@@ -192,7 +171,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         ) {
           return {
             label: item.label || item.text || item.name,
-            value: item.value || item.id || item.code,
+            value: item.value || item.id || item.code
           };
         }
         return { label: String(item), value: String(item) };
@@ -212,8 +191,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     const displayValue = isSearchable
       ? suggestionsVisible
         ? searchText
-        : selectedFromValue?.label ?? String(currentValue ?? '')
-      : displayText ?? String(currentValue ?? '');
+        : (selectedFromValue?.label ?? String(currentValue ?? ''))
+      : (displayText ?? String(currentValue ?? ''));
 
     useEffect(() => {
       if (isSearchable) return;
@@ -234,7 +213,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         if (newValue.trim()) {
           const searchResults = globalTrie.search(newValue.trim(), {
             maxDistance: 4,
-            matchType: 'partial',
+            matchType: 'partial'
           });
           const matched: SuggestionType[] = [];
           if (searchResults.length > 0) {
@@ -243,22 +222,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 (item) =>
                   item.label === resultLabel ||
                   item.label.toLowerCase() === resultLabel.toLowerCase() ||
-                  item.label
-                    .toLowerCase()
-                    .includes(resultLabel.toLowerCase()) ||
+                  item.label.toLowerCase().includes(resultLabel.toLowerCase()) ||
                   resultLabel.toLowerCase().includes(item.label.toLowerCase())
               );
-              if (hit && !matched.find((s) => s.value === hit.value))
-                matched.push(hit);
+              if (hit && !matched.find((s) => s.value === hit.value)) matched.push(hit);
             });
           }
           if (matched.length === 0) {
             const q = newValue.toLowerCase().trim();
             setFilteredSuggestions(
               allSuggestions.filter(
-                (i) =>
-                  i.label.toLowerCase().includes(q) ||
-                  i.value.toLowerCase().includes(q)
+                (i) => i.label.toLowerCase().includes(q) || i.value.toLowerCase().includes(q)
               )
             );
           } else {
@@ -298,9 +272,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             setSelectedSuggestionIndex((prev) => {
               const ni = prev > 0 ? prev - 1 : filteredSuggestions.length - 1;
               setTimeout(() => {
-                const el = suggestionListRef.current?.children[
-                  ni
-                ] as HTMLElement;
+                const el = suggestionListRef.current?.children[ni] as HTMLElement;
                 el?.scrollIntoView({ block: 'nearest' });
               }, 0);
               return ni;
@@ -312,9 +284,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             setSelectedSuggestionIndex((prev) => {
               const ni = prev < filteredSuggestions.length - 1 ? prev + 1 : 0;
               setTimeout(() => {
-                const el = suggestionListRef.current?.children[
-                  ni
-                ] as HTMLElement;
+                const el = suggestionListRef.current?.children[ni] as HTMLElement;
                 el?.scrollIntoView({ block: 'nearest' });
               }, 0);
               return ni;
@@ -330,13 +300,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           }
           case 'Enter': {
             event.preventDefault();
-            if (
-              selectedSuggestionIndex >= 0 &&
-              filteredSuggestions[selectedSuggestionIndex]
-            ) {
-              handleSuggestionSelect(
-                filteredSuggestions[selectedSuggestionIndex]
-              );
+            if (selectedSuggestionIndex >= 0 && filteredSuggestions[selectedSuggestionIndex]) {
+              handleSuggestionSelect(filteredSuggestions[selectedSuggestionIndex]);
             }
             break;
           }
@@ -352,7 +317,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         suggestionsVisible,
         selectedSuggestionIndex,
         filteredSuggestions,
-        handleSuggestionSelect,
+        handleSuggestionSelect
       ]
     );
 
@@ -372,10 +337,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         setDisplayText(nextDisplay);
         const raw = parseSafe(nextDisplay) as string;
 
-        if (
-          typeof maxRawLength === 'number' &&
-          (raw ?? '').toString().length > maxRawLength
-        ) {
+        if (typeof maxRawLength === 'number' && (raw ?? '').toString().length > maxRawLength) {
           const prev = isControlled ? controlledValue : internalValue;
           if (formatOn === 'change') {
             setDisplayText(formatSafe(prev));
@@ -413,7 +375,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         controlledValue,
         internalValue,
         rawOnChange,
-        maxRawLength,
+        maxRawLength
       ]
     );
 
@@ -445,15 +407,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           setDisplayText(String(raw ?? ''));
         }
       },
-      [
-        onFocus,
-        isSearchable,
-        selectedFromValue,
-        currentValue,
-        formatOn,
-        parseSafe,
-        displayText,
-      ]
+      [onFocus, isSearchable, selectedFromValue, currentValue, formatOn, parseSafe, displayText]
     );
 
     const fetchSuggestions = useCallback(async () => {
@@ -485,37 +439,27 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       } finally {
         setIsLoading(false);
       }
-    }, [
-      fetchFunction,
-      retryConfig,
-      networkManager,
-      isOffline,
-      retryAttempt,
-      normalizeSuggestions,
-    ]);
+    }, [fetchFunction, retryConfig, networkManager, isOffline, retryAttempt, normalizeSuggestions]);
 
-    const renderSuggestions = useCallback(
-      (suggestion: string, query: string) => {
-        if (!query) return <span>{suggestion}</span>;
-        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedQuery})`, 'gi');
-        const parts = suggestion.split(regex);
-        return (
-          <span>
-            {parts.map((part, index) =>
-              index % 2 === 1 ? (
-                <span className="highlight" key={index}>
-                  {part}
-                </span>
-              ) : (
-                <span key={index}>{part}</span>
-              )
-            )}
-          </span>
-        );
-      },
-      []
-    );
+    const renderSuggestions = useCallback((suggestion: string, query: string) => {
+      if (!query) return <span>{suggestion}</span>;
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedQuery})`, 'gi');
+      const parts = suggestion.split(regex);
+      return (
+        <span>
+          {parts.map((part, index) =>
+            index % 2 === 1 ? (
+              <span className="highlight" key={index}>
+                {part}
+              </span>
+            ) : (
+              <span key={index}>{part}</span>
+            )
+          )}
+        </span>
+      );
+    }, []);
 
     useEffect(() => {
       const focusOnInput = (event: KeyboardEvent) => {
@@ -579,11 +523,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             {...props}
             id={inputId}
             ref={ref || inputRef}
-            className={cn(
-              'text-field-input',
-              disabled ? 'disabled' : '',
-              className
-            )}
+            className={cn('text-field-input', disabled ? 'disabled' : '', className)}
             type={type}
             value={displayValue}
             onChange={handleInputChange}
@@ -603,20 +543,14 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             aria-haspopup={isSearchable ? 'listbox' : undefined}
             aria-autocomplete={isSearchable ? 'list' : undefined}
             role={isSearchable ? 'combobox' : undefined}
-            maxLength={
-              typeof maxRawLength === 'number'
-                ? undefined
-                : (props as any)?.maxLength
-            }
+            maxLength={typeof maxRawLength === 'number' ? undefined : (props as any)?.maxLength}
           />
           {renderIcon(endAdornment, 'right')}
           {label && (
             <label
               htmlFor={inputId}
               className="text-field-label"
-              style={
-                startAdornment ? { left: `${iconSize + 16}px` } : undefined
-              }
+              style={startAdornment ? { left: `${iconSize + 16}px` } : undefined}
             >
               {label}
             </label>

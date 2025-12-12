@@ -9,70 +9,70 @@ const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: 'centered'
   },
   tags: ['autodocs'],
   argTypes: {},
-  args: { onClick: fn() },
+  args: { onClick: fn() }
 };
 export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    children: 'Button',
-  },
+    children: 'Button'
+  }
 };
 
 export const Secondary: Story = {
   args: {
     children: 'Add',
-    variant: 'secondary',
-  },
+    variant: 'secondary'
+  }
 };
 
 export const Text: Story = {
   args: {
     children: 'Text Button',
-    variant: 'text',
-  },
+    variant: 'text'
+  }
 };
 
 export const Large: Story = {
   args: {
     children: 'Button',
-    size: 'large',
-  },
+    size: 'large'
+  }
 };
 
 export const FullWidth: Story = {
   args: {
     children: 'Button',
-    fullWidth: true,
-  },
+    fullWidth: true
+  }
 };
 export const WithStartIcon: Story = {
   args: {
     children: 'Text Button',
     variant: 'primary',
-    startIcon: <KeySquareIcon />,
-  },
+    startIcon: <KeySquareIcon />
+  }
 };
 
 export const WithEndIcon: Story = {
   args: {
     children: 'Text Button',
     variant: 'primary',
-    endIcon: <KeySquareIcon />,
-  },
+    endIcon: <KeySquareIcon />
+  }
 };
 
 export const IsLoading: Story = {
   args: {
     children: 'Text Button',
     variant: 'primary',
-    isLoading: true,
-  },
+    isLoading: true
+  }
 };
 export const AllVariants: Story = {
   render: () => (
@@ -81,7 +81,7 @@ export const AllVariants: Story = {
         display: 'flex',
         flexDirection: 'column',
         gap: '16px',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
     >
       <div
@@ -89,7 +89,7 @@ export const AllVariants: Story = {
           display: 'flex',
           gap: '16px',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
       >
         <Button variant="primary">Primary</Button>
@@ -101,7 +101,7 @@ export const AllVariants: Story = {
           display: 'flex',
           gap: '16px',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
       >
         <Button variant="primary" isLoading>
@@ -122,10 +122,10 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All button variants and states showcase',
-      },
-    },
-  },
+        story: 'All button variants and states showcase'
+      }
+    }
+  }
 };
 export const AccessibilityExamples: Story = {
   render: () => (
@@ -135,14 +135,10 @@ export const AccessibilityExamples: Story = {
         flexDirection: 'column',
         gap: '16px',
         width: '100%',
-        maxWidth: '450px',
+        maxWidth: '450px'
       }}
     >
-      <Button
-        variant="primary"
-        aria-label="Submit form"
-        title="Submit the current form"
-      >
+      <Button variant="primary" aria-label="Submit form" title="Submit the current form">
         Submit
       </Button>
       <Button variant="secondary" aria-describedby="help-text" disabled>
@@ -159,11 +155,10 @@ export const AccessibilityExamples: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Examples showing proper accessibility attributes and ARIA labels',
-      },
-    },
-  },
+        story: 'Examples showing proper accessibility attributes and ARIA labels'
+      }
+    }
+  }
 };
 export const ResponsiveShowcase: Story = {
   render: () => (
@@ -174,7 +169,7 @@ export const ResponsiveShowcase: Story = {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '16px',
-        width: '100%',
+        width: '100%'
       }}
     >
       <Button variant="primary" size="small" fullWidth>
@@ -195,8 +190,8 @@ export const ResponsiveShowcase: Story = {
     layout: 'padded',
     docs: {
       description: {
-        story: 'Responsive button showcase with different sizes and full width',
-      },
-    },
-  },
+        story: 'Responsive button showcase with different sizes and full width'
+      }
+    }
+  }
 };

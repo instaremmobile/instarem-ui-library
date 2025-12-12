@@ -1,4 +1,4 @@
-import { PriorityQueue } from "./PriorityQueue";
+import { PriorityQueue } from './PriorityQueue';
 
 class TrieNode {
   _children: Map<string, TrieNode>;
@@ -80,7 +80,7 @@ interface SearchOptions {
   prefixOnly?: boolean;
   caseSensitive?: boolean;
   maxResults?: number;
-  matchType?: "exact" | "partial";
+  matchType?: 'exact' | 'partial';
 }
 
 class Trie {
@@ -107,7 +107,7 @@ class Trie {
     prefix: string,
     isEndOfTheWord: boolean,
     word: string | undefined,
-    frequency: number,
+    frequency: number
   ): TrieNode {
     const newNode = new TrieNode();
     newNode.isEndOfTheWord = isEndOfTheWord;
@@ -125,7 +125,7 @@ class Trie {
     commonPrefix: string,
     prefix: string,
     word: string,
-    frequency: number,
+    frequency: number
   ) {
     const newNode = new TrieNode();
     const remainingOld = edge.slice(commonPrefix.length);
@@ -135,13 +135,7 @@ class Trie {
     currentNode.children.set(commonPrefix, newNode);
 
     if (remainingNew.length > 0) {
-      const newLeaf = this.createNewNode(
-        newNode,
-        remainingNew,
-        true,
-        word,
-        frequency,
-      );
+      const newLeaf = this.createNewNode(newNode, remainingNew, true, word, frequency);
       newLeaf.isEndOfTheWord = true;
       newLeaf.value = word;
     } else {
@@ -154,17 +148,15 @@ class Trie {
 
   insert(word: string, frequency = 1) {
     if (!word) return;
-    const processedWord = word.normalize("NFD"); // unicode normalization
-    const trimmedWord = processedWord
-      .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, "");
+    const processedWord = word.normalize('NFD'); // unicode normalization
+    const trimmedWord = processedWord.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
     let currentNode = this.root;
-    let prefix = "";
+    let prefix = '';
     for (let i = 0; i < trimmedWord.length; i++) {
       const char = trimmedWord[i];
       prefix += char;
 
-      if (char === " ") currentNode.isWordBoundary = true;
+      if (char === ' ') currentNode.isWordBoundary = true;
       let found = false;
 
       for (const [edge, node] of currentNode.children.entries()) {
@@ -178,19 +170,11 @@ class Trie {
               currentNode.value = processedWord;
               currentNode.frequency = (currentNode.frequency || 0) + frequency;
             }
-            prefix = "";
+            prefix = '';
             found = true;
             break;
           } else {
-            this.splitNode(
-              currentNode,
-              edge,
-              node,
-              commonPrefix,
-              prefix,
-              processedWord,
-              frequency,
-            );
+            this.splitNode(currentNode, edge, node, commonPrefix, prefix, processedWord, frequency);
             return;
           }
         }
@@ -201,9 +185,9 @@ class Trie {
           prefix,
           i === trimmedWord.length - 1,
           processedWord,
-          frequency,
+          frequency
         );
-        prefix = "";
+        prefix = '';
       }
     }
     if (!currentNode.isEndOfTheWord) {
@@ -220,7 +204,7 @@ class Trie {
   private getLevenshtienDistance(
     sourceString: string,
     targetString: string,
-    maxDistance: number,
+    maxDistance: number
   ): number {
     let sourceStringLength = sourceString.length;
     let targetStringLength = targetString.length;
@@ -246,11 +230,10 @@ class Trie {
       current[0] = i;
       minValue = current[0];
       for (let j = 1; j <= sourceStringLength; j++) {
-        const substitutionCost =
-          sourceString[j - 1] === targetString[i - 1] ? 0 : 1;
+        const substitutionCost = sourceString[j - 1] === targetString[i - 1] ? 0 : 1;
         current[j] = Math.min(
           Math.min(previous[j] + 1, current[j - 1] + 1),
-          previous[j - 1] + substitutionCost,
+          previous[j - 1] + substitutionCost
         );
         minValue = Math.min(minValue, current[j]);
       }
@@ -260,16 +243,11 @@ class Trie {
     return previous[sourceStringLength];
   }
 
-  private getPartialDistance = (
-    source: string,
-    target: string,
-    maxDistance = 3,
-  ) => {
+  private getPartialDistance = (source: string, target: string, maxDistance = 3) => {
     const sourceWords = source.toLowerCase().trim().split(/\s+/);
     const targetWords = target.toLowerCase().trim().split(/\s+/);
 
-    if (sourceWords.length === 0 || targetWords.length === 0)
-      return maxDistance + 1;
+    if (sourceWords.length === 0 || targetWords.length === 0) return maxDistance + 1;
 
     if (source.toLowerCase() === target.toLowerCase()) return 0;
     if (
@@ -293,13 +271,12 @@ class Trie {
         if (usedTargetWords.has(i)) continue;
         const targetWord = targetWords[i];
 
-        if (Math.abs(sourceWord.length - targetWord.length) > maxDistance)
-          continue;
+        if (Math.abs(sourceWord.length - targetWord.length) > maxDistance) continue;
 
         const distance = this.getLevenshtienDistance(
           sourceWord.toLowerCase(),
           targetWord.toLowerCase(),
-          maxDistance,
+          maxDistance
         );
 
         if (distance <= maxDistance && distance < minWordDistance) {
@@ -317,8 +294,7 @@ class Trie {
 
     if (matchWords === 0) return Infinity;
 
-    const unmatchedPenalty =
-      Math.abs(sourceWords.length - targetWords.length) * 1.5;
+    const unmatchedPenalty = Math.abs(sourceWords.length - targetWords.length) * 1.5;
     return totalDistance + unmatchedPenalty;
   };
 
@@ -326,25 +302,19 @@ class Trie {
     const queryWords = query
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, "");
+      .replace(/[^a-zA-Z0-9]/g, '');
     const resultWords = result.item
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, "");
+      .replace(/[^a-zA-Z0-9]/g, '');
 
     const distanceFactor = 1 / (result.distance + 1);
-    const frequencyFactor =
-      Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
+    const frequencyFactor = Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
     const prefixMatchBonus = result.prefixMatch ? 2.5 : 1; // was 1.5
     const wordCountDiff = Math.abs(queryWords.length - resultWords.length);
     const wordCountPenalty = wordCountDiff === 0 ? 0 : wordCountDiff * 0.1;
 
-    return (
-      distanceFactor *
-      frequencyFactor *
-      prefixMatchBonus *
-      (1 - wordCountPenalty)
-    );
+    return distanceFactor * frequencyFactor * prefixMatchBonus * (1 - wordCountPenalty);
   }
 
   search(query: string, options: SearchOptions = { maxDistance: 3 }): string[] {
@@ -353,18 +323,18 @@ class Trie {
       prefixOnly = false,
       caseSensitive = false,
       maxResults = 10,
-      matchType = "partial",
+      matchType = 'partial'
     } = options;
     if (!query.trim()) return [];
 
-    query = query.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+    query = query.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
     const cacheKey = `${query}:${JSON.stringify(options)}`;
     if (this.cache.has(cacheKey)) {
       return this.cache.get(cacheKey)!.map((res) => res.item);
     }
     const processedQuery = caseSensitive
-      ? query.normalize("NFD")
-      : query.toLowerCase().normalize("NFD");
+      ? query.normalize('NFD')
+      : query.toLowerCase().normalize('NFD');
 
     const seen = new Set<string>();
     const priorityQueue = new PriorityQueue(maxResults);
@@ -373,7 +343,7 @@ class Trie {
       node: TrieNode,
       prefix: string,
       depth: number = 0,
-      prefixDistance: number = 0,
+      prefixDistance: number = 0
     ): void => {
       if (prefixDistance > maxDistance * 3) return;
 
@@ -383,17 +353,13 @@ class Trie {
           let distance: number;
           let isPrefixMatch = false;
 
-          if (matchType === "partial") {
+          if (matchType === 'partial') {
             const loweredWord = word.toLowerCase();
             if (loweredWord.startsWith(processedQuery)) {
               distance = 0;
               isPrefixMatch = true;
             } else {
-              distance = this.getPartialDistance(
-                processedQuery,
-                loweredWord,
-                maxDistance,
-              );
+              distance = this.getPartialDistance(processedQuery, loweredWord, maxDistance);
             }
           } else {
             distance = prefixOnly
@@ -403,8 +369,7 @@ class Trie {
           }
 
           const wordCount = node.value.trim().split(/\s+/).length;
-          const adjustableDistance =
-            maxDistance * (wordCount > 1 ? wordCount * 1.2 : 1);
+          const adjustableDistance = maxDistance * (wordCount > 1 ? wordCount * 1.2 : 1);
 
           if (distance <= adjustableDistance) {
             const result: SearchResult = {
@@ -412,7 +377,7 @@ class Trie {
               distance,
               score: 0,
               frequency: node.frequency || 1,
-              prefixMatch: isPrefixMatch,
+              prefixMatch: isPrefixMatch
             };
             result.score = this.calculateScore(result, processedQuery);
             priorityQueue.push(result);
@@ -423,28 +388,17 @@ class Trie {
 
       for (const [edge, childNode] of node.children) {
         const edgeStr = caseSensitive ? edge : edge.toLowerCase();
-        if (node.isWordBoundary && processedQuery.includes(" ")) {
-          const queryWords = processedQuery.split(" ");
-          const currentWord = queryWords[prefix.split(" ").length - 1] || "";
-          if (
-            this.getCommonPrefix(edgeStr, currentWord).length > 0 ||
-            currentWord.length === 0
-          ) {
+        if (node.isWordBoundary && processedQuery.includes(' ')) {
+          const queryWords = processedQuery.split(' ');
+          const currentWord = queryWords[prefix.split(' ').length - 1] || '';
+          if (this.getCommonPrefix(edgeStr, currentWord).length > 0 || currentWord.length === 0) {
             dfs(childNode, prefix + edge, depth + edge.length, prefixDistance);
           }
         } else {
           if (prefixOnly) {
-            const commonPrefix = this.getCommonPrefix(
-              processedQuery.slice(depth),
-              edgeStr,
-            );
+            const commonPrefix = this.getCommonPrefix(processedQuery.slice(depth), edgeStr);
             if (commonPrefix.length > 0) {
-              dfs(
-                childNode,
-                prefix + edge,
-                depth + commonPrefix.length,
-                prefixDistance,
-              );
+              dfs(childNode, prefix + edge, depth + commonPrefix.length, prefixDistance);
             }
           } else {
             dfs(
@@ -454,15 +408,15 @@ class Trie {
               this.getLevenshtienDistance(
                 processedQuery.slice(0, depth + edge.length),
                 prefix + edge,
-                maxDistance,
-              ),
+                maxDistance
+              )
             );
           }
         }
       }
     };
 
-    dfs(this.root, "");
+    dfs(this.root, '');
 
     const results = priorityQueue.get();
 
@@ -471,7 +425,7 @@ class Trie {
         b.score - a.score ||
         a.distance - b.distance ||
         (b.frequency ?? 0) - (a.frequency ?? 0) ||
-        a.item.localeCompare(b.item),
+        a.item.localeCompare(b.item)
     );
 
     if (this.cache.size >= Trie.CACHE_SIZE) {

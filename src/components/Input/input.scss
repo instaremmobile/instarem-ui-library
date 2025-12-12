@@ -58,7 +58,9 @@
   height: 50px;
   width: 100%;
   outline: none;
-  transition: padding 0.25s, border 0.25s ease;
+  transition:
+    padding 0.25s,
+    border 0.25s ease;
   border: 1px solid #a9a9a9;
   color: #333333;
   font-family: 'hellix-regular';
@@ -141,7 +143,9 @@
   width: 24px;
   height: 24px;
   color: #757575;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
   &.left {
     position: absolute;
     left: 12px;
@@ -209,7 +213,9 @@
   font-size: 16px;
   color: #a9a9a9;
   pointer-events: none;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
   transform-origin: left top;
   padding: 0 4px;
   background-color: white;
