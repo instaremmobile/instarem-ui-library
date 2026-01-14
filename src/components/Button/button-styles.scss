@@ -1,9 +1,10 @@
+@use 'sass:color';
 $primary-color: #fe0095;
 $primary-color-blue: #007aff;
-$primary-hover: darken($primary-color, 10%);
-$primary-active: darken($primary-color, 15%);
+$primary-hover: color.adjust($primary-color, $lightness: -10%);
+$primary-active: color.adjust($primary-color, $lightness: -15%);
 $secondary-color: #6b7280;
-$secondary-hover: darken($secondary-color, 10%);
+$secondary-hover: color.adjust($secondary-color, $lightness: -10%);
 $white: #ffffff;
 $gray-100: #f3f4f6;
 $gray-200: #e5e7eb;
