@@ -311,7 +311,13 @@ describe('Button Component', () => {
 
     it('handles form attributes correctly', () => {
       render(
-        <Button form="my-form" formAction="/submit" formMethod="post" formTarget="_blank">
+        <Button
+          form="my-form"
+          formAction="/submit"
+          formMethod="post"
+          formTarget="_blank"
+          type="submit"
+        >
           Form Button
         </Button>
       );
