@@ -6,8 +6,10 @@ import './modal.scss';
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpen?: () => void;
   title?: string;
   closeOverlayClick?: boolean;
+  showCloseButton?: boolean;
   className?: string;
   children: React.ReactNode;
 }
@@ -18,7 +20,22 @@ export interface ModalRef {
 }
 
 const Modal = React.forwardRef<ModalRef, ModalProps>(
-  ({ isOpen, onClose, title, closeOverlayClick, className, children }, ref) => {
+  (
+    {
+      isOpen,
+      onClose,
+      onOpen,
+      title,
+      closeOverlayClick,
+      showCloseButton = true,
+      className,
+      children
+    },
+    ref
+  ) => {
+    const [isAnimating, setIsAnimating] = React.useState(false);
+    const [shouldRender, setShouldRender] = React.useState(false);
+
     const handleOverlayClick = React.useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (closeOverlayClick && e.target === e.currentTarget) {
@@ -39,15 +56,25 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
 
     React.useEffect(() => {
       if (isOpen) {
+        setShouldRender(true);
+        onOpen?.();
+        // Small delay to ensure DOM is ready before starting animation
+        const timer = setTimeout(() => setIsAnimating(true), 10);
         document.addEventListener('keydown', handleEscapekey);
         document.body.style.overflow = 'hidden';
+        return () => clearTimeout(timer);
+      } else if (shouldRender) {
+        setIsAnimating(false);
+        // Wait for animation to complete before unmounting
+        const timer = setTimeout(() => setShouldRender(false), 300);
+        return () => clearTimeout(timer);
       }
 
       return () => {
         document.removeEventListener('keydown', handleEscapekey);
         document.body.style.overflow = '';
       };
-    }, [isOpen, handleEscapekey]);
+    }, [isOpen, shouldRender, handleEscapekey]);
 
     React.useImperativeHandle(ref, () => ({
       open: () => {},
@@ -56,21 +83,29 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
       }
     }));
 
-    if (!isOpen) return null;
+    if (!shouldRender) return null;
     return (
       <div
-        className={cn('modal', isOpen ? 'modal--open' : '', className)}
+        className={cn(
+          'modal',
+          isAnimating ? 'modal--open' : '',
+          'modal--spring-animation',
+          className
+        )}
         role="dialog"
         aria-modal="true"
       >
         <div className="modal__overlay" onClick={handleOverlayClick}>
           <div className="modal__content">
-            {title && (
+            {(title || showCloseButton) && (
               <div className="modal__header">
-                <h2 className="modal__title">{title}</h2>
-                <button className="modal__close-button" onClick={onClose} aria-label="Close">
-                  &times;
-                </button>
+                {title && <h2 className="modal__title">{title}</h2>}
+                {!title && showCloseButton && <div />}
+                {showCloseButton && (
+                  <button className="modal__close-button" onClick={onClose} aria-label="Close">
+                    &times;
+                  </button>
+                )}
               </div>
             )}
             <div className="modal__body">{children}</div>
