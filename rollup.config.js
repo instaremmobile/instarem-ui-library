@@ -19,19 +19,15 @@ function stripScss() {
 }
 module.exports = [
   {
-    input: 'src/components/index.ts',
-    output: [
-      {
-        file: 'dist/cjs/index.js',
-        format: 'cjs',
-        exports: 'named'
-      },
-      {
-        file: 'dist/esm/index.js',
-        format: 'esm',
-        exports: 'named'
-      }
-    ],
+    input: 'src/index.ts',
+    output: {
+      file: 'dist/bundle.js', // Must be in same directory tree as outDir
+      format: 'es'
+    },
+    onwarn(warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+      warn(warning);
+    },
     plugins: [
       peerDepsExternal(),
       resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
@@ -45,24 +41,17 @@ module.exports = [
       typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
-        declarationDir: 'dist/types',
         rootDir: 'src'
       }),
       babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' })
     ]
   },
   {
-    input: 'dist/types/index.d.ts',
+    input: 'dist/index.d.ts',
     output: {
       file: 'dist/index.d.ts',
       format: 'es'
     },
-    plugins: [
-      typescriptPaths({
-        tsConfigPath: './tsconfig.json'
-      }),
-      stripScss(),
-      dts()
-    ]
+    plugins: [stripScss(), dts()]
   }
 ];
