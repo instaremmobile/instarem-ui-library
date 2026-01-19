@@ -658,9 +658,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 =
+var css_248z$6 =
   '.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: none;\n  border-radius: 4px;\n  font-family: "hellix-bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n  user-select: none;\n  outline: none;\n  max-width: 450px;\n  width: 100%;\n  height: 50px;\n  font-weight: 700;\n}\n.btn:focus-visible {\n  outline: 2px solid currentColor;\n  outline-offset: 2px;\n}\n.btn::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateX(-100%);\n  transition: transform 0.2s ease-in-out;\n}\n.btn__text {\n  position: relative;\n  z-index: 1;\n  transition: opacity 0.2s ease-in-out;\n}\n.btn__text--loading {\n  opacity: 0;\n}\n.btn__icon {\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.btn__icon--start {\n  margin-right: 4px;\n}\n.btn__icon--end {\n  margin-left: 4px;\n}\n.btn__icon svg {\n  width: 1em;\n  height: 1em;\n}\n.btn__spinner {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n}\n.btn__spinner-icon {\n  width: 1.2em;\n  height: 1.2em;\n  animation: spin 1s linear infinite;\n}\n.btn__spinner-icon circle {\n  animation: dash 1.5s ease-in-out infinite;\n}\n.btn--primary {\n  background-color: #fe0095;\n  color: #ffffff;\n}\n.btn--primary:hover:not(:disabled) {\n  background-color: rgb(203, 0, 119.0826771654);\n}\n.btn--primary:active:not(:disabled) {\n  background-color: rgb(177.5, 0, 104.124015748);\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(254, 0, 149, 0.2);\n}\n.btn--primary:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--secondary {\n  border: 2px solid #fe0095;\n  background-color: #ffffff;\n  color: #fe0095;\n}\n.btn--secondary:hover:not(:disabled) {\n  background-color: #e5e7eb;\n}\n.btn--secondary:disabled {\n  background-color: transparent !important;\n  cursor: not-allowed;\n  pointer-events: none;\n  color: #a9a9a9;\n  border: 2px solid #a9a9a9;\n}\n.btn--secondary:active:not(:disabled) {\n  background-color: #d1d5db;\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(107, 114, 128, 0.1);\n}\n.btn--secondary:focus-visible {\n  outline-color: #6b7280;\n}\n.btn--text {\n  background-color: transparent;\n  color: #007aff;\n}\n.btn--text:disabled {\n  color: #a9a9a9;\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: transparent !important;\n}\n.btn--text:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--small {\n  padding: 8px 16px;\n  font-size: 14px;\n  min-height: 36px;\n  gap: 6px;\n}\n.btn--medium {\n  padding: 12px 24px;\n  font-size: 16px;\n  min-height: 44px;\n  gap: 8px;\n}\n.btn--large {\n  padding: 16px 32px;\n  font-size: 18px;\n  min-height: 52px;\n  gap: 10px;\n}\n.btn--loading {\n  pointer-events: none;\n}\n.btn--full-width {\n  width: 100%;\n}\n.btn:disabled {\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: #a9a9a9;\n}\n.btn:disabled::before {\n  display: none;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dasharray: 1, 150;\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -35;\n  }\n  100% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -124;\n  }\n}\n@media (max-width: 768px) {\n  .btn--small {\n    padding: 10px 16px;\n    min-height: 40px;\n  }\n  .btn--medium {\n    padding: 14px 24px;\n    min-height: 48px;\n  }\n  .btn--large {\n    padding: 18px 32px;\n    min-height: 56px;\n  }\n}\n@media (max-width: 480px) {\n  .btn {\n    max-width: 100%;\n  }\n  .btn--small {\n    font-size: 14px;\n  }\n  .btn--medium {\n    font-size: 16px;\n  }\n  .btn--large {\n    font-size: 17px;\n  }\n}\n@media (prefers-contrast: high) {\n  .btn--primary {\n    border: 2px solid transparent;\n  }\n  .btn--primary:focus-visible {\n    outline-width: 3px;\n  }\n  .btn--secondary {\n    border: 2px solid #4b5563;\n  }\n  .btn--secondary:focus-visible {\n    outline-width: 3px;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .btn {\n    transition: none;\n  }\n  .btn::before {\n    display: none;\n  }\n  .btn:hover:not(:disabled) {\n    transform: none;\n  }\n  .btn:active:not(:disabled) {\n    transform: none;\n  }\n  .btn__spinner-icon {\n    animation: none;\n  }\n  .btn__spinner-icon circle {\n    animation: none;\n    stroke-dasharray: none;\n    stroke-dashoffset: 0;\n  }\n}';
-styleInject(css_248z$5);
+styleInject(css_248z$6);
 
 const Button$1 = React__default.forwardRef(
   (
@@ -744,9 +744,9 @@ const Button$1 = React__default.forwardRef(
 );
 Button$1.displayName = 'Button';
 
-var css_248z$4 =
+var css_248z$5 =
   '.toggle-switch {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n}\n.toggle-switch.disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n.toggle-switch__container {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.toggle-switch__input {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n  z-index: 99;\n}\n.toggle-switch__track {\n  width: 2.5rem;\n  height: 1.5rem;\n  background-color: #e5e7eb;\n  border-radius: 1.5rem;\n  transition: background-color 200ms ease-in-out;\n  border: 1px solid #f0f0f0;\n}\n.toggle-switch__input:checked + .toggle-switch__track {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n.toggle-switch__input:focus + .toggle-switch__track {\n  box-shadow: 0 0 0 2px rgba(254, 0, 149, 0.25);\n}\n.toggle-switch__thumb {\n  position: absolute;\n  top: 0.3rem;\n  left: 0.3rem;\n  width: 1rem;\n  height: 1rem;\n  background-color: #fe0095;\n  border-radius: 50%;\n  transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);\n  will-change: transform;\n}\n.toggle-switch__input:active + .toggle-switch__track .toggle-switch__thumb {\n  transform: scale(0.9);\n}\n.toggle-switch__input:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem);\n  background-color: white;\n}\n.toggle-switch__input:active:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem) scale(0.9);\n}\n.toggle-switch__label {\n  margin-left: 0.75rem;\n  font-size: 0.875rem;\n  font-weight: 500;\n  color: #a9a9a9;\n}';
-styleInject(css_248z$4);
+styleInject(css_248z$5);
 
 const ToggleComponent = forwardRef(
   ({ id, className, onChange, labelPosition = 'right', checked, label, name, ...props }, ref) => {
@@ -2645,9 +2645,9 @@ function requireDebounce() {
 var debounceExports = requireDebounce();
 var debounce$2 = /*@__PURE__*/ getDefaultExportFromCjs(debounceExports);
 
-var css_248z$3 =
+var css_248z$4 =
   '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
-styleInject(css_248z$3);
+styleInject(css_248z$4);
 
 const globalTrie = new Trie();
 const InputField = forwardRef(
@@ -3190,9 +3190,9 @@ const InputField = forwardRef(
 InputField.displayName = 'InputField';
 var Input$1 = memo(InputField);
 
-var css_248z$2 =
+var css_248z$3 =
   '.checkbox-container {\n  font-family: "hellix-regular" !important;\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.checkbox-container.disabled {\n  cursor: not-allowed;\n  opacity: 0.6;\n}\n\n.checkbox-input {\n  position: absolute;\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n.checkbox-input:focus + .checkbox-custom {\n  outline: 2px solid #fe0095;\n  outline-offset: 2px;\n}\n.checkbox-input:checked + .checkbox-custom {\n  background-color: #fe0095;\n  border-color: #fe0095;\n  animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-input:checked + .checkbox-custom::after {\n  opacity: 1;\n  animation: checkmark-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;\n}\n.checkbox-input:indeterminate + .checkbox-custom {\n  background-color: #fe0095;\n  border-color: #fe0095;\n  animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-input:indeterminate + .checkbox-custom::before {\n  opacity: 1;\n  animation: indeterminate-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;\n}\n.checkbox-input:disabled + .checkbox-custom {\n  background-color: #f5f5f5;\n  border-color: #d0d0d0;\n  cursor: not-allowed;\n}\n\n.checkbox-custom {\n  position: relative;\n  width: 20px;\n  height: 20px;\n  border: 2px solid #333333;\n  border-radius: 4px;\n  background-color: white;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  flex-shrink: 0;\n}\n.checkbox-custom::after {\n  content: "";\n  position: absolute;\n  top: 4px;\n  left: 7px;\n  width: 4px;\n  height: 8px;\n  border: solid white;\n  border-width: 0 2px 2px 0;\n  transform: rotate(45deg) scale(0);\n  opacity: 0;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-custom::before {\n  content: "";\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 10px;\n  height: 2px;\n  background-color: white;\n  transform: translate(-50%, -50%) scale(0);\n  opacity: 0;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n\n.checkbox-label {\n  font-size: 14px;\n  color: #333;\n  line-height: 1.4;\n  user-select: none;\n}\n.checkbox-label.disabled {\n  color: #999;\n}\n\n@keyframes checkbox-spring-in {\n  0% {\n    transform: scale(0.8);\n  }\n  50% {\n    transform: scale(1.1);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes checkmark-spring-in {\n  0% {\n    transform: rotate(45deg) scale(0);\n    opacity: 0;\n  }\n  50% {\n    transform: rotate(45deg) scale(1.2);\n    opacity: 0.8;\n  }\n  100% {\n    transform: rotate(45deg) scale(1);\n    opacity: 1;\n  }\n}\n@keyframes indeterminate-spring-in {\n  0% {\n    transform: translate(-50%, -50%) scale(0);\n    opacity: 0;\n  }\n  50% {\n    transform: translate(-50%, -50%) scale(1.2);\n    opacity: 0.8;\n  }\n  100% {\n    transform: translate(-50%, -50%) scale(1);\n    opacity: 1;\n  }\n}\n@keyframes checkbox-spring-out {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .checkbox-custom {\n    transition: none;\n  }\n  .checkbox-custom::after, .checkbox-custom::before {\n    transition: none;\n  }\n  .checkbox-input:checked + .checkbox-custom, .checkbox-input:indeterminate + .checkbox-custom {\n    animation: none;\n  }\n  .checkbox-input:checked + .checkbox-custom::after, .checkbox-input:checked + .checkbox-custom::before, .checkbox-input:indeterminate + .checkbox-custom::after, .checkbox-input:indeterminate + .checkbox-custom::before {\n    animation: none;\n  }\n}\n@media (prefers-contrast: high) {\n  .checkbox-custom {\n    border-width: 3px;\n  }\n}';
-styleInject(css_248z$2);
+styleInject(css_248z$3);
 
 const Checkbox = forwardRef(
   (
@@ -3248,9 +3248,9 @@ const Checkbox = forwardRef(
 );
 Checkbox.displayName = 'Checkbox';
 
-var css_248z$1 =
+var css_248z$2 =
   '.radio-button {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n  user-select: none;\n  transition: all 0.2s ease;\n}\n.radio-button--disabled {\n  cursor: not-allowed;\n  opacity: 0.6;\n}\n.radio-button__input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n  width: 0;\n  height: 0;\n}\n.radio-button__input:focus + .radio-button__label .radio-button__control {\n  outline: 2px solid #2196f3;\n  outline-offset: 2px;\n}\n.radio-button__input:focus-visible + .radio-button__label .radio-button__control {\n  outline: 2px solid #2196f3;\n  outline-offset: 2px;\n}\n.radio-button__input:focus:not(:focus-visible) + .radio-button__label .radio-button__control {\n  outline: none;\n}\n.radio-button__label {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  position: relative;\n}\n.radio-button--disabled .radio-button__label {\n  cursor: not-allowed;\n}\n.radio-button__control {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: 2px solid #000;\n  border-radius: 50%;\n  background-color: #ffffff;\n  transition: all 0.2s ease;\n  flex-shrink: 0;\n}\n.radio-button__control::before {\n  content: "";\n  position: absolute;\n  border-radius: 50%;\n  background-color: transparent;\n  transition: all 0.2s ease;\n  transform: scale(0);\n}\n.radio-button:hover:not(.radio-button--disabled) .radio-button__control {\n  border-color: #ddd;\n  transform: scale(1.05);\n}\n.radio-button__indicator {\n  border-radius: 50%;\n  background-color: transparent;\n  transition: all 0.2s ease;\n  transform: scale(0);\n}\n.radio-button__text {\n  margin-left: 8px;\n  color: #333;\n  font-size: 16px;\n  line-height: 1.5;\n  transition: color 0.2s ease;\n}\n.radio-button--checked .radio-button__control {\n  border-color: #fe0095;\n  animation: bounce 0.3s ease-in-out;\n}\n.radio-button--checked .radio-button__indicator {\n  background-color: #fe0095;\n  transform: scale(1);\n  animation: bounce-in 0.3s ease-in-out;\n}\n.radio-button--small .radio-button__control {\n  width: 16px;\n  height: 16px;\n}\n.radio-button--small .radio-button__indicator {\n  width: 12px;\n  height: 12px;\n}\n.radio-button--small .radio-button__text {\n  font-size: 14px;\n}\n.radio-button--medium .radio-button__control {\n  width: 20px;\n  height: 20px;\n}\n.radio-button--medium .radio-button__indicator {\n  width: 16px;\n  height: 16px;\n}\n.radio-button--medium .radio-button__text {\n  font-size: 16px;\n}\n.radio-button--large .radio-button__control {\n  width: 24px;\n  height: 24px;\n}\n.radio-button--large .radio-button__indicator {\n  width: 18px;\n  height: 18px;\n}\n.radio-button--large .radio-button__text {\n  font-size: 18px;\n}\n.radio-button--primary.radio-button--checked .radio-button__control {\n  border-color: #fe0095;\n}\n.radio-button--primary.radio-button--checked .radio-button__indicator {\n  background-color: #fe0095;\n}\n.radio-button--secondary.radio-button--checked .radio-button__control {\n  border-color: #6c757d;\n}\n.radio-button--secondary.radio-button--checked .radio-button__indicator {\n  background-color: #6c757d;\n}\n.radio-button--success.radio-button--checked .radio-button__control {\n  border-color: #28a745;\n}\n.radio-button--success.radio-button--checked .radio-button__indicator {\n  background-color: #28a745;\n}\n.radio-button--danger.radio-button--checked .radio-button__control {\n  border-color: #dc3545;\n}\n.radio-button--danger.radio-button--checked .radio-button__indicator {\n  background-color: #dc3545;\n}\n.radio-button--disabled .radio-button__control {\n  border-color: #e0e0e0;\n  background-color: #f5f5f5;\n}\n.radio-button--disabled .radio-button__text {\n  color: #999;\n}\n.radio-button--disabled.radio-button--checked .radio-button__control {\n  border-color: #ccc;\n}\n.radio-button--disabled.radio-button--checked .radio-button__indicator {\n  background-color: #ccc;\n}\n\n@keyframes bounce {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.2);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes bounce-in {\n  0% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1.2);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@media (prefers-contrast: high) {\n  .radio-button__control {\n    border-width: 2px;\n  }\n  .radio-button--checked .radio-button__control {\n    border-color: #000;\n  }\n  .radio-button--checked .radio-button__indicator {\n    background-color: #000;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .radio-button__control, .radio-button__indicator {\n    animation: none !important;\n    transition: none !important;\n  }\n}';
-styleInject(css_248z$1);
+styleInject(css_248z$2);
 
 const RadioButton = React__default.forwardRef(
   (
@@ -29928,7 +29928,7 @@ const ModalBackdrop = styled(Backdrop, {
  *
  * This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
  */
-const Modal = /*#__PURE__*/ React.forwardRef(function Modal(inProps, ref) {
+const Modal$1 = /*#__PURE__*/ React.forwardRef(function Modal(inProps, ref) {
   const props = useDefaultProps({
     name: 'MuiModal',
     props: inProps
@@ -30076,7 +30076,7 @@ const Modal = /*#__PURE__*/ React.forwardRef(function Modal(inProps, ref) {
   });
 });
 process.env.NODE_ENV !== 'production'
-  ? (Modal.propTypes /* remove-proptypes */ = {
+  ? (Modal$1.propTypes /* remove-proptypes */ = {
       // ┌────────────────────────────── Warning ──────────────────────────────┐
       // │ These PropTypes are generated from the TypeScript type definitions. │
       // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
@@ -30508,7 +30508,7 @@ const useUtilityClasses$y = (ownerState) => {
   };
   return composeClasses(slots, getPopoverUtilityClass, classes);
 };
-const PopoverRoot = styled(Modal, {
+const PopoverRoot = styled(Modal$1, {
   name: 'MuiPopover',
   slot: 'Root'
 })({});
@@ -47029,7 +47029,7 @@ const useUtilityClasses = (ownerState) => {
   };
   return composeClasses(slots, getDialogUtilityClass, classes);
 };
-const DialogRoot = styled(Modal, {
+const DialogRoot = styled(Modal$1, {
   name: 'MuiDialog',
   slot: 'Root'
 })({
@@ -55284,9 +55284,9 @@ class AdapterDateFns extends AdapterDateFnsBase {
   };
 }
 
-var css_248z =
+var css_248z$1 =
   '.date-picker {\n  display: flex;\n  flex-direction: column;\n  max-width: 450px;\n  width: 100%;\n}\n.date-picker.full-width {\n  max-width: 100%;\n}\n.date-picker__label {\n  font-size: 16px;\n  color: #a9a9a9;\n  margin-bottom: 6px;\n  font-family: "hellix-regular";\n}\n.date-picker__helper {\n  margin-top: 4px;\n  font-size: 14px;\n  color: #747474;\n  font-family: "hellix-regular";\n}\n.date-picker__error {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n  font-family: "hellix-regular";\n}\n.date-picker__input {\n  font-family: "hellix-regular";\n}\n\n/* Ensure MUI outlined input shows error border color */\n.date-picker .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {\n  border-color: #f92929 !important;\n}';
-styleInject(css_248z);
+styleInject(css_248z$1);
 
 const DatePickerComponent = forwardRef(
   (
@@ -55352,12 +55352,115 @@ const DatePickerComponent = forwardRef(
 DatePickerComponent.displayName = 'DatePicker';
 const DatePicker = memo(DatePickerComponent);
 
+var css_248z =
+  '.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1000;\n  visibility: hidden;\n  opacity: 0;\n  transition: visibility 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  pointer-events: none;\n}\n.modal--open {\n  visibility: visible;\n  opacity: 1;\n  pointer-events: auto;\n}\n.modal__overlay {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  padding: 20px;\n  box-sizing: border-box;\n}\n.modal__content {\n  position: relative;\n  width: 100%;\n  max-width: 500px;\n  max-height: calc(100vh - 40px);\n  overflow-y: auto;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);\n  padding: 0;\n  transform: scale(0.85);\n  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  scrollbar-width: thin;\n}\n.modal__content::-webkit-scrollbar {\n  width: 6px;\n}\n.modal__content::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.2);\n  border-radius: 3px;\n}\n.modal__header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px;\n}\n.modal__title {\n  margin: 0;\n  font-weight: 600;\n  font-size: 1.25rem;\n  line-height: 1.2;\n}\n.modal__close-button {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  line-height: 1;\n  cursor: pointer;\n  padding: 0;\n  margin: 0;\n  width: 28px;\n  height: 28px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transition: background-color 0.2s;\n}\n.modal__close-button:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n}\n.modal__close-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);\n}\n.modal__body {\n  padding: 20px;\n}\n\n.modal--spring-animation .modal__content {\n  transform: scale(0.85);\n  opacity: 0;\n  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.modal--spring-animation.modal--open .modal__content {\n  transform: scale(1);\n  opacity: 1;\n}';
+styleInject(css_248z);
+
+const Modal = React__default.forwardRef(
+  (
+    {
+      isOpen,
+      onClose,
+      onOpen,
+      title,
+      closeOverlayClick,
+      showCloseButton = true,
+      className,
+      children
+    },
+    ref
+  ) => {
+    const [isAnimating, setIsAnimating] = React__default.useState(false);
+    const [shouldRender, setShouldRender] = React__default.useState(false);
+    const handleOverlayClick = React__default.useCallback(
+      (e) => {
+        if (closeOverlayClick && e.target === e.currentTarget) {
+          onClose();
+        }
+      },
+      [closeOverlayClick, onClose]
+    );
+    const handleEscapekey = React__default.useCallback(
+      (e) => {
+        if (isOpen && e.key === 'Escape') {
+          onClose();
+        }
+      },
+      [isOpen, onClose]
+    );
+    React__default.useEffect(() => {
+      if (isOpen) {
+        setShouldRender(true);
+        onOpen?.();
+        // Small delay to ensure DOM is ready before starting animation
+        const timer = setTimeout(() => setIsAnimating(true), 10);
+        document.addEventListener('keydown', handleEscapekey);
+        document.body.style.overflow = 'hidden';
+        return () => clearTimeout(timer);
+      } else if (shouldRender) {
+        setIsAnimating(false);
+        // Wait for animation to complete before unmounting
+        const timer = setTimeout(() => setShouldRender(false), 300);
+        return () => clearTimeout(timer);
+      }
+      return () => {
+        document.removeEventListener('keydown', handleEscapekey);
+        document.body.style.overflow = '';
+      };
+    }, [isOpen, shouldRender, handleEscapekey]);
+    React__default.useImperativeHandle(ref, () => ({
+      open: () => {},
+      close: () => {
+        onClose();
+      }
+    }));
+    if (!shouldRender) return null;
+    return jsx$1('div', {
+      className: cn(
+        'modal',
+        isAnimating ? 'modal--open' : '',
+        'modal--spring-animation',
+        className
+      ),
+      role: 'dialog',
+      'aria-modal': 'true',
+      children: jsx$1('div', {
+        className: 'modal__overlay',
+        onClick: handleOverlayClick,
+        children: jsxs('div', {
+          className: 'modal__content',
+          children: [
+            (title || showCloseButton) &&
+              jsxs('div', {
+                className: 'modal__header',
+                children: [
+                  title && jsx$1('h2', { className: 'modal__title', children: title }),
+                  !title && showCloseButton && jsx$1('div', {}),
+                  showCloseButton &&
+                    jsx$1('button', {
+                      className: 'modal__close-button',
+                      onClick: onClose,
+                      'aria-label': 'Close',
+                      children: '\u00D7'
+                    })
+                ]
+              }),
+            jsx$1('div', { className: 'modal__body', children: children })
+          ]
+        })
+      })
+    });
+  }
+);
+Modal.displayName = 'Modal Popup';
+
 export {
   Button$1 as Button,
   COLORS,
   Checkbox,
   DatePicker,
   Input$1 as Input,
+  Modal,
   NetworkManager,
   RadioButton,
   Toggle,

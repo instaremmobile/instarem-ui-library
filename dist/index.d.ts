@@ -131,6 +131,24 @@ declare const DatePicker: React$1.NamedExoticComponent<
   DatePickerProps & React$1.RefAttributes<HTMLInputElement>
 >;
 
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpen?: () => void;
+  title?: string;
+  closeOverlayClick?: boolean;
+  showCloseButton?: boolean;
+  className?: string;
+  children: React$1.ReactNode;
+}
+interface ModalRef {
+  open: () => void;
+  close: () => void;
+}
+declare const Modal: React$1.ForwardRefExoticComponent<
+  ModalProps & React$1.RefAttributes<ModalRef>
+>;
+
 declare const COLORS: {
   brandPrimary: string;
   brandPrimaryHover: string;
@@ -209,6 +227,7 @@ export {
   Checkbox,
   DatePicker,
   _default as Input,
+  Modal,
   NetworkManager,
   RadioButton,
   Toggle,
