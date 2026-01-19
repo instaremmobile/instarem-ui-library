@@ -4,5 +4,6 @@ import Input from '../components/Input/Input';
 import { Checkbox } from '../components/Checkbox/Checkbox';
 import RadioButton from '../components/Radio/RadioButton';
 import DatePicker from '../components/DatePicker/DatePicker';
+import { Modal } from '../components/Modal/Modal';
 
-export { Button, Input, Toggle, RadioButton, Checkbox, DatePicker };
+export { Button, Input, Toggle, RadioButton, Checkbox, DatePicker, Modal };
