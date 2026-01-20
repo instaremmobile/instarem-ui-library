@@ -788,7 +788,7 @@ ToggleComponent.displayName = 'Toggle';
 const Toggle = memo(ToggleComponent);
 
 /**
- * @license lucide-react v0.560.0 - ISC
+ * @license lucide-react v0.562.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -819,7 +819,7 @@ const hasA11yProp = (props) => {
 };
 
 /**
- * @license lucide-react v0.560.0 - ISC
+ * @license lucide-react v0.562.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -838,7 +838,7 @@ var defaultAttributes = {
 };
 
 /**
- * @license lucide-react v0.560.0 - ISC
+ * @license lucide-react v0.562.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -879,7 +879,7 @@ const Icon = forwardRef(
 );
 
 /**
- * @license lucide-react v0.560.0 - ISC
+ * @license lucide-react v0.562.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -903,7 +903,7 @@ const createLucideIcon = (iconName, iconNode) => {
 };
 
 /**
- * @license lucide-react v0.560.0 - ISC
+ * @license lucide-react v0.562.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -2643,7 +2643,7 @@ function requireDebounce() {
 }
 
 var debounceExports = requireDebounce();
-var debounce$2 = /*@__PURE__*/ getDefaultExportFromCjs(debounceExports);
+var debounce$1 = /*@__PURE__*/ getDefaultExportFromCjs(debounceExports);
 
 var css_248z$4 =
   '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
@@ -2803,7 +2803,7 @@ const InputField = forwardRef(
       }
     }, [currentValue, isSearchable, formatOn, formatSafe]);
     const handleFilterSuggestions = useMemo(() => {
-      return debounce$2((newValue) => {
+      return debounce$1((newValue) => {
         const allSuggestions =
           originalFetchedSuggestions.length > 0
             ? originalFetchedSuggestions
@@ -5128,7 +5128,7 @@ var assign = Object.assign;
  * @param {number} length
  * @return {number}
  */
-function hash$2(value, length) {
+function hash(value, length) {
   return charat(value, 0) ^ 45
     ? (((((((length << 2) ^ charat(value, 0)) << 2) ^ charat(value, 1)) << 2) ^ charat(value, 2)) <<
         2) ^
@@ -5980,7 +5980,7 @@ var removeLabel = function removeLabel(element) {
 /* eslint-disable no-fallthrough */
 
 function prefix(value, length) {
-  switch (hash$2(value, length)) {
+  switch (hash(value, length)) {
     // color-adjust
     case 5103:
       return WEBKIT + 'print-' + value + value;
@@ -9850,7 +9850,7 @@ styleFunctionSx.filterProps = ['sx'];
  *   })
  *```
  */
-function applyStyles$2(key, styles) {
+function applyStyles(key, styles) {
   // @ts-expect-error this is 'any' type
   const theme = this;
   if (theme.vars) {
@@ -9905,7 +9905,7 @@ function createTheme$1(options = {}, ...args) {
     other
   );
   muiTheme = cssContainerQueries(muiTheme);
-  muiTheme.applyStyles = applyStyles$2;
+  muiTheme.applyStyles = applyStyles;
   muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
   muiTheme.unstable_sxConfig = {
     ...defaultSxConfig,
@@ -12023,7 +12023,7 @@ function createMixins(breakpoints, mixins) {
   };
 }
 
-function round$2(value) {
+function round$1(value) {
   return Math.round(value * 1e5) / 1e5;
 }
 const caseAllCaps = {
@@ -12073,7 +12073,7 @@ function createTypography(palette, typography) {
     // across font-families can cause issues with the kerning.
     ...(fontFamily === defaultFontFamily
       ? {
-          letterSpacing: `${round$2(letterSpacing / size)}em`
+          letterSpacing: `${round$1(letterSpacing / size)}em`
         }
       : {}),
     ...casing,
@@ -13579,7 +13579,7 @@ const enUSPickers = {
 const DEFAULT_LOCALE = enUSPickers;
 getPickersLocalization(enUSPickers);
 
-const _excluded$v = ['localeText'];
+const _excluded$s = ['localeText'];
 const PickerAdapterContext = /*#__PURE__*/ React.createContext(null);
 
 // TODO v9: Remove this public export
@@ -13603,7 +13603,7 @@ if (process.env.NODE_ENV !== 'production')
  */
 const LocalizationProvider = function LocalizationProvider(inProps) {
   const { localeText: inLocaleText } = inProps,
-    otherInProps = _objectWithoutPropertiesLoose(inProps, _excluded$v);
+    otherInProps = _objectWithoutPropertiesLoose(inProps, _excluded$s);
   const { adapter: parentAdapter, localeText: parentLocaleText } = React.useContext(
     PickerAdapterContext
   ) ?? {
@@ -15089,7 +15089,7 @@ const v6Colors = {
   textDisabled: true
 };
 const extendSxProp = internal_createExtendSxProp();
-const useUtilityClasses$R = (ownerState) => {
+const useUtilityClasses$P = (ownerState) => {
   const { align, gutterBottom, noWrap, paragraph, variant, classes } = ownerState;
   const slots = {
     root: [
@@ -15242,7 +15242,7 @@ const Typography = /*#__PURE__*/ React.forwardRef(function Typography(inProps, r
     component ||
     (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) ||
     'span';
-  const classes = useUtilityClasses$R(ownerState);
+  const classes = useUtilityClasses$P(ownerState);
   return /*#__PURE__*/ jsx$1(TypographyRoot, {
     as: Component,
     ref: ref,
@@ -15705,7 +15705,7 @@ generateUtilityClasses('MuiSvgIcon', [
   'fontSizeLarge'
 ]);
 
-const useUtilityClasses$Q = (ownerState) => {
+const useUtilityClasses$O = (ownerState) => {
   const { color, fontSize, classes } = ownerState;
   const slots = {
     root: [
@@ -15848,7 +15848,7 @@ const SvgIcon = /*#__PURE__*/ React.forwardRef(function SvgIcon(inProps, ref) {
   if (!inheritViewBox) {
     more.viewBox = viewBox;
   }
-  const classes = useUtilityClasses$Q(ownerState);
+  const classes = useUtilityClasses$O(ownerState);
   return /*#__PURE__*/ jsxs(SvgIconRoot, {
     as: component,
     className: clsx(classes.root, className),
@@ -15987,7 +15987,7 @@ function createSvgIcon(path, displayName) {
 
 // Corresponds to 10 frames at 60 Hz.
 // A few bytes payload overhead when lodash/debounce is ~3 kB and debounce ~300 B.
-function debounce$1(func, wait = 166) {
+function debounce(func, wait = 166) {
   let timeout;
   function debounced(...args) {
     const later = () => {
@@ -16644,7 +16644,7 @@ function requireReactDom_production() {
   reactDom_production.useFormStatus = function () {
     return ReactSharedInternals.H.useHostTransitionStatus();
   };
-  reactDom_production.version = '19.2.1';
+  reactDom_production.version = '19.2.3';
   return reactDom_production;
 }
 
@@ -17021,7 +17021,7 @@ function requireReactDom_development() {
       reactDom_development.useFormStatus = function () {
         return resolveDispatcher().useHostTransitionStatus();
       };
-      reactDom_development.version = '19.2.1';
+      reactDom_development.version = '19.2.3';
       'undefined' !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
         'function' === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
         __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
@@ -19020,7 +19020,7 @@ const buttonBaseClasses = generateUtilityClasses('MuiButtonBase', [
   'focusVisible'
 ]);
 
-const useUtilityClasses$P = (ownerState) => {
+const useUtilityClasses$N = (ownerState) => {
   const { disabled, focusVisible, focusVisibleClassName, classes } = ownerState;
   const slots = {
     root: ['root', disabled && 'disabled', focusVisible && 'focusVisible']
@@ -19272,7 +19272,7 @@ const ButtonBase = /*#__PURE__*/ React.forwardRef(function ButtonBase(inProps, r
     tabIndex,
     focusVisible
   };
-  const classes = useUtilityClasses$P(ownerState);
+  const classes = useUtilityClasses$N(ownerState);
   return /*#__PURE__*/ jsxs(ButtonBaseRoot, {
     as: ComponentProp,
     className: clsx(classes.root, className),
@@ -19549,7 +19549,7 @@ const dashAnimation =
         animation: ${circularDashKeyframe} 1.4s ease-in-out infinite;
       `
     : null;
-const useUtilityClasses$O = (ownerState) => {
+const useUtilityClasses$M = (ownerState) => {
   const { classes, variant, color, disableShrink } = ownerState;
   const slots = {
     root: ['root', variant, `color${capitalize(color)}`],
@@ -19697,7 +19697,7 @@ const CircularProgress = /*#__PURE__*/ React.forwardRef(function CircularProgres
     variant,
     enableTrackSlot
   };
-  const classes = useUtilityClasses$O(ownerState);
+  const classes = useUtilityClasses$M(ownerState);
   const circleStyle = {};
   const rootStyle = {};
   const rootProps = {};
@@ -19858,7 +19858,7 @@ const iconButtonClasses = generateUtilityClasses('MuiIconButton', [
   'loadingWrapper'
 ]);
 
-const useUtilityClasses$N = (ownerState) => {
+const useUtilityClasses$L = (ownerState) => {
   const { classes, disabled, color, edge, size, loading } = ownerState;
   const slots = {
     root: [
@@ -20075,7 +20075,7 @@ const IconButton = /*#__PURE__*/ React.forwardRef(function IconButton(inProps, r
     loadingIndicator,
     size
   };
-  const classes = useUtilityClasses$N(ownerState);
+  const classes = useUtilityClasses$L(ownerState);
   return /*#__PURE__*/ jsxs(IconButtonRoot, {
     id: loading ? loadingId : idProp,
     className: clsx(classes.root, className),
@@ -20327,7 +20327,7 @@ generateUtilityClasses('MuiPickersArrowSwitcher', [
  */
 const usePickerPrivateContext = () => React.useContext(PickerPrivateContext);
 
-const _excluded$u = [
+const _excluded$r = [
     'children',
     'className',
     'slots',
@@ -20343,7 +20343,7 @@ const _excluded$u = [
     'labelId',
     'classes'
   ],
-  _excluded2$6 = ['ownerState'],
+  _excluded2$5 = ['ownerState'],
   _excluded3$1 = ['ownerState'];
 const PickersArrowSwitcherRoot = styled('div', {
   name: 'MuiPickersArrowSwitcher',
@@ -20372,7 +20372,7 @@ const PickersArrowSwitcherButton = styled(IconButton, {
     }
   ]
 });
-const useUtilityClasses$M = (classes) => {
+const useUtilityClasses$K = (classes) => {
   const slots = {
     root: ['root'],
     spacer: ['spacer'],
@@ -20407,9 +20407,9 @@ const PickersArrowSwitcher = /*#__PURE__*/ React.forwardRef(
         labelId,
         classes: classesProp
       } = props,
-      other = _objectWithoutPropertiesLoose(props, _excluded$u);
+      other = _objectWithoutPropertiesLoose(props, _excluded$r);
     const { ownerState } = usePickerPrivateContext();
-    const classes = useUtilityClasses$M(classesProp);
+    const classes = useUtilityClasses$K(classesProp);
     const nextProps = {
       isDisabled: isNextDisabled,
       isHidden: isNextHidden,
@@ -20467,7 +20467,7 @@ const PickersArrowSwitcher = /*#__PURE__*/ React.forwardRef(
         ownerState,
         className: classes.leftArrowIcon
       }),
-      leftArrowIconProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$6);
+      leftArrowIconProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$5);
     const RightArrowIcon = slots?.rightArrowIcon ?? ArrowRightIcon;
     // The spread is here to avoid this bug mui/material-ui#34056
     const _useSlotProps2 = useSlotProps({
@@ -20905,13 +20905,13 @@ const getDefaultReferenceDate = ({
   return referenceDate;
 };
 
-const _excluded$t = ['value', 'referenceDate'];
+const _excluded$q = ['value', 'referenceDate'];
 const singleItemValueManager = {
   emptyValue: null,
   getTodayValue: getTodayDate,
   getInitialReferenceValue: (_ref) => {
     let { value, referenceDate } = _ref,
-      params = _objectWithoutPropertiesLoose(_ref, _excluded$t);
+      params = _objectWithoutPropertiesLoose(_ref, _excluded$q);
     if (params.adapter.isValid(value)) {
       return value;
     }
@@ -21041,7 +21041,7 @@ function getListUtilityClass(slot) {
 }
 generateUtilityClasses('MuiList', ['root', 'padding', 'dense', 'subheader']);
 
-const useUtilityClasses$L = (ownerState) => {
+const useUtilityClasses$J = (ownerState) => {
   const { classes, disablePadding, dense, subheader } = ownerState;
   const slots = {
     root: ['root', !disablePadding && 'padding', dense && 'dense', subheader && 'subheader']
@@ -21107,7 +21107,7 @@ const List = /*#__PURE__*/ React.forwardRef(function List(inProps, ref) {
     dense,
     disablePadding
   };
-  const classes = useUtilityClasses$L(ownerState);
+  const classes = useUtilityClasses$J(ownerState);
   return /*#__PURE__*/ jsx$1(ListContext.Provider, {
     value: context,
     children: /*#__PURE__*/ jsxs(ListRoot, {
@@ -21521,9 +21521,6 @@ function arrayIncludes(array, itemOrItems) {
   }
   return array.indexOf(itemOrItems) !== -1;
 }
-const executeInTheNextEventLoopTick = (fn) => {
-  setTimeout(fn, 0);
-};
 
 // https://www.abeautifulsite.net/posts/finding-the-active-element-in-a-shadow-root/
 const getActiveElementInternal = (root = document) => {
@@ -21546,7 +21543,6 @@ const getActiveElementInternal = (root = document) => {
 const getActiveElement = (node) => {
   return getActiveElementInternal(ownerDocument(node));
 };
-const DEFAULT_DESKTOP_MODE_MEDIA_QUERY = '@media (pointer: fine)';
 
 function getPickersDayUtilityClass(slot) {
   return generateUtilityClass('MuiPickersDay', slot);
@@ -21603,7 +21599,7 @@ function usePickerDayOwnerState(parameters) {
   );
 }
 
-const _excluded$s = [
+const _excluded$p = [
   'autoFocus',
   'className',
   'classes',
@@ -21628,7 +21624,7 @@ const _excluded$s = [
   'disableHighlightToday',
   'showDaysOutsideCurrentMonth'
 ];
-const useUtilityClasses$K = (classes, ownerState) => {
+const useUtilityClasses$I = (classes, ownerState) => {
   const {
     isDaySelected,
     isDayDisabled,
@@ -21791,7 +21787,7 @@ const PickersDayRaw = /*#__PURE__*/ React.forwardRef(function PickersDay(inProps
       disableHighlightToday,
       showDaysOutsideCurrentMonth
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$s);
+    other = _objectWithoutPropertiesLoose(props, _excluded$p);
   const ownerState = usePickerDayOwnerState({
     day,
     selected,
@@ -21802,7 +21798,7 @@ const PickersDayRaw = /*#__PURE__*/ React.forwardRef(function PickersDay(inProps
     disableHighlightToday,
     showDaysOutsideCurrentMonth
   });
-  const classes = useUtilityClasses$K(classesProp, ownerState);
+  const classes = useUtilityClasses$I(classesProp, ownerState);
   const adapter = usePickerAdapter();
   const ref = React.useRef(null);
   const handleRef = useForkRef(ref, forwardedRef);
@@ -24627,7 +24623,7 @@ const TextareaAutosize = /*#__PURE__*/ React.forwardRef(
     }, [calculateTextareaStyles]);
     const frameRef = React.useRef(-1);
     useEnhancedEffect(() => {
-      const debouncedHandleResize = debounce$1(syncHeight);
+      const debouncedHandleResize = debounce(syncHeight);
       const textarea = textareaRef?.current;
       if (!textarea) {
         return undefined;
@@ -24863,7 +24859,7 @@ const inputOverridesResolver = (props, styles) => {
     ownerState.hiddenLabel && styles.inputHiddenLabel
   ];
 };
-const useUtilityClasses$J = (ownerState) => {
+const useUtilityClasses$H = (ownerState) => {
   const {
     classes,
     color,
@@ -25333,7 +25329,7 @@ const InputBase = /*#__PURE__*/ React.forwardRef(function InputBase(inProps, ref
     startAdornment,
     type
   };
-  const classes = useUtilityClasses$J(ownerState);
+  const classes = useUtilityClasses$H(ownerState);
   const Root = slots.root || components.Root || InputBaseRoot;
   const rootProps = slotProps.root || componentsProps.root || {};
   const Input = slots.input || components.Input || InputBaseInput;
@@ -25666,7 +25662,7 @@ const inputClasses = {
   ...generateUtilityClasses('MuiInput', ['root', 'underline', 'input'])
 };
 
-const useUtilityClasses$I = (ownerState) => {
+const useUtilityClasses$G = (ownerState) => {
   const { classes, disableUnderline } = ownerState;
   const slots = {
     root: ['root', !disableUnderline && 'underline'],
@@ -25800,7 +25796,7 @@ const Input = /*#__PURE__*/ React.forwardRef(function Input(inProps, ref) {
     type = 'text',
     ...other
   } = props;
-  const classes = useUtilityClasses$I(props);
+  const classes = useUtilityClasses$G(props);
   const ownerState = {
     disableUnderline
   };
@@ -26043,7 +26039,7 @@ const filledInputClasses = {
   ])
 };
 
-const useUtilityClasses$H = (ownerState) => {
+const useUtilityClasses$F = (ownerState) => {
   const { classes, disableUnderline, startAdornment, endAdornment, size, hiddenLabel, multiline } =
     ownerState;
   const slots = {
@@ -26316,7 +26312,7 @@ const FilledInput = /*#__PURE__*/ React.forwardRef(function FilledInput(inProps,
     multiline,
     type
   };
-  const classes = useUtilityClasses$H(props);
+  const classes = useUtilityClasses$F(props);
   const filledInputComponentsProps = {
     root: {
       ownerState
@@ -26701,7 +26697,7 @@ const outlinedInputClasses = {
   ...generateUtilityClasses('MuiOutlinedInput', ['root', 'notchedOutline', 'input'])
 };
 
-const useUtilityClasses$G = (ownerState) => {
+const useUtilityClasses$E = (ownerState) => {
   const { classes } = ownerState;
   const slots = {
     root: ['root'],
@@ -26882,7 +26878,7 @@ const OutlinedInput = /*#__PURE__*/ React.forwardRef(function OutlinedInput(inPr
     type = 'text',
     ...other
   } = props;
-  const classes = useUtilityClasses$G(props);
+  const classes = useUtilityClasses$E(props);
   const muiFormControl = useFormControl();
   const fcs = formControlState({
     props,
@@ -27145,7 +27141,7 @@ const formLabelClasses = generateUtilityClasses('MuiFormLabel', [
   'asterisk'
 ]);
 
-const useUtilityClasses$F = (ownerState) => {
+const useUtilityClasses$D = (ownerState) => {
   const { classes, color, focused, disabled, error, filled, required } = ownerState;
   const slots = {
     root: [
@@ -27249,7 +27245,7 @@ const FormLabel = /*#__PURE__*/ React.forwardRef(function FormLabel(inProps, ref
     focused: fcs.focused,
     required: fcs.required
   };
-  const classes = useUtilityClasses$F(ownerState);
+  const classes = useUtilityClasses$D(ownerState);
   return /*#__PURE__*/ jsxs(FormLabelRoot, {
     as: component,
     ownerState: ownerState,
@@ -27350,7 +27346,7 @@ generateUtilityClasses('MuiInputLabel', [
   'outlined'
 ]);
 
-const useUtilityClasses$E = (ownerState) => {
+const useUtilityClasses$C = (ownerState) => {
   const { classes, formControl, size, shrink, disableAnimation, variant, required } = ownerState;
   const slots = {
     root: [
@@ -27542,7 +27538,7 @@ const InputLabel = /*#__PURE__*/ React.forwardRef(function InputLabel(inProps, r
     required: fcs.required,
     focused: fcs.focused
   };
-  const classes = useUtilityClasses$E(ownerState);
+  const classes = useUtilityClasses$C(ownerState);
   return /*#__PURE__*/ jsx$1(InputLabelRoot, {
     'data-shrink': shrink,
     ref: ref,
@@ -27644,7 +27640,7 @@ generateUtilityClasses('MuiFormControl', [
   'disabled'
 ]);
 
-const useUtilityClasses$D = (ownerState) => {
+const useUtilityClasses$B = (ownerState) => {
   const { classes, margin, fullWidth } = ownerState;
   const slots = {
     root: ['root', margin !== 'none' && `margin${capitalize(margin)}`, fullWidth && 'fullWidth']
@@ -27761,7 +27757,7 @@ const FormControl = /*#__PURE__*/ React.forwardRef(function FormControl(inProps,
     size,
     variant
   };
-  const classes = useUtilityClasses$D(ownerState);
+  const classes = useUtilityClasses$B(ownerState);
   const [adornedStart, setAdornedStart] = React.useState(() => {
     // We need to iterate through the children and find the Input in order
     // to fully support server-side rendering.
@@ -27985,7 +27981,7 @@ const formHelperTextClasses = generateUtilityClasses('MuiFormHelperText', [
 ]);
 
 var _span$2;
-const useUtilityClasses$C = (ownerState) => {
+const useUtilityClasses$A = (ownerState) => {
   const { classes, contained, size, disabled, error, filled, focused, required } = ownerState;
   const slots = {
     root: [
@@ -28086,7 +28082,7 @@ const FormHelperText = /*#__PURE__*/ React.forwardRef(function FormHelperText(in
 
   // This issue explains why this is required: https://github.com/mui/material-ui/issues/42184
   delete ownerState.ownerState;
-  const classes = useUtilityClasses$C(ownerState);
+  const classes = useUtilityClasses$A(ownerState);
   return /*#__PURE__*/ jsx$1(FormHelperTextRoot, {
     as: component,
     className: clsx(classes.root, className),
@@ -29484,7 +29480,7 @@ function getBackdropUtilityClass(slot) {
 }
 generateUtilityClasses('MuiBackdrop', ['root', 'invisible']);
 
-const useUtilityClasses$B = (ownerState) => {
+const useUtilityClasses$z = (ownerState) => {
   const { classes, invisible } = ownerState;
   const slots = {
     root: ['root', invisible && 'invisible']
@@ -29544,7 +29540,7 @@ const Backdrop = /*#__PURE__*/ React.forwardRef(function Backdrop(inProps, ref) 
     component,
     invisible
   };
-  const classes = useUtilityClasses$B(ownerState);
+  const classes = useUtilityClasses$z(ownerState);
   const backwardCompatibleSlots = {
     transition: TransitionComponentProp,
     root: components.Root,
@@ -29875,7 +29871,7 @@ function getModalUtilityClass(slot) {
 }
 generateUtilityClasses('MuiModal', ['root', 'hidden', 'backdrop']);
 
-const useUtilityClasses$A = (ownerState) => {
+const useUtilityClasses$y = (ownerState) => {
   const { open, exited, classes } = ownerState;
   const slots = {
     root: ['root', !open && exited && 'hidden'],
@@ -29990,7 +29986,7 @@ const Modal$1 = /*#__PURE__*/ React.forwardRef(function Modal(inProps, ref) {
     ...propsWithDefaults,
     exited
   };
-  const classes = useUtilityClasses$A(ownerState);
+  const classes = useUtilityClasses$y(ownerState);
   const childProps = {};
   if (children.props.tabIndex === undefined) {
     childProps.tabIndex = '-1';
@@ -30291,7 +30287,7 @@ generateUtilityClasses('MuiPaper', [
   'elevation24'
 ]);
 
-const useUtilityClasses$z = (ownerState) => {
+const useUtilityClasses$x = (ownerState) => {
   const { square, elevation, variant, classes } = ownerState;
   const slots = {
     root: [
@@ -30368,7 +30364,7 @@ const Paper = /*#__PURE__*/ React.forwardRef(function Paper(inProps, ref) {
     square,
     variant
   };
-  const classes = useUtilityClasses$z(ownerState);
+  const classes = useUtilityClasses$x(ownerState);
   if (process.env.NODE_ENV !== 'production') {
     if (theme.shadows[elevation] === undefined) {
       console.error(
@@ -30497,10 +30493,10 @@ function getTransformOriginValue(transformOrigin) {
     .map((n) => (typeof n === 'number' ? `${n}px` : n))
     .join(' ');
 }
-function resolveAnchorEl$1(anchorEl) {
+function resolveAnchorEl(anchorEl) {
   return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
 }
-const useUtilityClasses$y = (ownerState) => {
+const useUtilityClasses$w = (ownerState) => {
   const { classes } = ownerState;
   const slots = {
     root: ['root'],
@@ -30576,7 +30572,7 @@ const Popover = /*#__PURE__*/ React.forwardRef(function Popover(inProps, ref) {
     transitionDuration: transitionDurationProp,
     TransitionProps
   };
-  const classes = useUtilityClasses$y(ownerState);
+  const classes = useUtilityClasses$w(ownerState);
 
   // Returns the top/left offset of the position
   // to attach to on the anchor element (or body if none is provided)
@@ -30592,7 +30588,7 @@ const Popover = /*#__PURE__*/ React.forwardRef(function Popover(inProps, ref) {
       }
       return anchorPosition;
     }
-    const resolvedAnchorEl = resolveAnchorEl$1(anchorEl);
+    const resolvedAnchorEl = resolveAnchorEl(anchorEl);
 
     // If an anchor element wasn't provided, just use the parent body element of this Popover
     const anchorElement =
@@ -30661,7 +30657,7 @@ const Popover = /*#__PURE__*/ React.forwardRef(function Popover(inProps, ref) {
       const right = left + elemRect.width;
 
       // Use the parent window of the anchorEl if provided
-      const containerWindow = ownerWindow(resolveAnchorEl$1(anchorEl));
+      const containerWindow = ownerWindow(resolveAnchorEl(anchorEl));
 
       // Window thresholds taking required margin into account
       const heightThreshold = containerWindow.innerHeight - marginThreshold;
@@ -30756,10 +30752,10 @@ const Popover = /*#__PURE__*/ React.forwardRef(function Popover(inProps, ref) {
     if (!open) {
       return undefined;
     }
-    const handleResize = debounce$1(() => {
+    const handleResize = debounce(() => {
       setPositioningStyles();
     });
-    const containerWindow = ownerWindow(resolveAnchorEl$1(anchorEl));
+    const containerWindow = ownerWindow(resolveAnchorEl(anchorEl));
     containerWindow.addEventListener('resize', handleResize);
     return () => {
       handleResize.clear();
@@ -30806,7 +30802,7 @@ const Popover = /*#__PURE__*/ React.forwardRef(function Popover(inProps, ref) {
   // If the anchorEl prop is provided, use its parent body element as the container
   // If neither are provided let the Modal take care of choosing the container
   const container =
-    containerProp || (anchorEl ? ownerDocument(resolveAnchorEl$1(anchorEl)).body : undefined);
+    containerProp || (anchorEl ? ownerDocument(resolveAnchorEl(anchorEl)).body : undefined);
   const [RootSlot, { slots: rootSlotsProp, slotProps: rootSlotPropsProp, ...rootProps }] = useSlot(
     'root',
     {
@@ -30889,7 +30885,7 @@ process.env.NODE_ENV !== 'production'
        */
       anchorEl: chainPropTypes(PropTypes.oneOfType([HTMLElementType, PropTypes.func]), (props) => {
         if (props.open && (!props.anchorReference || props.anchorReference === 'anchorEl')) {
-          const resolvedAnchorEl = resolveAnchorEl$1(props.anchorEl);
+          const resolvedAnchorEl = resolveAnchorEl(props.anchorEl);
           if (resolvedAnchorEl && resolvedAnchorEl.nodeType === 1) {
             const box = resolvedAnchorEl.getBoundingClientRect();
             if (
@@ -31126,7 +31122,7 @@ const LTR_ORIGIN = {
   vertical: 'top',
   horizontal: 'left'
 };
-const useUtilityClasses$x = (ownerState) => {
+const useUtilityClasses$v = (ownerState) => {
   const { classes } = ownerState;
   const slots = {
     root: ['root'],
@@ -31192,7 +31188,7 @@ const Menu = /*#__PURE__*/ React.forwardRef(function Menu(inProps, ref) {
     TransitionProps,
     variant
   };
-  const classes = useUtilityClasses$x(ownerState);
+  const classes = useUtilityClasses$v(ownerState);
   const autoFocusItem = autoFocus && !disableAutoFocusItem && open;
   const menuListActionsRef = React.useRef(null);
   const handleEntering = (element, isAppearing) => {
@@ -31477,7 +31473,7 @@ const nativeSelectClasses = generateUtilityClasses('MuiNativeSelect', [
   'error'
 ]);
 
-const useUtilityClasses$w = (ownerState) => {
+const useUtilityClasses$u = (ownerState) => {
   const { classes, variant, disabled, multiple, open, error } = ownerState;
   const slots = {
     select: ['select', variant, disabled && 'disabled', multiple && 'multiple', error && 'error'],
@@ -31637,7 +31633,7 @@ const NativeSelectInput = /*#__PURE__*/ React.forwardRef(function NativeSelectIn
     variant,
     error
   };
-  const classes = useUtilityClasses$w(ownerState);
+  const classes = useUtilityClasses$u(ownerState);
   return /*#__PURE__*/ jsxs(React.Fragment, {
     children: [
       /*#__PURE__*/ jsx$1(NativeSelectSelect, {
@@ -31806,7 +31802,7 @@ function areEqualValues(a, b) {
 function isEmpty(display) {
   return display == null || (typeof display === 'string' && !display.trim());
 }
-const useUtilityClasses$v = (ownerState) => {
+const useUtilityClasses$t = (ownerState) => {
   const { classes, variant, disabled, multiple, open, error } = ownerState;
   const slots = {
     select: ['select', variant, disabled && 'disabled', multiple && 'multiple', error && 'error'],
@@ -32195,7 +32191,7 @@ const SelectInput = /*#__PURE__*/ React.forwardRef(function SelectInput(props, r
     open,
     error
   };
-  const classes = useUtilityClasses$v(ownerState);
+  const classes = useUtilityClasses$t(ownerState);
   const paperProps = {
     ...MenuProps.PaperProps,
     ...(typeof MenuProps.slotProps?.paper === 'function'
@@ -32458,7 +32454,7 @@ var ArrowDropDownIcon = createSvgIcon(
   'ArrowDropDown'
 );
 
-const useUtilityClasses$u = (ownerState) => {
+const useUtilityClasses$s = (ownerState) => {
   const { classes } = ownerState;
   const slots = {
     root: ['root']
@@ -32519,7 +32515,7 @@ const Select = /*#__PURE__*/ React.forwardRef(function Select(inProps, ref) {
     variant,
     classes: classesProp
   };
-  const classes = useUtilityClasses$u(ownerState);
+  const classes = useUtilityClasses$s(ownerState);
   const { root, ...restOfClasses } = classes;
   const InputComponent =
     input ||
@@ -32752,7 +32748,7 @@ const variantComponent = {
   filled: FilledInput,
   outlined: OutlinedInput
 };
-const useUtilityClasses$t = (ownerState) => {
+const useUtilityClasses$r = (ownerState) => {
   const { classes } = ownerState;
   const slots = {
     root: ['root']
@@ -32850,7 +32846,7 @@ const TextField = /*#__PURE__*/ React.forwardRef(function TextField(inProps, ref
     select,
     variant
   };
-  const classes = useUtilityClasses$t(ownerState);
+  const classes = useUtilityClasses$r(ownerState);
   if (process.env.NODE_ENV !== 'production') {
     if (select && !children) {
       console.error(
@@ -33229,7 +33225,7 @@ const overridesResolver$1 = (props, styles) => {
     styles[ownerState.variant]
   ];
 };
-const useUtilityClasses$s = (ownerState) => {
+const useUtilityClasses$q = (ownerState) => {
   const { classes, disablePointerEvents, hiddenLabel, position, size, variant } = ownerState;
   const slots = {
     root: [
@@ -33331,7 +33327,7 @@ const InputAdornment = /*#__PURE__*/ React.forwardRef(function InputAdornment(in
     position,
     variant
   };
-  const classes = useUtilityClasses$s(ownerState);
+  const classes = useUtilityClasses$q(ownerState);
   return /*#__PURE__*/ jsx$1(FormControlContext.Provider, {
     value: null,
     children: /*#__PURE__*/ jsx$1(InputAdornmentRoot, {
@@ -33479,7 +33475,7 @@ const pickersSectionListClasses = generateUtilityClasses('MuiPickersSectionList'
   'sectionContent'
 ]);
 
-const _excluded$r = ['slots', 'slotProps', 'elements', 'sectionListRef', 'classes'];
+const _excluded$o = ['slots', 'slotProps', 'elements', 'sectionListRef', 'classes'];
 const PickersSectionListRoot = styled('div', {
   name: 'MuiPickersSectionList',
   slot: 'Root'
@@ -33503,7 +33499,7 @@ const PickersSectionListSectionContent = styled('span', {
 })({
   outline: 'none'
 });
-const useUtilityClasses$r = (classes) => {
+const useUtilityClasses$p = (classes) => {
   const slots = {
     root: ['root'],
     section: ['section'],
@@ -33621,8 +33617,8 @@ const PickersSectionList = /*#__PURE__*/ React.forwardRef(
       name: 'MuiPickersSectionList'
     });
     const { slots, slotProps, elements, sectionListRef, classes: classesProp } = props,
-      other = _objectWithoutPropertiesLoose(props, _excluded$r);
-    const classes = useUtilityClasses$r(classesProp);
+      other = _objectWithoutPropertiesLoose(props, _excluded$o);
+    const classes = useUtilityClasses$p(classesProp);
     const { ownerState } = usePickerPrivateContext();
     const rootRef = React.useRef(null);
     const handleRootRef = useForkRef(ref, rootRef);
@@ -33772,7 +33768,7 @@ const usePickerTextFieldOwnerState = () => {
   return value;
 };
 
-const _excluded$q = [
+const _excluded$n = [
   'elements',
   'areAllSectionsEmpty',
   'defaultValue',
@@ -33802,7 +33798,7 @@ const _excluded$q = [
   'classes',
   'ownerState'
 ];
-const round$1 = (value) => Math.round(value * 1e5) / 1e5;
+const round = (value) => Math.round(value * 1e5) / 1e5;
 const PickersInputBaseRoot = styled('div', {
   name: 'MuiPickersInputBase',
   slot: 'Root'
@@ -33817,7 +33813,7 @@ const PickersInputBaseRoot = styled('div', {
     position: 'relative',
     boxSizing: 'border-box',
     // Prevent padding issue with fullWidth.
-    letterSpacing: `${round$1(0.15 / 16)}em`,
+    letterSpacing: `${round(0.15 / 16)}em`,
     variants: [
       {
         props: {
@@ -33968,7 +33964,7 @@ const PickersInputBaseActiveBar = styled('div', {
     left: ownerState.sectionOffsets[1]
   }
 }));
-const useUtilityClasses$q = (classes, ownerState) => {
+const useUtilityClasses$o = (classes, ownerState) => {
   const {
     isFieldFocused,
     isFieldDisabled,
@@ -34072,7 +34068,7 @@ const PickersInputBase = /*#__PURE__*/ React.forwardRef(function PickersInputBas
       classes: classesProp,
       ownerState: ownerStateProp
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$q);
+    other = _objectWithoutPropertiesLoose(props, _excluded$n);
   const ownerStateContext = usePickerTextFieldOwnerState();
   const rootRef = React.useRef(null);
   const activeBarRef = React.useRef(null);
@@ -34130,7 +34126,7 @@ const PickersInputBase = /*#__PURE__*/ React.forwardRef(function PickersInputBas
       muiFormControl.onFilled();
     }
   }, [muiFormControl, areAllSectionsEmpty]);
-  const classes = useUtilityClasses$q(classesProp, ownerState);
+  const classes = useUtilityClasses$o(classesProp, ownerState);
   const InputRoot = slots?.root || PickersInputBaseRoot;
   const inputRootProps = useSlotProps({
     elementType: InputRoot,
@@ -34326,7 +34322,7 @@ const pickersOutlinedInputClasses = _extends(
   generateUtilityClasses('MuiPickersOutlinedInput', ['root', 'notchedOutline', 'input'])
 );
 
-const _excluded$p = ['children', 'className', 'label', 'notched', 'shrink'];
+const _excluded$m = ['children', 'className', 'label', 'notched', 'shrink'];
 const OutlineRoot = styled('fieldset', {
   name: 'MuiPickersOutlinedInput',
   slot: 'NotchedOutline'
@@ -34434,7 +34430,7 @@ const OutlineLegend = styled('legend', {
  */
 function Outline(props) {
   const { className, label, notched } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$p);
+    other = _objectWithoutPropertiesLoose(props, _excluded$m);
   const ownerState = usePickerTextFieldOwnerState();
   return /*#__PURE__*/ jsx$1(
     OutlineRoot,
@@ -34465,7 +34461,7 @@ function Outline(props) {
   );
 }
 
-const _excluded$o = ['label', 'autoFocus', 'ownerState', 'classes', 'notched'];
+const _excluded$l = ['label', 'autoFocus', 'ownerState', 'classes', 'notched'];
 const PickersOutlinedInputRoot = styled(PickersInputBaseRoot, {
   name: 'MuiPickersOutlinedInput',
   slot: 'Root'
@@ -34534,7 +34530,7 @@ const PickersOutlinedInputSectionsContainer = styled(PickersInputBaseSectionsCon
     }
   ]
 });
-const useUtilityClasses$p = (classes) => {
+const useUtilityClasses$n = (classes) => {
   const slots = {
     root: ['root'],
     notchedOutline: ['notchedOutline'],
@@ -34554,9 +34550,9 @@ const PickersOutlinedInput = /*#__PURE__*/ React.forwardRef(
       name: 'MuiPickersOutlinedInput'
     });
     const { label, classes: classesProp, notched } = props,
-      other = _objectWithoutPropertiesLoose(props, _excluded$o);
+      other = _objectWithoutPropertiesLoose(props, _excluded$l);
     const muiFormControl = useFormControl();
-    const classes = useUtilityClasses$p(classesProp);
+    const classes = useUtilityClasses$n(classesProp);
     return /*#__PURE__*/ jsx$1(
       PickersInputBase,
       _extends(
@@ -34685,7 +34681,7 @@ const pickersFilledInputClasses = _extends(
   generateUtilityClasses('MuiPickersFilledInput', ['root', 'underline', 'input'])
 );
 
-const _excluded$n = ['label', 'autoFocus', 'disableUnderline', 'hiddenLabel', 'classes'];
+const _excluded$k = ['label', 'autoFocus', 'disableUnderline', 'hiddenLabel', 'classes'];
 const PickersFilledInputRoot = styled(PickersInputBaseRoot, {
   name: 'MuiPickersFilledInput',
   slot: 'Root',
@@ -34859,7 +34855,7 @@ const PickersFilledSectionsContainer = styled(PickersInputBaseSectionsContainer,
     }
   ]
 });
-const useUtilityClasses$o = (classes, ownerState) => {
+const useUtilityClasses$m = (classes, ownerState) => {
   const { inputHasUnderline } = ownerState;
   const slots = {
     root: ['root', inputHasUnderline && 'underline'],
@@ -34879,12 +34875,12 @@ const PickersFilledInput = /*#__PURE__*/ React.forwardRef(
       name: 'MuiPickersFilledInput'
     });
     const { label, disableUnderline = false, hiddenLabel = false, classes: classesProp } = props,
-      other = _objectWithoutPropertiesLoose(props, _excluded$n);
+      other = _objectWithoutPropertiesLoose(props, _excluded$k);
     const pickerTextFieldOwnerState = usePickerTextFieldOwnerState();
     const ownerState = _extends({}, pickerTextFieldOwnerState, {
       inputHasUnderline: !disableUnderline
     });
-    const classes = useUtilityClasses$o(classesProp, ownerState);
+    const classes = useUtilityClasses$m(classesProp, ownerState);
     return /*#__PURE__*/ jsx$1(
       PickersInputBase,
       _extends(
@@ -35010,7 +35006,7 @@ const pickersInputClasses = _extends(
   generateUtilityClasses('MuiPickersInput', ['root', 'underline', 'input'])
 );
 
-const _excluded$m = ['label', 'autoFocus', 'disableUnderline', 'ownerState', 'classes'];
+const _excluded$j = ['label', 'autoFocus', 'disableUnderline', 'ownerState', 'classes'];
 const PickersInputRoot = styled(PickersInputBaseRoot, {
   name: 'MuiPickersInput',
   slot: 'Root',
@@ -35099,7 +35095,7 @@ const PickersInputRoot = styled(PickersInputBaseRoot, {
     ]
   };
 });
-const useUtilityClasses$n = (classes, ownerState) => {
+const useUtilityClasses$l = (classes, ownerState) => {
   const { inputHasUnderline } = ownerState;
   const slots = {
     root: ['root', !inputHasUnderline && 'underline'],
@@ -35118,12 +35114,12 @@ const PickersInput = /*#__PURE__*/ React.forwardRef(function PickersInput(inProp
     name: 'MuiPickersInput'
   });
   const { label, disableUnderline = false, classes: classesProp } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$m);
+    other = _objectWithoutPropertiesLoose(props, _excluded$j);
   const pickerTextFieldOwnerState = usePickerTextFieldOwnerState();
   const ownerState = _extends({}, pickerTextFieldOwnerState, {
     inputHasUnderline: !disableUnderline
   });
-  const classes = useUtilityClasses$n(classesProp, ownerState);
+  const classes = useUtilityClasses$l(classesProp, ownerState);
   return /*#__PURE__*/ jsx$1(
     PickersInputBase,
     _extends(
@@ -35234,7 +35230,7 @@ process.env.NODE_ENV !== 'production'
   : void 0;
 PickersInput.muiName = 'Input';
 
-const _excluded$l = [
+const _excluded$i = [
   'onFocus',
   'onBlur',
   'className',
@@ -35283,7 +35279,7 @@ const PickersTextFieldRoot = styled(FormControl, {
 })({
   maxWidth: '100%'
 });
-const useUtilityClasses$m = (classes, ownerState) => {
+const useUtilityClasses$k = (classes, ownerState) => {
   const { isFieldFocused, isFieldDisabled, isFieldRequired } = ownerState;
   const slots = {
     root: [
@@ -35343,7 +35339,7 @@ const PickersTextField = /*#__PURE__*/ React.forwardRef(function PickersTextFiel
       // @ts-ignore
       'data-active-range-position': dataActiveRangePosition
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$l);
+    other = _objectWithoutPropertiesLoose(props, _excluded$i);
   const rootRef = React.useRef(null);
   const handleRootRef = useForkRef(ref, rootRef);
   const id = useId(idProp);
@@ -35384,7 +35380,7 @@ const PickersTextField = /*#__PURE__*/ React.forwardRef(function PickersTextFiel
       InputLabelProps?.shrink
     ]
   );
-  const classes = useUtilityClasses$m(classesProp, ownerState);
+  const classes = useUtilityClasses$k(classesProp, ownerState);
   const PickersInputComponent = VARIANT_COMPONENT[variant];
   const inputAdditionalProps = {};
   if (variant === 'outlined') {
@@ -35610,8 +35606,8 @@ process.env.NODE_ENV !== 'production'
     })
   : void 0;
 
-const _excluded$k = ['enableAccessibleFieldDOMStructure'],
-  _excluded2$5 = [
+const _excluded$h = ['enableAccessibleFieldDOMStructure'],
+  _excluded2$4 = [
     'InputProps',
     'readOnly',
     'onClear',
@@ -35642,7 +35638,7 @@ const _excluded$k = ['enableAccessibleFieldDOMStructure'],
 const noop = () => {};
 const cleanFieldResponse = (_ref) => {
   let { enableAccessibleFieldDOMStructure } = _ref,
-    fieldResponse = _objectWithoutPropertiesLoose(_ref, _excluded$k);
+    fieldResponse = _objectWithoutPropertiesLoose(_ref, _excluded$h);
   if (enableAccessibleFieldDOMStructure) {
     const {
         InputProps,
@@ -35653,7 +35649,7 @@ const cleanFieldResponse = (_ref) => {
         openPickerButtonPosition,
         openPickerAriaLabel
       } = fieldResponse,
-      other = _objectWithoutPropertiesLoose(fieldResponse, _excluded2$5);
+      other = _objectWithoutPropertiesLoose(fieldResponse, _excluded2$4);
     const mergedInputProps =
       major >= 6 && other?.slotProps?.input
         ? mergeSlotProps(other?.slotProps?.input, InputProps)
@@ -36070,7 +36066,7 @@ function PickerFieldUIContextProvider(props) {
   });
 }
 
-const _excluded$j = ['slots', 'slotProps'];
+const _excluded$g = ['slots', 'slotProps'];
 /**
  * Demos:
  *
@@ -36087,7 +36083,7 @@ const DateField = /*#__PURE__*/ React.forwardRef(function DateField(inProps, inR
     name: 'MuiDateField'
   });
   const { slots, slotProps } = themeProps,
-    other = _objectWithoutPropertiesLoose(themeProps, _excluded$j);
+    other = _objectWithoutPropertiesLoose(themeProps, _excluded$g);
   const textFieldProps = useFieldTextFieldProps({
     slotProps,
     ref: inRef,
@@ -36617,8 +36613,8 @@ const getPickersFadeTransitionGroupUtilityClass = (slot) =>
   generateUtilityClass('MuiPickersFadeTransitionGroup', slot);
 generateUtilityClasses('MuiPickersFadeTransitionGroup', ['root']);
 
-const _excluded$i = ['children'];
-const useUtilityClasses$l = (classes) => {
+const _excluded$f = ['children'];
+const useUtilityClasses$j = (classes) => {
   const slots = {
     root: ['root']
   };
@@ -36642,8 +36638,8 @@ function PickersFadeTransitionGroup(inProps) {
   });
   const { className, reduceAnimations, transKey, classes: classesProp } = props;
   const { children } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$i);
-  const classes = useUtilityClasses$l(classesProp);
+    other = _objectWithoutPropertiesLoose(props, _excluded$f);
+  const classes = useUtilityClasses$j(classesProp);
   const theme = useTheme();
   if (reduceAnimations) {
     return children;
@@ -36681,7 +36677,7 @@ const pickersSlideTransitionClasses = generateUtilityClasses('MuiPickersSlideTra
   'slideExitActiveLeft-right'
 ]);
 
-const _excluded$h = [
+const _excluded$e = [
   'children',
   'className',
   'reduceAnimations',
@@ -36689,7 +36685,7 @@ const _excluded$h = [
   'transKey',
   'classes'
 ];
-const useUtilityClasses$k = (classes, ownerState) => {
+const useUtilityClasses$i = (classes, ownerState) => {
   const { slideDirection } = ownerState;
   const slots = {
     root: ['root'],
@@ -36789,12 +36785,12 @@ function PickersSlideTransition(inProps) {
       transKey,
       classes: classesProp
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$h);
+    other = _objectWithoutPropertiesLoose(props, _excluded$e);
   const { ownerState: pickerOwnerState } = usePickerPrivateContext();
   const ownerState = _extends({}, pickerOwnerState, {
     slideDirection
   });
-  const classes = useUtilityClasses$k(classesProp, ownerState);
+  const classes = useUtilityClasses$i(classesProp, ownerState);
   const theme = useTheme();
   if (reduceAnimations) {
     return /*#__PURE__*/ jsx$1('div', {
@@ -36848,7 +36844,7 @@ generateUtilityClasses('MuiDayCalendar', [
   'weekNumber'
 ]);
 
-const _excluded$g = [
+const _excluded$d = [
     'parentProps',
     'day',
     'focusedDay',
@@ -36857,8 +36853,8 @@ const _excluded$g = [
     'currentMonthNumber',
     'isViewFocused'
   ],
-  _excluded2$4 = ['ownerState'];
-const useUtilityClasses$j = (classes) => {
+  _excluded2$3 = ['ownerState'];
+const useUtilityClasses$h = (classes) => {
   const slots = {
     root: ['root'],
     header: ['header'],
@@ -36966,7 +36962,7 @@ function WrappedDay(_ref) {
       currentMonthNumber,
       isViewFocused
     } = _ref,
-    other = _objectWithoutPropertiesLoose(_ref, _excluded$g);
+    other = _objectWithoutPropertiesLoose(_ref, _excluded$d);
   const {
     disabled,
     disableHighlightToday,
@@ -37023,7 +37019,7 @@ function WrappedDay(_ref) {
         isDaySelected: isSelected
       })
     }),
-    dayProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$4);
+    dayProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$3);
   const isFirstVisibleCell = React.useMemo(() => {
     const startOfMonth = adapter.startOfMonth(adapter.setMonth(day, currentMonthNumber));
     if (!showDaysOutsideCurrentMonth) {
@@ -37099,7 +37095,7 @@ function DayCalendar(inProps) {
     timezone
   } = props;
   const now = useNow(timezone);
-  const classes = useUtilityClasses$j(classesProp);
+  const classes = useUtilityClasses$h(classesProp);
   const isRtl = useRtl();
   const isDateDisabled = useIsDateDisabled({
     shouldDisableDate,
@@ -37336,7 +37332,7 @@ const monthCalendarClasses = generateUtilityClasses('MuiMonthCalendar', [
   'selected'
 ]);
 
-const _excluded$f = [
+const _excluded$c = [
   'autoFocus',
   'classes',
   'disabled',
@@ -37349,7 +37345,7 @@ const _excluded$f = [
   'slots',
   'slotProps'
 ];
-const useUtilityClasses$i = (classes, ownerState) => {
+const useUtilityClasses$g = (classes, ownerState) => {
   const slots = {
     button: [
       'button',
@@ -37430,14 +37426,14 @@ const MonthCalendarButton = /*#__PURE__*/ React.memo(function MonthCalendarButto
       slots,
       slotProps
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$f);
+    other = _objectWithoutPropertiesLoose(props, _excluded$c);
   const ref = React.useRef(null);
   const { ownerState: pickerOwnerState } = usePickerPrivateContext();
   const ownerState = _extends({}, pickerOwnerState, {
     isMonthDisabled: disabled,
     isMonthSelected: selected
   });
-  const classes = useUtilityClasses$i(classesProp, ownerState);
+  const classes = useUtilityClasses$g(classesProp, ownerState);
 
   // We can't forward the `autoFocus` to the button because it is a native button, not a MUI Button
   useEnhancedEffect(() => {
@@ -37469,7 +37465,7 @@ const MonthCalendarButton = /*#__PURE__*/ React.memo(function MonthCalendarButto
 });
 if (process.env.NODE_ENV !== 'production') MonthCalendarButton.displayName = 'MonthCalendarButton';
 
-const _excluded$e = [
+const _excluded$b = [
   'autoFocus',
   'className',
   'currentMonth',
@@ -37495,7 +37491,7 @@ const _excluded$e = [
   'slots',
   'slotProps'
 ];
-const useUtilityClasses$h = (classes) => {
+const useUtilityClasses$f = (classes) => {
   const slots = {
     root: ['root']
   };
@@ -37581,7 +37577,7 @@ const MonthCalendar = /*#__PURE__*/ React.forwardRef(function MonthCalendar(inPr
       slots,
       slotProps
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$e);
+    other = _objectWithoutPropertiesLoose(props, _excluded$b);
   const { value, handleValueChange, timezone } = useControlledValue({
     name: 'MonthCalendar',
     timezone: timezoneProp,
@@ -37607,7 +37603,7 @@ const MonthCalendar = /*#__PURE__*/ React.forwardRef(function MonthCalendar(inPr
       }),
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
-  const classes = useUtilityClasses$h(classesProp);
+  const classes = useUtilityClasses$f(classesProp);
   const todayMonth = React.useMemo(() => adapter.getMonth(now), [adapter, now]);
   const selectedMonth = React.useMemo(() => {
     if (value != null) {
@@ -37885,7 +37881,7 @@ const yearCalendarClasses = generateUtilityClasses('MuiYearCalendar', [
   'selected'
 ]);
 
-const _excluded$d = [
+const _excluded$a = [
   'autoFocus',
   'classes',
   'disabled',
@@ -37898,7 +37894,7 @@ const _excluded$d = [
   'slots',
   'slotProps'
 ];
-const useUtilityClasses$g = (classes, ownerState) => {
+const useUtilityClasses$e = (classes, ownerState) => {
   const slots = {
     button: [
       'button',
@@ -37979,14 +37975,14 @@ const YearCalendarButton = /*#__PURE__*/ React.memo(function YearCalendarButton(
       slots,
       slotProps
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$d);
+    other = _objectWithoutPropertiesLoose(props, _excluded$a);
   const ref = React.useRef(null);
   const { ownerState: pickerOwnerState } = usePickerPrivateContext();
   const ownerState = _extends({}, pickerOwnerState, {
     isYearDisabled: disabled,
     isYearSelected: selected
   });
-  const classes = useUtilityClasses$g(classesProp, ownerState);
+  const classes = useUtilityClasses$e(classesProp, ownerState);
 
   // We can't forward the `autoFocus` to the button because it is a native button, not a MUI Button
   useEnhancedEffect(() => {
@@ -38018,7 +38014,7 @@ const YearCalendarButton = /*#__PURE__*/ React.memo(function YearCalendarButton(
 });
 if (process.env.NODE_ENV !== 'production') YearCalendarButton.displayName = 'YearCalendarButton';
 
-const _excluded$c = [
+const _excluded$9 = [
   'autoFocus',
   'className',
   'classes',
@@ -38044,7 +38040,7 @@ const _excluded$c = [
   'slots',
   'slotProps'
 ];
-const useUtilityClasses$f = (classes) => {
+const useUtilityClasses$d = (classes) => {
   const slots = {
     root: ['root']
   };
@@ -38141,7 +38137,7 @@ const YearCalendar = /*#__PURE__*/ React.forwardRef(function YearCalendar(inProp
       slots,
       slotProps
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$c);
+    other = _objectWithoutPropertiesLoose(props, _excluded$9);
   const { value, handleValueChange, timezone } = useControlledValue({
     name: 'YearCalendar',
     timezone: timezoneProp,
@@ -38167,7 +38163,7 @@ const YearCalendar = /*#__PURE__*/ React.forwardRef(function YearCalendar(inProp
       }),
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
-  const classes = useUtilityClasses$f(classesProp);
+  const classes = useUtilityClasses$d(classesProp);
   const todayYear = React.useMemo(() => adapter.getYear(now), [adapter, now]);
   const selectedYear = React.useMemo(() => {
     if (value != null) {
@@ -38473,7 +38469,7 @@ const pickersCalendarHeaderClasses = generateUtilityClasses('MuiPickersCalendarH
   'switchViewIcon'
 ]);
 
-const _excluded$b = [
+const _excluded$8 = [
     'slots',
     'slotProps',
     'currentMonth',
@@ -38493,8 +38489,8 @@ const _excluded$b = [
     'timezone',
     'format'
   ],
-  _excluded2$3 = ['ownerState'];
-const useUtilityClasses$e = (classes) => {
+  _excluded2$2 = ['ownerState'];
+const useUtilityClasses$c = (classes) => {
   const slots = {
     root: ['root'],
     labelContainer: ['labelContainer'],
@@ -38607,9 +38603,9 @@ const PickersCalendarHeader = /*#__PURE__*/ React.forwardRef(
         timezone,
         format = `${adapter.formats.month} ${adapter.formats.year}`
       } = props,
-      other = _objectWithoutPropertiesLoose(props, _excluded$b);
+      other = _objectWithoutPropertiesLoose(props, _excluded$8);
     const { ownerState } = usePickerPrivateContext();
-    const classes = useUtilityClasses$e(classesProp);
+    const classes = useUtilityClasses$c(classesProp);
     const SwitchViewButton = slots?.switchViewButton ?? PickersCalendarHeaderSwitchViewButton;
     const switchViewButtonProps = useSlotProps({
       elementType: SwitchViewButton,
@@ -38631,7 +38627,7 @@ const PickersCalendarHeader = /*#__PURE__*/ React.forwardRef(
         ownerState,
         className: classes.switchViewIcon
       }),
-      switchViewIconProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$3);
+      switchViewIconProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$2);
     const selectNextMonth = () => onMonthChange(adapter.addMonths(month, 1));
     const selectPreviousMonth = () => onMonthChange(adapter.addMonths(month, -1));
     const isNextMonthDisabled = useNextMonthDisabled(month, {
@@ -38801,7 +38797,7 @@ function useReduceAnimations(customReduceAnimations) {
 const getDateCalendarUtilityClass = (slot) => generateUtilityClass('MuiDateCalendar', slot);
 generateUtilityClasses('MuiDateCalendar', ['root', 'viewTransitionContainer']);
 
-const _excluded$a = [
+const _excluded$7 = [
   'autoFocus',
   'onViewChange',
   'value',
@@ -38841,7 +38837,7 @@ const _excluded$a = [
   'monthsPerRow',
   'timezone'
 ];
-const useUtilityClasses$d = (classes) => {
+const useUtilityClasses$b = (classes) => {
   const slots = {
     root: ['root'],
     viewTransitionContainer: ['viewTransitionContainer']
@@ -38935,7 +38931,7 @@ const DateCalendar = /*#__PURE__*/ React.forwardRef(function DateCalendar(inProp
       monthsPerRow,
       timezone: timezoneProp
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$a);
+    other = _objectWithoutPropertiesLoose(props, _excluded$7);
   const { value, handleValueChange, timezone } = useControlledValue({
     name: 'DateCalendar',
     timezone: timezoneProp,
@@ -39089,7 +39085,7 @@ const DateCalendar = /*#__PURE__*/ React.forwardRef(function DateCalendar(inProp
     }
   }, [value]); // eslint-disable-line
 
-  const classes = useUtilityClasses$d(classesProp);
+  const classes = useUtilityClasses$b(classesProp);
   const baseDateValidationProps = {
     disablePast,
     disableFuture,
@@ -39457,7 +39453,7 @@ function useToolbarOwnerState() {
   );
 }
 
-const _excluded$9 = [
+const _excluded$6 = [
   'children',
   'className',
   'classes',
@@ -39467,7 +39463,7 @@ const _excluded$9 = [
   'classes',
   'landscapeDirection'
 ];
-const useUtilityClasses$c = (classes) => {
+const useUtilityClasses$a = (classes) => {
   const slots = {
     root: ['root'],
     title: ['title'],
@@ -39547,9 +39543,9 @@ const PickersToolbar = /*#__PURE__*/ React.forwardRef(function PickersToolbar(in
       titleId,
       landscapeDirection
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$9);
+    other = _objectWithoutPropertiesLoose(props, _excluded$6);
   const ownerState = useToolbarOwnerState();
-  const classes = useUtilityClasses$c(classesProp);
+  const classes = useUtilityClasses$a(classesProp);
   if (hidden) {
     return null;
   }
@@ -39589,8 +39585,8 @@ function getDatePickerToolbarUtilityClass(slot) {
 }
 generateUtilityClasses('MuiDatePickerToolbar', ['root', 'title']);
 
-const _excluded$8 = ['toolbarFormat', 'toolbarPlaceholder', 'className', 'classes'];
-const useUtilityClasses$b = (classes) => {
+const _excluded$5 = ['toolbarFormat', 'toolbarPlaceholder', 'className', 'classes'];
+const useUtilityClasses$9 = (classes) => {
   const slots = {
     root: ['root'],
     title: ['title']
@@ -39632,12 +39628,12 @@ const DatePickerToolbar = /*#__PURE__*/ React.forwardRef(function DatePickerTool
     name: 'MuiDatePickerToolbar'
   });
   const { toolbarFormat, toolbarPlaceholder = '––', className, classes: classesProp } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$8);
+    other = _objectWithoutPropertiesLoose(props, _excluded$5);
   const adapter = usePickerAdapter();
   const { value, views, orientation } = usePickerContext();
   const translations = usePickerTranslations();
   const ownerState = useToolbarOwnerState();
-  const classes = useUtilityClasses$b(classesProp);
+  const classes = useUtilityClasses$9(classesProp);
   const dateText = React.useMemo(() => {
     if (!adapter.isValid(value)) {
       return toolbarPlaceholder;
@@ -39746,3120 +39742,6 @@ function useDatePickerDefaultizedProps(props, name) {
         themeProps.slots
       )
     }
-  );
-}
-
-var top = 'top';
-var bottom = 'bottom';
-var right = 'right';
-var left = 'left';
-var auto = 'auto';
-var basePlacements = [top, bottom, right, left];
-var start = 'start';
-var end = 'end';
-var clippingParents = 'clippingParents';
-var viewport = 'viewport';
-var popper = 'popper';
-var reference = 'reference';
-var variationPlacements = /*#__PURE__*/ basePlacements.reduce(function (acc, placement) {
-  return acc.concat([placement + '-' + start, placement + '-' + end]);
-}, []);
-var placements = /*#__PURE__*/ [].concat(basePlacements, [auto]).reduce(function (acc, placement) {
-  return acc.concat([placement, placement + '-' + start, placement + '-' + end]);
-}, []); // modifiers that need to read the DOM
-
-var beforeRead = 'beforeRead';
-var read = 'read';
-var afterRead = 'afterRead'; // pure-logic modifiers
-
-var beforeMain = 'beforeMain';
-var main = 'main';
-var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
-
-var beforeWrite = 'beforeWrite';
-var write = 'write';
-var afterWrite = 'afterWrite';
-var modifierPhases = [
-  beforeRead,
-  read,
-  afterRead,
-  beforeMain,
-  main,
-  afterMain,
-  beforeWrite,
-  write,
-  afterWrite
-];
-
-function getNodeName(element) {
-  return element ? (element.nodeName || '').toLowerCase() : null;
-}
-
-function getWindow(node) {
-  if (node == null) {
-    return window;
-  }
-
-  if (node.toString() !== '[object Window]') {
-    var ownerDocument = node.ownerDocument;
-    return ownerDocument ? ownerDocument.defaultView || window : window;
-  }
-
-  return node;
-}
-
-function isElement(node) {
-  var OwnElement = getWindow(node).Element;
-  return node instanceof OwnElement || node instanceof Element;
-}
-
-function isHTMLElement$1(node) {
-  var OwnElement = getWindow(node).HTMLElement;
-  return node instanceof OwnElement || node instanceof HTMLElement;
-}
-
-function isShadowRoot(node) {
-  // IE 11 has no ShadowRoot
-  if (typeof ShadowRoot === 'undefined') {
-    return false;
-  }
-
-  var OwnElement = getWindow(node).ShadowRoot;
-  return node instanceof OwnElement || node instanceof ShadowRoot;
-}
-
-// and applies them to the HTMLElements such as popper and arrow
-
-function applyStyles(_ref) {
-  var state = _ref.state;
-  Object.keys(state.elements).forEach(function (name) {
-    var style = state.styles[name] || {};
-    var attributes = state.attributes[name] || {};
-    var element = state.elements[name]; // arrow is optional + virtual elements
-
-    if (!isHTMLElement$1(element) || !getNodeName(element)) {
-      return;
-    } // Flow doesn't support to extend this property, but it's the most
-    // effective way to apply styles to an HTMLElement
-    // $FlowFixMe[cannot-write]
-
-    Object.assign(element.style, style);
-    Object.keys(attributes).forEach(function (name) {
-      var value = attributes[name];
-
-      if (value === false) {
-        element.removeAttribute(name);
-      } else {
-        element.setAttribute(name, value === true ? '' : value);
-      }
-    });
-  });
-}
-
-function effect$2(_ref2) {
-  var state = _ref2.state;
-  var initialStyles = {
-    popper: {
-      position: state.options.strategy,
-      left: '0',
-      top: '0',
-      margin: '0'
-    },
-    arrow: {
-      position: 'absolute'
-    },
-    reference: {}
-  };
-  Object.assign(state.elements.popper.style, initialStyles.popper);
-  state.styles = initialStyles;
-
-  if (state.elements.arrow) {
-    Object.assign(state.elements.arrow.style, initialStyles.arrow);
-  }
-
-  return function () {
-    Object.keys(state.elements).forEach(function (name) {
-      var element = state.elements[name];
-      var attributes = state.attributes[name] || {};
-      var styleProperties = Object.keys(
-        state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]
-      ); // Set all values to an empty string to unset them
-
-      var style = styleProperties.reduce(function (style, property) {
-        style[property] = '';
-        return style;
-      }, {}); // arrow is optional + virtual elements
-
-      if (!isHTMLElement$1(element) || !getNodeName(element)) {
-        return;
-      }
-
-      Object.assign(element.style, style);
-      Object.keys(attributes).forEach(function (attribute) {
-        element.removeAttribute(attribute);
-      });
-    });
-  };
-} // eslint-disable-next-line import/no-unused-modules
-
-var applyStyles$1 = {
-  name: 'applyStyles',
-  enabled: true,
-  phase: 'write',
-  fn: applyStyles,
-  effect: effect$2,
-  requires: ['computeStyles']
-};
-
-function getBasePlacement(placement) {
-  return placement.split('-')[0];
-}
-
-var max = Math.max;
-var min = Math.min;
-var round = Math.round;
-
-function getUAString() {
-  var uaData = navigator.userAgentData;
-
-  if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
-    return uaData.brands
-      .map(function (item) {
-        return item.brand + '/' + item.version;
-      })
-      .join(' ');
-  }
-
-  return navigator.userAgent;
-}
-
-function isLayoutViewport() {
-  return !/^((?!chrome|android).)*safari/i.test(getUAString());
-}
-
-function getBoundingClientRect(element, includeScale, isFixedStrategy) {
-  if (includeScale === void 0) {
-    includeScale = false;
-  }
-
-  if (isFixedStrategy === void 0) {
-    isFixedStrategy = false;
-  }
-
-  var clientRect = element.getBoundingClientRect();
-  var scaleX = 1;
-  var scaleY = 1;
-
-  if (includeScale && isHTMLElement$1(element)) {
-    scaleX = element.offsetWidth > 0 ? round(clientRect.width) / element.offsetWidth || 1 : 1;
-    scaleY = element.offsetHeight > 0 ? round(clientRect.height) / element.offsetHeight || 1 : 1;
-  }
-
-  var _ref = isElement(element) ? getWindow(element) : window,
-    visualViewport = _ref.visualViewport;
-
-  var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
-  var x =
-    (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) /
-    scaleX;
-  var y =
-    (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
-  var width = clientRect.width / scaleX;
-  var height = clientRect.height / scaleY;
-  return {
-    width: width,
-    height: height,
-    top: y,
-    right: x + width,
-    bottom: y + height,
-    left: x,
-    x: x,
-    y: y
-  };
-}
-
-// means it doesn't take into account transforms.
-
-function getLayoutRect(element) {
-  var clientRect = getBoundingClientRect(element); // Use the clientRect sizes if it's not been transformed.
-  // Fixes https://github.com/popperjs/popper-core/issues/1223
-
-  var width = element.offsetWidth;
-  var height = element.offsetHeight;
-
-  if (Math.abs(clientRect.width - width) <= 1) {
-    width = clientRect.width;
-  }
-
-  if (Math.abs(clientRect.height - height) <= 1) {
-    height = clientRect.height;
-  }
-
-  return {
-    x: element.offsetLeft,
-    y: element.offsetTop,
-    width: width,
-    height: height
-  };
-}
-
-function contains(parent, child) {
-  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
-
-  if (parent.contains(child)) {
-    return true;
-  } // then fallback to custom implementation with Shadow DOM support
-  else if (rootNode && isShadowRoot(rootNode)) {
-    var next = child;
-
-    do {
-      if (next && parent.isSameNode(next)) {
-        return true;
-      } // $FlowFixMe[prop-missing]: need a better way to handle this...
-
-      next = next.parentNode || next.host;
-    } while (next);
-  } // Give up, the result is false
-
-  return false;
-}
-
-function getComputedStyle(element) {
-  return getWindow(element).getComputedStyle(element);
-}
-
-function isTableElement(element) {
-  return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
-}
-
-function getDocumentElement(element) {
-  // $FlowFixMe[incompatible-return]: assume body is always available
-  return (
-    (isElement(element)
-      ? element.ownerDocument // $FlowFixMe[prop-missing]
-      : element.document) || window.document
-  ).documentElement;
-}
-
-function getParentNode(element) {
-  if (getNodeName(element) === 'html') {
-    return element;
-  }
-
-  return (
-    // this is a quicker (but less type safe) way to save quite some bytes from the bundle
-    // $FlowFixMe[incompatible-return]
-    // $FlowFixMe[prop-missing]
-    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
-    element.parentNode || // DOM Element detected
-    (isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
-    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
-    getDocumentElement(element) // fallback
-  );
-}
-
-function getTrueOffsetParent(element) {
-  if (
-    !isHTMLElement$1(element) || // https://github.com/popperjs/popper-core/issues/837
-    getComputedStyle(element).position === 'fixed'
-  ) {
-    return null;
-  }
-
-  return element.offsetParent;
-} // `.offsetParent` reports `null` for fixed elements, while absolute elements
-// return the containing block
-
-function getContainingBlock(element) {
-  var isFirefox = /firefox/i.test(getUAString());
-  var isIE = /Trident/i.test(getUAString());
-
-  if (isIE && isHTMLElement$1(element)) {
-    // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
-    var elementCss = getComputedStyle(element);
-
-    if (elementCss.position === 'fixed') {
-      return null;
-    }
-  }
-
-  var currentNode = getParentNode(element);
-
-  if (isShadowRoot(currentNode)) {
-    currentNode = currentNode.host;
-  }
-
-  while (isHTMLElement$1(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
-    var css = getComputedStyle(currentNode); // This is non-exhaustive but covers the most common CSS properties that
-    // create a containing block.
-    // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
-
-    if (
-      css.transform !== 'none' ||
-      css.perspective !== 'none' ||
-      css.contain === 'paint' ||
-      ['transform', 'perspective'].indexOf(css.willChange) !== -1 ||
-      (isFirefox && css.willChange === 'filter') ||
-      (isFirefox && css.filter && css.filter !== 'none')
-    ) {
-      return currentNode;
-    } else {
-      currentNode = currentNode.parentNode;
-    }
-  }
-
-  return null;
-} // Gets the closest ancestor positioned element. Handles some edge cases,
-// such as table ancestors and cross browser bugs.
-
-function getOffsetParent(element) {
-  var window = getWindow(element);
-  var offsetParent = getTrueOffsetParent(element);
-
-  while (
-    offsetParent &&
-    isTableElement(offsetParent) &&
-    getComputedStyle(offsetParent).position === 'static'
-  ) {
-    offsetParent = getTrueOffsetParent(offsetParent);
-  }
-
-  if (
-    offsetParent &&
-    (getNodeName(offsetParent) === 'html' ||
-      (getNodeName(offsetParent) === 'body' &&
-        getComputedStyle(offsetParent).position === 'static'))
-  ) {
-    return window;
-  }
-
-  return offsetParent || getContainingBlock(element) || window;
-}
-
-function getMainAxisFromPlacement(placement) {
-  return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
-}
-
-function within(min$1, value, max$1) {
-  return max(min$1, min(value, max$1));
-}
-function withinMaxClamp(min, value, max) {
-  var v = within(min, value, max);
-  return v > max ? max : v;
-}
-
-function getFreshSideObject() {
-  return {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  };
-}
-
-function mergePaddingObject(paddingObject) {
-  return Object.assign({}, getFreshSideObject(), paddingObject);
-}
-
-function expandToHashMap(value, keys) {
-  return keys.reduce(function (hashMap, key) {
-    hashMap[key] = value;
-    return hashMap;
-  }, {});
-}
-
-var toPaddingObject = function toPaddingObject(padding, state) {
-  padding =
-    typeof padding === 'function'
-      ? padding(
-          Object.assign({}, state.rects, {
-            placement: state.placement
-          })
-        )
-      : padding;
-  return mergePaddingObject(
-    typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements)
-  );
-};
-
-function arrow(_ref) {
-  var _state$modifiersData$;
-
-  var state = _ref.state,
-    name = _ref.name,
-    options = _ref.options;
-  var arrowElement = state.elements.arrow;
-  var popperOffsets = state.modifiersData.popperOffsets;
-  var basePlacement = getBasePlacement(state.placement);
-  var axis = getMainAxisFromPlacement(basePlacement);
-  var isVertical = [left, right].indexOf(basePlacement) >= 0;
-  var len = isVertical ? 'height' : 'width';
-
-  if (!arrowElement || !popperOffsets) {
-    return;
-  }
-
-  var paddingObject = toPaddingObject(options.padding, state);
-  var arrowRect = getLayoutRect(arrowElement);
-  var minProp = axis === 'y' ? top : left;
-  var maxProp = axis === 'y' ? bottom : right;
-  var endDiff =
-    state.rects.reference[len] +
-    state.rects.reference[axis] -
-    popperOffsets[axis] -
-    state.rects.popper[len];
-  var startDiff = popperOffsets[axis] - state.rects.reference[axis];
-  var arrowOffsetParent = getOffsetParent(arrowElement);
-  var clientSize = arrowOffsetParent
-    ? axis === 'y'
-      ? arrowOffsetParent.clientHeight || 0
-      : arrowOffsetParent.clientWidth || 0
-    : 0;
-  var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
-  // outside of the popper bounds
-
-  var min = paddingObject[minProp];
-  var max = clientSize - arrowRect[len] - paddingObject[maxProp];
-  var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
-  var offset = within(min, center, max); // Prevents breaking syntax highlighting...
-
-  var axisProp = axis;
-  state.modifiersData[name] =
-    ((_state$modifiersData$ = {}),
-    (_state$modifiersData$[axisProp] = offset),
-    (_state$modifiersData$.centerOffset = offset - center),
-    _state$modifiersData$);
-}
-
-function effect$1(_ref2) {
-  var state = _ref2.state,
-    options = _ref2.options;
-  var _options$element = options.element,
-    arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
-
-  if (arrowElement == null) {
-    return;
-  } // CSS selector
-
-  if (typeof arrowElement === 'string') {
-    arrowElement = state.elements.popper.querySelector(arrowElement);
-
-    if (!arrowElement) {
-      return;
-    }
-  }
-
-  if (!contains(state.elements.popper, arrowElement)) {
-    return;
-  }
-
-  state.elements.arrow = arrowElement;
-} // eslint-disable-next-line import/no-unused-modules
-
-var arrow$1 = {
-  name: 'arrow',
-  enabled: true,
-  phase: 'main',
-  fn: arrow,
-  effect: effect$1,
-  requires: ['popperOffsets'],
-  requiresIfExists: ['preventOverflow']
-};
-
-function getVariation(placement) {
-  return placement.split('-')[1];
-}
-
-var unsetSides = {
-  top: 'auto',
-  right: 'auto',
-  bottom: 'auto',
-  left: 'auto'
-}; // Round the offsets to the nearest suitable subpixel based on the DPR.
-// Zooming can change the DPR, but it seems to report a value that will
-// cleanly divide the values into the appropriate subpixels.
-
-function roundOffsetsByDPR(_ref, win) {
-  var x = _ref.x,
-    y = _ref.y;
-  var dpr = win.devicePixelRatio || 1;
-  return {
-    x: round(x * dpr) / dpr || 0,
-    y: round(y * dpr) / dpr || 0
-  };
-}
-
-function mapToStyles(_ref2) {
-  var _Object$assign2;
-
-  var popper = _ref2.popper,
-    popperRect = _ref2.popperRect,
-    placement = _ref2.placement,
-    variation = _ref2.variation,
-    offsets = _ref2.offsets,
-    position = _ref2.position,
-    gpuAcceleration = _ref2.gpuAcceleration,
-    adaptive = _ref2.adaptive,
-    roundOffsets = _ref2.roundOffsets,
-    isFixed = _ref2.isFixed;
-  var _offsets$x = offsets.x,
-    x = _offsets$x === void 0 ? 0 : _offsets$x,
-    _offsets$y = offsets.y,
-    y = _offsets$y === void 0 ? 0 : _offsets$y;
-
-  var _ref3 =
-    typeof roundOffsets === 'function'
-      ? roundOffsets({
-          x: x,
-          y: y
-        })
-      : {
-          x: x,
-          y: y
-        };
-
-  x = _ref3.x;
-  y = _ref3.y;
-  var hasX = offsets.hasOwnProperty('x');
-  var hasY = offsets.hasOwnProperty('y');
-  var sideX = left;
-  var sideY = top;
-  var win = window;
-
-  if (adaptive) {
-    var offsetParent = getOffsetParent(popper);
-    var heightProp = 'clientHeight';
-    var widthProp = 'clientWidth';
-
-    if (offsetParent === getWindow(popper)) {
-      offsetParent = getDocumentElement(popper);
-
-      if (getComputedStyle(offsetParent).position !== 'static' && position === 'absolute') {
-        heightProp = 'scrollHeight';
-        widthProp = 'scrollWidth';
-      }
-    } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
-
-    offsetParent = offsetParent;
-
-    if (placement === top || ((placement === left || placement === right) && variation === end)) {
-      sideY = bottom;
-      var offsetY =
-        isFixed && offsetParent === win && win.visualViewport
-          ? win.visualViewport.height // $FlowFixMe[prop-missing]
-          : offsetParent[heightProp];
-      y -= offsetY - popperRect.height;
-      y *= gpuAcceleration ? 1 : -1;
-    }
-
-    if (placement === left || ((placement === top || placement === bottom) && variation === end)) {
-      sideX = right;
-      var offsetX =
-        isFixed && offsetParent === win && win.visualViewport
-          ? win.visualViewport.width // $FlowFixMe[prop-missing]
-          : offsetParent[widthProp];
-      x -= offsetX - popperRect.width;
-      x *= gpuAcceleration ? 1 : -1;
-    }
-  }
-
-  var commonStyles = Object.assign(
-    {
-      position: position
-    },
-    adaptive && unsetSides
-  );
-
-  var _ref4 =
-    roundOffsets === true
-      ? roundOffsetsByDPR(
-          {
-            x: x,
-            y: y
-          },
-          getWindow(popper)
-        )
-      : {
-          x: x,
-          y: y
-        };
-
-  x = _ref4.x;
-  y = _ref4.y;
-
-  if (gpuAcceleration) {
-    var _Object$assign;
-
-    return Object.assign(
-      {},
-      commonStyles,
-      ((_Object$assign = {}),
-      (_Object$assign[sideY] = hasY ? '0' : ''),
-      (_Object$assign[sideX] = hasX ? '0' : ''),
-      (_Object$assign.transform =
-        (win.devicePixelRatio || 1) <= 1
-          ? 'translate(' + x + 'px, ' + y + 'px)'
-          : 'translate3d(' + x + 'px, ' + y + 'px, 0)'),
-      _Object$assign)
-    );
-  }
-
-  return Object.assign(
-    {},
-    commonStyles,
-    ((_Object$assign2 = {}),
-    (_Object$assign2[sideY] = hasY ? y + 'px' : ''),
-    (_Object$assign2[sideX] = hasX ? x + 'px' : ''),
-    (_Object$assign2.transform = ''),
-    _Object$assign2)
-  );
-}
-
-function computeStyles(_ref5) {
-  var state = _ref5.state,
-    options = _ref5.options;
-  var _options$gpuAccelerat = options.gpuAcceleration,
-    gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
-    _options$adaptive = options.adaptive,
-    adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
-    _options$roundOffsets = options.roundOffsets,
-    roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
-  var commonStyles = {
-    placement: getBasePlacement(state.placement),
-    variation: getVariation(state.placement),
-    popper: state.elements.popper,
-    popperRect: state.rects.popper,
-    gpuAcceleration: gpuAcceleration,
-    isFixed: state.options.strategy === 'fixed'
-  };
-
-  if (state.modifiersData.popperOffsets != null) {
-    state.styles.popper = Object.assign(
-      {},
-      state.styles.popper,
-      mapToStyles(
-        Object.assign({}, commonStyles, {
-          offsets: state.modifiersData.popperOffsets,
-          position: state.options.strategy,
-          adaptive: adaptive,
-          roundOffsets: roundOffsets
-        })
-      )
-    );
-  }
-
-  if (state.modifiersData.arrow != null) {
-    state.styles.arrow = Object.assign(
-      {},
-      state.styles.arrow,
-      mapToStyles(
-        Object.assign({}, commonStyles, {
-          offsets: state.modifiersData.arrow,
-          position: 'absolute',
-          adaptive: false,
-          roundOffsets: roundOffsets
-        })
-      )
-    );
-  }
-
-  state.attributes.popper = Object.assign({}, state.attributes.popper, {
-    'data-popper-placement': state.placement
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-var computeStyles$1 = {
-  name: 'computeStyles',
-  enabled: true,
-  phase: 'beforeWrite',
-  fn: computeStyles,
-  data: {}
-};
-
-var passive = {
-  passive: true
-};
-
-function effect(_ref) {
-  var state = _ref.state,
-    instance = _ref.instance,
-    options = _ref.options;
-  var _options$scroll = options.scroll,
-    scroll = _options$scroll === void 0 ? true : _options$scroll,
-    _options$resize = options.resize,
-    resize = _options$resize === void 0 ? true : _options$resize;
-  var window = getWindow(state.elements.popper);
-  var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
-
-  if (scroll) {
-    scrollParents.forEach(function (scrollParent) {
-      scrollParent.addEventListener('scroll', instance.update, passive);
-    });
-  }
-
-  if (resize) {
-    window.addEventListener('resize', instance.update, passive);
-  }
-
-  return function () {
-    if (scroll) {
-      scrollParents.forEach(function (scrollParent) {
-        scrollParent.removeEventListener('scroll', instance.update, passive);
-      });
-    }
-
-    if (resize) {
-      window.removeEventListener('resize', instance.update, passive);
-    }
-  };
-} // eslint-disable-next-line import/no-unused-modules
-
-var eventListeners = {
-  name: 'eventListeners',
-  enabled: true,
-  phase: 'write',
-  fn: function fn() {},
-  effect: effect,
-  data: {}
-};
-
-var hash$1 = {
-  left: 'right',
-  right: 'left',
-  bottom: 'top',
-  top: 'bottom'
-};
-function getOppositePlacement(placement) {
-  return placement.replace(/left|right|bottom|top/g, function (matched) {
-    return hash$1[matched];
-  });
-}
-
-var hash = {
-  start: 'end',
-  end: 'start'
-};
-function getOppositeVariationPlacement(placement) {
-  return placement.replace(/start|end/g, function (matched) {
-    return hash[matched];
-  });
-}
-
-function getWindowScroll(node) {
-  var win = getWindow(node);
-  var scrollLeft = win.pageXOffset;
-  var scrollTop = win.pageYOffset;
-  return {
-    scrollLeft: scrollLeft,
-    scrollTop: scrollTop
-  };
-}
-
-function getWindowScrollBarX(element) {
-  // If <html> has a CSS width greater than the viewport, then this will be
-  // incorrect for RTL.
-  // Popper 1 is broken in this case and never had a bug report so let's assume
-  // it's not an issue. I don't think anyone ever specifies width on <html>
-  // anyway.
-  // Browsers where the left scrollbar doesn't cause an issue report `0` for
-  // this (e.g. Edge 2019, IE11, Safari)
-  return (
-    getBoundingClientRect(getDocumentElement(element)).left + getWindowScroll(element).scrollLeft
-  );
-}
-
-function getViewportRect(element, strategy) {
-  var win = getWindow(element);
-  var html = getDocumentElement(element);
-  var visualViewport = win.visualViewport;
-  var width = html.clientWidth;
-  var height = html.clientHeight;
-  var x = 0;
-  var y = 0;
-
-  if (visualViewport) {
-    width = visualViewport.width;
-    height = visualViewport.height;
-    var layoutViewport = isLayoutViewport();
-
-    if (layoutViewport || (!layoutViewport && strategy === 'fixed')) {
-      x = visualViewport.offsetLeft;
-      y = visualViewport.offsetTop;
-    }
-  }
-
-  return {
-    width: width,
-    height: height,
-    x: x + getWindowScrollBarX(element),
-    y: y
-  };
-}
-
-// of the `<html>` and `<body>` rect bounds if horizontally scrollable
-
-function getDocumentRect(element) {
-  var _element$ownerDocumen;
-
-  var html = getDocumentElement(element);
-  var winScroll = getWindowScroll(element);
-  var body =
-    (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
-  var width = max(
-    html.scrollWidth,
-    html.clientWidth,
-    body ? body.scrollWidth : 0,
-    body ? body.clientWidth : 0
-  );
-  var height = max(
-    html.scrollHeight,
-    html.clientHeight,
-    body ? body.scrollHeight : 0,
-    body ? body.clientHeight : 0
-  );
-  var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
-  var y = -winScroll.scrollTop;
-
-  if (getComputedStyle(body || html).direction === 'rtl') {
-    x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
-  }
-
-  return {
-    width: width,
-    height: height,
-    x: x,
-    y: y
-  };
-}
-
-function isScrollParent(element) {
-  // Firefox wants us to check `-x` and `-y` variations as well
-  var _getComputedStyle = getComputedStyle(element),
-    overflow = _getComputedStyle.overflow,
-    overflowX = _getComputedStyle.overflowX,
-    overflowY = _getComputedStyle.overflowY;
-
-  return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
-}
-
-function getScrollParent(node) {
-  if (['html', 'body', '#document'].indexOf(getNodeName(node)) >= 0) {
-    // $FlowFixMe[incompatible-return]: assume body is always available
-    return node.ownerDocument.body;
-  }
-
-  if (isHTMLElement$1(node) && isScrollParent(node)) {
-    return node;
-  }
-
-  return getScrollParent(getParentNode(node));
-}
-
-/*
-given a DOM element, return the list of all scroll parents, up the list of ancesors
-until we get to the top window object. This list is what we attach scroll listeners
-to, because if any of these parent elements scroll, we'll need to re-calculate the
-reference element's position.
-*/
-
-function listScrollParents(element, list) {
-  var _element$ownerDocumen;
-
-  if (list === void 0) {
-    list = [];
-  }
-
-  var scrollParent = getScrollParent(element);
-  var isBody =
-    scrollParent ===
-    ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
-  var win = getWindow(scrollParent);
-  var target = isBody
-    ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : [])
-    : scrollParent;
-  var updatedList = list.concat(target);
-  return isBody
-    ? updatedList // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-    : updatedList.concat(listScrollParents(getParentNode(target)));
-}
-
-function rectToClientRect(rect) {
-  return Object.assign({}, rect, {
-    left: rect.x,
-    top: rect.y,
-    right: rect.x + rect.width,
-    bottom: rect.y + rect.height
-  });
-}
-
-function getInnerBoundingClientRect(element, strategy) {
-  var rect = getBoundingClientRect(element, false, strategy === 'fixed');
-  rect.top = rect.top + element.clientTop;
-  rect.left = rect.left + element.clientLeft;
-  rect.bottom = rect.top + element.clientHeight;
-  rect.right = rect.left + element.clientWidth;
-  rect.width = element.clientWidth;
-  rect.height = element.clientHeight;
-  rect.x = rect.left;
-  rect.y = rect.top;
-  return rect;
-}
-
-function getClientRectFromMixedType(element, clippingParent, strategy) {
-  return clippingParent === viewport
-    ? rectToClientRect(getViewportRect(element, strategy))
-    : isElement(clippingParent)
-      ? getInnerBoundingClientRect(clippingParent, strategy)
-      : rectToClientRect(getDocumentRect(getDocumentElement(element)));
-} // A "clipping parent" is an overflowable container with the characteristic of
-// clipping (or hiding) overflowing elements with a position different from
-// `initial`
-
-function getClippingParents(element) {
-  var clippingParents = listScrollParents(getParentNode(element));
-  var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle(element).position) >= 0;
-  var clipperElement =
-    canEscapeClipping && isHTMLElement$1(element) ? getOffsetParent(element) : element;
-
-  if (!isElement(clipperElement)) {
-    return [];
-  } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
-
-  return clippingParents.filter(function (clippingParent) {
-    return (
-      isElement(clippingParent) &&
-      contains(clippingParent, clipperElement) &&
-      getNodeName(clippingParent) !== 'body'
-    );
-  });
-} // Gets the maximum area that the element is visible in due to any number of
-// clipping parents
-
-function getClippingRect(element, boundary, rootBoundary, strategy) {
-  var mainClippingParents =
-    boundary === 'clippingParents' ? getClippingParents(element) : [].concat(boundary);
-  var clippingParents = [].concat(mainClippingParents, [rootBoundary]);
-  var firstClippingParent = clippingParents[0];
-  var clippingRect = clippingParents.reduce(
-    function (accRect, clippingParent) {
-      var rect = getClientRectFromMixedType(element, clippingParent, strategy);
-      accRect.top = max(rect.top, accRect.top);
-      accRect.right = min(rect.right, accRect.right);
-      accRect.bottom = min(rect.bottom, accRect.bottom);
-      accRect.left = max(rect.left, accRect.left);
-      return accRect;
-    },
-    getClientRectFromMixedType(element, firstClippingParent, strategy)
-  );
-  clippingRect.width = clippingRect.right - clippingRect.left;
-  clippingRect.height = clippingRect.bottom - clippingRect.top;
-  clippingRect.x = clippingRect.left;
-  clippingRect.y = clippingRect.top;
-  return clippingRect;
-}
-
-function computeOffsets(_ref) {
-  var reference = _ref.reference,
-    element = _ref.element,
-    placement = _ref.placement;
-  var basePlacement = placement ? getBasePlacement(placement) : null;
-  var variation = placement ? getVariation(placement) : null;
-  var commonX = reference.x + reference.width / 2 - element.width / 2;
-  var commonY = reference.y + reference.height / 2 - element.height / 2;
-  var offsets;
-
-  switch (basePlacement) {
-    case top:
-      offsets = {
-        x: commonX,
-        y: reference.y - element.height
-      };
-      break;
-
-    case bottom:
-      offsets = {
-        x: commonX,
-        y: reference.y + reference.height
-      };
-      break;
-
-    case right:
-      offsets = {
-        x: reference.x + reference.width,
-        y: commonY
-      };
-      break;
-
-    case left:
-      offsets = {
-        x: reference.x - element.width,
-        y: commonY
-      };
-      break;
-
-    default:
-      offsets = {
-        x: reference.x,
-        y: reference.y
-      };
-  }
-
-  var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
-
-  if (mainAxis != null) {
-    var len = mainAxis === 'y' ? 'height' : 'width';
-
-    switch (variation) {
-      case start:
-        offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
-        break;
-
-      case end:
-        offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
-        break;
-    }
-  }
-
-  return offsets;
-}
-
-function detectOverflow(state, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var _options = options,
-    _options$placement = _options.placement,
-    placement = _options$placement === void 0 ? state.placement : _options$placement,
-    _options$strategy = _options.strategy,
-    strategy = _options$strategy === void 0 ? state.strategy : _options$strategy,
-    _options$boundary = _options.boundary,
-    boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
-    _options$rootBoundary = _options.rootBoundary,
-    rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
-    _options$elementConte = _options.elementContext,
-    elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
-    _options$altBoundary = _options.altBoundary,
-    altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
-    _options$padding = _options.padding,
-    padding = _options$padding === void 0 ? 0 : _options$padding;
-  var paddingObject = mergePaddingObject(
-    typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements)
-  );
-  var altContext = elementContext === popper ? reference : popper;
-  var popperRect = state.rects.popper;
-  var element = state.elements[altBoundary ? altContext : elementContext];
-  var clippingClientRect = getClippingRect(
-    isElement(element)
-      ? element
-      : element.contextElement || getDocumentElement(state.elements.popper),
-    boundary,
-    rootBoundary,
-    strategy
-  );
-  var referenceClientRect = getBoundingClientRect(state.elements.reference);
-  var popperOffsets = computeOffsets({
-    reference: referenceClientRect,
-    element: popperRect,
-    placement: placement
-  });
-  var popperClientRect = rectToClientRect(Object.assign({}, popperRect, popperOffsets));
-  var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
-  // 0 or negative = within the clipping rect
-
-  var overflowOffsets = {
-    top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
-    bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
-    left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
-    right: elementClientRect.right - clippingClientRect.right + paddingObject.right
-  };
-  var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
-
-  if (elementContext === popper && offsetData) {
-    var offset = offsetData[placement];
-    Object.keys(overflowOffsets).forEach(function (key) {
-      var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
-      var axis = [top, bottom].indexOf(key) >= 0 ? 'y' : 'x';
-      overflowOffsets[key] += offset[axis] * multiply;
-    });
-  }
-
-  return overflowOffsets;
-}
-
-function computeAutoPlacement(state, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var _options = options,
-    placement = _options.placement,
-    boundary = _options.boundary,
-    rootBoundary = _options.rootBoundary,
-    padding = _options.padding,
-    flipVariations = _options.flipVariations,
-    _options$allowedAutoP = _options.allowedAutoPlacements,
-    allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
-  var variation = getVariation(placement);
-  var placements$1 = variation
-    ? flipVariations
-      ? variationPlacements
-      : variationPlacements.filter(function (placement) {
-          return getVariation(placement) === variation;
-        })
-    : basePlacements;
-  var allowedPlacements = placements$1.filter(function (placement) {
-    return allowedAutoPlacements.indexOf(placement) >= 0;
-  });
-
-  if (allowedPlacements.length === 0) {
-    allowedPlacements = placements$1;
-  } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
-
-  var overflows = allowedPlacements.reduce(function (acc, placement) {
-    acc[placement] = detectOverflow(state, {
-      placement: placement,
-      boundary: boundary,
-      rootBoundary: rootBoundary,
-      padding: padding
-    })[getBasePlacement(placement)];
-    return acc;
-  }, {});
-  return Object.keys(overflows).sort(function (a, b) {
-    return overflows[a] - overflows[b];
-  });
-}
-
-function getExpandedFallbackPlacements(placement) {
-  if (getBasePlacement(placement) === auto) {
-    return [];
-  }
-
-  var oppositePlacement = getOppositePlacement(placement);
-  return [
-    getOppositeVariationPlacement(placement),
-    oppositePlacement,
-    getOppositeVariationPlacement(oppositePlacement)
-  ];
-}
-
-function flip(_ref) {
-  var state = _ref.state,
-    options = _ref.options,
-    name = _ref.name;
-
-  if (state.modifiersData[name]._skip) {
-    return;
-  }
-
-  var _options$mainAxis = options.mainAxis,
-    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-    _options$altAxis = options.altAxis,
-    checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
-    specifiedFallbackPlacements = options.fallbackPlacements,
-    padding = options.padding,
-    boundary = options.boundary,
-    rootBoundary = options.rootBoundary,
-    altBoundary = options.altBoundary,
-    _options$flipVariatio = options.flipVariations,
-    flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
-    allowedAutoPlacements = options.allowedAutoPlacements;
-  var preferredPlacement = state.options.placement;
-  var basePlacement = getBasePlacement(preferredPlacement);
-  var isBasePlacement = basePlacement === preferredPlacement;
-  var fallbackPlacements =
-    specifiedFallbackPlacements ||
-    (isBasePlacement || !flipVariations
-      ? [getOppositePlacement(preferredPlacement)]
-      : getExpandedFallbackPlacements(preferredPlacement));
-  var placements = [preferredPlacement].concat(fallbackPlacements).reduce(function (
-    acc,
-    placement
-  ) {
-    return acc.concat(
-      getBasePlacement(placement) === auto
-        ? computeAutoPlacement(state, {
-            placement: placement,
-            boundary: boundary,
-            rootBoundary: rootBoundary,
-            padding: padding,
-            flipVariations: flipVariations,
-            allowedAutoPlacements: allowedAutoPlacements
-          })
-        : placement
-    );
-  }, []);
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var checksMap = new Map();
-  var makeFallbackChecks = true;
-  var firstFittingPlacement = placements[0];
-
-  for (var i = 0; i < placements.length; i++) {
-    var placement = placements[i];
-
-    var _basePlacement = getBasePlacement(placement);
-
-    var isStartVariation = getVariation(placement) === start;
-    var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
-    var len = isVertical ? 'width' : 'height';
-    var overflow = detectOverflow(state, {
-      placement: placement,
-      boundary: boundary,
-      rootBoundary: rootBoundary,
-      altBoundary: altBoundary,
-      padding: padding
-    });
-    var mainVariationSide = isVertical
-      ? isStartVariation
-        ? right
-        : left
-      : isStartVariation
-        ? bottom
-        : top;
-
-    if (referenceRect[len] > popperRect[len]) {
-      mainVariationSide = getOppositePlacement(mainVariationSide);
-    }
-
-    var altVariationSide = getOppositePlacement(mainVariationSide);
-    var checks = [];
-
-    if (checkMainAxis) {
-      checks.push(overflow[_basePlacement] <= 0);
-    }
-
-    if (checkAltAxis) {
-      checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
-    }
-
-    if (
-      checks.every(function (check) {
-        return check;
-      })
-    ) {
-      firstFittingPlacement = placement;
-      makeFallbackChecks = false;
-      break;
-    }
-
-    checksMap.set(placement, checks);
-  }
-
-  if (makeFallbackChecks) {
-    // `2` may be desired in some cases – research later
-    var numberOfChecks = flipVariations ? 3 : 1;
-
-    var _loop = function _loop(_i) {
-      var fittingPlacement = placements.find(function (placement) {
-        var checks = checksMap.get(placement);
-
-        if (checks) {
-          return checks.slice(0, _i).every(function (check) {
-            return check;
-          });
-        }
-      });
-
-      if (fittingPlacement) {
-        firstFittingPlacement = fittingPlacement;
-        return 'break';
-      }
-    };
-
-    for (var _i = numberOfChecks; _i > 0; _i--) {
-      var _ret = _loop(_i);
-
-      if (_ret === 'break') break;
-    }
-  }
-
-  if (state.placement !== firstFittingPlacement) {
-    state.modifiersData[name]._skip = true;
-    state.placement = firstFittingPlacement;
-    state.reset = true;
-  }
-} // eslint-disable-next-line import/no-unused-modules
-
-var flip$1 = {
-  name: 'flip',
-  enabled: true,
-  phase: 'main',
-  fn: flip,
-  requiresIfExists: ['offset'],
-  data: {
-    _skip: false
-  }
-};
-
-function getSideOffsets(overflow, rect, preventedOffsets) {
-  if (preventedOffsets === void 0) {
-    preventedOffsets = {
-      x: 0,
-      y: 0
-    };
-  }
-
-  return {
-    top: overflow.top - rect.height - preventedOffsets.y,
-    right: overflow.right - rect.width + preventedOffsets.x,
-    bottom: overflow.bottom - rect.height + preventedOffsets.y,
-    left: overflow.left - rect.width - preventedOffsets.x
-  };
-}
-
-function isAnySideFullyClipped(overflow) {
-  return [top, right, bottom, left].some(function (side) {
-    return overflow[side] >= 0;
-  });
-}
-
-function hide(_ref) {
-  var state = _ref.state,
-    name = _ref.name;
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var preventedOffsets = state.modifiersData.preventOverflow;
-  var referenceOverflow = detectOverflow(state, {
-    elementContext: 'reference'
-  });
-  var popperAltOverflow = detectOverflow(state, {
-    altBoundary: true
-  });
-  var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
-  var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
-  var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
-  var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
-  state.modifiersData[name] = {
-    referenceClippingOffsets: referenceClippingOffsets,
-    popperEscapeOffsets: popperEscapeOffsets,
-    isReferenceHidden: isReferenceHidden,
-    hasPopperEscaped: hasPopperEscaped
-  };
-  state.attributes.popper = Object.assign({}, state.attributes.popper, {
-    'data-popper-reference-hidden': isReferenceHidden,
-    'data-popper-escaped': hasPopperEscaped
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-var hide$1 = {
-  name: 'hide',
-  enabled: true,
-  phase: 'main',
-  requiresIfExists: ['preventOverflow'],
-  fn: hide
-};
-
-function distanceAndSkiddingToXY(placement, rects, offset) {
-  var basePlacement = getBasePlacement(placement);
-  var invertDistance = [left, top].indexOf(basePlacement) >= 0 ? -1 : 1;
-
-  var _ref =
-      typeof offset === 'function'
-        ? offset(
-            Object.assign({}, rects, {
-              placement: placement
-            })
-          )
-        : offset,
-    skidding = _ref[0],
-    distance = _ref[1];
-
-  skidding = skidding || 0;
-  distance = (distance || 0) * invertDistance;
-  return [left, right].indexOf(basePlacement) >= 0
-    ? {
-        x: distance,
-        y: skidding
-      }
-    : {
-        x: skidding,
-        y: distance
-      };
-}
-
-function offset(_ref2) {
-  var state = _ref2.state,
-    options = _ref2.options,
-    name = _ref2.name;
-  var _options$offset = options.offset,
-    offset = _options$offset === void 0 ? [0, 0] : _options$offset;
-  var data = placements.reduce(function (acc, placement) {
-    acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
-    return acc;
-  }, {});
-  var _data$state$placement = data[state.placement],
-    x = _data$state$placement.x,
-    y = _data$state$placement.y;
-
-  if (state.modifiersData.popperOffsets != null) {
-    state.modifiersData.popperOffsets.x += x;
-    state.modifiersData.popperOffsets.y += y;
-  }
-
-  state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-
-var offset$1 = {
-  name: 'offset',
-  enabled: true,
-  phase: 'main',
-  requires: ['popperOffsets'],
-  fn: offset
-};
-
-function popperOffsets(_ref) {
-  var state = _ref.state,
-    name = _ref.name;
-  // Offsets are the actual position the popper needs to have to be
-  // properly positioned near its reference element
-  // This is the most basic placement, and will be adjusted by
-  // the modifiers in the next step
-  state.modifiersData[name] = computeOffsets({
-    reference: state.rects.reference,
-    element: state.rects.popper,
-    placement: state.placement
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-var popperOffsets$1 = {
-  name: 'popperOffsets',
-  enabled: true,
-  phase: 'read',
-  fn: popperOffsets,
-  data: {}
-};
-
-function getAltAxis(axis) {
-  return axis === 'x' ? 'y' : 'x';
-}
-
-function preventOverflow(_ref) {
-  var state = _ref.state,
-    options = _ref.options,
-    name = _ref.name;
-  var _options$mainAxis = options.mainAxis,
-    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-    _options$altAxis = options.altAxis,
-    checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
-    boundary = options.boundary,
-    rootBoundary = options.rootBoundary,
-    altBoundary = options.altBoundary,
-    padding = options.padding,
-    _options$tether = options.tether,
-    tether = _options$tether === void 0 ? true : _options$tether,
-    _options$tetherOffset = options.tetherOffset,
-    tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
-  var overflow = detectOverflow(state, {
-    boundary: boundary,
-    rootBoundary: rootBoundary,
-    padding: padding,
-    altBoundary: altBoundary
-  });
-  var basePlacement = getBasePlacement(state.placement);
-  var variation = getVariation(state.placement);
-  var isBasePlacement = !variation;
-  var mainAxis = getMainAxisFromPlacement(basePlacement);
-  var altAxis = getAltAxis(mainAxis);
-  var popperOffsets = state.modifiersData.popperOffsets;
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var tetherOffsetValue =
-    typeof tetherOffset === 'function'
-      ? tetherOffset(
-          Object.assign({}, state.rects, {
-            placement: state.placement
-          })
-        )
-      : tetherOffset;
-  var normalizedTetherOffsetValue =
-    typeof tetherOffsetValue === 'number'
-      ? {
-          mainAxis: tetherOffsetValue,
-          altAxis: tetherOffsetValue
-        }
-      : Object.assign(
-          {
-            mainAxis: 0,
-            altAxis: 0
-          },
-          tetherOffsetValue
-        );
-  var offsetModifierState = state.modifiersData.offset
-    ? state.modifiersData.offset[state.placement]
-    : null;
-  var data = {
-    x: 0,
-    y: 0
-  };
-
-  if (!popperOffsets) {
-    return;
-  }
-
-  if (checkMainAxis) {
-    var _offsetModifierState$;
-
-    var mainSide = mainAxis === 'y' ? top : left;
-    var altSide = mainAxis === 'y' ? bottom : right;
-    var len = mainAxis === 'y' ? 'height' : 'width';
-    var offset = popperOffsets[mainAxis];
-    var min$1 = offset + overflow[mainSide];
-    var max$1 = offset - overflow[altSide];
-    var additive = tether ? -popperRect[len] / 2 : 0;
-    var minLen = variation === start ? referenceRect[len] : popperRect[len];
-    var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
-    // outside the reference bounds
-
-    var arrowElement = state.elements.arrow;
-    var arrowRect =
-      tether && arrowElement
-        ? getLayoutRect(arrowElement)
-        : {
-            width: 0,
-            height: 0
-          };
-    var arrowPaddingObject = state.modifiersData['arrow#persistent']
-      ? state.modifiersData['arrow#persistent'].padding
-      : getFreshSideObject();
-    var arrowPaddingMin = arrowPaddingObject[mainSide];
-    var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
-    // to include its full size in the calculation. If the reference is small
-    // and near the edge of a boundary, the popper can overflow even if the
-    // reference is not overflowing as well (e.g. virtual elements with no
-    // width or height)
-
-    var arrowLen = within(0, referenceRect[len], arrowRect[len]);
-    var minOffset = isBasePlacement
-      ? referenceRect[len] / 2 -
-        additive -
-        arrowLen -
-        arrowPaddingMin -
-        normalizedTetherOffsetValue.mainAxis
-      : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
-    var maxOffset = isBasePlacement
-      ? -referenceRect[len] / 2 +
-        additive +
-        arrowLen +
-        arrowPaddingMax +
-        normalizedTetherOffsetValue.mainAxis
-      : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
-    var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
-    var clientOffset = arrowOffsetParent
-      ? mainAxis === 'y'
-        ? arrowOffsetParent.clientTop || 0
-        : arrowOffsetParent.clientLeft || 0
-      : 0;
-    var offsetModifierValue =
-      (_offsetModifierState$ =
-        offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null
-        ? _offsetModifierState$
-        : 0;
-    var tetherMin = offset + minOffset - offsetModifierValue - clientOffset;
-    var tetherMax = offset + maxOffset - offsetModifierValue;
-    var preventedOffset = within(
-      tether ? min(min$1, tetherMin) : min$1,
-      offset,
-      tether ? max(max$1, tetherMax) : max$1
-    );
-    popperOffsets[mainAxis] = preventedOffset;
-    data[mainAxis] = preventedOffset - offset;
-  }
-
-  if (checkAltAxis) {
-    var _offsetModifierState$2;
-
-    var _mainSide = mainAxis === 'x' ? top : left;
-
-    var _altSide = mainAxis === 'x' ? bottom : right;
-
-    var _offset = popperOffsets[altAxis];
-
-    var _len = altAxis === 'y' ? 'height' : 'width';
-
-    var _min = _offset + overflow[_mainSide];
-
-    var _max = _offset - overflow[_altSide];
-
-    var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
-
-    var _offsetModifierValue =
-      (_offsetModifierState$2 =
-        offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null
-        ? _offsetModifierState$2
-        : 0;
-
-    var _tetherMin = isOriginSide
-      ? _min
-      : _offset -
-        referenceRect[_len] -
-        popperRect[_len] -
-        _offsetModifierValue +
-        normalizedTetherOffsetValue.altAxis;
-
-    var _tetherMax = isOriginSide
-      ? _offset +
-        referenceRect[_len] +
-        popperRect[_len] -
-        _offsetModifierValue -
-        normalizedTetherOffsetValue.altAxis
-      : _max;
-
-    var _preventedOffset =
-      tether && isOriginSide
-        ? withinMaxClamp(_tetherMin, _offset, _tetherMax)
-        : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
-
-    popperOffsets[altAxis] = _preventedOffset;
-    data[altAxis] = _preventedOffset - _offset;
-  }
-
-  state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-
-var preventOverflow$1 = {
-  name: 'preventOverflow',
-  enabled: true,
-  phase: 'main',
-  fn: preventOverflow,
-  requiresIfExists: ['offset']
-};
-
-function getHTMLElementScroll(element) {
-  return {
-    scrollLeft: element.scrollLeft,
-    scrollTop: element.scrollTop
-  };
-}
-
-function getNodeScroll(node) {
-  if (node === getWindow(node) || !isHTMLElement$1(node)) {
-    return getWindowScroll(node);
-  } else {
-    return getHTMLElementScroll(node);
-  }
-}
-
-function isElementScaled(element) {
-  var rect = element.getBoundingClientRect();
-  var scaleX = round(rect.width) / element.offsetWidth || 1;
-  var scaleY = round(rect.height) / element.offsetHeight || 1;
-  return scaleX !== 1 || scaleY !== 1;
-} // Returns the composite rect of an element relative to its offsetParent.
-// Composite means it takes into account transforms as well as layout.
-
-function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
-  if (isFixed === void 0) {
-    isFixed = false;
-  }
-
-  var isOffsetParentAnElement = isHTMLElement$1(offsetParent);
-  var offsetParentIsScaled = isHTMLElement$1(offsetParent) && isElementScaled(offsetParent);
-  var documentElement = getDocumentElement(offsetParent);
-  var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled, isFixed);
-  var scroll = {
-    scrollLeft: 0,
-    scrollTop: 0
-  };
-  var offsets = {
-    x: 0,
-    y: 0
-  };
-
-  if (isOffsetParentAnElement || (!isOffsetParentAnElement && !isFixed)) {
-    if (
-      getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-      isScrollParent(documentElement)
-    ) {
-      scroll = getNodeScroll(offsetParent);
-    }
-
-    if (isHTMLElement$1(offsetParent)) {
-      offsets = getBoundingClientRect(offsetParent, true);
-      offsets.x += offsetParent.clientLeft;
-      offsets.y += offsetParent.clientTop;
-    } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
-    }
-  }
-
-  return {
-    x: rect.left + scroll.scrollLeft - offsets.x,
-    y: rect.top + scroll.scrollTop - offsets.y,
-    width: rect.width,
-    height: rect.height
-  };
-}
-
-function order(modifiers) {
-  var map = new Map();
-  var visited = new Set();
-  var result = [];
-  modifiers.forEach(function (modifier) {
-    map.set(modifier.name, modifier);
-  }); // On visiting object, check for its dependencies and visit them recursively
-
-  function sort(modifier) {
-    visited.add(modifier.name);
-    var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
-    requires.forEach(function (dep) {
-      if (!visited.has(dep)) {
-        var depModifier = map.get(dep);
-
-        if (depModifier) {
-          sort(depModifier);
-        }
-      }
-    });
-    result.push(modifier);
-  }
-
-  modifiers.forEach(function (modifier) {
-    if (!visited.has(modifier.name)) {
-      // check for visited object
-      sort(modifier);
-    }
-  });
-  return result;
-}
-
-function orderModifiers(modifiers) {
-  // order based on dependencies
-  var orderedModifiers = order(modifiers); // order based on phase
-
-  return modifierPhases.reduce(function (acc, phase) {
-    return acc.concat(
-      orderedModifiers.filter(function (modifier) {
-        return modifier.phase === phase;
-      })
-    );
-  }, []);
-}
-
-function debounce(fn) {
-  var pending;
-  return function () {
-    if (!pending) {
-      pending = new Promise(function (resolve) {
-        Promise.resolve().then(function () {
-          pending = undefined;
-          resolve(fn());
-        });
-      });
-    }
-
-    return pending;
-  };
-}
-
-function mergeByName(modifiers) {
-  var merged = modifiers.reduce(function (merged, current) {
-    var existing = merged[current.name];
-    merged[current.name] = existing
-      ? Object.assign({}, existing, current, {
-          options: Object.assign({}, existing.options, current.options),
-          data: Object.assign({}, existing.data, current.data)
-        })
-      : current;
-    return merged;
-  }, {}); // IE11 does not support Object.values
-
-  return Object.keys(merged).map(function (key) {
-    return merged[key];
-  });
-}
-
-var DEFAULT_OPTIONS = {
-  placement: 'bottom',
-  modifiers: [],
-  strategy: 'absolute'
-};
-
-function areValidElements() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return !args.some(function (element) {
-    return !(element && typeof element.getBoundingClientRect === 'function');
-  });
-}
-
-function popperGenerator(generatorOptions) {
-  if (generatorOptions === void 0) {
-    generatorOptions = {};
-  }
-
-  var _generatorOptions = generatorOptions,
-    _generatorOptions$def = _generatorOptions.defaultModifiers,
-    defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
-    _generatorOptions$def2 = _generatorOptions.defaultOptions,
-    defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
-  return function createPopper(reference, popper, options) {
-    if (options === void 0) {
-      options = defaultOptions;
-    }
-
-    var state = {
-      placement: 'bottom',
-      orderedModifiers: [],
-      options: Object.assign({}, DEFAULT_OPTIONS, defaultOptions),
-      modifiersData: {},
-      elements: {
-        reference: reference,
-        popper: popper
-      },
-      attributes: {},
-      styles: {}
-    };
-    var effectCleanupFns = [];
-    var isDestroyed = false;
-    var instance = {
-      state: state,
-      setOptions: function setOptions(setOptionsAction) {
-        var options =
-          typeof setOptionsAction === 'function'
-            ? setOptionsAction(state.options)
-            : setOptionsAction;
-        cleanupModifierEffects();
-        state.options = Object.assign({}, defaultOptions, state.options, options);
-        state.scrollParents = {
-          reference: isElement(reference)
-            ? listScrollParents(reference)
-            : reference.contextElement
-              ? listScrollParents(reference.contextElement)
-              : [],
-          popper: listScrollParents(popper)
-        }; // Orders the modifiers based on their dependencies and `phase`
-        // properties
-
-        var orderedModifiers = orderModifiers(
-          mergeByName([].concat(defaultModifiers, state.options.modifiers))
-        ); // Strip out disabled modifiers
-
-        state.orderedModifiers = orderedModifiers.filter(function (m) {
-          return m.enabled;
-        });
-        runModifierEffects();
-        return instance.update();
-      },
-      // Sync update – it will always be executed, even if not necessary. This
-      // is useful for low frequency updates where sync behavior simplifies the
-      // logic.
-      // For high frequency updates (e.g. `resize` and `scroll` events), always
-      // prefer the async Popper#update method
-      forceUpdate: function forceUpdate() {
-        if (isDestroyed) {
-          return;
-        }
-
-        var _state$elements = state.elements,
-          reference = _state$elements.reference,
-          popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
-        // anymore
-
-        if (!areValidElements(reference, popper)) {
-          return;
-        } // Store the reference and popper rects to be read by modifiers
-
-        state.rects = {
-          reference: getCompositeRect(
-            reference,
-            getOffsetParent(popper),
-            state.options.strategy === 'fixed'
-          ),
-          popper: getLayoutRect(popper)
-        }; // Modifiers have the ability to reset the current update cycle. The
-        // most common use case for this is the `flip` modifier changing the
-        // placement, which then needs to re-run all the modifiers, because the
-        // logic was previously ran for the previous placement and is therefore
-        // stale/incorrect
-
-        state.reset = false;
-        state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
-        // is filled with the initial data specified by the modifier. This means
-        // it doesn't persist and is fresh on each update.
-        // To ensure persistent data, use `${name}#persistent`
-
-        state.orderedModifiers.forEach(function (modifier) {
-          return (state.modifiersData[modifier.name] = Object.assign({}, modifier.data));
-        });
-
-        for (var index = 0; index < state.orderedModifiers.length; index++) {
-          if (state.reset === true) {
-            state.reset = false;
-            index = -1;
-            continue;
-          }
-
-          var _state$orderedModifie = state.orderedModifiers[index],
-            fn = _state$orderedModifie.fn,
-            _state$orderedModifie2 = _state$orderedModifie.options,
-            _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
-            name = _state$orderedModifie.name;
-
-          if (typeof fn === 'function') {
-            state =
-              fn({
-                state: state,
-                options: _options,
-                name: name,
-                instance: instance
-              }) || state;
-          }
-        }
-      },
-      // Async and optimistically optimized update – it will not be executed if
-      // not necessary (debounced to run at most once-per-tick)
-      update: debounce(function () {
-        return new Promise(function (resolve) {
-          instance.forceUpdate();
-          resolve(state);
-        });
-      }),
-      destroy: function destroy() {
-        cleanupModifierEffects();
-        isDestroyed = true;
-      }
-    };
-
-    if (!areValidElements(reference, popper)) {
-      return instance;
-    }
-
-    instance.setOptions(options).then(function (state) {
-      if (!isDestroyed && options.onFirstUpdate) {
-        options.onFirstUpdate(state);
-      }
-    }); // Modifiers have the ability to execute arbitrary code before the first
-    // update cycle runs. They will be executed in the same order as the update
-    // cycle. This is useful when a modifier adds some persistent data that
-    // other modifiers need to use, but the modifier is run after the dependent
-    // one.
-
-    function runModifierEffects() {
-      state.orderedModifiers.forEach(function (_ref) {
-        var name = _ref.name,
-          _ref$options = _ref.options,
-          options = _ref$options === void 0 ? {} : _ref$options,
-          effect = _ref.effect;
-
-        if (typeof effect === 'function') {
-          var cleanupFn = effect({
-            state: state,
-            name: name,
-            instance: instance,
-            options: options
-          });
-
-          var noopFn = function noopFn() {};
-
-          effectCleanupFns.push(cleanupFn || noopFn);
-        }
-      });
-    }
-
-    function cleanupModifierEffects() {
-      effectCleanupFns.forEach(function (fn) {
-        return fn();
-      });
-      effectCleanupFns = [];
-    }
-
-    return instance;
-  };
-}
-
-var defaultModifiers = [
-  eventListeners,
-  popperOffsets$1,
-  computeStyles$1,
-  applyStyles$1,
-  offset$1,
-  flip$1,
-  preventOverflow$1,
-  arrow$1,
-  hide$1
-];
-var createPopper = /*#__PURE__*/ popperGenerator({
-  defaultModifiers: defaultModifiers
-}); // eslint-disable-next-line import/no-unused-modules
-
-function getPopperUtilityClass(slot) {
-  return generateUtilityClass('MuiPopper', slot);
-}
-generateUtilityClasses('MuiPopper', ['root']);
-
-function flipPlacement(placement, direction) {
-  if (direction === 'ltr') {
-    return placement;
-  }
-  switch (placement) {
-    case 'bottom-end':
-      return 'bottom-start';
-    case 'bottom-start':
-      return 'bottom-end';
-    case 'top-end':
-      return 'top-start';
-    case 'top-start':
-      return 'top-end';
-    default:
-      return placement;
-  }
-}
-function resolveAnchorEl(anchorEl) {
-  return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
-}
-function isHTMLElement(element) {
-  return element.nodeType !== undefined;
-}
-function isVirtualElement(element) {
-  return !isHTMLElement(element);
-}
-const useUtilityClasses$a = (ownerState) => {
-  const { classes } = ownerState;
-  const slots = {
-    root: ['root']
-  };
-  return composeClasses(slots, getPopperUtilityClass, classes);
-};
-const defaultPopperOptions = {};
-const PopperTooltip = /*#__PURE__*/ React.forwardRef(function PopperTooltip(props, forwardedRef) {
-  const {
-    anchorEl,
-    children,
-    direction,
-    disablePortal,
-    modifiers,
-    open,
-    placement: initialPlacement,
-    popperOptions,
-    popperRef: popperRefProp,
-    slotProps = {},
-    slots = {},
-    TransitionProps,
-    // @ts-ignore internal logic
-    ownerState: ownerStateProp,
-    // prevent from spreading to DOM, it can come from the parent component e.g. Select.
-    ...other
-  } = props;
-  const tooltipRef = React.useRef(null);
-  const ownRef = useForkRef(tooltipRef, forwardedRef);
-  const popperRef = React.useRef(null);
-  const handlePopperRef = useForkRef(popperRef, popperRefProp);
-  const handlePopperRefRef = React.useRef(handlePopperRef);
-  useEnhancedEffect(() => {
-    handlePopperRefRef.current = handlePopperRef;
-  }, [handlePopperRef]);
-  React.useImperativeHandle(popperRefProp, () => popperRef.current, []);
-  const rtlPlacement = flipPlacement(initialPlacement, direction);
-  /**
-   * placement initialized from prop but can change during lifetime if modifiers.flip.
-   * modifiers.flip is essentially a flip for controlled/uncontrolled behavior
-   */
-  const [placement, setPlacement] = React.useState(rtlPlacement);
-  const [resolvedAnchorElement, setResolvedAnchorElement] = React.useState(
-    resolveAnchorEl(anchorEl)
-  );
-  React.useEffect(() => {
-    if (popperRef.current) {
-      popperRef.current.forceUpdate();
-    }
-  });
-  React.useEffect(() => {
-    if (anchorEl) {
-      setResolvedAnchorElement(resolveAnchorEl(anchorEl));
-    }
-  }, [anchorEl]);
-  useEnhancedEffect(() => {
-    if (!resolvedAnchorElement || !open) {
-      return undefined;
-    }
-    const handlePopperUpdate = (data) => {
-      setPlacement(data.placement);
-    };
-    if (process.env.NODE_ENV !== 'production') {
-      if (
-        resolvedAnchorElement &&
-        isHTMLElement(resolvedAnchorElement) &&
-        resolvedAnchorElement.nodeType === 1
-      ) {
-        const box = resolvedAnchorElement.getBoundingClientRect();
-        if (
-          process.env.NODE_ENV !== 'test' &&
-          box.top === 0 &&
-          box.left === 0 &&
-          box.right === 0 &&
-          box.bottom === 0
-        ) {
-          console.warn(
-            [
-              'MUI: The `anchorEl` prop provided to the component is invalid.',
-              'The anchor element should be part of the document layout.',
-              "Make sure the element is present in the document or that it's not display none."
-            ].join('\n')
-          );
-        }
-      }
-    }
-    let popperModifiers = [
-      {
-        name: 'preventOverflow',
-        options: {
-          altBoundary: disablePortal
-        }
-      },
-      {
-        name: 'flip',
-        options: {
-          altBoundary: disablePortal
-        }
-      },
-      {
-        name: 'onUpdate',
-        enabled: true,
-        phase: 'afterWrite',
-        fn: ({ state }) => {
-          handlePopperUpdate(state);
-        }
-      }
-    ];
-    if (modifiers != null) {
-      popperModifiers = popperModifiers.concat(modifiers);
-    }
-    if (popperOptions && popperOptions.modifiers != null) {
-      popperModifiers = popperModifiers.concat(popperOptions.modifiers);
-    }
-    const popper = createPopper(resolvedAnchorElement, tooltipRef.current, {
-      placement: rtlPlacement,
-      ...popperOptions,
-      modifiers: popperModifiers
-    });
-    handlePopperRefRef.current(popper);
-    return () => {
-      popper.destroy();
-      handlePopperRefRef.current(null);
-    };
-  }, [resolvedAnchorElement, disablePortal, modifiers, open, popperOptions, rtlPlacement]);
-  const childProps = {
-    placement: placement
-  };
-  if (TransitionProps !== null) {
-    childProps.TransitionProps = TransitionProps;
-  }
-  const classes = useUtilityClasses$a(props);
-  const Root = slots.root ?? 'div';
-  const rootProps = useSlotProps({
-    elementType: Root,
-    externalSlotProps: slotProps.root,
-    externalForwardedProps: other,
-    additionalProps: {
-      role: 'tooltip',
-      ref: ownRef
-    },
-    ownerState: props,
-    className: classes.root
-  });
-  return /*#__PURE__*/ jsx$1(Root, {
-    ...rootProps,
-    children: typeof children === 'function' ? children(childProps) : children
-  });
-});
-
-/**
- * @ignore - internal component.
- */
-const Popper$1 = /*#__PURE__*/ React.forwardRef(function Popper(props, forwardedRef) {
-  const {
-    anchorEl,
-    children,
-    container: containerProp,
-    direction = 'ltr',
-    disablePortal = false,
-    keepMounted = false,
-    modifiers,
-    open,
-    placement = 'bottom',
-    popperOptions = defaultPopperOptions,
-    popperRef,
-    style,
-    transition = false,
-    slotProps = {},
-    slots = {},
-    ...other
-  } = props;
-  const [exited, setExited] = React.useState(true);
-  const handleEnter = () => {
-    setExited(false);
-  };
-  const handleExited = () => {
-    setExited(true);
-  };
-  if (!keepMounted && !open && (!transition || exited)) {
-    return null;
-  }
-
-  // If the container prop is provided, use that
-  // If the anchorEl prop is provided, use its parent body element as the container
-  // If neither are provided let the Modal take care of choosing the container
-  let container;
-  if (containerProp) {
-    container = containerProp;
-  } else if (anchorEl) {
-    const resolvedAnchorEl = resolveAnchorEl(anchorEl);
-    container =
-      resolvedAnchorEl && isHTMLElement(resolvedAnchorEl)
-        ? ownerDocument(resolvedAnchorEl).body
-        : ownerDocument(null).body;
-  }
-  const display = !open && keepMounted && (!transition || exited) ? 'none' : undefined;
-  const transitionProps = transition
-    ? {
-        in: open,
-        onEnter: handleEnter,
-        onExited: handleExited
-      }
-    : undefined;
-  return /*#__PURE__*/ jsx$1(Portal, {
-    disablePortal: disablePortal,
-    container: container,
-    children: /*#__PURE__*/ jsx$1(PopperTooltip, {
-      anchorEl: anchorEl,
-      direction: direction,
-      disablePortal: disablePortal,
-      modifiers: modifiers,
-      ref: forwardedRef,
-      open: transition ? !exited : open,
-      placement: placement,
-      popperOptions: popperOptions,
-      popperRef: popperRef,
-      slotProps: slotProps,
-      slots: slots,
-      ...other,
-      style: {
-        // Prevents scroll issue, waiting for Popper.js to add this style once initiated.
-        position: 'fixed',
-        // Fix Popper.js display issue
-        top: 0,
-        left: 0,
-        display,
-        ...style
-      },
-      TransitionProps: transitionProps,
-      children: children
-    })
-  });
-});
-process.env.NODE_ENV !== 'production'
-  ? (Popper$1.propTypes /* remove-proptypes */ = {
-      // ┌────────────────────────────── Warning ──────────────────────────────┐
-      // │ These PropTypes are generated from the TypeScript type definitions. │
-      // │ To update them, edit the TypeScript types and run `pnpm proptypes`. │
-      // └─────────────────────────────────────────────────────────────────────┘
-      /**
-       * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
-       * or a function that returns either.
-       * It's used to set the position of the popper.
-       * The return value will passed as the reference object of the Popper instance.
-       */
-      anchorEl: chainPropTypes(
-        PropTypes.oneOfType([HTMLElementType, PropTypes.object, PropTypes.func]),
-        (props) => {
-          if (props.open) {
-            const resolvedAnchorEl = resolveAnchorEl(props.anchorEl);
-            if (
-              resolvedAnchorEl &&
-              isHTMLElement(resolvedAnchorEl) &&
-              resolvedAnchorEl.nodeType === 1
-            ) {
-              const box = resolvedAnchorEl.getBoundingClientRect();
-              if (
-                process.env.NODE_ENV !== 'test' &&
-                box.top === 0 &&
-                box.left === 0 &&
-                box.right === 0 &&
-                box.bottom === 0
-              ) {
-                return new Error(
-                  [
-                    'MUI: The `anchorEl` prop provided to the component is invalid.',
-                    'The anchor element should be part of the document layout.',
-                    "Make sure the element is present in the document or that it's not display none."
-                  ].join('\n')
-                );
-              }
-            } else if (
-              !resolvedAnchorEl ||
-              typeof resolvedAnchorEl.getBoundingClientRect !== 'function' ||
-              (isVirtualElement(resolvedAnchorEl) &&
-                resolvedAnchorEl.contextElement != null &&
-                resolvedAnchorEl.contextElement.nodeType !== 1)
-            ) {
-              return new Error(
-                [
-                  'MUI: The `anchorEl` prop provided to the component is invalid.',
-                  'It should be an HTML element instance or a virtualElement ',
-                  '(https://popper.js.org/docs/v2/virtual-elements/).'
-                ].join('\n')
-              );
-            }
-          }
-          return null;
-        }
-      ),
-      /**
-       * Popper render function or node.
-       */
-      children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-        PropTypes.node,
-        PropTypes.func
-      ]),
-      /**
-       * An HTML element or function that returns one.
-       * The `container` will have the portal children appended to it.
-       *
-       * You can also provide a callback, which is called in a React layout effect.
-       * This lets you set the container from a ref, and also makes server-side rendering possible.
-       *
-       * By default, it uses the body of the top-level document object,
-       * so it's simply `document.body` most of the time.
-       */
-      container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-        HTMLElementType,
-        PropTypes.func
-      ]),
-      /**
-       * Direction of the text.
-       * @default 'ltr'
-       */
-      direction: PropTypes.oneOf(['ltr', 'rtl']),
-      /**
-       * The `children` will be under the DOM hierarchy of the parent component.
-       * @default false
-       */
-      disablePortal: PropTypes.bool,
-      /**
-       * Always keep the children in the DOM.
-       * This prop can be useful in SEO situation or
-       * when you want to maximize the responsiveness of the Popper.
-       * @default false
-       */
-      keepMounted: PropTypes.bool,
-      /**
-       * Popper.js is based on a "plugin-like" architecture,
-       * most of its features are fully encapsulated "modifiers".
-       *
-       * A modifier is a function that is called each time Popper.js needs to
-       * compute the position of the popper.
-       * For this reason, modifiers should be very performant to avoid bottlenecks.
-       * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
-       */
-      modifiers: PropTypes.arrayOf(
-        PropTypes.shape({
-          data: PropTypes.object,
-          effect: PropTypes.func,
-          enabled: PropTypes.bool,
-          fn: PropTypes.func,
-          name: PropTypes.any,
-          options: PropTypes.object,
-          phase: PropTypes.oneOf([
-            'afterMain',
-            'afterRead',
-            'afterWrite',
-            'beforeMain',
-            'beforeRead',
-            'beforeWrite',
-            'main',
-            'read',
-            'write'
-          ]),
-          requires: PropTypes.arrayOf(PropTypes.string),
-          requiresIfExists: PropTypes.arrayOf(PropTypes.string)
-        })
-      ),
-      /**
-       * If `true`, the component is shown.
-       */
-      open: PropTypes.bool.isRequired,
-      /**
-       * Popper placement.
-       * @default 'bottom'
-       */
-      placement: PropTypes.oneOf([
-        'auto-end',
-        'auto-start',
-        'auto',
-        'bottom-end',
-        'bottom-start',
-        'bottom',
-        'left-end',
-        'left-start',
-        'left',
-        'right-end',
-        'right-start',
-        'right',
-        'top-end',
-        'top-start',
-        'top'
-      ]),
-      /**
-       * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
-       * @default {}
-       */
-      popperOptions: PropTypes.shape({
-        modifiers: PropTypes.array,
-        onFirstUpdate: PropTypes.func,
-        placement: PropTypes.oneOf([
-          'auto-end',
-          'auto-start',
-          'auto',
-          'bottom-end',
-          'bottom-start',
-          'bottom',
-          'left-end',
-          'left-start',
-          'left',
-          'right-end',
-          'right-start',
-          'right',
-          'top-end',
-          'top-start',
-          'top'
-        ]),
-        strategy: PropTypes.oneOf(['absolute', 'fixed'])
-      }),
-      /**
-       * A ref that points to the used popper instance.
-       */
-      popperRef: refType,
-      /**
-       * The props used for each slot inside the Popper.
-       * @default {}
-       */
-      slotProps: PropTypes.shape({
-        root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-      }),
-      /**
-       * The components used for each slot inside the Popper.
-       * Either a string to use a HTML element or a component.
-       * @default {}
-       */
-      slots: PropTypes.shape({
-        root: PropTypes.elementType
-      }),
-      /**
-       * Help supporting a react-transition-group/Transition component.
-       * @default false
-       */
-      transition: PropTypes.bool
-    })
-  : void 0;
-
-const PopperRoot = styled(Popper$1, {
-  name: 'MuiPopper',
-  slot: 'Root'
-})({});
-
-/**
- *
- * Demos:
- *
- * - [Autocomplete](https://mui.com/material-ui/react-autocomplete/)
- * - [Menu](https://mui.com/material-ui/react-menu/)
- * - [Popper](https://mui.com/material-ui/react-popper/)
- *
- * API:
- *
- * - [Popper API](https://mui.com/material-ui/api/popper/)
- */
-const Popper = /*#__PURE__*/ React.forwardRef(function Popper(inProps, ref) {
-  const isRtl = useRtl();
-  const props = useDefaultProps({
-    props: inProps,
-    name: 'MuiPopper'
-  });
-  const {
-    anchorEl,
-    component,
-    components,
-    componentsProps,
-    container,
-    disablePortal,
-    keepMounted,
-    modifiers,
-    open,
-    placement,
-    popperOptions,
-    popperRef,
-    transition,
-    slots,
-    slotProps,
-    ...other
-  } = props;
-  const RootComponent = slots?.root ?? components?.Root;
-  const otherProps = {
-    anchorEl,
-    container,
-    disablePortal,
-    keepMounted,
-    modifiers,
-    open,
-    placement,
-    popperOptions,
-    popperRef,
-    transition,
-    ...other
-  };
-  return /*#__PURE__*/ jsx$1(PopperRoot, {
-    as: component,
-    direction: isRtl ? 'rtl' : 'ltr',
-    slots: {
-      root: RootComponent
-    },
-    slotProps: slotProps ?? componentsProps,
-    ...otherProps,
-    ref: ref
-  });
-});
-process.env.NODE_ENV !== 'production'
-  ? (Popper.propTypes /* remove-proptypes */ = {
-      // ┌────────────────────────────── Warning ──────────────────────────────┐
-      // │ These PropTypes are generated from the TypeScript type definitions. │
-      // │ To update them, edit the TypeScript types and run `pnpm proptypes`. │
-      // └─────────────────────────────────────────────────────────────────────┘
-      /**
-       * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
-       * or a function that returns either.
-       * It's used to set the position of the popper.
-       * The return value will passed as the reference object of the Popper instance.
-       */
-      anchorEl: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-        HTMLElementType,
-        PropTypes.object,
-        PropTypes.func
-      ]),
-      /**
-       * Popper render function or node.
-       */
-      children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-        PropTypes.node,
-        PropTypes.func
-      ]),
-      /**
-       * The component used for the root node.
-       * Either a string to use a HTML element or a component.
-       */
-      component: PropTypes.elementType,
-      /**
-       * The components used for each slot inside the Popper.
-       * Either a string to use a HTML element or a component.
-       *
-       * @deprecated use the `slots` prop instead. This prop will be removed in a future major release. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
-       * @default {}
-       */
-      components: PropTypes.shape({
-        Root: PropTypes.elementType
-      }),
-      /**
-       * The props used for each slot inside the Popper.
-       *
-       * @deprecated use the `slotProps` prop instead. This prop will be removed in a future major release. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
-       * @default {}
-       */
-      componentsProps: PropTypes.shape({
-        root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-      }),
-      /**
-       * An HTML element or function that returns one.
-       * The `container` will have the portal children appended to it.
-       *
-       * You can also provide a callback, which is called in a React layout effect.
-       * This lets you set the container from a ref, and also makes server-side rendering possible.
-       *
-       * By default, it uses the body of the top-level document object,
-       * so it's simply `document.body` most of the time.
-       */
-      container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-        HTMLElementType,
-        PropTypes.func
-      ]),
-      /**
-       * The `children` will be under the DOM hierarchy of the parent component.
-       * @default false
-       */
-      disablePortal: PropTypes.bool,
-      /**
-       * Always keep the children in the DOM.
-       * This prop can be useful in SEO situation or
-       * when you want to maximize the responsiveness of the Popper.
-       * @default false
-       */
-      keepMounted: PropTypes.bool,
-      /**
-       * Popper.js is based on a "plugin-like" architecture,
-       * most of its features are fully encapsulated "modifiers".
-       *
-       * A modifier is a function that is called each time Popper.js needs to
-       * compute the position of the popper.
-       * For this reason, modifiers should be very performant to avoid bottlenecks.
-       * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
-       */
-      modifiers: PropTypes.arrayOf(
-        PropTypes.shape({
-          data: PropTypes.object,
-          effect: PropTypes.func,
-          enabled: PropTypes.bool,
-          fn: PropTypes.func,
-          name: PropTypes.any,
-          options: PropTypes.object,
-          phase: PropTypes.oneOf([
-            'afterMain',
-            'afterRead',
-            'afterWrite',
-            'beforeMain',
-            'beforeRead',
-            'beforeWrite',
-            'main',
-            'read',
-            'write'
-          ]),
-          requires: PropTypes.arrayOf(PropTypes.string),
-          requiresIfExists: PropTypes.arrayOf(PropTypes.string)
-        })
-      ),
-      /**
-       * If `true`, the component is shown.
-       */
-      open: PropTypes.bool.isRequired,
-      /**
-       * Popper placement.
-       * @default 'bottom'
-       */
-      placement: PropTypes.oneOf([
-        'auto-end',
-        'auto-start',
-        'auto',
-        'bottom-end',
-        'bottom-start',
-        'bottom',
-        'left-end',
-        'left-start',
-        'left',
-        'right-end',
-        'right-start',
-        'right',
-        'top-end',
-        'top-start',
-        'top'
-      ]),
-      /**
-       * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
-       * @default {}
-       */
-      popperOptions: PropTypes.shape({
-        modifiers: PropTypes.array,
-        onFirstUpdate: PropTypes.func,
-        placement: PropTypes.oneOf([
-          'auto-end',
-          'auto-start',
-          'auto',
-          'bottom-end',
-          'bottom-start',
-          'bottom',
-          'left-end',
-          'left-start',
-          'left',
-          'right-end',
-          'right-start',
-          'right',
-          'top-end',
-          'top-start',
-          'top'
-        ]),
-        strategy: PropTypes.oneOf(['absolute', 'fixed'])
-      }),
-      /**
-       * A ref that points to the used popper instance.
-       */
-      popperRef: refType,
-      /**
-       * The props used for each slot inside the Popper.
-       * @default {}
-       */
-      slotProps: PropTypes.shape({
-        root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-      }),
-      /**
-       * The components used for each slot inside the Popper.
-       * Either a string to use a HTML element or a component.
-       * @default {}
-       */
-      slots: PropTypes.shape({
-        root: PropTypes.elementType
-      }),
-      /**
-       * The system prop that allows defining system overrides as well as additional CSS styles.
-       */
-      sx: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
-        PropTypes.func,
-        PropTypes.object
-      ]),
-      /**
-       * Help supporting a react-transition-group/Transition component.
-       * @default false
-       */
-      transition: PropTypes.bool
-    })
-  : void 0;
-
-function getPickerPopperUtilityClass(slot) {
-  return generateUtilityClass('MuiPickerPopper', slot);
-}
-generateUtilityClasses('MuiPickerPopper', ['root', 'paper']);
-
-const _excluded$7 = [
-  'PaperComponent',
-  'ownerState',
-  'children',
-  'paperSlotProps',
-  'paperClasses',
-  'onPaperClick',
-  'onPaperTouchStart'
-];
-const useUtilityClasses$9 = (classes) => {
-  const slots = {
-    root: ['root'],
-    paper: ['paper']
-  };
-  return composeClasses(slots, getPickerPopperUtilityClass, classes);
-};
-const PickerPopperRoot = styled(Popper, {
-  name: 'MuiPickerPopper',
-  slot: 'Root'
-})(({ theme }) => ({
-  zIndex: theme.zIndex.modal
-}));
-const PickerPopperPaper = styled(Paper, {
-  name: 'MuiPickerPopper',
-  slot: 'Paper'
-})({
-  outline: 0,
-  transformOrigin: 'top center',
-  variants: [
-    {
-      props: ({ popperPlacement }) => new Set(['top', 'top-start', 'top-end']).has(popperPlacement),
-      style: {
-        transformOrigin: 'bottom center'
-      }
-    }
-  ]
-});
-function clickedRootScrollbar(event, doc) {
-  return (
-    doc.documentElement.clientWidth < event.clientX ||
-    doc.documentElement.clientHeight < event.clientY
-  );
-}
-/**
- * Based on @mui/material/ClickAwayListener without the customization.
- * We can probably strip away even more since children won't be portaled.
- * @param {boolean} active Only listen to clicks when the popper is opened.
- * @param {(event: MouseEvent | TouchEvent) => void} onClickAway The callback to call when clicking outside the popper.
- * @returns {Array} The ref and event handler to listen to the outside clicks.
- */
-function useClickAwayListener(active, onClickAway) {
-  const movedRef = React.useRef(false);
-  const syntheticEventRef = React.useRef(false);
-  const nodeRef = React.useRef(null);
-  const activatedRef = React.useRef(false);
-  React.useEffect(() => {
-    if (!active) {
-      return undefined;
-    }
-
-    // Ensure that this hook is not "activated" synchronously.
-    // https://github.com/facebook/react/issues/20074
-    function armClickAwayListener() {
-      activatedRef.current = true;
-    }
-    document.addEventListener('mousedown', armClickAwayListener, true);
-    document.addEventListener('touchstart', armClickAwayListener, true);
-    return () => {
-      document.removeEventListener('mousedown', armClickAwayListener, true);
-      document.removeEventListener('touchstart', armClickAwayListener, true);
-      activatedRef.current = false;
-    };
-  }, [active]);
-
-  // The handler doesn't take event.defaultPrevented into account:
-  //
-  // event.preventDefault() is meant to stop default behaviors like
-  // clicking a checkbox to check it, hitting a button to submit a form,
-  // and hitting left arrow to move the cursor in a text input etc.
-  // Only special HTML elements have these default behaviors.
-  const handleClickAway = useEventCallback((event) => {
-    if (!activatedRef.current) {
-      return;
-    }
-
-    // Given developers can stop the propagation of the synthetic event,
-    // we can only be confident with a positive value.
-    const insideReactTree = syntheticEventRef.current;
-    syntheticEventRef.current = false;
-    const doc = ownerDocument(nodeRef.current);
-
-    // 1. IE11 support, which trigger the handleClickAway even after the unbind
-    // 2. The child might render null.
-    // 3. Behave like a blur listener.
-    if (
-      !nodeRef.current ||
-      // is a TouchEvent?
-      ('clientX' in event && clickedRootScrollbar(event, doc))
-    ) {
-      return;
-    }
-
-    // Do not act if user performed touchmove
-    if (movedRef.current) {
-      movedRef.current = false;
-      return;
-    }
-    let insideDOM;
-
-    // If not enough, can use https://github.com/DieterHolvoet/event-propagation-path/blob/master/propagationPath.js
-    if (event.composedPath) {
-      insideDOM = event.composedPath().indexOf(nodeRef.current) > -1;
-    } else {
-      insideDOM =
-        !doc.documentElement.contains(event.target) || nodeRef.current.contains(event.target);
-    }
-    if (!insideDOM && !insideReactTree) {
-      onClickAway(event);
-    }
-  });
-
-  // Keep track of mouse/touch events that bubbled up through the portal.
-  const handleSynthetic = (event) => {
-    // Ignore events handled by our internal components
-    if (!event.defaultMuiPrevented) {
-      syntheticEventRef.current = true;
-    }
-  };
-  React.useEffect(() => {
-    if (active) {
-      const doc = ownerDocument(nodeRef.current);
-      const handleTouchMove = () => {
-        movedRef.current = true;
-      };
-      doc.addEventListener('touchstart', handleClickAway);
-      doc.addEventListener('touchmove', handleTouchMove);
-      return () => {
-        doc.removeEventListener('touchstart', handleClickAway);
-        doc.removeEventListener('touchmove', handleTouchMove);
-      };
-    }
-    return undefined;
-  }, [active, handleClickAway]);
-  React.useEffect(() => {
-    // TODO This behavior is not tested automatically
-    // It's unclear whether this is due to different update semantics in test (batched in act() vs discrete on click).
-    // Or if this is a timing related issues due to different Transition components
-    // Once we get rid of all the manual scheduling (for example setTimeout(update, 0)) we can revisit this code+test.
-    if (active) {
-      const doc = ownerDocument(nodeRef.current);
-      doc.addEventListener('click', handleClickAway);
-      return () => {
-        doc.removeEventListener('click', handleClickAway);
-        // cleanup `handleClickAway`
-        syntheticEventRef.current = false;
-      };
-    }
-    return undefined;
-  }, [active, handleClickAway]);
-  return [nodeRef, handleSynthetic, handleSynthetic];
-}
-const PickerPopperPaperWrapper = /*#__PURE__*/ React.forwardRef((props, ref) => {
-  const {
-      PaperComponent,
-      ownerState,
-      children,
-      paperSlotProps,
-      paperClasses,
-      onPaperClick,
-      onPaperTouchStart
-      // picks up the style props provided by `Transition`
-      // https://mui.com/material-ui/transitions/#child-requirement
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$7);
-  const paperProps = useSlotProps({
-    elementType: PaperComponent,
-    externalSlotProps: paperSlotProps,
-    additionalProps: {
-      tabIndex: -1,
-      elevation: 8,
-      ref
-    },
-    className: paperClasses,
-    ownerState
-  });
-  return /*#__PURE__*/ jsx$1(
-    PaperComponent,
-    _extends({}, other, paperProps, {
-      onClick: (event) => {
-        onPaperClick(event);
-        paperProps.onClick?.(event);
-      },
-      onTouchStart: (event) => {
-        onPaperTouchStart(event);
-        paperProps.onTouchStart?.(event);
-      },
-      ownerState: ownerState,
-      children: children
-    })
-  );
-});
-if (process.env.NODE_ENV !== 'production')
-  PickerPopperPaperWrapper.displayName = 'PickerPopperPaperWrapper';
-function PickerPopper(inProps) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiPickerPopper'
-  });
-  const { children, placement = 'bottom-start', slots, slotProps, classes: classesProp } = props;
-  const { open, popupRef, reduceAnimations } = usePickerContext();
-  const { ownerState: pickerOwnerState, rootRefObject } = usePickerPrivateContext();
-  const { dismissViews, getCurrentViewMode, onPopperExited, triggerElement, viewContainerRole } =
-    usePickerPrivateContext();
-  React.useEffect(() => {
-    function handleKeyDown(nativeEvent) {
-      if (open && nativeEvent.key === 'Escape') {
-        dismissViews();
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [dismissViews, open]);
-  const lastFocusedElementRef = React.useRef(null);
-  React.useEffect(() => {
-    if (viewContainerRole === 'tooltip' || getCurrentViewMode() === 'field') {
-      return;
-    }
-    if (open) {
-      lastFocusedElementRef.current = getActiveElement(rootRefObject.current);
-    } else if (
-      lastFocusedElementRef.current &&
-      lastFocusedElementRef.current instanceof HTMLElement
-    ) {
-      // make sure the button is flushed with updated label, before returning focus to it
-      // avoids issue, where screen reader could fail to announce selected date after selection
-      setTimeout(() => {
-        if (lastFocusedElementRef.current instanceof HTMLElement) {
-          lastFocusedElementRef.current.focus();
-        }
-      });
-    }
-  }, [open, viewContainerRole, getCurrentViewMode, rootRefObject]);
-  const classes = useUtilityClasses$9(classesProp);
-  const handleClickAway = useEventCallback(() => {
-    if (viewContainerRole === 'tooltip') {
-      executeInTheNextEventLoopTick(() => {
-        if (
-          rootRefObject.current?.contains(getActiveElement(rootRefObject.current)) ||
-          popupRef.current?.contains(getActiveElement(popupRef.current))
-        ) {
-          return;
-        }
-        dismissViews();
-      });
-    } else {
-      dismissViews();
-    }
-  });
-  const [clickAwayRef, onPaperClick, onPaperTouchStart] = useClickAwayListener(
-    open,
-    handleClickAway
-  );
-  const paperRef = React.useRef(null);
-  const handleRef = useForkRef(paperRef, popupRef);
-  const handlePaperRef = useForkRef(handleRef, clickAwayRef);
-  const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      // stop the propagation to avoid closing parent modal
-      event.stopPropagation();
-      dismissViews();
-    }
-  };
-  const Transition = (slots?.desktopTransition ?? reduceAnimations) ? Fade : Grow;
-  const FocusTrap$1 = slots?.desktopTrapFocus ?? FocusTrap;
-  const Paper = slots?.desktopPaper ?? PickerPopperPaper;
-  const Popper = slots?.popper ?? PickerPopperRoot;
-  const popperProps = useSlotProps({
-    elementType: Popper,
-    externalSlotProps: slotProps?.popper,
-    additionalProps: {
-      transition: true,
-      role: viewContainerRole == null ? undefined : viewContainerRole,
-      open,
-      placement,
-      anchorEl: triggerElement,
-      onKeyDown: handleKeyDown
-    },
-    className: classes.root,
-    ownerState: pickerOwnerState
-  });
-  const ownerState = React.useMemo(
-    () =>
-      _extends({}, pickerOwnerState, {
-        popperPlacement: popperProps.placement
-      }),
-    [pickerOwnerState, popperProps.placement]
-  );
-  return /*#__PURE__*/ jsx$1(
-    Popper,
-    _extends({}, popperProps, {
-      children: ({ TransitionProps }) =>
-        /*#__PURE__*/ jsx$1(
-          FocusTrap$1,
-          _extends(
-            {
-              open: open,
-              disableAutoFocus: true,
-              // pickers are managing focus position manually
-              // without this prop the focus is returned to the button before `aria-label` is updated
-              // which would force screen readers to read too old label
-              disableRestoreFocus: true,
-              disableEnforceFocus: viewContainerRole === 'tooltip',
-              isEnabled: () => true
-            },
-            slotProps?.desktopTrapFocus,
-            {
-              children: /*#__PURE__*/ jsx$1(
-                Transition,
-                _extends({}, TransitionProps, slotProps?.desktopTransition, {
-                  onExited: (event) => {
-                    onPopperExited?.();
-                    slotProps?.desktopTransition?.onExited?.(event);
-                    TransitionProps?.onExited?.();
-                  },
-                  children: /*#__PURE__*/ jsx$1(PickerPopperPaperWrapper, {
-                    PaperComponent: Paper,
-                    ownerState: ownerState,
-                    ref: handlePaperRef,
-                    onPaperClick: onPaperClick,
-                    onPaperTouchStart: onPaperTouchStart,
-                    paperClasses: classes.paper,
-                    paperSlotProps: slotProps?.desktopPaper,
-                    children: children
-                  })
-                })
-              )
-            }
-          )
-        )
-    })
   );
 }
 
@@ -43143,7 +40025,7 @@ function useValueAndOpenStates(parameters) {
   };
 }
 
-const _excluded$6 = ['className', 'sx'];
+const _excluded$4 = ['className', 'sx'];
 const usePicker = ({
   ref,
   props,
@@ -43184,7 +40066,7 @@ const usePicker = ({
     name
   } = props;
   const { className, sx } = props,
-    propsToForwardToView = _objectWithoutPropertiesLoose(props, _excluded$6);
+    propsToForwardToView = _objectWithoutPropertiesLoose(props, _excluded$4);
 
   /**
    * TODO: Improve how we generate the aria-label and aria-labelledby attributes.
@@ -44486,7 +41368,7 @@ process.env.NODE_ENV !== 'production'
     })
   : void 0;
 
-const _excluded$5 = ['actions'];
+const _excluded$3 = ['actions'];
 const PickersActionBarRoot = styled(DialogActions, {
   name: 'MuiPickersLayout',
   slot: 'ActionBar'
@@ -44504,7 +41386,7 @@ const PickersActionBarRoot = styled(DialogActions, {
  */
 function PickersActionBarComponent(props) {
   const { actions } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$5);
+    other = _objectWithoutPropertiesLoose(props, _excluded$3);
   const translations = usePickerTranslations();
   const {
     clearValue,
@@ -45902,8 +42784,8 @@ process.env.NODE_ENV !== 'production'
     })
   : void 0;
 
-const _excluded$4 = ['items', 'changeImportance'],
-  _excluded2$2 = ['getValue'];
+const _excluded$2 = ['items', 'changeImportance'],
+  _excluded2$1 = ['getValue'];
 const PickersShortcutsRoot = styled(List, {
   name: 'MuiPickersLayout',
   slot: 'Shortcuts'
@@ -45920,7 +42802,7 @@ const PickersShortcutsRoot = styled(List, {
  */
 function PickersShortcuts(props) {
   const { items, changeImportance = 'accept' } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$4);
+    other = _objectWithoutPropertiesLoose(props, _excluded$2);
   const { setValue } = usePickerActionsContext();
   const isValidValue = useIsValidValue();
   if (items == null || items.length === 0) {
@@ -45928,7 +42810,7 @@ function PickersShortcuts(props) {
   }
   const resolvedItems = items.map((_ref) => {
     let { getValue } = _ref,
-      item = _objectWithoutPropertiesLoose(_ref, _excluded2$2);
+      item = _objectWithoutPropertiesLoose(_ref, _excluded2$1);
     const newValue = getValue({
       isValid: isValidValue
     });
@@ -46028,7 +42910,7 @@ process.env.NODE_ENV !== 'production'
     })
   : void 0;
 
-const _excluded$3 = ['ownerState'];
+const _excluded$1 = ['ownerState'];
 function toolbarHasView(toolbarProps) {
   return toolbarProps.view !== null;
 }
@@ -46071,7 +42953,7 @@ const usePickerLayout = (props) => {
       className: classes.actionBar,
       ownerState
     }),
-    actionBarProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded$3);
+    actionBarProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded$1);
   const actionBar = /*#__PURE__*/ jsx$1(ActionBar, _extends({}, actionBarProps));
 
   // Toolbar
@@ -46307,94 +43189,6 @@ function createNonRangePickerStepNavigation(parameters) {
   });
 }
 
-const _excluded$2 = ['props', 'steps'],
-  _excluded2$1 = ['ownerState'];
-const useDesktopPicker = (_ref) => {
-  let { props, steps } = _ref,
-    pickerParams = _objectWithoutPropertiesLoose(_ref, _excluded$2);
-  const { slots, slotProps: innerSlotProps, label, inputRef, localeText } = props;
-  const getStepNavigation = createNonRangePickerStepNavigation({
-    steps
-  });
-  const { providerProps, renderCurrentView, ownerState } = usePicker(
-    _extends({}, pickerParams, {
-      props,
-      localeText,
-      autoFocusView: true,
-      viewContainerRole: 'dialog',
-      variant: 'desktop',
-      getStepNavigation
-    })
-  );
-  const labelId = providerProps.privateContextValue.labelId;
-  const isToolbarHidden = innerSlotProps?.toolbar?.hidden ?? false;
-  const Field = slots.field;
-  const _useSlotProps = useSlotProps({
-      elementType: Field,
-      externalSlotProps: innerSlotProps?.field,
-      additionalProps: _extends(
-        {},
-        isToolbarHidden && {
-          id: labelId
-        }
-      ),
-      ownerState
-    }),
-    fieldProps = _objectWithoutPropertiesLoose(_useSlotProps, _excluded2$1);
-  const Layout = slots.layout ?? PickersLayout;
-  let labelledById = labelId;
-  if (isToolbarHidden) {
-    if (label) {
-      labelledById = `${labelId}-label`;
-    } else {
-      labelledById = undefined;
-    }
-  }
-  const slotProps = _extends({}, innerSlotProps, {
-    toolbar: _extends({}, innerSlotProps?.toolbar, {
-      titleId: labelId
-    }),
-    popper: _extends(
-      {
-        'aria-labelledby': labelledById
-      },
-      innerSlotProps?.popper
-    )
-  });
-  const renderPicker = () =>
-    /*#__PURE__*/ jsxs(
-      PickerProvider,
-      _extends({}, providerProps, {
-        children: [
-          /*#__PURE__*/ jsx$1(
-            Field,
-            _extends({}, fieldProps, {
-              slots: _extends({}, slots, fieldProps.slots),
-              slotProps: _extends({}, slotProps, fieldProps.slotProps),
-              inputRef: inputRef
-            })
-          ),
-          /*#__PURE__*/ jsx$1(PickerPopper, {
-            slots: slots,
-            slotProps: slotProps,
-            children: /*#__PURE__*/ jsx$1(
-              Layout,
-              _extends({}, slotProps?.layout, {
-                slots: slots,
-                slotProps: slotProps,
-                children: renderCurrentView()
-              })
-            )
-          })
-        ]
-      })
-    );
-  if (process.env.NODE_ENV !== 'production') renderPicker.displayName = 'renderPicker';
-  return {
-    renderPicker
-  };
-};
-
 const renderDateViewCalendar = ({
   view,
   onViewChange,
@@ -46477,407 +43271,6 @@ const renderDateViewCalendar = ({
   });
 if (process.env.NODE_ENV !== 'production')
   renderDateViewCalendar.displayName = 'renderDateViewCalendar';
-
-/**
- * Demos:
- *
- * - [DatePicker](https://mui.com/x/react-date-pickers/date-picker/)
- * - [Validation](https://mui.com/x/react-date-pickers/validation/)
- *
- * API:
- *
- * - [DesktopDatePicker API](https://mui.com/x/api/date-pickers/desktop-date-picker/)
- */
-const DesktopDatePicker = /*#__PURE__*/ React.forwardRef(function DesktopDatePicker(inProps, ref) {
-  const adapter = usePickerAdapter();
-
-  // Props with the default values common to all date pickers
-  const defaultizedProps = useDatePickerDefaultizedProps(inProps, 'MuiDesktopDatePicker');
-  const viewRenderers = _extends(
-    {
-      day: renderDateViewCalendar,
-      month: renderDateViewCalendar,
-      year: renderDateViewCalendar
-    },
-    defaultizedProps.viewRenderers
-  );
-
-  // Props with the default values specific to the desktop variant
-  const props = _extends({}, defaultizedProps, {
-    closeOnSelect: defaultizedProps.closeOnSelect ?? true,
-    viewRenderers,
-    format: resolveDateFormat(adapter, defaultizedProps, false),
-    yearsPerRow: defaultizedProps.yearsPerRow ?? 4,
-    slots: _extends(
-      {
-        field: DateField
-      },
-      defaultizedProps.slots
-    ),
-    slotProps: _extends({}, defaultizedProps.slotProps, {
-      field: (ownerState) =>
-        _extends(
-          {},
-          resolveComponentProps(defaultizedProps.slotProps?.field, ownerState),
-          extractValidationProps(defaultizedProps)
-        ),
-      toolbar: _extends(
-        {
-          hidden: true
-        },
-        defaultizedProps.slotProps?.toolbar
-      )
-    })
-  });
-  const { renderPicker } = useDesktopPicker({
-    ref,
-    props,
-    valueManager: singleItemValueManager,
-    valueType: 'date',
-    validator: validateDate,
-    steps: null
-  });
-  return renderPicker();
-});
-if (process.env.NODE_ENV !== 'production') DesktopDatePicker.displayName = 'DesktopDatePicker';
-DesktopDatePicker.propTypes = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // | To update them edit the TypeScript types and run "pnpm proptypes"  |
-  // ----------------------------------------------------------------------
-  /**
-   * If `true`, the main element is focused during the first mount.
-   * This main element is:
-   * - the element chosen by the visible view if any (i.e: the selected day on the `day` view).
-   * - the `input` element if there is a field rendered.
-   */
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string,
-  /**
-   * If `true`, the Picker will close after submitting the full date.
-   * @default true
-   */
-  closeOnSelect: PropTypes.bool,
-  /**
-   * Formats the day of week displayed in the calendar header.
-   * @param {PickerValidDate} date The date of the day of week provided by the adapter.
-   * @returns {string} The name to display.
-   * @default (date: PickerValidDate) => adapter.format(date, 'weekdayShort').charAt(0).toUpperCase()
-   */
-  dayOfWeekFormatter: PropTypes.func,
-  /**
-   * The default value.
-   * Used when the component is not controlled.
-   */
-  defaultValue: PropTypes.object,
-  /**
-   * If `true`, the component is disabled.
-   * When disabled, the value cannot be changed and no interaction is possible.
-   * @default false
-   */
-  disabled: PropTypes.bool,
-  /**
-   * If `true`, disable values after the current date for date components, time for time components and both for date time components.
-   * @default false
-   */
-  disableFuture: PropTypes.bool,
-  /**
-   * If `true`, today's date is rendering without highlighting with circle.
-   * @default false
-   */
-  disableHighlightToday: PropTypes.bool,
-  /**
-   * If `true`, the button to open the Picker will not be rendered (it will only render the field).
-   * @deprecated Use the [field component](https://mui.com/x/react-date-pickers/fields/) instead.
-   * @default false
-   */
-  disableOpenPicker: PropTypes.bool,
-  /**
-   * If `true`, disable values before the current date for date components, time for time components and both for date time components.
-   * @default false
-   */
-  disablePast: PropTypes.bool,
-  /**
-   * If `true`, the week number will be display in the calendar.
-   */
-  displayWeekNumber: PropTypes.bool,
-  /**
-   * @default true
-   */
-  enableAccessibleFieldDOMStructure: PropTypes.any,
-  /**
-   * The day view will show as many weeks as needed after the end of the current month to match this value.
-   * Put it to 6 to have a fixed number of weeks in Gregorian calendars
-   */
-  fixedWeekNumber: PropTypes.number,
-  /**
-   * Format of the date when rendered in the input(s).
-   * Defaults to localized format based on the used `views`.
-   */
-  format: PropTypes.string,
-  /**
-   * Density of the format when rendered in the input.
-   * Setting `formatDensity` to `"spacious"` will add a space before and after each `/`, `-` and `.` character.
-   * @default "dense"
-   */
-  formatDensity: PropTypes.oneOf(['dense', 'spacious']),
-  /**
-   * Pass a ref to the `input` element.
-   */
-  inputRef: refType,
-  /**
-   * The label content.
-   */
-  label: PropTypes.node,
-  /**
-   * If `true`, calls `renderLoading` instead of rendering the day calendar.
-   * Can be used to preload information and show it in calendar.
-   * @default false
-   */
-  loading: PropTypes.bool,
-  /**
-   * Locale for components texts.
-   * Allows overriding texts coming from `LocalizationProvider` and `theme`.
-   */
-  localeText: PropTypes.object,
-  /**
-   * Maximal selectable date.
-   * @default 2099-12-31
-   */
-  maxDate: PropTypes.object,
-  /**
-   * Minimal selectable date.
-   * @default 1900-01-01
-   */
-  minDate: PropTypes.object,
-  /**
-   * Months rendered per row.
-   * @default 3
-   */
-  monthsPerRow: PropTypes.oneOf([3, 4]),
-  /**
-   * Name attribute used by the `input` element in the Field.
-   */
-  name: PropTypes.string,
-  /**
-   * Callback fired when the value is accepted.
-   * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-   * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-   * @param {TValue} value The value that was just accepted.
-   * @param {FieldChangeHandlerContext<TError>} context Context about this acceptance:
-   * - `validationError`: validation result of the current value
-   * - `source`: source of the acceptance. One of 'field' | 'view' | 'unknown'
-   * - `shortcut` (optional): the shortcut metadata if the value was accepted via a shortcut selection
-   */
-  onAccept: PropTypes.func,
-  /**
-   * Callback fired when the value changes.
-   * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-   * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-   * @param {TValue} value The new value.
-   * @param {FieldChangeHandlerContext<TError>} context Context about this change:
-   * - `validationError`: validation result of the current value
-   * - `source`: source of the change. One of 'field' | 'view' | 'unknown'
-   * - `shortcut` (optional): the shortcut metadata if the change was triggered by a shortcut selection
-   */
-  onChange: PropTypes.func,
-  /**
-   * Callback fired when the popup requests to be closed.
-   * Use in controlled mode (see `open`).
-   */
-  onClose: PropTypes.func,
-  /**
-   * Callback fired when the error associated with the current value changes.
-   * When a validation error is detected, the `error` parameter contains a non-null value.
-   * This can be used to render an appropriate form error.
-   * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-   * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-   * @param {TError} error The reason why the current value is not valid.
-   * @param {TValue} value The value associated with the error.
-   */
-  onError: PropTypes.func,
-  /**
-   * Callback fired on month change.
-   * @param {PickerValidDate} month The new month.
-   */
-  onMonthChange: PropTypes.func,
-  /**
-   * Callback fired when the popup requests to be opened.
-   * Use in controlled mode (see `open`).
-   */
-  onOpen: PropTypes.func,
-  /**
-   * Callback fired when the selected sections change.
-   * @param {FieldSelectedSections} newValue The new selected sections.
-   */
-  onSelectedSectionsChange: PropTypes.func,
-  /**
-   * Callback fired on view change.
-   * @template TView Type of the view. It will vary based on the Picker type and the `views` it uses.
-   * @param {TView} view The new view.
-   */
-  onViewChange: PropTypes.func,
-  /**
-   * Callback fired on year change.
-   * @param {PickerValidDate} year The new year.
-   */
-  onYearChange: PropTypes.func,
-  /**
-   * Control the popup or dialog open state.
-   * @default false
-   */
-  open: PropTypes.bool,
-  /**
-   * The default visible view.
-   * Used when the component view is not controlled.
-   * Must be a valid option from `views` list.
-   */
-  openTo: PropTypes.oneOf(['day', 'month', 'year']),
-  /**
-   * Force rendering in particular orientation.
-   */
-  orientation: PropTypes.oneOf(['landscape', 'portrait']),
-  /**
-   * If `true`, the component is read-only.
-   * When read-only, the value cannot be changed but the user can interact with the interface.
-   * @default false
-   */
-  readOnly: PropTypes.bool,
-  /**
-   * If `true`, disable heavy animations.
-   * @default `@media(prefers-reduced-motion: reduce)` || `navigator.userAgent` matches Android <10 or iOS <13
-   */
-  reduceAnimations: PropTypes.bool,
-  /**
-   * The date used to generate the new value when both `value` and `defaultValue` are empty.
-   * @default The closest valid date-time using the validation props, except callbacks like `shouldDisable<...>`.
-   */
-  referenceDate: PropTypes.object,
-  /**
-   * Component displaying when passed `loading` true.
-   * @returns {React.ReactNode} The node to render when loading.
-   * @default () => <span>...</span>
-   */
-  renderLoading: PropTypes.func,
-  /**
-   * The currently selected sections.
-   * This prop accepts four formats:
-   * 1. If a number is provided, the section at this index will be selected.
-   * 2. If a string of type `FieldSectionType` is provided, the first section with that name will be selected.
-   * 3. If `"all"` is provided, all the sections will be selected.
-   * 4. If `null` is provided, no section will be selected.
-   * If not provided, the selected sections will be handled internally.
-   */
-  selectedSections: PropTypes.oneOfType([
-    PropTypes.oneOf([
-      'all',
-      'day',
-      'empty',
-      'hours',
-      'meridiem',
-      'minutes',
-      'month',
-      'seconds',
-      'weekDay',
-      'year'
-    ]),
-    PropTypes.number
-  ]),
-  /**
-   * Disable specific date.
-   *
-   * Warning: This function can be called multiple times (for example when rendering date calendar, checking if focus can be moved to a certain date, etc.). Expensive computations can impact performance.
-   *
-   * @param {PickerValidDate} day The date to test.
-   * @returns {boolean} If `true` the date will be disabled.
-   */
-  shouldDisableDate: PropTypes.func,
-  /**
-   * Disable specific month.
-   * @param {PickerValidDate} month The month to test.
-   * @returns {boolean} If `true`, the month will be disabled.
-   */
-  shouldDisableMonth: PropTypes.func,
-  /**
-   * Disable specific year.
-   * @param {PickerValidDate} year The year to test.
-   * @returns {boolean} If `true`, the year will be disabled.
-   */
-  shouldDisableYear: PropTypes.func,
-  /**
-   * If `true`, days outside the current month are rendered:
-   *
-   * - if `fixedWeekNumber` is defined, renders days to have the weeks requested.
-   *
-   * - if `fixedWeekNumber` is not defined, renders day to fill the first and last week of the current month.
-   *
-   * - ignored if `calendars` equals more than `1` on range pickers.
-   * @default false
-   */
-  showDaysOutsideCurrentMonth: PropTypes.bool,
-  /**
-   * The props used for each component slot.
-   * @default {}
-   */
-  slotProps: PropTypes.object,
-  /**
-   * Overridable component slots.
-   * @default {}
-   */
-  slots: PropTypes.object,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
-    PropTypes.func,
-    PropTypes.object
-  ]),
-  /**
-   * Choose which timezone to use for the value.
-   * Example: "default", "system", "UTC", "America/New_York".
-   * If you pass values from other timezones to some props, they will be converted to this timezone before being used.
-   * @see See the {@link https://mui.com/x/react-date-pickers/timezone/ timezones documentation} for more details.
-   * @default The timezone of the `value` or `defaultValue` prop is defined, 'default' otherwise.
-   */
-  timezone: PropTypes.string,
-  /**
-   * The selected value.
-   * Used when the component is controlled.
-   */
-  value: PropTypes.object,
-  /**
-   * The visible view.
-   * Used when the component view is controlled.
-   * Must be a valid option from `views` list.
-   */
-  view: PropTypes.oneOf(['day', 'month', 'year']),
-  /**
-   * Define custom view renderers for each section.
-   * If `null`, the section will only have field editing.
-   * If `undefined`, internally defined view will be used.
-   */
-  viewRenderers: PropTypes.shape({
-    day: PropTypes.func,
-    month: PropTypes.func,
-    year: PropTypes.func
-  }),
-  /**
-   * Available views.
-   */
-  views: PropTypes.arrayOf(PropTypes.oneOf(['day', 'month', 'year']).isRequired),
-  /**
-   * Years are displayed in ascending (chronological) order by default.
-   * If `desc`, years are displayed in descending order.
-   * @default 'asc'
-   */
-  yearsOrder: PropTypes.oneOf(['asc', 'desc']),
-  /**
-   * Years rendered per row.
-   * @default 4
-   */
-  yearsPerRow: PropTypes.oneOf([3, 4])
-};
 
 function getDialogContentUtilityClass(slot) {
   return generateUtilityClass('MuiDialogContent', slot);
@@ -47569,11 +43962,11 @@ function PickersModalDialog(props) {
   );
 }
 
-const _excluded$1 = ['props', 'steps'],
+const _excluded = ['props', 'steps'],
   _excluded2 = ['ownerState'];
 const useMobilePicker = (_ref) => {
   let { props, steps } = _ref,
-    pickerParams = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+    pickerParams = _objectWithoutPropertiesLoose(_ref, _excluded);
   const { slots, slotProps: innerSlotProps, label, inputRef, localeText } = props;
   const getStepNavigation = createNonRangePickerStepNavigation({
     steps
@@ -48055,398 +44448,6 @@ MobileDatePicker.propTypes = {
    */
   yearsPerRow: PropTypes.oneOf([3, 4])
 };
-
-const _excluded = ['desktopModeMediaQuery'];
-/**
- * Demos:
- *
- * - [DatePicker](https://mui.com/x/react-date-pickers/date-picker/)
- * - [Validation](https://mui.com/x/react-date-pickers/validation/)
- *
- * API:
- *
- * - [DatePicker API](https://mui.com/x/api/date-pickers/date-picker/)
- */
-const DatePicker$1 = /*#__PURE__*/ React.forwardRef(function DatePicker(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiDatePicker'
-  });
-  const { desktopModeMediaQuery = DEFAULT_DESKTOP_MODE_MEDIA_QUERY } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded);
-
-  // defaults to `true` in environments where `window.matchMedia` would not be available (i.e. test/jsdom)
-  const isDesktop = useMediaQuery(desktopModeMediaQuery, {
-    defaultMatches: true
-  });
-  if (isDesktop) {
-    return /*#__PURE__*/ jsx$1(
-      DesktopDatePicker,
-      _extends(
-        {
-          ref: ref
-        },
-        other
-      )
-    );
-  }
-  return /*#__PURE__*/ jsx$1(
-    MobileDatePicker,
-    _extends(
-      {
-        ref: ref
-      },
-      other
-    )
-  );
-});
-if (process.env.NODE_ENV !== 'production') DatePicker$1.displayName = 'DatePicker';
-process.env.NODE_ENV !== 'production'
-  ? (DatePicker$1.propTypes = {
-      // ----------------------------- Warning --------------------------------
-      // | These PropTypes are generated from the TypeScript type definitions |
-      // | To update them edit the TypeScript types and run "pnpm proptypes"  |
-      // ----------------------------------------------------------------------
-      /**
-       * If `true`, the main element is focused during the first mount.
-       * This main element is:
-       * - the element chosen by the visible view if any (i.e: the selected day on the `day` view).
-       * - the `input` element if there is a field rendered.
-       */
-      autoFocus: PropTypes.bool,
-      className: PropTypes.string,
-      /**
-       * If `true`, the Picker will close after submitting the full date.
-       * @default `true` for desktop, `false` for mobile (based on the chosen wrapper and `desktopModeMediaQuery` prop).
-       */
-      closeOnSelect: PropTypes.bool,
-      /**
-       * Formats the day of week displayed in the calendar header.
-       * @param {PickerValidDate} date The date of the day of week provided by the adapter.
-       * @returns {string} The name to display.
-       * @default (date: PickerValidDate) => adapter.format(date, 'weekdayShort').charAt(0).toUpperCase()
-       */
-      dayOfWeekFormatter: PropTypes.func,
-      /**
-       * The default value.
-       * Used when the component is not controlled.
-       */
-      defaultValue: PropTypes.object,
-      /**
-       * CSS media query when `Mobile` mode will be changed to `Desktop`.
-       * @default '@media (pointer: fine)'
-       * @example '@media (min-width: 720px)' or theme.breakpoints.up("sm")
-       */
-      desktopModeMediaQuery: PropTypes.string,
-      /**
-       * If `true`, the component is disabled.
-       * When disabled, the value cannot be changed and no interaction is possible.
-       * @default false
-       */
-      disabled: PropTypes.bool,
-      /**
-       * If `true`, disable values after the current date for date components, time for time components and both for date time components.
-       * @default false
-       */
-      disableFuture: PropTypes.bool,
-      /**
-       * If `true`, today's date is rendering without highlighting with circle.
-       * @default false
-       */
-      disableHighlightToday: PropTypes.bool,
-      /**
-       * If `true`, the button to open the Picker will not be rendered (it will only render the field).
-       * @deprecated Use the [field component](https://mui.com/x/react-date-pickers/fields/) instead.
-       * @default false
-       */
-      disableOpenPicker: PropTypes.bool,
-      /**
-       * If `true`, disable values before the current date for date components, time for time components and both for date time components.
-       * @default false
-       */
-      disablePast: PropTypes.bool,
-      /**
-       * If `true`, the week number will be display in the calendar.
-       */
-      displayWeekNumber: PropTypes.bool,
-      /**
-       * @default true
-       */
-      enableAccessibleFieldDOMStructure: PropTypes.any,
-      /**
-       * The day view will show as many weeks as needed after the end of the current month to match this value.
-       * Put it to 6 to have a fixed number of weeks in Gregorian calendars
-       */
-      fixedWeekNumber: PropTypes.number,
-      /**
-       * Format of the date when rendered in the input(s).
-       * Defaults to localized format based on the used `views`.
-       */
-      format: PropTypes.string,
-      /**
-       * Density of the format when rendered in the input.
-       * Setting `formatDensity` to `"spacious"` will add a space before and after each `/`, `-` and `.` character.
-       * @default "dense"
-       */
-      formatDensity: PropTypes.oneOf(['dense', 'spacious']),
-      /**
-       * Pass a ref to the `input` element.
-       */
-      inputRef: refType,
-      /**
-       * The label content.
-       */
-      label: PropTypes.node,
-      /**
-       * If `true`, calls `renderLoading` instead of rendering the day calendar.
-       * Can be used to preload information and show it in calendar.
-       * @default false
-       */
-      loading: PropTypes.bool,
-      /**
-       * Locale for components texts.
-       * Allows overriding texts coming from `LocalizationProvider` and `theme`.
-       */
-      localeText: PropTypes.object,
-      /**
-       * Maximal selectable date.
-       * @default 2099-12-31
-       */
-      maxDate: PropTypes.object,
-      /**
-       * Minimal selectable date.
-       * @default 1900-01-01
-       */
-      minDate: PropTypes.object,
-      /**
-       * Months rendered per row.
-       * @default 3
-       */
-      monthsPerRow: PropTypes.oneOf([3, 4]),
-      /**
-       * Name attribute used by the `input` element in the Field.
-       */
-      name: PropTypes.string,
-      /**
-       * Callback fired when the value is accepted.
-       * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-       * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-       * @param {TValue} value The value that was just accepted.
-       * @param {FieldChangeHandlerContext<TError>} context Context about this acceptance:
-       * - `validationError`: validation result of the current value
-       * - `source`: source of the acceptance. One of 'field' | 'view' | 'unknown'
-       * - `shortcut` (optional): the shortcut metadata if the value was accepted via a shortcut selection
-       */
-      onAccept: PropTypes.func,
-      /**
-       * Callback fired when the value changes.
-       * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-       * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-       * @param {TValue} value The new value.
-       * @param {FieldChangeHandlerContext<TError>} context Context about this change:
-       * - `validationError`: validation result of the current value
-       * - `source`: source of the change. One of 'field' | 'view' | 'unknown'
-       * - `shortcut` (optional): the shortcut metadata if the change was triggered by a shortcut selection
-       */
-      onChange: PropTypes.func,
-      /**
-       * Callback fired when the popup requests to be closed.
-       * Use in controlled mode (see `open`).
-       */
-      onClose: PropTypes.func,
-      /**
-       * Callback fired when the error associated with the current value changes.
-       * When a validation error is detected, the `error` parameter contains a non-null value.
-       * This can be used to render an appropriate form error.
-       * @template TError The validation error type. It will be either `string` or a `null`. It can be in `[start, end]` format in case of range value.
-       * @template TValue The value type. It will be the same type as `value` or `null`. It can be in `[start, end]` format in case of range value.
-       * @param {TError} error The reason why the current value is not valid.
-       * @param {TValue} value The value associated with the error.
-       */
-      onError: PropTypes.func,
-      /**
-       * Callback fired on month change.
-       * @param {PickerValidDate} month The new month.
-       */
-      onMonthChange: PropTypes.func,
-      /**
-       * Callback fired when the popup requests to be opened.
-       * Use in controlled mode (see `open`).
-       */
-      onOpen: PropTypes.func,
-      /**
-       * Callback fired when the selected sections change.
-       * @param {FieldSelectedSections} newValue The new selected sections.
-       */
-      onSelectedSectionsChange: PropTypes.func,
-      /**
-       * Callback fired on view change.
-       * @template TView Type of the view. It will vary based on the Picker type and the `views` it uses.
-       * @param {TView} view The new view.
-       */
-      onViewChange: PropTypes.func,
-      /**
-       * Callback fired on year change.
-       * @param {PickerValidDate} year The new year.
-       */
-      onYearChange: PropTypes.func,
-      /**
-       * Control the popup or dialog open state.
-       * @default false
-       */
-      open: PropTypes.bool,
-      /**
-       * The default visible view.
-       * Used when the component view is not controlled.
-       * Must be a valid option from `views` list.
-       */
-      openTo: PropTypes.oneOf(['day', 'month', 'year']),
-      /**
-       * Force rendering in particular orientation.
-       */
-      orientation: PropTypes.oneOf(['landscape', 'portrait']),
-      /**
-       * If `true`, the component is read-only.
-       * When read-only, the value cannot be changed but the user can interact with the interface.
-       * @default false
-       */
-      readOnly: PropTypes.bool,
-      /**
-       * If `true`, disable heavy animations.
-       * @default `@media(prefers-reduced-motion: reduce)` || `navigator.userAgent` matches Android <10 or iOS <13
-       */
-      reduceAnimations: PropTypes.bool,
-      /**
-       * The date used to generate the new value when both `value` and `defaultValue` are empty.
-       * @default The closest valid date-time using the validation props, except callbacks like `shouldDisable<...>`.
-       */
-      referenceDate: PropTypes.object,
-      /**
-       * Component displaying when passed `loading` true.
-       * @returns {React.ReactNode} The node to render when loading.
-       * @default () => <span>...</span>
-       */
-      renderLoading: PropTypes.func,
-      /**
-       * The currently selected sections.
-       * This prop accepts four formats:
-       * 1. If a number is provided, the section at this index will be selected.
-       * 2. If a string of type `FieldSectionType` is provided, the first section with that name will be selected.
-       * 3. If `"all"` is provided, all the sections will be selected.
-       * 4. If `null` is provided, no section will be selected.
-       * If not provided, the selected sections will be handled internally.
-       */
-      selectedSections: PropTypes.oneOfType([
-        PropTypes.oneOf([
-          'all',
-          'day',
-          'empty',
-          'hours',
-          'meridiem',
-          'minutes',
-          'month',
-          'seconds',
-          'weekDay',
-          'year'
-        ]),
-        PropTypes.number
-      ]),
-      /**
-       * Disable specific date.
-       *
-       * Warning: This function can be called multiple times (for example when rendering date calendar, checking if focus can be moved to a certain date, etc.). Expensive computations can impact performance.
-       *
-       * @param {PickerValidDate} day The date to test.
-       * @returns {boolean} If `true` the date will be disabled.
-       */
-      shouldDisableDate: PropTypes.func,
-      /**
-       * Disable specific month.
-       * @param {PickerValidDate} month The month to test.
-       * @returns {boolean} If `true`, the month will be disabled.
-       */
-      shouldDisableMonth: PropTypes.func,
-      /**
-       * Disable specific year.
-       * @param {PickerValidDate} year The year to test.
-       * @returns {boolean} If `true`, the year will be disabled.
-       */
-      shouldDisableYear: PropTypes.func,
-      /**
-       * If `true`, days outside the current month are rendered:
-       *
-       * - if `fixedWeekNumber` is defined, renders days to have the weeks requested.
-       *
-       * - if `fixedWeekNumber` is not defined, renders day to fill the first and last week of the current month.
-       *
-       * - ignored if `calendars` equals more than `1` on range pickers.
-       * @default false
-       */
-      showDaysOutsideCurrentMonth: PropTypes.bool,
-      /**
-       * The props used for each component slot.
-       * @default {}
-       */
-      slotProps: PropTypes.object,
-      /**
-       * Overridable component slots.
-       * @default {}
-       */
-      slots: PropTypes.object,
-      /**
-       * The system prop that allows defining system overrides as well as additional CSS styles.
-       */
-      sx: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
-        PropTypes.func,
-        PropTypes.object
-      ]),
-      /**
-       * Choose which timezone to use for the value.
-       * Example: "default", "system", "UTC", "America/New_York".
-       * If you pass values from other timezones to some props, they will be converted to this timezone before being used.
-       * @see See the {@link https://mui.com/x/react-date-pickers/timezone/ timezones documentation} for more details.
-       * @default The timezone of the `value` or `defaultValue` prop is defined, 'default' otherwise.
-       */
-      timezone: PropTypes.string,
-      /**
-       * The selected value.
-       * Used when the component is controlled.
-       */
-      value: PropTypes.object,
-      /**
-       * The visible view.
-       * Used when the component view is controlled.
-       * Must be a valid option from `views` list.
-       */
-      view: PropTypes.oneOf(['day', 'month', 'year']),
-      /**
-       * Define custom view renderers for each section.
-       * If `null`, the section will only have field editing.
-       * If `undefined`, internally defined view will be used.
-       */
-      viewRenderers: PropTypes.shape({
-        day: PropTypes.func,
-        month: PropTypes.func,
-        year: PropTypes.func
-      }),
-      /**
-       * Available views.
-       */
-      views: PropTypes.arrayOf(PropTypes.oneOf(['day', 'month', 'year']).isRequired),
-      /**
-       * Years are displayed in ascending (chronological) order by default.
-       * If `desc`, years are displayed in descending order.
-       * @default 'asc'
-       */
-      yearsOrder: PropTypes.oneOf(['asc', 'desc']),
-      /**
-       * Years rendered per row.
-       * @default 4 on desktop, 3 on mobile
-       */
-      yearsPerRow: PropTypes.oneOf([3, 4])
-    })
-  : void 0;
 
 /**
  * @module constants
@@ -55285,7 +51286,7 @@ class AdapterDateFns extends AdapterDateFnsBase {
 }
 
 var css_248z$1 =
-  '.date-picker {\n  display: flex;\n  flex-direction: column;\n  max-width: 450px;\n  width: 100%;\n}\n.date-picker.full-width {\n  max-width: 100%;\n}\n.date-picker__label {\n  font-size: 16px;\n  color: #a9a9a9;\n  margin-bottom: 6px;\n  font-family: "hellix-regular";\n}\n.date-picker__helper {\n  margin-top: 4px;\n  font-size: 14px;\n  color: #747474;\n  font-family: "hellix-regular";\n}\n.date-picker__error {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n  font-family: "hellix-regular";\n}\n.date-picker__input {\n  font-family: "hellix-regular";\n}\n\n/* Ensure MUI outlined input shows error border color */\n.date-picker .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {\n  border-color: #f92929 !important;\n}';
+  '.date-picker {\n  display: flex;\n  flex-direction: column;\n  max-width: 450px;\n  width: 100%;\n}\n.date-picker.full-width {\n  max-width: 100%;\n}\n.date-picker__label {\n  font-size: 16px;\n  color: #a9a9a9;\n  margin-bottom: 6px;\n  font-family: "hellix-regular";\n}\n.date-picker__helper {\n  margin-top: 4px;\n  font-size: 14px;\n  color: #747474;\n  font-family: "hellix-regular";\n}\n.date-picker__error {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n  font-family: "hellix-regular";\n}\n.date-picker__input {\n  font-family: "hellix-regular";\n}\n\n/* Ensure MUI outlined input shows error border color */\n.date-picker .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {\n  border-color: #f92929 !important;\n}\n\n/* Modal/Dialog styles for MobileDatePicker */\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root {\n  font-family: "hellix-regular";\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root .MuiPickersCalendarHeader-label {\n  color: #000000;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root .MuiIconButton-root {\n  color: #000000;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar {\n  background-color: #000000;\n  color: #ffffff;\n  padding: 24px 16px;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiTypography-root {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiPickersToolbarText-root {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiDatePickerToolbar-title {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiDayCalendar-weekDayLabel {\n  font-family: "hellix-regular";\n  color: #9e9e9e;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersDay-root {\n  font-family: "hellix-regular";\n}\n.MuiDialog-root .MuiDialogActions-root {\n  padding: 8px 16px;\n}\n.MuiDialog-root .MuiDialogActions-root .MuiButton-root {\n  font-family: "hellix-regular";\n  text-transform: uppercase;\n}';
 styleInject(css_248z$1);
 
 const DatePickerComponent = forwardRef(
@@ -55311,6 +51312,19 @@ const DatePickerComponent = forwardRef(
   ) => {
     const inputId = id || useId$1();
     const [open, setOpen] = useState(false);
+    const [tempValue, setTempValue] = useState(value);
+    const handleOpen = () => {
+      setTempValue(value);
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setTempValue(value);
+      setOpen(false);
+    };
+    const handleAccept = (newValue) => {
+      onChange?.(newValue);
+      setOpen(false);
+    };
     return jsxs('div', {
       className: cn('date-picker', fullWidth ? 'full-width' : '', className),
       children: [
@@ -55318,29 +51332,30 @@ const DatePickerComponent = forwardRef(
           jsx$1('label', { htmlFor: inputId, className: 'date-picker__label', children: label }),
         jsx$1(LocalizationProvider, {
           dateAdapter: AdapterDateFns,
-          children: jsx$1(DatePicker$1, {
-            value: value,
-            onChange: (newValue) => {
-              onChange?.(newValue);
-              setOpen(false);
-            },
+          children: jsx$1(MobileDatePicker, {
+            value: open ? tempValue : value,
+            onChange: (newValue) => setTempValue(newValue),
+            onAccept: handleAccept,
             minDate: minDate,
             maxDate: maxDate,
             format: format,
             disabled: disabled,
             open: open,
-            onClose: () => setOpen(false),
+            onClose: handleClose,
             slotProps: {
               textField: {
                 id: inputId,
                 variant: outlined ? 'outlined' : 'standard',
                 error: Boolean(error),
                 helperText: error ? error : helperText,
-                onClick: () => setOpen(true),
+                onClick: handleOpen,
                 fullWidth: true,
                 className: 'date-picker__input',
                 inputProps: { readOnly: true },
                 placeholder
+              },
+              actionBar: {
+                actions: ['cancel', 'accept']
               }
             }
           })
