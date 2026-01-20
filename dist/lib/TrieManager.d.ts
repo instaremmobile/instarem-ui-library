@@ -6,7 +6,7 @@ import { Trie } from './Trie';
  * Each namespace gets its own Trie instance, and instances can be cleaned up
  * when components unmount.
  */
-declare class TrieManager {
+export declare class TrieManager {
   private static instances;
   /**
    * Get or create a Trie instance for the given namespace
@@ -28,4 +28,3 @@ declare class TrieManager {
    */
   static getInstanceCount(): number;
 }
-export { TrieManager };
