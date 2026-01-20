@@ -1,8 +1,43 @@
-import { act, render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Input from './Input';
-import { InputFieldProps } from './Input.types';
-import userEvent from '@testing-library/user-event';
+// Mocks must be at the top before any imports
+jest.mock('@lib', () => {
+  const trieInstances = new Map<string, any>();
+
+  return {
+    cn: (...classes: string[]) => classes.filter(Boolean).join(' '),
+    NetworkManager: {
+      getInstance: () => ({
+        fetchWithRetry: jest.fn(),
+        cache: {
+          get: jest.fn()
+        }
+      })
+    },
+    Trie: jest.fn().mockImplementation(() => ({
+      insert: jest.fn(),
+      search: jest.fn().mockReturnValue([]),
+      clearCache: jest.fn()
+    })),
+    TrieManager: {
+      getOrCreate: jest.fn((namespace: string) => {
+        if (!trieInstances.has(namespace)) {
+          trieInstances.set(namespace, {
+            insert: jest.fn(),
+            search: jest.fn().mockReturnValue([]),
+            clearCache: jest.fn()
+          });
+        }
+        return trieInstances.get(namespace);
+      }),
+      clear: jest.fn((namespace: string) => {
+        trieInstances.delete(namespace);
+      }),
+      clearAll: jest.fn(() => {
+        trieInstances.clear();
+      }),
+      getInstanceCount: jest.fn(() => trieInstances.size)
+    }
+  };
+});
 
 jest.mock('lodash/debounce', () => {
   return jest.fn((fn) => {
@@ -17,6 +52,14 @@ jest.mock('lodash/debounce', () => {
   });
 });
 
+jest.mock('lodash/isEmpty', () => jest.fn((value) => !value || Object.keys(value).length === 0));
+
+import { act, render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { InputFieldProps } from './Input.types';
+import userEvent from '@testing-library/user-event';
+import Input from './Input';
+
 test('Renders input component', () => {
   render(<Input />);
   const inputElement = screen.getByRole('textbox');
@@ -29,24 +72,6 @@ test('Input accepts a value', () => {
   inputElement.value = 'Hello';
   expect(inputElement.value).toBe('Hello');
 });
-
-jest.mock('@lib', () => ({
-  cn: (...classes: string[]) => classes.filter(Boolean).join(' '),
-  NetworkManager: {
-    getInstance: () => ({
-      fetchWithRetry: jest.fn(),
-      cache: {
-        get: jest.fn()
-      }
-    })
-  },
-  Trie: jest.fn().mockImplementation(() => ({
-    insert: jest.fn(),
-    search: jest.fn().mockReturnValue([])
-  }))
-}));
-
-jest.mock('lodash/isEmpty', () => jest.fn((value) => !value || Object.keys(value).length === 0));
 
 const defaultProps: InputFieldProps = {
   id: 'test-input',

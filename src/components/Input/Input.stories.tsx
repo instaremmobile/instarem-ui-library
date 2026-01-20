@@ -108,7 +108,6 @@ const ButtonWithFetchFunction = (props: any) => {
       }
     );
     if (!resposne.ok) {
-      //eslint-disable-next-line no-console
       console.error('Could not fetch users');
       return;
     }
@@ -130,7 +129,6 @@ const fetchUsers = async () => {
     }
   );
   if (!resposne.ok) {
-    //eslint-disable-next-line no-console
     console.error('Could not fetch users');
     return;
   }

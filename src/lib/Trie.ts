@@ -83,16 +83,23 @@ interface SearchOptions {
   matchType?: 'exact' | 'partial';
 }
 
+interface CacheEntry {
+  results: SearchResult[];
+  timestamp: number;
+  accessCount: number;
+}
+
 class Trie {
   private root: TrieNode;
-  private cache: Map<string, SearchResult[]>;
+  private cache: Map<string, CacheEntry>;
   private static readonly CACHE_SIZE = 1000;
   private static readonly MIN_WORD_LENGTH = 2;
-  private wordCount: number = 2;
+  private wordCount: number = 0; // Track total unique words inserted
+  private uniqueWords: Set<string> = new Set(); // Track unique words for accurate counting
 
   constructor() {
     this.root = new TrieNode();
-    this.cache = new Map<string, SearchResult[]>();
+    this.cache = new Map<string, CacheEntry>();
   }
 
   private getCommonPrefix(edge: string, prefix: string): string {
@@ -149,7 +156,19 @@ class Trie {
   insert(word: string, frequency = 1) {
     if (!word) return;
     const processedWord = word.normalize('NFD'); // unicode normalization
-    const trimmedWord = processedWord.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    // Preserve spaces for multi-word phrases, only remove non-alphanumeric except spaces
+    const trimmedWord = processedWord
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, '')
+      .trim();
+
+    // Track unique words for accurate word count
+    const isNewWord = !this.uniqueWords.has(processedWord);
+    if (isNewWord) {
+      this.uniqueWords.add(processedWord);
+      this.wordCount++;
+    }
+
     let currentNode = this.root;
     let prefix = '';
     for (let i = 0; i < trimmedWord.length; i++) {
@@ -259,18 +278,33 @@ class Trie {
     let totalDistance = 0;
     let matchWords = 0;
     const usedTargetWords = new Set<number>();
-    sourceWords.sort((a, b) => b.length - a.length);
 
-    for (const sourceWord of sourceWords) {
-      if (sourceWord.length < Trie.MIN_WORD_LENGTH) continue;
+    // Don't sort - maintain word order for better position-based matching
+    for (let i = 0; i < sourceWords.length; i++) {
+      const sourceWord = sourceWords[i];
+
+      // Allow short words (like "of", "a", "the") but give them less weight
+      const isShortWord = sourceWord.length < Trie.MIN_WORD_LENGTH;
 
       let minWordDistance = Infinity;
       let bestIdx = -1;
 
-      for (let i = 0; i < targetWords.length; i++) {
-        if (usedTargetWords.has(i)) continue;
-        const targetWord = targetWords[i];
+      // Try to match with target words, preferring same position
+      for (let j = 0; j < targetWords.length; j++) {
+        if (usedTargetWords.has(j)) continue;
+        const targetWord = targetWords[j];
 
+        // For short words, require exact match or very close
+        if (isShortWord) {
+          if (sourceWord === targetWord) {
+            minWordDistance = 0;
+            bestIdx = j;
+            break;
+          }
+          continue; // Skip fuzzy matching for short words
+        }
+
+        // Skip if length difference is too large
         if (Math.abs(sourceWord.length - targetWord.length) > maxDistance) continue;
 
         const distance = this.getLevenshtienDistance(
@@ -279,9 +313,13 @@ class Trie {
           maxDistance
         );
 
-        if (distance <= maxDistance && distance < minWordDistance) {
+        // Prefer matches at same position
+        const positionBonus = i === j ? 0 : 0.5;
+        const adjustedDistance = distance + positionBonus;
+
+        if (distance <= maxDistance && adjustedDistance < minWordDistance) {
           minWordDistance = distance;
-          bestIdx = i;
+          bestIdx = j;
         }
       }
 
@@ -294,19 +332,23 @@ class Trie {
 
     if (matchWords === 0) return Infinity;
 
-    const unmatchedPenalty = Math.abs(sourceWords.length - targetWords.length) * 1.5;
+    // Reduce penalty for unmatched short words
+    const unmatchedWords = Math.abs(sourceWords.length - targetWords.length);
+    const unmatchedPenalty = unmatchedWords * 1.0; // Reduced from 1.5
+
     return totalDistance + unmatchedPenalty;
   };
 
   private calculateScore(result: SearchResult, query: string): number {
+    // Preserve spaces for word count calculation
     const queryWords = query
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '');
+      .replace(/[^a-zA-Z0-9\s]/g, '');
     const resultWords = result.item
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '');
+      .replace(/[^a-zA-Z0-9\s]/g, '');
 
     const distanceFactor = 1 / (result.distance + 1);
     const frequencyFactor = Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
@@ -327,10 +369,20 @@ class Trie {
     } = options;
     if (!query.trim()) return [];
 
-    query = query.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    // Preserve spaces for multi-word queries
+    query = query
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, '')
+      .trim();
     const cacheKey = `${query}:${JSON.stringify(options)}`;
+
+    // Check cache and update access time if found (LRU)
     if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!.map((res) => res.item);
+      const cacheEntry = this.cache.get(cacheKey)!;
+      cacheEntry.timestamp = Date.now();
+      cacheEntry.accessCount++;
+      this.cache.set(cacheKey, cacheEntry); // Update the entry
+      return cacheEntry.results.map((res) => res.item);
     }
     const processedQuery = caseSensitive
       ? query.normalize('NFD')
@@ -345,7 +397,9 @@ class Trie {
       depth: number = 0,
       prefixDistance: number = 0
     ): void => {
-      if (prefixDistance > maxDistance * 3) return;
+      // For partial matching with multi-word queries, be more lenient with early termination
+      const maxDistanceThreshold = matchType === 'partial' ? maxDistance * 5 : maxDistance * 3;
+      if (prefixDistance > maxDistanceThreshold) return;
 
       if (node.value && node.isEndOfTheWord) {
         const word = caseSensitive ? node.value : node.value.toLowerCase();
@@ -388,7 +442,12 @@ class Trie {
 
       for (const [edge, childNode] of node.children) {
         const edgeStr = caseSensitive ? edge : edge.toLowerCase();
-        if (node.isWordBoundary && processedQuery.includes(' ')) {
+
+        // For partial matching, explore all paths to find multi-word matches
+        if (matchType === 'partial') {
+          // Just explore everything - distance will be calculated at leaf nodes
+          dfs(childNode, prefix + edge, depth + edge.length, 0);
+        } else if (node.isWordBoundary && processedQuery.includes(' ')) {
           const queryWords = processedQuery.split(' ');
           const currentWord = queryWords[prefix.split(' ').length - 1] || '';
           if (this.getCommonPrefix(edgeStr, currentWord).length > 0 || currentWord.length === 0) {
@@ -428,11 +487,26 @@ class Trie {
         a.item.localeCompare(b.item)
     );
 
+    // Implement LRU cache eviction strategy
     if (this.cache.size >= Trie.CACHE_SIZE) {
-      const firstKey = this.cache.keys().next().value;
-      this.cache.delete(firstKey!);
+      // Convert cache to array and sort by timestamp (least recently used first)
+      const entries = Array.from(this.cache.entries()).sort(
+        (a, b) => a[1].timestamp - b[1].timestamp
+      );
+
+      // Remove oldest 20% of entries to avoid frequent evictions
+      const entriesToRemove = Math.max(1, Math.floor(Trie.CACHE_SIZE * 0.2));
+      for (let i = 0; i < entriesToRemove; i++) {
+        this.cache.delete(entries[i][0]);
+      }
     }
-    this.cache.set(cacheKey, results);
+
+    // Add new entry to cache with timestamp
+    this.cache.set(cacheKey, {
+      results,
+      timestamp: Date.now(),
+      accessCount: 1
+    });
 
     return results.map((r) => r.item);
   }

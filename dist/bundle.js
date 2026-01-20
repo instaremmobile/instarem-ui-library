@@ -28,12 +28,17 @@ const COLORS = {
 };
 
 /*
- * Implements a very basic Max PriorityQueue
+ * Implements a Min-Heap based Priority Queue for efficient top-K retrieval
  *
- * */
+ * Uses a min-heap to maintain the top K highest-scoring items.
+ * - push(): O(log k) time complexity
+ * - get(): O(k log k) time complexity for final sorting
+ *
+ * This is more efficient than sorting on every insertion (O(n log n) per push)
+ */
 class PriorityQueue {
   constructor(maxSize) {
-    Object.defineProperty(this, 'items', {
+    Object.defineProperty(this, 'heap', {
       enumerable: true,
       configurable: true,
       writable: true,
@@ -47,15 +52,74 @@ class PriorityQueue {
     });
     this.maxSize = maxSize;
   }
+  /**
+   * Push an item to the priority queue
+   * Maintains a min-heap of the top maxSize items by score
+   * Time complexity: O(log k) where k is maxSize
+   */
   push(item) {
-    this.items.push(item);
-    this.items.sort((a, b) => b.score - a.score);
-    if (this.maxSize < this.items.length) {
-      this.items.pop();
+    if (this.heap.length < this.maxSize) {
+      // Heap not full, add item and heapify up
+      this.heap.push(item);
+      this.heapifyUp(this.heap.length - 1);
+    } else if (item.score > this.heap[0].score) {
+      // Item score is higher than minimum, replace minimum and heapify down
+      this.heap[0] = item;
+      this.heapifyDown(0);
+    }
+    // If item score is lower than minimum and heap is full, discard item
+  }
+  /**
+   * Get all items sorted by score (highest first)
+   * Time complexity: O(k log k) where k is the number of items
+   */
+  get() {
+    // Return a sorted copy (descending by score)
+    return [...this.heap].sort((a, b) => b.score - a.score);
+  }
+  /**
+   * Restore min-heap property by moving an item up
+   * Time complexity: O(log k)
+   */
+  heapifyUp(index) {
+    while (index > 0) {
+      const parentIndex = Math.floor((index - 1) / 2);
+      // Min-heap: parent should be smaller than child
+      if (this.heap[index].score >= this.heap[parentIndex].score) {
+        break;
+      }
+      // Swap with parent
+      [this.heap[index], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[index]];
+      index = parentIndex;
     }
   }
-  get() {
-    return this.items;
+  /**
+   * Restore min-heap property by moving an item down
+   * Time complexity: O(log k)
+   */
+  heapifyDown(index) {
+    while (true) {
+      let smallest = index;
+      const leftChild = 2 * index + 1;
+      const rightChild = 2 * index + 2;
+      // Find smallest among node and its children
+      if (leftChild < this.heap.length && this.heap[leftChild].score < this.heap[smallest].score) {
+        smallest = leftChild;
+      }
+      if (
+        rightChild < this.heap.length &&
+        this.heap[rightChild].score < this.heap[smallest].score
+      ) {
+        smallest = rightChild;
+      }
+      // If node is already smallest, heap property is satisfied
+      if (smallest === index) {
+        break;
+      }
+      // Swap with smallest child
+      [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+      index = smallest;
+    }
   }
 }
 
@@ -165,8 +229,14 @@ class Trie {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: 2
-    });
+      value: 0
+    }); // Track total unique words inserted
+    Object.defineProperty(this, 'uniqueWords', {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: new Set()
+    }); // Track unique words for accurate counting
     Object.defineProperty(this, 'getPartialDistance', {
       enumerable: true,
       configurable: true,
@@ -184,23 +254,39 @@ class Trie {
         let totalDistance = 0;
         let matchWords = 0;
         const usedTargetWords = new Set();
-        sourceWords.sort((a, b) => b.length - a.length);
-        for (const sourceWord of sourceWords) {
-          if (sourceWord.length < Trie.MIN_WORD_LENGTH) continue;
+        // Don't sort - maintain word order for better position-based matching
+        for (let i = 0; i < sourceWords.length; i++) {
+          const sourceWord = sourceWords[i];
+          // Allow short words (like "of", "a", "the") but give them less weight
+          const isShortWord = sourceWord.length < Trie.MIN_WORD_LENGTH;
           let minWordDistance = Infinity;
           let bestIdx = -1;
-          for (let i = 0; i < targetWords.length; i++) {
-            if (usedTargetWords.has(i)) continue;
-            const targetWord = targetWords[i];
+          // Try to match with target words, preferring same position
+          for (let j = 0; j < targetWords.length; j++) {
+            if (usedTargetWords.has(j)) continue;
+            const targetWord = targetWords[j];
+            // For short words, require exact match or very close
+            if (isShortWord) {
+              if (sourceWord === targetWord) {
+                minWordDistance = 0;
+                bestIdx = j;
+                break;
+              }
+              continue; // Skip fuzzy matching for short words
+            }
+            // Skip if length difference is too large
             if (Math.abs(sourceWord.length - targetWord.length) > maxDistance) continue;
             const distance = this.getLevenshtienDistance(
               sourceWord.toLowerCase(),
               targetWord.toLowerCase(),
               maxDistance
             );
-            if (distance <= maxDistance && distance < minWordDistance) {
+            // Prefer matches at same position
+            const positionBonus = i === j ? 0 : 0.5;
+            const adjustedDistance = distance + positionBonus;
+            if (distance <= maxDistance && adjustedDistance < minWordDistance) {
               minWordDistance = distance;
-              bestIdx = i;
+              bestIdx = j;
             }
           }
           if (bestIdx !== -1) {
@@ -210,7 +296,9 @@ class Trie {
           }
         }
         if (matchWords === 0) return Infinity;
-        const unmatchedPenalty = Math.abs(sourceWords.length - targetWords.length) * 1.5;
+        // Reduce penalty for unmatched short words
+        const unmatchedWords = Math.abs(sourceWords.length - targetWords.length);
+        const unmatchedPenalty = unmatchedWords * 1.0; // Reduced from 1.5
         return totalDistance + unmatchedPenalty;
       }
     });
@@ -254,7 +342,17 @@ class Trie {
   insert(word, frequency = 1) {
     if (!word) return;
     const processedWord = word.normalize('NFD'); // unicode normalization
-    const trimmedWord = processedWord.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    // Preserve spaces for multi-word phrases, only remove non-alphanumeric except spaces
+    const trimmedWord = processedWord
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, '')
+      .trim();
+    // Track unique words for accurate word count
+    const isNewWord = !this.uniqueWords.has(processedWord);
+    if (isNewWord) {
+      this.uniqueWords.add(processedWord);
+      this.wordCount++;
+    }
     let currentNode = this.root;
     let prefix = '';
     for (let i = 0; i < trimmedWord.length; i++) {
@@ -336,14 +434,15 @@ class Trie {
     return previous[sourceStringLength];
   }
   calculateScore(result, query) {
+    // Preserve spaces for word count calculation
     const queryWords = query
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '');
+      .replace(/[^a-zA-Z0-9\s]/g, '');
     const resultWords = result.item
       .trim()
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '');
+      .replace(/[^a-zA-Z0-9\s]/g, '');
     const distanceFactor = 1 / (result.distance + 1);
     const frequencyFactor = Math.log1p(result.frequency || 1) / Math.log1p(this.wordCount);
     const prefixMatchBonus = result.prefixMatch ? 2.5 : 1; // was 1.5
@@ -360,10 +459,19 @@ class Trie {
       matchType = 'partial'
     } = options;
     if (!query.trim()) return [];
-    query = query.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    // Preserve spaces for multi-word queries
+    query = query
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, '')
+      .trim();
     const cacheKey = `${query}:${JSON.stringify(options)}`;
+    // Check cache and update access time if found (LRU)
     if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey).map((res) => res.item);
+      const cacheEntry = this.cache.get(cacheKey);
+      cacheEntry.timestamp = Date.now();
+      cacheEntry.accessCount++;
+      this.cache.set(cacheKey, cacheEntry); // Update the entry
+      return cacheEntry.results.map((res) => res.item);
     }
     const processedQuery = caseSensitive
       ? query.normalize('NFD')
@@ -371,7 +479,9 @@ class Trie {
     const seen = new Set();
     const priorityQueue = new PriorityQueue(maxResults);
     const dfs = (node, prefix, depth = 0, prefixDistance = 0) => {
-      if (prefixDistance > maxDistance * 3) return;
+      // For partial matching with multi-word queries, be more lenient with early termination
+      const maxDistanceThreshold = matchType === 'partial' ? maxDistance * 5 : maxDistance * 3;
+      if (prefixDistance > maxDistanceThreshold) return;
       if (node.value && node.isEndOfTheWord) {
         const word = caseSensitive ? node.value : node.value.toLowerCase();
         if (!seen.has(word)) {
@@ -409,7 +519,11 @@ class Trie {
       }
       for (const [edge, childNode] of node.children) {
         const edgeStr = caseSensitive ? edge : edge.toLowerCase();
-        if (node.isWordBoundary && processedQuery.includes(' ')) {
+        // For partial matching, explore all paths to find multi-word matches
+        if (matchType === 'partial') {
+          // Just explore everything - distance will be calculated at leaf nodes
+          dfs(childNode, prefix + edge, depth + edge.length, 0);
+        } else if (node.isWordBoundary && processedQuery.includes(' ')) {
           const queryWords = processedQuery.split(' ');
           const currentWord = queryWords[prefix.split(' ').length - 1] || '';
           if (this.getCommonPrefix(edgeStr, currentWord).length > 0 || currentWord.length === 0) {
@@ -445,11 +559,24 @@ class Trie {
         (b.frequency ?? 0) - (a.frequency ?? 0) ||
         a.item.localeCompare(b.item)
     );
+    // Implement LRU cache eviction strategy
     if (this.cache.size >= Trie.CACHE_SIZE) {
-      const firstKey = this.cache.keys().next().value;
-      this.cache.delete(firstKey);
+      // Convert cache to array and sort by timestamp (least recently used first)
+      const entries = Array.from(this.cache.entries()).sort(
+        (a, b) => a[1].timestamp - b[1].timestamp
+      );
+      // Remove oldest 20% of entries to avoid frequent evictions
+      const entriesToRemove = Math.max(1, Math.floor(Trie.CACHE_SIZE * 0.2));
+      for (let i = 0; i < entriesToRemove; i++) {
+        this.cache.delete(entries[i][0]);
+      }
     }
-    this.cache.set(cacheKey, results);
+    // Add new entry to cache with timestamp
+    this.cache.set(cacheKey, {
+      results,
+      timestamp: Date.now(),
+      accessCount: 1
+    });
     return results.map((r) => r.item);
   }
   clearCache() {
@@ -467,6 +594,57 @@ Object.defineProperty(Trie, 'MIN_WORD_LENGTH', {
   configurable: true,
   writable: true,
   value: 2
+});
+
+/**
+ * TrieManager provides namespaced Trie instances to prevent memory leaks
+ * and namespace collisions when multiple components use Trie for search.
+ *
+ * Each namespace gets its own Trie instance, and instances can be cleaned up
+ * when components unmount.
+ */
+class TrieManager {
+  /**
+   * Get or create a Trie instance for the given namespace
+   * @param namespace - Unique identifier for the Trie instance
+   * @returns Trie instance associated with the namespace
+   */
+  static getOrCreate(namespace) {
+    if (!this.instances.has(namespace)) {
+      this.instances.set(namespace, new Trie());
+    }
+    return this.instances.get(namespace);
+  }
+  /**
+   * Clear a specific Trie instance by namespace
+   * @param namespace - Namespace to clear
+   */
+  static clear(namespace) {
+    const trie = this.instances.get(namespace);
+    if (trie) {
+      trie.clearCache();
+      this.instances.delete(namespace);
+    }
+  }
+  /**
+   * Clear all Trie instances (useful for testing)
+   */
+  static clearAll() {
+    this.instances.forEach((trie) => trie.clearCache());
+    this.instances.clear();
+  }
+  /**
+   * Get the number of active Trie instances
+   */
+  static getInstanceCount() {
+    return this.instances.size;
+  }
+}
+Object.defineProperty(TrieManager, 'instances', {
+  enumerable: true,
+  configurable: true,
+  writable: true,
+  value: new Map()
 });
 
 function r(e) {
@@ -2649,7 +2827,6 @@ var css_248z$4 =
   '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
 styleInject(css_248z$4);
 
-const globalTrie = new Trie();
 const InputField = forwardRef(
   (
     {
@@ -2706,6 +2883,9 @@ const InputField = forwardRef(
     const isControlled = controlledValue !== undefined;
     const inputId = id || useId$1();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
+    // Create a namespaced Trie instance for this component to prevent memory leaks
+    const trieNamespace = useMemo(() => inputId, [inputId]);
+    const trie = useMemo(() => TrieManager.getOrCreate(trieNamespace), [trieNamespace]);
     const formatSafe = useCallback((v) => (format ? format(v) : (v ?? '')), [format]);
     const parseSafe = useCallback((s) => (parse ? parse(s) : s), [parse]);
     const handleOnIconClick = useCallback(
@@ -2809,7 +2989,7 @@ const InputField = forwardRef(
             ? originalFetchedSuggestions
             : normalizeSuggestions(suggestions);
         if (newValue.trim()) {
-          const searchResults = globalTrie.search(newValue.trim(), {
+          const searchResults = trie.search(newValue.trim(), {
             maxDistance: 4,
             matchType: 'partial'
           });
@@ -3011,7 +3191,7 @@ const InputField = forwardRef(
         setFilteredSuggestions(normalized);
         setRetryAttempt(0);
         setHasFetchedInitialData(true);
-        normalized.forEach((item) => globalTrie.insert(item.label));
+        normalized.forEach((item) => trie.insert(item.label));
       } catch (exception) {
         setRetryAttempt((prev) => prev + 1);
         if (isOffline) {
@@ -3066,10 +3246,16 @@ const InputField = forwardRef(
     useEffect(() => {
       if (!fetchFunction && suggestions.length > 0) {
         const normalized = normalizeSuggestions(suggestions);
-        normalized.forEach((item) => globalTrie.insert(item.label));
+        normalized.forEach((item) => trie.insert(item.label));
         setFilteredSuggestions(normalized);
       }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
+    // Cleanup: Clear the Trie instance when component unmounts
+    useEffect(() => {
+      return () => {
+        TrieManager.clear(trieNamespace);
+      };
+    }, [trieNamespace]);
     return jsxs('div', {
       className: cn(
         'text-field-container',
@@ -51480,5 +51666,6 @@ export {
   RadioButton,
   Toggle,
   Trie,
+  TrieManager,
   cn
 };

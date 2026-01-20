@@ -17,11 +17,9 @@ import React, {
 import { LoaderCircle } from 'lucide-react';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
-import { cn, NetworkManager, Trie } from '@lib';
+import { cn, NetworkManager, TrieManager } from '@lib';
 import { InputFieldProps, IconProps, SuggestionType } from './Input.types';
 import './input.scss';
-
-const globalTrie = new Trie();
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
@@ -84,6 +82,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const inputId = id || useId();
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
+
+    // Create a namespaced Trie instance for this component to prevent memory leaks
+    const trieNamespace = useMemo(() => inputId, [inputId]);
+    const trie = useMemo(() => TrieManager.getOrCreate(trieNamespace), [trieNamespace]);
 
     const formatSafe = useCallback((v: any) => (format ? format(v) : (v ?? '')), [format]);
     const parseSafe = useCallback((s: string) => (parse ? parse(s) : s), [parse]);
@@ -211,7 +213,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             ? originalFetchedSuggestions
             : normalizeSuggestions(suggestions);
         if (newValue.trim()) {
-          const searchResults = globalTrie.search(newValue.trim(), {
+          const searchResults = trie.search(newValue.trim(), {
             maxDistance: 4,
             matchType: 'partial'
           });
@@ -425,7 +427,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         setFilteredSuggestions(normalized);
         setRetryAttempt(0);
         setHasFetchedInitialData(true);
-        normalized.forEach((item) => globalTrie.insert(item.label));
+        normalized.forEach((item) => trie.insert(item.label));
       } catch (exception) {
         setRetryAttempt((prev) => prev + 1);
         if (isOffline) {
@@ -491,10 +493,17 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     useEffect(() => {
       if (!fetchFunction && suggestions.length > 0) {
         const normalized = normalizeSuggestions(suggestions);
-        normalized.forEach((item) => globalTrie.insert(item.label));
+        normalized.forEach((item) => trie.insert(item.label));
         setFilteredSuggestions(normalized);
       }
     }, [suggestions, fetchFunction, normalizeSuggestions]);
+
+    // Cleanup: Clear the Trie instance when component unmounts
+    useEffect(() => {
+      return () => {
+        TrieManager.clear(trieNamespace);
+      };
+    }, [trieNamespace]);
 
     return (
       <div

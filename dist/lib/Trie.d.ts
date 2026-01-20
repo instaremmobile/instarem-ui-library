@@ -18,6 +18,7 @@ declare class Trie {
   private static readonly CACHE_SIZE;
   private static readonly MIN_WORD_LENGTH;
   private wordCount;
+  private uniqueWords;
   constructor();
   private getCommonPrefix;
   private createNewNode;
