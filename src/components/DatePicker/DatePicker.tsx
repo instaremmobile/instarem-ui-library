@@ -1,5 +1,5 @@
 import React, { forwardRef, memo, useId, useState } from 'react';
-import { DatePicker as MUIDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { cn } from '../../lib/utils';
 import type { DatePickerProps } from './DatePicker.types';
@@ -28,6 +28,22 @@ const DatePickerComponent = forwardRef<HTMLInputElement, DatePickerProps>(
   ) => {
     const inputId = id || useId();
     const [open, setOpen] = useState(false);
+    const [tempValue, setTempValue] = useState<Date | null>(value);
+
+    const handleOpen = () => {
+      setTempValue(value);
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setTempValue(value);
+      setOpen(false);
+    };
+
+    const handleAccept = (newValue: Date | null) => {
+      onChange?.(newValue);
+      setOpen(false);
+    };
 
     return (
       <div className={cn('date-picker', fullWidth ? 'full-width' : '', className)}>
@@ -37,29 +53,30 @@ const DatePickerComponent = forwardRef<HTMLInputElement, DatePickerProps>(
           </label>
         )}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <MUIDatePicker
-            value={value}
-            onChange={(newValue) => {
-              onChange?.(newValue);
-              setOpen(false);
-            }}
+          <MobileDatePicker
+            value={open ? tempValue : value}
+            onChange={(newValue) => setTempValue(newValue)}
+            onAccept={handleAccept}
             minDate={minDate}
             maxDate={maxDate}
             format={format}
             disabled={disabled}
             open={open}
-            onClose={() => setOpen(false)}
+            onClose={handleClose}
             slotProps={{
               textField: {
                 id: inputId,
                 variant: outlined ? 'outlined' : 'standard',
                 error: Boolean(error),
                 helperText: error ? error : helperText,
-                onClick: () => setOpen(true),
+                onClick: handleOpen,
                 fullWidth: true,
                 className: 'date-picker__input',
                 inputProps: { readOnly: true },
                 placeholder
+              },
+              actionBar: {
+                actions: ['cancel', 'accept']
               }
             }}
           />
