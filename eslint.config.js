@@ -8,7 +8,7 @@ import typescriptParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
 export default [
-  { ignores: ['dist/**'] },
+  { ignores: ['dist/**', 'coverage/**'] },
   {
     languageOptions: {
       ecmaVersion: 2020,
