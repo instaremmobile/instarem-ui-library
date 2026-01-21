@@ -13,6 +13,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       indeterminate = false,
       onChange,
       className = '',
+      name,
       'aria-describedby': ariaDescribedBy,
       'aria-labelledby': ariaLabelledBy,
       required = false
@@ -41,6 +42,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={inputRef}
           type="checkbox"
           id={id}
+          name={name}
           className="checkbox-input"
           checked={checked}
           disabled={disabled}

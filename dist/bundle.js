@@ -836,9 +836,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$6 =
+var css_248z$7 =
   '.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: none;\n  border-radius: 4px;\n  font-family: "hellix-bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n  user-select: none;\n  outline: none;\n  max-width: 450px;\n  width: 100%;\n  height: 50px;\n  font-weight: 700;\n}\n.btn:focus-visible {\n  outline: 2px solid currentColor;\n  outline-offset: 2px;\n}\n.btn::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateX(-100%);\n  transition: transform 0.2s ease-in-out;\n}\n.btn__text {\n  position: relative;\n  z-index: 1;\n  transition: opacity 0.2s ease-in-out;\n}\n.btn__text--loading {\n  opacity: 0;\n}\n.btn__icon {\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.btn__icon--start {\n  margin-right: 4px;\n}\n.btn__icon--end {\n  margin-left: 4px;\n}\n.btn__icon svg {\n  width: 1em;\n  height: 1em;\n}\n.btn__spinner {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n}\n.btn__spinner-icon {\n  width: 1.2em;\n  height: 1.2em;\n  animation: spin 1s linear infinite;\n}\n.btn__spinner-icon circle {\n  animation: dash 1.5s ease-in-out infinite;\n}\n.btn--primary {\n  background-color: #fe0095;\n  color: #ffffff;\n}\n.btn--primary:hover:not(:disabled) {\n  background-color: rgb(203, 0, 119.0826771654);\n}\n.btn--primary:active:not(:disabled) {\n  background-color: rgb(177.5, 0, 104.124015748);\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(254, 0, 149, 0.2);\n}\n.btn--primary:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--secondary {\n  border: 2px solid #fe0095;\n  background-color: #ffffff;\n  color: #fe0095;\n}\n.btn--secondary:hover:not(:disabled) {\n  background-color: #e5e7eb;\n}\n.btn--secondary:disabled {\n  background-color: transparent !important;\n  cursor: not-allowed;\n  pointer-events: none;\n  color: #a9a9a9;\n  border: 2px solid #a9a9a9;\n}\n.btn--secondary:active:not(:disabled) {\n  background-color: #d1d5db;\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(107, 114, 128, 0.1);\n}\n.btn--secondary:focus-visible {\n  outline-color: #6b7280;\n}\n.btn--text {\n  background-color: transparent;\n  color: #007aff;\n}\n.btn--text:disabled {\n  color: #a9a9a9;\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: transparent !important;\n}\n.btn--text:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--small {\n  padding: 8px 16px;\n  font-size: 14px;\n  min-height: 36px;\n  gap: 6px;\n}\n.btn--medium {\n  padding: 12px 24px;\n  font-size: 16px;\n  min-height: 44px;\n  gap: 8px;\n}\n.btn--large {\n  padding: 16px 32px;\n  font-size: 18px;\n  min-height: 52px;\n  gap: 10px;\n}\n.btn--loading {\n  pointer-events: none;\n}\n.btn--full-width {\n  width: 100%;\n}\n.btn:disabled {\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: #a9a9a9;\n}\n.btn:disabled::before {\n  display: none;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dasharray: 1, 150;\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -35;\n  }\n  100% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -124;\n  }\n}\n@media (max-width: 768px) {\n  .btn--small {\n    padding: 10px 16px;\n    min-height: 40px;\n  }\n  .btn--medium {\n    padding: 14px 24px;\n    min-height: 48px;\n  }\n  .btn--large {\n    padding: 18px 32px;\n    min-height: 56px;\n  }\n}\n@media (max-width: 480px) {\n  .btn {\n    max-width: 100%;\n  }\n  .btn--small {\n    font-size: 14px;\n  }\n  .btn--medium {\n    font-size: 16px;\n  }\n  .btn--large {\n    font-size: 17px;\n  }\n}\n@media (prefers-contrast: high) {\n  .btn--primary {\n    border: 2px solid transparent;\n  }\n  .btn--primary:focus-visible {\n    outline-width: 3px;\n  }\n  .btn--secondary {\n    border: 2px solid #4b5563;\n  }\n  .btn--secondary:focus-visible {\n    outline-width: 3px;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .btn {\n    transition: none;\n  }\n  .btn::before {\n    display: none;\n  }\n  .btn:hover:not(:disabled) {\n    transform: none;\n  }\n  .btn:active:not(:disabled) {\n    transform: none;\n  }\n  .btn__spinner-icon {\n    animation: none;\n  }\n  .btn__spinner-icon circle {\n    animation: none;\n    stroke-dasharray: none;\n    stroke-dashoffset: 0;\n  }\n}';
-styleInject(css_248z$6);
+styleInject(css_248z$7);
 
 const Button$1 = React__default.forwardRef(
   (
@@ -922,9 +922,9 @@ const Button$1 = React__default.forwardRef(
 );
 Button$1.displayName = 'Button';
 
-var css_248z$5 =
+var css_248z$6 =
   '.toggle-switch {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n}\n.toggle-switch.disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n.toggle-switch__container {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.toggle-switch__input {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n  z-index: 99;\n}\n.toggle-switch__track {\n  width: 2.5rem;\n  height: 1.5rem;\n  background-color: #e5e7eb;\n  border-radius: 1.5rem;\n  transition: background-color 200ms ease-in-out;\n  border: 1px solid #f0f0f0;\n}\n.toggle-switch__input:checked + .toggle-switch__track {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n.toggle-switch__input:focus + .toggle-switch__track {\n  box-shadow: 0 0 0 2px rgba(254, 0, 149, 0.25);\n}\n.toggle-switch__thumb {\n  position: absolute;\n  top: 0.3rem;\n  left: 0.3rem;\n  width: 1rem;\n  height: 1rem;\n  background-color: #fe0095;\n  border-radius: 50%;\n  transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);\n  will-change: transform;\n}\n.toggle-switch__input:active + .toggle-switch__track .toggle-switch__thumb {\n  transform: scale(0.9);\n}\n.toggle-switch__input:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem);\n  background-color: white;\n}\n.toggle-switch__input:active:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem) scale(0.9);\n}\n.toggle-switch__label {\n  margin-left: 0.75rem;\n  font-size: 0.875rem;\n  font-weight: 500;\n  color: #a9a9a9;\n}';
-styleInject(css_248z$5);
+styleInject(css_248z$6);
 
 const ToggleComponent = forwardRef(
   ({ id, className, onChange, labelPosition = 'right', checked, label, name, ...props }, ref) => {
@@ -1087,8 +1087,41 @@ const createLucideIcon = (iconName, iconNode) => {
  * See the LICENSE file in the root directory of this source tree.
  */
 
-const __iconNode = [['path', { d: 'M21 12a9 9 0 1 1-6.219-8.56', key: '13zald' }]];
-const LoaderCircle = createLucideIcon('loader-circle', __iconNode);
+const __iconNode$3 = [['path', { d: 'M20 6 9 17l-5-5', key: '1gmf2c' }]];
+const Check = createLucideIcon('check', __iconNode$3);
+
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const __iconNode$2 = [['path', { d: 'm6 9 6 6 6-6', key: 'qrunsl' }]];
+const ChevronDown = createLucideIcon('chevron-down', __iconNode$2);
+
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const __iconNode$1 = [['path', { d: 'M21 12a9 9 0 1 1-6.219-8.56', key: '13zald' }]];
+const LoaderCircle = createLucideIcon('loader-circle', __iconNode$1);
+
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const __iconNode = [
+  ['path', { d: 'M18 6 6 18', key: '1bl5f8' }],
+  ['path', { d: 'm6 6 12 12', key: 'd8bk6v' }]
+];
+const X = createLucideIcon('x', __iconNode);
 
 var commonjsGlobal =
   typeof globalThis !== 'undefined'
@@ -2823,9 +2856,9 @@ function requireDebounce() {
 var debounceExports = requireDebounce();
 var debounce$1 = /*@__PURE__*/ getDefaultExportFromCjs(debounceExports);
 
-var css_248z$4 =
+var css_248z$5 =
   '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
-styleInject(css_248z$4);
+styleInject(css_248z$5);
 
 const InputField = forwardRef(
   (
@@ -3376,9 +3409,9 @@ const InputField = forwardRef(
 InputField.displayName = 'InputField';
 var Input$1 = memo(InputField);
 
-var css_248z$3 =
+var css_248z$4 =
   '.checkbox-container {\n  font-family: "hellix-regular" !important;\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.checkbox-container.disabled {\n  cursor: not-allowed;\n  opacity: 0.6;\n}\n\n.checkbox-input {\n  position: absolute;\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n.checkbox-input:focus + .checkbox-custom {\n  outline: 2px solid #fe0095;\n  outline-offset: 2px;\n}\n.checkbox-input:checked + .checkbox-custom {\n  background-color: #fe0095;\n  border-color: #fe0095;\n  animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-input:checked + .checkbox-custom::after {\n  opacity: 1;\n  animation: checkmark-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;\n}\n.checkbox-input:indeterminate + .checkbox-custom {\n  background-color: #fe0095;\n  border-color: #fe0095;\n  animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-input:indeterminate + .checkbox-custom::before {\n  opacity: 1;\n  animation: indeterminate-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;\n}\n.checkbox-input:disabled + .checkbox-custom {\n  background-color: #f5f5f5;\n  border-color: #d0d0d0;\n  cursor: not-allowed;\n}\n\n.checkbox-custom {\n  position: relative;\n  width: 20px;\n  height: 20px;\n  border: 2px solid #333333;\n  border-radius: 4px;\n  background-color: white;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  flex-shrink: 0;\n}\n.checkbox-custom::after {\n  content: "";\n  position: absolute;\n  top: 4px;\n  left: 7px;\n  width: 4px;\n  height: 8px;\n  border: solid white;\n  border-width: 0 2px 2px 0;\n  transform: rotate(45deg) scale(0);\n  opacity: 0;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.checkbox-custom::before {\n  content: "";\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 10px;\n  height: 2px;\n  background-color: white;\n  transform: translate(-50%, -50%) scale(0);\n  opacity: 0;\n  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n\n.checkbox-label {\n  font-size: 14px;\n  color: #333;\n  line-height: 1.4;\n  user-select: none;\n}\n.checkbox-label.disabled {\n  color: #999;\n}\n\n@keyframes checkbox-spring-in {\n  0% {\n    transform: scale(0.8);\n  }\n  50% {\n    transform: scale(1.1);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes checkmark-spring-in {\n  0% {\n    transform: rotate(45deg) scale(0);\n    opacity: 0;\n  }\n  50% {\n    transform: rotate(45deg) scale(1.2);\n    opacity: 0.8;\n  }\n  100% {\n    transform: rotate(45deg) scale(1);\n    opacity: 1;\n  }\n}\n@keyframes indeterminate-spring-in {\n  0% {\n    transform: translate(-50%, -50%) scale(0);\n    opacity: 0;\n  }\n  50% {\n    transform: translate(-50%, -50%) scale(1.2);\n    opacity: 0.8;\n  }\n  100% {\n    transform: translate(-50%, -50%) scale(1);\n    opacity: 1;\n  }\n}\n@keyframes checkbox-spring-out {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .checkbox-custom {\n    transition: none;\n  }\n  .checkbox-custom::after, .checkbox-custom::before {\n    transition: none;\n  }\n  .checkbox-input:checked + .checkbox-custom, .checkbox-input:indeterminate + .checkbox-custom {\n    animation: none;\n  }\n  .checkbox-input:checked + .checkbox-custom::after, .checkbox-input:checked + .checkbox-custom::before, .checkbox-input:indeterminate + .checkbox-custom::after, .checkbox-input:indeterminate + .checkbox-custom::before {\n    animation: none;\n  }\n}\n@media (prefers-contrast: high) {\n  .checkbox-custom {\n    border-width: 3px;\n  }\n}';
-styleInject(css_248z$3);
+styleInject(css_248z$4);
 
 const Checkbox = forwardRef(
   (
@@ -3390,6 +3423,7 @@ const Checkbox = forwardRef(
       indeterminate = false,
       onChange,
       className = '',
+      name,
       'aria-describedby': ariaDescribedBy,
       'aria-labelledby': ariaLabelledBy,
       required = false
@@ -3418,6 +3452,7 @@ const Checkbox = forwardRef(
           ref: inputRef,
           type: 'checkbox',
           id: id,
+          name: name,
           className: 'checkbox-input',
           checked: checked,
           disabled: disabled,
@@ -3434,9 +3469,9 @@ const Checkbox = forwardRef(
 );
 Checkbox.displayName = 'Checkbox';
 
-var css_248z$2 =
+var css_248z$3 =
   '.radio-button {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n  user-select: none;\n  transition: all 0.2s ease;\n}\n.radio-button--disabled {\n  cursor: not-allowed;\n  opacity: 0.6;\n}\n.radio-button__input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n  width: 0;\n  height: 0;\n}\n.radio-button__input:focus + .radio-button__label .radio-button__control {\n  outline: 2px solid #2196f3;\n  outline-offset: 2px;\n}\n.radio-button__input:focus-visible + .radio-button__label .radio-button__control {\n  outline: 2px solid #2196f3;\n  outline-offset: 2px;\n}\n.radio-button__input:focus:not(:focus-visible) + .radio-button__label .radio-button__control {\n  outline: none;\n}\n.radio-button__label {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  position: relative;\n}\n.radio-button--disabled .radio-button__label {\n  cursor: not-allowed;\n}\n.radio-button__control {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: 2px solid #000;\n  border-radius: 50%;\n  background-color: #ffffff;\n  transition: all 0.2s ease;\n  flex-shrink: 0;\n}\n.radio-button__control::before {\n  content: "";\n  position: absolute;\n  border-radius: 50%;\n  background-color: transparent;\n  transition: all 0.2s ease;\n  transform: scale(0);\n}\n.radio-button:hover:not(.radio-button--disabled) .radio-button__control {\n  border-color: #ddd;\n  transform: scale(1.05);\n}\n.radio-button__indicator {\n  border-radius: 50%;\n  background-color: transparent;\n  transition: all 0.2s ease;\n  transform: scale(0);\n}\n.radio-button__text {\n  margin-left: 8px;\n  color: #333;\n  font-size: 16px;\n  line-height: 1.5;\n  transition: color 0.2s ease;\n}\n.radio-button--checked .radio-button__control {\n  border-color: #fe0095;\n  animation: bounce 0.3s ease-in-out;\n}\n.radio-button--checked .radio-button__indicator {\n  background-color: #fe0095;\n  transform: scale(1);\n  animation: bounce-in 0.3s ease-in-out;\n}\n.radio-button--small .radio-button__control {\n  width: 16px;\n  height: 16px;\n}\n.radio-button--small .radio-button__indicator {\n  width: 12px;\n  height: 12px;\n}\n.radio-button--small .radio-button__text {\n  font-size: 14px;\n}\n.radio-button--medium .radio-button__control {\n  width: 20px;\n  height: 20px;\n}\n.radio-button--medium .radio-button__indicator {\n  width: 16px;\n  height: 16px;\n}\n.radio-button--medium .radio-button__text {\n  font-size: 16px;\n}\n.radio-button--large .radio-button__control {\n  width: 24px;\n  height: 24px;\n}\n.radio-button--large .radio-button__indicator {\n  width: 18px;\n  height: 18px;\n}\n.radio-button--large .radio-button__text {\n  font-size: 18px;\n}\n.radio-button--primary.radio-button--checked .radio-button__control {\n  border-color: #fe0095;\n}\n.radio-button--primary.radio-button--checked .radio-button__indicator {\n  background-color: #fe0095;\n}\n.radio-button--secondary.radio-button--checked .radio-button__control {\n  border-color: #6c757d;\n}\n.radio-button--secondary.radio-button--checked .radio-button__indicator {\n  background-color: #6c757d;\n}\n.radio-button--success.radio-button--checked .radio-button__control {\n  border-color: #28a745;\n}\n.radio-button--success.radio-button--checked .radio-button__indicator {\n  background-color: #28a745;\n}\n.radio-button--danger.radio-button--checked .radio-button__control {\n  border-color: #dc3545;\n}\n.radio-button--danger.radio-button--checked .radio-button__indicator {\n  background-color: #dc3545;\n}\n.radio-button--disabled .radio-button__control {\n  border-color: #e0e0e0;\n  background-color: #f5f5f5;\n}\n.radio-button--disabled .radio-button__text {\n  color: #999;\n}\n.radio-button--disabled.radio-button--checked .radio-button__control {\n  border-color: #ccc;\n}\n.radio-button--disabled.radio-button--checked .radio-button__indicator {\n  background-color: #ccc;\n}\n\n@keyframes bounce {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.2);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes bounce-in {\n  0% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1.2);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@media (prefers-contrast: high) {\n  .radio-button__control {\n    border-width: 2px;\n  }\n  .radio-button--checked .radio-button__control {\n    border-color: #000;\n  }\n  .radio-button--checked .radio-button__indicator {\n    background-color: #000;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .radio-button__control, .radio-button__indicator {\n    animation: none !important;\n    transition: none !important;\n  }\n}';
-styleInject(css_248z$2);
+styleInject(css_248z$3);
 
 const RadioButton = React__default.forwardRef(
   (
@@ -32659,7 +32694,7 @@ const styledRootConfig = {
 const StyledInput = styled(Input, styledRootConfig)('');
 const StyledOutlinedInput = styled(OutlinedInput, styledRootConfig)('');
 const StyledFilledInput = styled(FilledInput, styledRootConfig)('');
-const Select = /*#__PURE__*/ React.forwardRef(function Select(inProps, ref) {
+const Select$1 = /*#__PURE__*/ React.forwardRef(function Select(inProps, ref) {
   const props = useDefaultProps({
     name: 'MuiSelect',
     props: inProps
@@ -32770,7 +32805,7 @@ const Select = /*#__PURE__*/ React.forwardRef(function Select(inProps, ref) {
   });
 });
 process.env.NODE_ENV !== 'production'
-  ? (Select.propTypes /* remove-proptypes */ = {
+  ? (Select$1.propTypes /* remove-proptypes */ = {
       // ┌────────────────────────────── Warning ──────────────────────────────┐
       // │ These PropTypes are generated from the TypeScript type definitions. │
       // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
@@ -32922,7 +32957,7 @@ process.env.NODE_ENV !== 'production'
       variant: PropTypes.oneOf(['filled', 'outlined', 'standard'])
     })
   : void 0;
-Select.muiName = 'Select';
+Select$1.muiName = 'Select';
 
 function getTextFieldUtilityClass(slot) {
   return generateUtilityClass('MuiTextField', slot);
@@ -33111,7 +33146,7 @@ const TextField = /*#__PURE__*/ React.forwardRef(function TextField(inProps, ref
     ownerState
   });
   const [SelectSlot, selectProps] = useSlot('select', {
-    elementType: Select,
+    elementType: Select$1,
     externalForwardedProps,
     ownerState
   });
@@ -51471,9 +51506,9 @@ class AdapterDateFns extends AdapterDateFnsBase {
   };
 }
 
-var css_248z$1 =
+var css_248z$2 =
   '.date-picker {\n  display: flex;\n  flex-direction: column;\n  max-width: 450px;\n  width: 100%;\n}\n.date-picker.full-width {\n  max-width: 100%;\n}\n.date-picker__label {\n  font-size: 16px;\n  color: #a9a9a9;\n  margin-bottom: 6px;\n  font-family: "hellix-regular";\n}\n.date-picker__helper {\n  margin-top: 4px;\n  font-size: 14px;\n  color: #747474;\n  font-family: "hellix-regular";\n}\n.date-picker__error {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n  font-family: "hellix-regular";\n}\n.date-picker__input {\n  font-family: "hellix-regular";\n}\n\n/* Ensure MUI outlined input shows error border color */\n.date-picker .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {\n  border-color: #f92929 !important;\n}\n\n/* Modal/Dialog styles for MobileDatePicker */\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root {\n  font-family: "hellix-regular";\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root .MuiPickersCalendarHeader-label {\n  color: #000000;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateCalendar-root .MuiPickersCalendarHeader-root .MuiIconButton-root {\n  color: #000000;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar {\n  background-color: #000000;\n  color: #ffffff;\n  padding: 24px 16px;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiTypography-root {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiPickersToolbarText-root {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersLayout-toolbar .MuiDatePickerToolbar-title {\n  color: #ffffff;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiDayCalendar-weekDayLabel {\n  font-family: "hellix-regular";\n  color: #9e9e9e;\n}\n.MuiDialog-root .MuiPickersLayout-root .MuiPickersDay-root {\n  font-family: "hellix-regular";\n}\n.MuiDialog-root .MuiDialogActions-root {\n  padding: 8px 16px;\n}\n.MuiDialog-root .MuiDialogActions-root .MuiButton-root {\n  font-family: "hellix-regular";\n  text-transform: uppercase;\n}';
-styleInject(css_248z$1);
+styleInject(css_248z$2);
 
 const DatePickerComponent = forwardRef(
   (
@@ -51492,6 +51527,7 @@ const DatePickerComponent = forwardRef(
       maxDate,
       format = 'dd/MM/yyyy',
       id,
+      name,
       ...rest
     },
     ref
@@ -51516,6 +51552,13 @@ const DatePickerComponent = forwardRef(
       children: [
         label &&
           jsx$1('label', { htmlFor: inputId, className: 'date-picker__label', children: label }),
+        jsx$1('input', {
+          ref: ref,
+          type: 'hidden',
+          name: name,
+          value: value ? value.toISOString() : '',
+          disabled: disabled
+        }),
         jsx$1(LocalizationProvider, {
           dateAdapter: AdapterDateFns,
           children: jsx$1(MobileDatePicker, {
@@ -51553,9 +51596,9 @@ const DatePickerComponent = forwardRef(
 DatePickerComponent.displayName = 'DatePicker';
 const DatePicker = memo(DatePickerComponent);
 
-var css_248z =
+var css_248z$1 =
   '.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1000;\n  visibility: hidden;\n  opacity: 0;\n  transition: visibility 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  pointer-events: none;\n}\n.modal--open {\n  visibility: visible;\n  opacity: 1;\n  pointer-events: auto;\n}\n.modal__overlay {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  padding: 20px;\n  box-sizing: border-box;\n}\n.modal__content {\n  position: relative;\n  width: 100%;\n  max-width: 500px;\n  max-height: calc(100vh - 40px);\n  overflow-y: auto;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);\n  padding: 0;\n  transform: scale(0.85);\n  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n  scrollbar-width: thin;\n}\n.modal__content::-webkit-scrollbar {\n  width: 6px;\n}\n.modal__content::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.2);\n  border-radius: 3px;\n}\n.modal__header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px;\n}\n.modal__title {\n  margin: 0;\n  font-weight: 600;\n  font-size: 1.25rem;\n  line-height: 1.2;\n}\n.modal__close-button {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  line-height: 1;\n  cursor: pointer;\n  padding: 0;\n  margin: 0;\n  width: 28px;\n  height: 28px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transition: background-color 0.2s;\n}\n.modal__close-button:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n}\n.modal__close-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);\n}\n.modal__body {\n  padding: 20px;\n}\n\n.modal--spring-animation .modal__content {\n  transform: scale(0.85);\n  opacity: 0;\n  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.modal--spring-animation.modal--open .modal__content {\n  transform: scale(1);\n  opacity: 1;\n}';
-styleInject(css_248z);
+styleInject(css_248z$1);
 
 const Modal = React__default.forwardRef(
   (
@@ -51655,6 +51698,789 @@ const Modal = React__default.forwardRef(
 );
 Modal.displayName = 'Modal Popup';
 
+var css_248z =
+  '.select-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.select-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .select-container {\n    max-width: 100%;\n  }\n  .select-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .select-container .select-label {\n    font-size: 14px;\n  }\n  .select-container .select-input {\n    font-size: 14px;\n  }\n}\n\n.select-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n  cursor: pointer;\n  background-color: white;\n}\n.select-wrapper.has-left-icon .select-label {\n  left: 30px;\n}\n.select-wrapper.has-right-icon .select-input {\n  padding-right: 40px;\n}\n.select-wrapper .selected-option-visual {\n  display: flex;\n  align-items: center;\n  padding-left: 12px;\n  flex-shrink: 0;\n}\n@media (max-width: 480px) {\n  .select-wrapper .selected-option-visual {\n    padding-left: 10px;\n  }\n}\n.select-wrapper.has-selected-visual .select-input {\n  padding-left: 4px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-input {\n    padding-left: 2px;\n  }\n}\n.select-wrapper.has-selected-visual .select-label {\n  left: 24px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-label {\n    left: 40px;\n  }\n}\n.select-wrapper.focused {\n  border-color: black;\n}\n.select-wrapper.focused .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.shrink .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.has-value {\n  border-color: black;\n}\n.select-wrapper.has-value .select-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.dropdown-visible {\n  border-color: black;\n}\n.select-wrapper.dropdown-visible .chevron-icon {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-wrapper.error {\n  border-color: #f92929;\n}\n.select-wrapper.error .select-label {\n  color: #f92929;\n}\n.select-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.select-wrapper.disabled .select-label,\n.select-wrapper.disabled .select-input {\n  cursor: not-allowed;\n}\n.select-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.select-wrapper.outlined .select-label {\n  background-color: transparent;\n}\n.select-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.select-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.select-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .select-wrapper {\n    height: 45px;\n  }\n}\n\n.select-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.select-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.chevron-icon {\n  right: 8px;\n  transition: transform 0.2s ease;\n  pointer-events: none;\n}\n.select-icon.chevron-icon.open {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-icon.clear-icon {\n  right: 32px;\n  z-index: 2;\n}\n.select-icon.clickable {\n  cursor: pointer;\n  z-index: 3;\n}\n.select-icon.clickable:hover {\n  color: #333333;\n}\n.select-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.select-icon .icon {\n  transition: transform 0.2s ease;\n}\n.select-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .select-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.select-input {\n  height: 100%;\n  background: none;\n  padding: 8px 40px 6px 12px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n  cursor: pointer;\n}\n.select-input[readonly] {\n  cursor: pointer;\n  user-select: none;\n}\n.select-input::placeholder {\n  color: #9e9e9e;\n}\n.select-input.disabled {\n  cursor: not-allowed;\n}\n@media (max-width: 480px) {\n  .select-input {\n    padding: 6px 36px 4px 12px;\n    font-size: 14px;\n  }\n}\n\n.select-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .select-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.dropdown-panel {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-width: 450px;\n  width: 100%;\n  margin: 8px 0 4px;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n  border-radius: 4px;\n  overflow: hidden;\n  z-index: 1000;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}\n@media (max-width: 768px) {\n  .dropdown-panel {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-panel {\n    margin: 6px 0 2px;\n  }\n}\n\n.dropdown-list {\n  max-height: 200px;\n  overflow-y: auto;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n@media (max-width: 480px) {\n  .dropdown-list {\n    max-height: 180px;\n  }\n}\n\n.dropdown-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  gap: 8px;\n  min-height: 50px;\n  padding: 0 12px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n  font-family: "hellix-regular";\n  font-size: 16px;\n  color: #333333;\n}\n.dropdown-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.dropdown-item.selected {\n  background-color: #f5f5f5;\n}\n.dropdown-item.active {\n  background-color: rgba(254, 0, 149, 0.1);\n  font-weight: 600;\n}\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n.dropdown-item.no-results {\n  cursor: default;\n  color: #9e9e9e;\n  justify-content: center;\n}\n.dropdown-item.no-results:hover {\n  background-color: transparent;\n}\n.dropdown-item.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.dropdown-item.category-header {\n  font-weight: 700;\n  font-family: "hellix-bold";\n  font-size: 14px;\n  text-transform: none;\n  letter-spacing: 0;\n  color: #333333;\n  background-color: #ffffff;\n  cursor: default;\n  min-height: 48px;\n  padding: 16px 12px 8px;\n  border-bottom: none;\n  pointer-events: none;\n  margin-top: 8px;\n}\n.dropdown-item.category-header:first-child {\n  margin-top: 0;\n}\n.dropdown-item.category-header:hover {\n  background-color: #ffffff;\n}\n@media (max-width: 480px) {\n  .dropdown-item.category-header {\n    min-height: 40px;\n    font-size: 13px;\n    padding: 12px 10px 6px;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-item {\n    min-height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.dropdown-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n.option-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  min-width: 20px;\n  flex-shrink: 0;\n  color: #757575;\n}\n.option-icon svg {\n  width: 20px;\n  height: 20px;\n}\n@media (max-width: 480px) {\n  .option-icon {\n    width: 18px;\n    height: 18px;\n    min-width: 18px;\n  }\n  .option-icon svg {\n    width: 18px;\n    height: 18px;\n  }\n}\n\n.option-image {\n  width: 36px;\n  height: 36px;\n  min-width: 36px;\n  flex-shrink: 0;\n  border-radius: 50%;\n  object-fit: cover;\n}\n@media (max-width: 480px) {\n  .option-image {\n    width: 32px;\n    height: 32px;\n    min-width: 32px;\n  }\n}\n\n.checkbox-indicator {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 18px;\n  height: 18px;\n  min-width: 18px;\n  border: 2px solid #a9a9a9;\n  border-radius: 3px;\n  background-color: white;\n  transition: all 0.2s ease;\n}\n.checkbox-indicator svg {\n  color: white;\n}\n@media (max-width: 480px) {\n  .checkbox-indicator {\n    width: 16px;\n    height: 16px;\n    min-width: 16px;\n  }\n  .checkbox-indicator svg {\n    width: 12px;\n    height: 12px;\n  }\n}\n\n.dropdown-item.active .checkbox-indicator {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n\n.loading-container {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #757575;\n}\n.loading-container .animate-spin {\n  animation: spin 1s linear infinite;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 360px) {\n  .select-container .select-label {\n    font-size: 12px;\n  }\n  .select-container .select-input {\n    font-size: 12px;\n    padding: 4px 32px 2px 10px;\n  }\n  .select-container .select-wrapper {\n    height: 40px;\n  }\n  .select-container .error-message,\n  .select-container .helper-text {\n    font-size: 10px;\n  }\n  .select-container .select-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .select-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .dropdown-item {\n    min-height: 44px;\n  }\n}';
+styleInject(css_248z);
+
+const Select = forwardRef(
+  (
+    {
+      className = '',
+      helperText,
+      label,
+      error,
+      shrink,
+      value: controlledValue,
+      startAdornment,
+      endAdornment,
+      disabled,
+      id,
+      defaultValue = '',
+      onIconClick,
+      iconSize = 18,
+      clearable = false,
+      fullWidth = false,
+      options = [],
+      categories = [],
+      onBlur,
+      onFocus,
+      fetchFunction,
+      retryConfig = { maxAttempt: 5 },
+      onChange,
+      outlined = false,
+      searchable = true,
+      multiple = false,
+      placeholder,
+      name,
+      ...props
+    },
+    ref
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [internalValue, setInternalValue] = useState(defaultValue);
+    const [selectedOptionIndex, setSelectedOptionIndex] = useState(-1);
+    const [filteredOptions, setFilteredOptions] = useState([]);
+    const [filteredCategories, setFilteredCategories] = useState([]);
+    const [originalFetchedOptions, setOriginalFetchedOptions] = useState([]);
+    const [originalFetchedCategories, setOriginalFetchedCategories] = useState([]);
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isOffline, setIsOffline] = useState(!navigator.onLine);
+    const [retryAttempt, setRetryAttempt] = useState(0);
+    const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const selectRef = useRef(null);
+    const dropdownListRef = useRef(null);
+    const inputRef = useRef(null);
+    const hasInitializedOptions = useRef(false);
+    const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
+    const hasValue = multiple
+      ? Array.isArray(currentValue) && currentValue.length > 0
+      : Boolean(currentValue);
+    const isControlled = controlledValue !== undefined;
+    const selectId = id || useId$1();
+    const networkManager = useMemo(() => NetworkManager.getInstance(), []);
+    const trieNamespace = useMemo(() => selectId, [selectId]);
+    const handleOnIconClick = useCallback(
+      (position, iconProps, event) => {
+        if (iconProps?.disabled) return;
+        iconProps?.onClick?.(event);
+        onIconClick?.(position, event);
+      },
+      [onIconClick]
+    );
+    const renderIcon = useCallback(
+      (iconProps, position) => {
+        if (isEmpty$3(iconProps) || !iconProps) return null;
+        const { icon, onClick, toolTip, disabled, className = '' } = iconProps;
+        const handleKeyDown = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleOnIconClick(position, iconProps, e);
+          }
+        };
+        return jsx$1('div', {
+          className: cn(
+            'select-icon',
+            position,
+            disabled ? 'disabled' : '',
+            className,
+            onClick ? 'clickable' : ''
+          ),
+          onClick: (e) => handleOnIconClick(position, iconProps, e),
+          onKeyDown: handleKeyDown,
+          title: toolTip,
+          role: onClick ? 'button' : 'presentation',
+          tabIndex: onClick && !disabled ? 0 : -1,
+          'aria-label': toolTip,
+          children: React__default.isValidElement(icon)
+            ? cloneElement(icon, {
+                size: iconSize,
+                className: cn('icon', disabled ? 'disabled' : '', icon?.props?.className || '')
+              })
+            : icon
+        });
+      },
+      [handleOnIconClick, iconSize]
+    );
+    const selectStyles = useMemo(() => {
+      const style = {};
+      if (startAdornment) style.paddingLeft = `${iconSize + 20}px`;
+      if (endAdornment || clearable) style.paddingRight = `${iconSize + 40}px`;
+      return style;
+    }, [startAdornment, endAdornment, clearable, iconSize]);
+    const normalizeOptions = useCallback((arr) => {
+      if (!arr || arr.length === 0) return [];
+      return arr.map((item) => {
+        if (typeof item === 'string') return { label: item, value: item };
+        if (
+          typeof item === 'object' &&
+          (item.label || item.text || item.name) &&
+          (item.value || item.id || item.code)
+        ) {
+          return {
+            label: item.label || item.text || item.name,
+            value: item.value || item.id || item.code,
+            disabled: item.disabled || false,
+            icon: item.icon,
+            image: item.image
+          };
+        }
+        return { label: String(item), value: String(item) };
+      });
+    }, []);
+    const useCategories = categories.length > 0 || originalFetchedCategories.length > 0;
+    const allForDisplay = useMemo(() => {
+      return useCategories
+        ? []
+        : originalFetchedOptions.length > 0
+          ? originalFetchedOptions
+          : normalizeOptions(options);
+    }, [useCategories, originalFetchedOptions, options]);
+    const allCategoriesForDisplay = useMemo(() => {
+      return useCategories
+        ? originalFetchedCategories.length > 0
+          ? originalFetchedCategories
+          : categories
+        : [];
+    }, [useCategories, originalFetchedCategories, categories]);
+    const selectedOptions = useMemo(() => {
+      const allOpts = useCategories
+        ? allCategoriesForDisplay.flatMap((cat) => cat.options)
+        : allForDisplay;
+      if (multiple && Array.isArray(currentValue)) {
+        return allOpts.filter((o) => currentValue.includes(o.value));
+      }
+      return allOpts.filter((o) => o.value === currentValue);
+    }, [useCategories, allCategoriesForDisplay, allForDisplay, currentValue, multiple]);
+    const displayValue = useMemo(() => {
+      if (dropdownVisible && searchable) return searchText;
+      if (multiple && Array.isArray(currentValue)) {
+        return currentValue.length > 0 ? `${currentValue.length} selected` : '';
+      }
+      return selectedOptions[0]?.label ?? '';
+    }, [dropdownVisible, searchable, searchText, multiple, currentValue, selectedOptions]);
+    const getFlattenedOptions = useCallback((cats) => {
+      return cats.flatMap((cat) => cat.options);
+    }, []);
+    const handleFilterOptions = useMemo(() => {
+      return debounce$1((query) => {
+        const currentTrie = TrieManager.getOrCreate(trieNamespace);
+        if (useCategories) {
+          const allCats =
+            originalFetchedCategories.length > 0 ? originalFetchedCategories : categories;
+          if (query.trim()) {
+            const q = query.toLowerCase().trim();
+            const searchResults = currentTrie.search(query.trim(), {
+              maxDistance: 4,
+              matchType: 'partial'
+            });
+            // Collect all matching options with their scores
+            const allMatchedOptions = [];
+            allCats.forEach((cat) => {
+              cat.options.forEach((opt) => {
+                let score = 0;
+                const labelLower = opt.label.toLowerCase();
+                const valueLower = opt.value.toLowerCase();
+                // Exact match gets highest score
+                if (labelLower === q || valueLower === q) {
+                  score = 100;
+                }
+                // Starts with query gets high score
+                else if (labelLower.startsWith(q) || valueLower.startsWith(q)) {
+                  score = 80;
+                }
+                // Trie match gets medium-high score
+                else if (
+                  searchResults.some(
+                    (resultLabel) =>
+                      opt.label === resultLabel ||
+                      labelLower === resultLabel.toLowerCase() ||
+                      labelLower.includes(resultLabel.toLowerCase()) ||
+                      resultLabel.toLowerCase().includes(labelLower)
+                  )
+                ) {
+                  score = 60;
+                }
+                // Contains query gets medium score
+                else if (labelLower.includes(q) || valueLower.includes(q)) {
+                  score = 40;
+                }
+                if (score > 0) {
+                  allMatchedOptions.push({ option: opt, category: cat.category, score });
+                }
+              });
+            });
+            // Sort by score descending
+            allMatchedOptions.sort((a, b) => b.score - a.score);
+            // During search, show flat sorted list without category headers
+            // This ensures best matches appear at the top
+            const flatSortedOptions = allMatchedOptions.map(({ option }) => option);
+            setFilteredOptions(flatSortedOptions);
+            setFilteredCategories([]);
+          } else {
+            setFilteredCategories(allCats);
+            setFilteredOptions([]);
+          }
+        } else {
+          const allOpts =
+            originalFetchedOptions.length > 0 ? originalFetchedOptions : normalizeOptions(options);
+          if (query.trim()) {
+            const searchResults = currentTrie.search(query.trim(), {
+              maxDistance: 4,
+              matchType: 'partial'
+            });
+            const matched = [];
+            if (searchResults.length > 0) {
+              searchResults.forEach((resultLabel) => {
+                const hit = allOpts.find(
+                  (item) =>
+                    item.label === resultLabel ||
+                    item.label.toLowerCase() === resultLabel.toLowerCase() ||
+                    item.label.toLowerCase().includes(resultLabel.toLowerCase()) ||
+                    resultLabel.toLowerCase().includes(item.label.toLowerCase())
+                );
+                if (hit && !matched.find((o) => o.value === hit.value)) matched.push(hit);
+              });
+            }
+            if (matched.length === 0) {
+              const q = query.toLowerCase().trim();
+              setFilteredOptions(
+                allOpts.filter(
+                  (i) => i.label.toLowerCase().includes(q) || i.value.toLowerCase().includes(q)
+                )
+              );
+            } else {
+              setFilteredOptions(matched);
+            }
+          } else {
+            setFilteredOptions(allOpts);
+          }
+        }
+      }, 300);
+    }, [
+      useCategories,
+      originalFetchedCategories,
+      originalFetchedOptions,
+      categories,
+      options,
+      trieNamespace
+    ]);
+    const handleOptionSelect = useCallback(
+      (selectedOpt) => {
+        if (selectedOpt.disabled) return;
+        const emitted = selectedOpt.value;
+        if (multiple) {
+          const currentValues = Array.isArray(currentValue) ? currentValue : [];
+          const newValues = currentValues.includes(emitted)
+            ? currentValues.filter((v) => v !== emitted)
+            : [...currentValues, emitted];
+          if (!isControlled) {
+            setInternalValue(newValues);
+          }
+          onChange?.(newValues);
+        } else {
+          if (!isControlled) {
+            setInternalValue(emitted);
+          }
+          onChange?.(emitted);
+          setSearchText('');
+          setDropdownVisible(false);
+          setSelectedOptionIndex(-1);
+        }
+      },
+      [multiple, currentValue, isControlled, onChange]
+    );
+    const handleKeyPress = useCallback(
+      (event) => {
+        const allOpts = useCategories ? getFlattenedOptions(filteredCategories) : filteredOptions;
+        switch (event.key) {
+          case 'ArrowUp': {
+            event.preventDefault();
+            if (!dropdownVisible) {
+              setDropdownVisible(true);
+            } else {
+              setSelectedOptionIndex((prev) => {
+                const ni = prev > 0 ? prev - 1 : allOpts.length - 1;
+                setTimeout(() => {
+                  const el = dropdownListRef.current?.querySelectorAll(
+                    '.dropdown-item:not(.category-header)'
+                  )[ni];
+                  el?.scrollIntoView({ block: 'nearest' });
+                }, 0);
+                return ni;
+              });
+            }
+            break;
+          }
+          case 'ArrowDown': {
+            event.preventDefault();
+            if (!dropdownVisible) {
+              setDropdownVisible(true);
+            } else {
+              setSelectedOptionIndex((prev) => {
+                const ni = prev < allOpts.length - 1 ? prev + 1 : 0;
+                setTimeout(() => {
+                  const el = dropdownListRef.current?.querySelectorAll(
+                    '.dropdown-item:not(.category-header)'
+                  )[ni];
+                  el?.scrollIntoView({ block: 'nearest' });
+                }, 0);
+                return ni;
+              });
+            }
+            break;
+          }
+          case 'Escape': {
+            event.preventDefault();
+            setDropdownVisible(false);
+            setSelectedOptionIndex(-1);
+            setSearchText('');
+            inputRef.current?.blur();
+            break;
+          }
+          case 'Enter': {
+            if (dropdownVisible && selectedOptionIndex >= 0 && allOpts[selectedOptionIndex]) {
+              event.preventDefault();
+              handleOptionSelect(allOpts[selectedOptionIndex]);
+            }
+            break;
+          }
+          case 'Tab': {
+            setDropdownVisible(false);
+            setSelectedOptionIndex(-1);
+            setSearchText('');
+            break;
+          }
+        }
+      },
+      [
+        dropdownVisible,
+        selectedOptionIndex,
+        useCategories,
+        filteredCategories,
+        filteredOptions,
+        handleOptionSelect,
+        getFlattenedOptions
+      ]
+    );
+    const handleSelectClick = useCallback(() => {
+      if (disabled) return;
+      setDropdownVisible(true);
+      if (searchable) {
+        setTimeout(() => inputRef.current?.focus(), 0);
+      }
+    }, [disabled, searchable]);
+    const handleClear = useCallback(
+      (event) => {
+        event.stopPropagation();
+        const emptyValue = multiple ? [] : '';
+        if (!isControlled) {
+          setInternalValue(emptyValue);
+        }
+        onChange?.(emptyValue);
+        setSearchText('');
+        setDropdownVisible(false);
+      },
+      [isControlled, onChange, multiple]
+    );
+    const handleBlur = useCallback(
+      (event) => {
+        setTimeout(() => {
+          const relatedTarget = event.relatedTarget;
+          if (selectRef.current && relatedTarget && selectRef.current.contains(relatedTarget)) {
+            return;
+          }
+          setIsFocused(false);
+          if (!multiple) {
+            setDropdownVisible(false);
+          }
+          setSelectedOptionIndex(-1);
+          setSearchText('');
+          onBlur?.(event);
+        }, 150);
+      },
+      [onBlur, multiple]
+    );
+    const handleFocus = useCallback(
+      (event) => {
+        setIsFocused(true);
+        setDropdownVisible(true);
+        onFocus?.(event);
+      },
+      [onFocus]
+    );
+    const handleInputChange = useCallback(
+      (event) => {
+        if (!searchable) return;
+        const query = event.target.value;
+        setSearchText(query);
+        setDropdownVisible(true);
+        handleFilterOptions(query);
+        setSelectedOptionIndex(-1);
+      },
+      [searchable, handleFilterOptions]
+    );
+    const fetchOptions = useCallback(async () => {
+      if (!fetchFunction || retryAttempt > retryConfig.maxAttempt) return;
+      const cacheKey = `select-options-initial`;
+      const currentTrie = TrieManager.getOrCreate(trieNamespace);
+      try {
+        setIsLoading(true);
+        const optionsResults = await networkManager.fetchWithRetry(
+          cacheKey,
+          fetchFunction,
+          retryConfig
+        );
+        if (optionsResults.categories || Array.isArray(optionsResults?.data?.categories)) {
+          const cats = optionsResults.categories || optionsResults.data.categories;
+          const normalizedCats = cats.map((cat) => ({
+            category: cat.category || cat.name || cat.label,
+            options: normalizeOptions(cat.options || cat.items || [])
+          }));
+          setOriginalFetchedCategories(normalizedCats);
+          setFilteredCategories(normalizedCats);
+          normalizedCats.forEach((cat) => {
+            cat.options.forEach((item) => currentTrie.insert(item.label));
+          });
+        } else {
+          const normalized = normalizeOptions(
+            Array.isArray(optionsResults) ? optionsResults : optionsResults?.data || []
+          );
+          setOriginalFetchedOptions(normalized);
+          setFilteredOptions(normalized);
+          normalized.forEach((item) => currentTrie.insert(item.label));
+        }
+        setRetryAttempt(0);
+        setHasFetchedInitialData(true);
+      } catch (exception) {
+        setRetryAttempt((prev) => prev + 1);
+        if (isOffline) {
+          const cached = networkManager.cache.get(cacheKey);
+          if (cached?.categories) {
+            const normalizedCached = cached.categories.map((cat) => ({
+              category: cat.category,
+              options: normalizeOptions(cat.options)
+            }));
+            setOriginalFetchedCategories(normalizedCached);
+            setFilteredCategories(normalizedCached);
+          } else if (cached?.length > 0) {
+            const normalizedCached = normalizeOptions(cached);
+            setOriginalFetchedOptions(normalizedCached);
+            setFilteredOptions(normalizedCached);
+          }
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }, [fetchFunction, retryConfig, networkManager, isOffline, retryAttempt, trieNamespace]);
+    const renderHighlight = useCallback((optionLabel, query) => {
+      if (!query) return jsx$1('span', { children: optionLabel });
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedQuery})`, 'gi');
+      const parts = optionLabel.split(regex);
+      return jsx$1('span', {
+        children: parts.map((part, index) =>
+          index % 2 === 1
+            ? jsx$1('span', { className: 'highlight', children: part }, index)
+            : jsx$1('span', { children: part }, index)
+        )
+      });
+    }, []);
+    const renderOptionIcon = useCallback((option) => {
+      if (option.image) {
+        return jsx$1('img', { src: option.image, alt: '', className: 'option-image' });
+      }
+      if (option.icon) {
+        return jsx$1('span', { className: 'option-icon', children: option.icon });
+      }
+      return null;
+    }, []);
+    const isSelected = useCallback(
+      (optionValue) => {
+        if (multiple && Array.isArray(currentValue)) {
+          return currentValue.includes(optionValue);
+        }
+        return currentValue === optionValue;
+      },
+      [multiple, currentValue]
+    );
+    useEffect(() => {
+      const handleOnline = () => setIsOffline(false);
+      const handleOffline = () => setIsOffline(true);
+      window.addEventListener('online', handleOnline);
+      window.addEventListener('offline', handleOffline);
+      return () => {
+        window.removeEventListener('online', handleOnline);
+        window.removeEventListener('offline', handleOffline);
+        handleFilterOptions.cancel();
+      };
+    }, [handleFilterOptions]);
+    useEffect(() => {
+      if (fetchFunction && !hasFetchedInitialData) fetchOptions();
+    }, [fetchFunction, hasFetchedInitialData, fetchOptions]);
+    useEffect(() => {
+      if (!fetchFunction && !hasInitializedOptions.current) {
+        hasInitializedOptions.current = true;
+        if (useCategories) {
+          const currentTrie = TrieManager.getOrCreate(trieNamespace);
+          categories.forEach((cat) => {
+            cat.options.forEach((item) => currentTrie.insert(item.label));
+          });
+          setFilteredCategories(categories);
+        } else if (options.length > 0) {
+          const currentTrie = TrieManager.getOrCreate(trieNamespace);
+          const normalized = normalizeOptions(options);
+          normalized.forEach((item) => currentTrie.insert(item.label));
+          setFilteredOptions(normalized);
+        }
+      }
+    }, [options, categories, fetchFunction, trieNamespace, useCategories]);
+    useEffect(() => {
+      return () => {
+        TrieManager.clear(trieNamespace);
+      };
+    }, [trieNamespace]);
+    const renderOptions = () => {
+      if (useCategories) {
+        if (filteredCategories.length === 0) {
+          return jsx$1('li', {
+            role: 'option',
+            className: 'dropdown-item no-results',
+            children: isLoading
+              ? jsxs('div', {
+                  className: 'loading-container',
+                  children: [
+                    jsx$1(LoaderCircle, { className: 'animate-spin', size: 16 }),
+                    jsx$1('span', { children: 'Loading...' })
+                  ]
+                })
+              : 'No Results'
+          });
+        }
+        let globalIndex = 0;
+        return filteredCategories.map((category, catIndex) =>
+          jsxs(
+            React__default.Fragment,
+            {
+              children: [
+                jsx$1('li', {
+                  className: 'dropdown-item category-header',
+                  role: 'presentation',
+                  children: category.category
+                }),
+                category.options.map((option) => {
+                  const currentGlobalIndex = globalIndex++;
+                  return jsxs(
+                    'li',
+                    {
+                      role: 'option',
+                      className: cn(
+                        'dropdown-item',
+                        currentGlobalIndex === selectedOptionIndex ? 'selected' : '',
+                        isSelected(option.value) ? 'active' : '',
+                        option.disabled ? 'disabled' : ''
+                      ),
+                      'aria-selected': isSelected(option.value),
+                      'aria-disabled': option.disabled,
+                      onClick: () => !option.disabled && handleOptionSelect(option),
+                      onMouseEnter: () => setSelectedOptionIndex(currentGlobalIndex),
+                      children: [
+                        multiple &&
+                          jsx$1('div', {
+                            className: 'checkbox-indicator',
+                            children: isSelected(option.value) && jsx$1(Check, { size: 14 })
+                          }),
+                        renderOptionIcon(option),
+                        renderHighlight(option.label, searchText)
+                      ]
+                    },
+                    `${option.value}-${currentGlobalIndex}`
+                  );
+                })
+              ]
+            },
+            `category-${catIndex}`
+          )
+        );
+      }
+      if (filteredOptions.length === 0) {
+        return jsx$1('li', {
+          role: 'option',
+          className: 'dropdown-item no-results',
+          children: isLoading
+            ? jsxs('div', {
+                className: 'loading-container',
+                children: [
+                  jsx$1(LoaderCircle, { className: 'animate-spin', size: 16 }),
+                  jsx$1('span', { children: 'Loading...' })
+                ]
+              })
+            : 'No Results'
+        });
+      }
+      return filteredOptions.map((option, index) =>
+        jsxs(
+          'li',
+          {
+            role: 'option',
+            className: cn(
+              'dropdown-item',
+              index === selectedOptionIndex ? 'selected' : '',
+              isSelected(option.value) ? 'active' : '',
+              option.disabled ? 'disabled' : ''
+            ),
+            'aria-selected': isSelected(option.value),
+            'aria-disabled': option.disabled,
+            onClick: () => !option.disabled && handleOptionSelect(option),
+            onMouseEnter: () => setSelectedOptionIndex(index),
+            children: [
+              multiple &&
+                jsx$1('div', {
+                  className: 'checkbox-indicator',
+                  children: isSelected(option.value) && jsx$1(Check, { size: 14 })
+                }),
+              renderOptionIcon(option),
+              renderHighlight(option.label, searchText)
+            ]
+          },
+          `${option.value}-${index}`
+        )
+      );
+    };
+    return jsxs('div', {
+      className: cn('select-container', fullWidth ? 'full-width' : ''),
+      children: [
+        jsxs('div', {
+          className: cn(
+            'select-wrapper',
+            shrink ? 'shrink' : '',
+            error ? 'error' : '',
+            isFocused ? 'focused' : '',
+            disabled ? 'disabled' : '',
+            hasValue || (dropdownVisible && searchText) ? 'has-value' : '',
+            startAdornment ? 'has-left-icon' : '',
+            endAdornment || clearable ? 'has-right-icon' : '',
+            outlined ? 'outlined' : '',
+            dropdownVisible ? 'dropdown-visible' : '',
+            multiple ? 'multiple' : '',
+            !dropdownVisible &&
+              !multiple &&
+              selectedOptions[0] &&
+              (selectedOptions[0].icon || selectedOptions[0].image)
+              ? 'has-selected-visual'
+              : ''
+          ),
+          children: [
+            renderIcon(startAdornment, 'left'),
+            !dropdownVisible &&
+              !multiple &&
+              selectedOptions[0] &&
+              jsx$1('div', {
+                className: 'selected-option-visual',
+                children: renderOptionIcon(selectedOptions[0])
+              }),
+            jsx$1('input', {
+              ref: ref,
+              type: 'hidden',
+              name: name,
+              value: multiple ? JSON.stringify(currentValue) : String(currentValue),
+              disabled: disabled
+            }),
+            jsx$1('input', {
+              ref: inputRef,
+              type: 'text',
+              className: cn('select-input', disabled ? 'disabled' : '', className),
+              value: displayValue,
+              onChange: handleInputChange,
+              onFocus: handleFocus,
+              onBlur: handleBlur,
+              onKeyDown: handleKeyPress,
+              onClick: handleSelectClick,
+              disabled: disabled,
+              placeholder:
+                dropdownVisible && searchable
+                  ? 'Search...'
+                  : !hasValue && !dropdownVisible && (!label || shrink || isFocused)
+                    ? placeholder
+                    : '',
+              readOnly: !searchable,
+              role: 'combobox',
+              'aria-expanded': dropdownVisible,
+              'aria-haspopup': 'listbox',
+              'aria-controls': `${selectId}-listbox`,
+              'aria-labelledby': label ? `${selectId}-label` : undefined,
+              'aria-invalid': Boolean(error),
+              'aria-describedby':
+                cn(
+                  error ? `${selectId}-error` : undefined,
+                  helperText ? `${selectId}-helper` : undefined
+                ).trim() || undefined,
+              style: selectStyles
+            }),
+            clearable &&
+              hasValue &&
+              jsx$1('div', {
+                className: 'select-icon right clear-icon clickable',
+                onClick: handleClear,
+                role: 'button',
+                tabIndex: 0,
+                'aria-label': 'Clear selection',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleClear(e);
+                  }
+                },
+                children: jsx$1(X, { size: iconSize })
+              }),
+            !clearable || !hasValue ? renderIcon(endAdornment, 'right') : null,
+            jsx$1('div', {
+              className: cn('select-icon right chevron-icon', dropdownVisible ? 'open' : ''),
+              children: jsx$1(ChevronDown, { size: iconSize })
+            }),
+            label &&
+              jsx$1('label', {
+                id: `${selectId}-label`,
+                className: 'select-label',
+                style: startAdornment ? { left: `${iconSize + 16}px` } : undefined,
+                children: label
+              })
+          ]
+        }),
+        error &&
+          jsx$1('div', {
+            id: `${selectId}-error`,
+            className: 'error-message',
+            role: 'alert',
+            children: error
+          }),
+        helperText &&
+          jsx$1('span', {
+            id: `${selectId}-helper`,
+            className: 'helper-text',
+            children: helperText
+          }),
+        dropdownVisible &&
+          jsx$1('div', {
+            className: 'dropdown-panel',
+            children: jsx$1('ul', {
+              ref: dropdownListRef,
+              className: 'dropdown-list',
+              role: 'listbox',
+              id: `${selectId}-listbox`,
+              'aria-label': `Options for ${label || 'select'}`,
+              'aria-multiselectable': multiple,
+              children: renderOptions()
+            })
+          })
+      ]
+    });
+  }
+);
+Select.displayName = 'Select';
+var Select_default = memo(Select);
+
 export {
   Button$1 as Button,
   COLORS,
@@ -51664,6 +52490,7 @@ export {
   Modal,
   NetworkManager,
   RadioButton,
+  Select_default as Select,
   Toggle,
   Trie,
   TrieManager,

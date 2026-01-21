@@ -7,6 +7,7 @@ export interface CheckboxProps {
   indeterminate?: boolean;
   className?: string;
   required?: boolean;
+  name?: string;
   'aria-describedby'?: string;
   'aria-labelledby'?: string;
 }

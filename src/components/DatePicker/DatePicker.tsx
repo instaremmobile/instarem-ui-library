@@ -22,6 +22,7 @@ const DatePickerComponent = forwardRef<HTMLInputElement, DatePickerProps>(
       maxDate,
       format = 'dd/MM/yyyy',
       id,
+      name,
       ...rest
     },
     ref
@@ -52,6 +53,14 @@ const DatePickerComponent = forwardRef<HTMLInputElement, DatePickerProps>(
             {label}
           </label>
         )}
+        {/* Hidden input for React Hook Form */}
+        <input
+          ref={ref}
+          type="hidden"
+          name={name}
+          value={value ? value.toISOString() : ''}
+          disabled={disabled}
+        />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <MobileDatePicker
             value={open ? tempValue : value}
