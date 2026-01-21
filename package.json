@@ -18,6 +18,7 @@
     "storybook-build": "storybook build",
     "test": "jest --config jest.config.ts",
     "test:watch": "jest --watch --config jest.config.ts",
+    "test:coverage": "jest --coverage --config jest.config.ts",
     "lint": "eslint ./",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "type-check": "tsc --noEmit --skipLibCheck",
@@ -109,6 +110,7 @@
     "precommit",
     "lint",
     "type-check",
-    "test"
+    "test",
+    "test:coverage"
   ]
 }
