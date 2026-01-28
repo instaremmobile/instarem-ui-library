@@ -50,3 +50,26 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+export const RowsAndColumns: Story = {
+  args: {
+    label: "Tell us your story",
+    rows: 5,
+    cols: 30,
+    defaultValue: "It was a dark and stormy night...",
+  },
+};
+
+export const ResizeVariants: Story = {
+  args: {
+    label: "Vertical resize",
+    resize: "vertical",
+    defaultValue: "It was a dark and stormy night...",
+  },
+};
+
+export const BothDirections: Story = {
+  args: {
+    resize: "both",
+    defaultValue: "It was a dark and stormy night...",
+  },
+};

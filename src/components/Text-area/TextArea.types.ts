@@ -11,4 +11,5 @@ export interface TextAreaProps extends Omit<
   fullWidth?: boolean;
   outlined?: boolean;
   handleChange?: (value: string) => void;
+  resize?: "none" | "vertical" | "horizontal" | "both";
 }

@@ -27,6 +27,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       fullWidth = false,
       onBlur,
       onFocus,
+      resize = "none",
       ...props
     },
     ref,
@@ -92,6 +93,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             disabled={disabled}
+            style={{ resize }}
           />
 
           {label && (
