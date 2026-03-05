@@ -15,7 +15,6 @@ import React, {
 } from 'react';
 import { ChevronDown, LoaderCircle, X, Check } from 'lucide-react';
 import isEmpty from 'lodash/isEmpty';
-import debounce from 'lodash/debounce';
 import { cn, NetworkManager, TrieManager } from '@lib';
 import { SelectProps, IconProps, OptionType, CategoryType } from './Select.types';
 import './select.scss';
@@ -57,8 +56,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [internalValue, setInternalValue] = useState<string | string[]>(defaultValue);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1);
-    const [filteredOptions, setFilteredOptions] = useState<OptionType[]>([]);
-    const [filteredCategories, setFilteredCategories] = useState<CategoryType[]>([]);
     const [originalFetchedOptions, setOriginalFetchedOptions] = useState<OptionType[]>([]);
     const [originalFetchedCategories, setOriginalFetchedCategories] = useState<CategoryType[]>([]);
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -211,118 +208,69 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
       return cats.flatMap((cat) => cat.options);
     }, []);
 
-    const handleFilterOptions = useMemo(() => {
-      return debounce((query: string) => {
-        const currentTrie = TrieManager.getOrCreate(trieNamespace);
-        if (useCategories) {
-          const allCats =
-            originalFetchedCategories.length > 0 ? originalFetchedCategories : categories;
-          if (query.trim()) {
-            const q = query.toLowerCase().trim();
-            const searchResults = currentTrie.search(query.trim(), {
-              maxDistance: 4,
-              matchType: 'partial'
-            });
+    const scoreMatch = useCallback((label: string, value: string, q: string): number => {
+      const l = label.toLowerCase();
+      const v = value.toLowerCase();
+      if (l === q || v === q) return 100;
+      if (l.startsWith(q) || v.startsWith(q)) return 90;
+      if (l.includes(q) || v.includes(q)) return 70;
+      const labelWords = l.split(/\s+/);
+      const queryWords = q.split(/\s+/);
+      if (queryWords.every((qw) => labelWords.some((lw) => lw.startsWith(qw)))) return 50;
+      return 0;
+    }, []);
 
-            // Collect all matching options with their scores
-            const allMatchedOptions: Array<{
-              option: OptionType;
-              category: string;
-              score: number;
-            }> = [];
+    // filteredCategories: full category list when not searching; empty when searching
+    const filteredCategories = useMemo((): CategoryType[] => {
+      if (!useCategories || searchText.trim()) return [];
+      return allCategoriesForDisplay;
+    }, [searchText, useCategories, allCategoriesForDisplay]);
 
-            allCats.forEach((cat) => {
-              cat.options.forEach((opt) => {
-                let score = 0;
-                const labelLower = opt.label.toLowerCase();
-                const valueLower = opt.value.toLowerCase();
+    // filteredOptions: flat filtered list for non-category mode, or flat search results in category mode
+    const filteredOptions = useMemo((): OptionType[] => {
+      const q = searchText.toLowerCase().trim();
 
-                // Exact match gets highest score
-                if (labelLower === q || valueLower === q) {
-                  score = 100;
-                }
-                // Starts with query gets high score
-                else if (labelLower.startsWith(q) || valueLower.startsWith(q)) {
-                  score = 80;
-                }
-                // Trie match gets medium-high score
-                else if (
-                  searchResults.some(
-                    (resultLabel) =>
-                      opt.label === resultLabel ||
-                      labelLower === resultLabel.toLowerCase() ||
-                      labelLower.includes(resultLabel.toLowerCase()) ||
-                      resultLabel.toLowerCase().includes(labelLower)
-                  )
-                ) {
-                  score = 60;
-                }
-                // Contains query gets medium score
-                else if (labelLower.includes(q) || valueLower.includes(q)) {
-                  score = 40;
-                }
-
-                if (score > 0) {
-                  allMatchedOptions.push({ option: opt, category: cat.category, score });
-                }
-              });
-            });
-
-            // Sort by score descending
-            allMatchedOptions.sort((a, b) => b.score - a.score);
-
-            // During search, show flat sorted list without category headers
-            // This ensures best matches appear at the top
-            const flatSortedOptions = allMatchedOptions.map(({ option }) => option);
-            setFilteredOptions(flatSortedOptions);
-            setFilteredCategories([]);
-          } else {
-            setFilteredCategories(allCats);
-            setFilteredOptions([]);
-          }
-        } else {
-          const allOpts =
-            originalFetchedOptions.length > 0 ? originalFetchedOptions : normalizeOptions(options);
-          if (query.trim()) {
-            const searchResults = currentTrie.search(query.trim(), {
-              maxDistance: 4,
-              matchType: 'partial'
-            });
-            const matched: OptionType[] = [];
-            if (searchResults.length > 0) {
-              searchResults.forEach((resultLabel) => {
-                const hit = allOpts.find(
-                  (item) =>
-                    item.label === resultLabel ||
-                    item.label.toLowerCase() === resultLabel.toLowerCase() ||
-                    item.label.toLowerCase().includes(resultLabel.toLowerCase()) ||
-                    resultLabel.toLowerCase().includes(item.label.toLowerCase())
-                );
-                if (hit && !matched.find((o) => o.value === hit.value)) matched.push(hit);
-              });
-            }
-            if (matched.length === 0) {
-              const q = query.toLowerCase().trim();
-              setFilteredOptions(
-                allOpts.filter(
-                  (i) => i.label.toLowerCase().includes(q) || i.value.toLowerCase().includes(q)
-                )
-              );
-            } else {
-              setFilteredOptions(matched);
-            }
-          } else {
-            setFilteredOptions(allOpts);
-          }
+      if (useCategories) {
+        if (!q) return [];
+        const scored = allCategoriesForDisplay
+          .flatMap((cat) =>
+            cat.options.map((opt) => ({ opt, score: scoreMatch(opt.label, opt.value, q) }))
+          )
+          .filter(({ score }) => score > 0);
+        if (scored.length === 0) {
+          const trie = TrieManager.getOrCreate(trieNamespace);
+          const trieResults = new Set(
+            trie.search(q, { maxDistance: 1, matchType: 'partial' }).map((r) => r.toLowerCase())
+          );
+          return allCategoriesForDisplay.flatMap((cat) =>
+            cat.options.filter((opt) => trieResults.has(opt.label.toLowerCase()))
+          );
         }
-      }, 300);
+        scored.sort((a, b) => b.score - a.score);
+        return scored.map(({ opt }) => opt);
+      }
+
+      if (!q) return allForDisplay;
+
+      const scored = allForDisplay
+        .map((opt) => ({ opt, score: scoreMatch(opt.label, opt.value, q) }))
+        .filter(({ score }) => score > 0);
+      if (scored.length === 0) {
+        const trie = TrieManager.getOrCreate(trieNamespace);
+        const trieResults = new Set(
+          trie.search(q, { maxDistance: 1, matchType: 'partial' }).map((r) => r.toLowerCase())
+        );
+        return allForDisplay.filter((opt) => trieResults.has(opt.label.toLowerCase()));
+      }
+      scored.sort((a, b) => b.score - a.score);
+      return scored.map(({ opt }) => opt);
     }, [
+      searchText,
       useCategories,
-      originalFetchedCategories,
-      originalFetchedOptions,
-      categories,
-      options,
-      trieNamespace
+      allForDisplay,
+      allCategoriesForDisplay,
+      trieNamespace,
+      scoreMatch
     ]);
 
     const handleOptionSelect = useCallback(
@@ -355,7 +303,10 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
 
     const handleKeyPress = useCallback(
       (event: ReactKeyboardEvent<HTMLDivElement | HTMLInputElement>) => {
-        const allOpts = useCategories ? getFlattenedOptions(filteredCategories) : filteredOptions;
+        const allOpts =
+          useCategories && filteredCategories.length > 0
+            ? getFlattenedOptions(filteredCategories)
+            : filteredOptions;
 
         switch (event.key) {
           case 'ArrowUp': {
@@ -481,13 +432,11 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     const handleInputChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!searchable) return;
-        const query = event.target.value;
-        setSearchText(query);
+        setSearchText(event.target.value);
         setDropdownVisible(true);
-        handleFilterOptions(query);
         setSelectedOptionIndex(-1);
       },
-      [searchable, handleFilterOptions]
+      [searchable]
     );
 
     const fetchOptions = useCallback(async () => {
@@ -509,7 +458,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
             options: normalizeOptions(cat.options || cat.items || [])
           }));
           setOriginalFetchedCategories(normalizedCats);
-          setFilteredCategories(normalizedCats);
           normalizedCats.forEach((cat) => {
             cat.options.forEach((item) => currentTrie.insert(item.label));
           });
@@ -518,7 +466,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
             Array.isArray(optionsResults) ? optionsResults : optionsResults?.data || []
           );
           setOriginalFetchedOptions(normalized);
-          setFilteredOptions(normalized);
           normalized.forEach((item) => currentTrie.insert(item.label));
         }
 
@@ -534,11 +481,9 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
               options: normalizeOptions(cat.options)
             }));
             setOriginalFetchedCategories(normalizedCached);
-            setFilteredCategories(normalizedCached);
           } else if (cached?.length > 0) {
             const normalizedCached = normalizeOptions(cached);
             setOriginalFetchedOptions(normalizedCached);
-            setFilteredOptions(normalizedCached);
           }
         }
       } finally {
@@ -594,9 +539,8 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
       return () => {
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
-        handleFilterOptions.cancel();
       };
-    }, [handleFilterOptions]);
+    }, []);
 
     useEffect(() => {
       if (fetchFunction && !hasFetchedInitialData) fetchOptions();
@@ -605,20 +549,16 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     useEffect(() => {
       if (!fetchFunction && !hasInitializedOptions.current) {
         hasInitializedOptions.current = true;
+        const currentTrie = TrieManager.getOrCreate(trieNamespace);
         if (useCategories) {
-          const currentTrie = TrieManager.getOrCreate(trieNamespace);
           categories.forEach((cat) => {
             cat.options.forEach((item) => currentTrie.insert(item.label));
           });
-          setFilteredCategories(categories);
         } else if (options.length > 0) {
-          const currentTrie = TrieManager.getOrCreate(trieNamespace);
-          const normalized = normalizeOptions(options);
-          normalized.forEach((item) => currentTrie.insert(item.label));
-          setFilteredOptions(normalized);
+          normalizeOptions(options).forEach((item) => currentTrie.insert(item.label));
         }
       }
-    }, [options, categories, fetchFunction, trieNamespace, useCategories]);
+    }, [options, categories, fetchFunction, trieNamespace, useCategories, normalizeOptions]);
 
     useEffect(() => {
       return () => {
@@ -626,30 +566,31 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
       };
     }, [trieNamespace]);
 
+    const noResultsItem = (
+      <li role="option" className="dropdown-item no-results">
+        {isLoading ? (
+          <div className="loading-container">
+            <LoaderCircle className="animate-spin" size={16} />
+            <span>Loading...</span>
+          </div>
+        ) : (
+          'No Results'
+        )}
+      </li>
+    );
+
     const renderOptions = () => {
-      if (useCategories) {
-        if (filteredCategories.length === 0) {
-          return (
-            <li role="option" className="dropdown-item no-results">
-              {isLoading ? (
-                <div className="loading-container">
-                  <LoaderCircle className="animate-spin" size={16} />
-                  <span>Loading...</span>
-                </div>
-              ) : (
-                'No Results'
-              )}
-            </li>
-          );
-        }
+      // Category mode with no active search: show grouped list
+      if (useCategories && !searchText.trim()) {
+        if (filteredCategories.length === 0) return noResultsItem;
 
         let globalIndex = 0;
-        return filteredCategories.map((category, catIndex) => (
+        return filteredCategories.map((category: CategoryType, catIndex: number) => (
           <React.Fragment key={`category-${catIndex}`}>
             <li className="dropdown-item category-header" role="presentation">
               {category.category}
             </li>
-            {category.options.map((option) => {
+            {category.options.map((option: OptionType) => {
               const currentGlobalIndex = globalIndex++;
               return (
                 <li
@@ -680,22 +621,10 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
         ));
       }
 
-      if (filteredOptions.length === 0) {
-        return (
-          <li role="option" className="dropdown-item no-results">
-            {isLoading ? (
-              <div className="loading-container">
-                <LoaderCircle className="animate-spin" size={16} />
-                <span>Loading...</span>
-              </div>
-            ) : (
-              'No Results'
-            )}
-          </li>
-        );
-      }
+      // Flat list: non-category mode, or category mode during search
+      if (filteredOptions.length === 0) return noResultsItem;
 
-      return filteredOptions.map((option, index) => (
+      return filteredOptions.map((option: OptionType, index: number) => (
         <li
           key={`${option.value}-${index}`}
           role="option"
