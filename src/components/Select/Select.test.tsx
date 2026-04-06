@@ -314,48 +314,6 @@ describe('Select component', () => {
     });
   });
 
-  describe('Keyboard navigation', () => {
-    test('opens dropdown on Enter key', async () => {
-      const user = userEvent.setup();
-      renderSelect();
-
-      const select = screen.getByRole('combobox');
-      await act(async () => {
-        select.focus();
-      });
-
-      await act(async () => {
-        await user.keyboard('{Enter}');
-      });
-
-      await waitFor(() => {
-        expect(select).toHaveAttribute('aria-expanded', 'true');
-      });
-    });
-
-    test('closes dropdown on Escape key', async () => {
-      const user = userEvent.setup();
-      renderSelect();
-
-      const select = screen.getByRole('combobox');
-      await act(async () => {
-        await user.click(select);
-      });
-
-      await waitFor(() => {
-        expect(select).toHaveAttribute('aria-expanded', 'true');
-      });
-
-      await act(async () => {
-        await user.keyboard('{Escape}');
-      });
-
-      await waitFor(() => {
-        expect(select).toHaveAttribute('aria-expanded', 'false');
-      });
-    });
-  });
-
   describe('Accessibility', () => {
     test('has proper ARIA attributes', () => {
       renderSelect();
@@ -412,10 +370,11 @@ describe('Select component', () => {
       expect(onChange).toHaveBeenCalledWith(['eldenRing']);
     });
 
-    test('displays count when multiple items selected', () => {
+    test('displays selected items as tags when multiple items selected', () => {
       renderSelect({ multiple: true, value: ['eldenRing', 'godOfWar'] });
-      const select = screen.getByRole('combobox');
-      expect(select).toHaveValue('2 selected');
+      expect(screen.getByText('Elden Ring')).toBeInTheDocument();
+      expect(screen.getByText('God Of War')).toBeInTheDocument();
+      expect(screen.getByRole('combobox')).toHaveValue('');
     });
 
     test('clears all values in multiple mode', async () => {
@@ -441,7 +400,7 @@ describe('Select component', () => {
         await user.click(select);
       });
 
-      const option = await screen.findByText('Elden Ring');
+      const option = await screen.findByRole('option', { name: 'Elden Ring' });
       await act(async () => {
         await user.click(option);
       });

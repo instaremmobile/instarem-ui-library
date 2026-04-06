@@ -13,7 +13,7 @@ import React, {
   KeyboardEvent as ReactKeyboardEvent,
   MouseEvent
 } from 'react';
-import { ChevronDown, LoaderCircle, X, Check } from 'lucide-react';
+import { ChevronDown, LoaderCircle, X } from 'lucide-react';
 import isEmpty from 'lodash/isEmpty';
 import { cn, NetworkManager, TrieManager } from '@lib';
 import { SelectProps, IconProps, OptionType, CategoryType } from './Select.types';
@@ -66,6 +66,7 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     const [searchText, setSearchText] = useState<string>('');
 
     const selectRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const dropdownListRef = useRef<HTMLUListElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const hasInitializedOptions = useRef<boolean>(false);
@@ -198,11 +199,9 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
 
     const displayValue = useMemo(() => {
       if (dropdownVisible && searchable) return searchText;
-      if (multiple && Array.isArray(currentValue)) {
-        return currentValue.length > 0 ? `${currentValue.length} selected` : '';
-      }
+      if (multiple) return '';
       return selectedOptions[0]?.label ?? '';
-    }, [dropdownVisible, searchable, searchText, multiple, currentValue, selectedOptions]);
+    }, [dropdownVisible, searchable, searchText, multiple, selectedOptions]);
 
     const getFlattenedOptions = useCallback((cats: CategoryType[]): OptionType[] => {
       return cats.flatMap((cat) => cat.options);
@@ -301,6 +300,19 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
       [multiple, currentValue, isControlled, onChange]
     );
 
+    const handleRemoveTag = useCallback(
+      (valueToRemove: string, event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        const currentValues = Array.isArray(currentValue) ? currentValue : [];
+        const newValues = currentValues.filter((v) => v !== valueToRemove);
+        if (!isControlled) {
+          setInternalValue(newValues);
+        }
+        onChange?.(newValues);
+      },
+      [currentValue, isControlled, onChange]
+    );
+
     const handleKeyPress = useCallback(
       (event: ReactKeyboardEvent<HTMLDivElement | HTMLInputElement>) => {
         const allOpts =
@@ -354,9 +366,14 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
             break;
           }
           case 'Enter': {
-            if (dropdownVisible && selectedOptionIndex >= 0 && allOpts[selectedOptionIndex]) {
-              event.preventDefault();
-              handleOptionSelect(allOpts[selectedOptionIndex]);
+            event.preventDefault();
+            if (dropdownVisible) {
+              const targetIndex = selectedOptionIndex >= 0 ? selectedOptionIndex : 0;
+              const targetOpt = allOpts[targetIndex];
+              if (targetOpt) handleOptionSelect(targetOpt);
+            } else {
+              setDropdownVisible(true);
+              if (searchable) setTimeout(() => inputRef.current?.focus(), 0);
             }
             break;
           }
@@ -409,15 +426,13 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
             return;
           }
           setIsFocused(false);
-          if (!multiple) {
-            setDropdownVisible(false);
-          }
+          setDropdownVisible(false);
           setSelectedOptionIndex(-1);
           setSearchText('');
           onBlur?.(event as FocusEvent<HTMLDivElement>);
         }, 150);
       },
-      [onBlur, multiple]
+      [onBlur]
     );
 
     const handleFocus = useCallback(
@@ -543,6 +558,20 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     }, []);
 
     useEffect(() => {
+      if (!dropdownVisible) return;
+      const handleClickOutside = (event: globalThis.MouseEvent) => {
+        if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+          setDropdownVisible(false);
+          setSelectedOptionIndex(-1);
+          setSearchText('');
+          setIsFocused(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [dropdownVisible]);
+
+    useEffect(() => {
       if (fetchFunction && !hasFetchedInitialData) fetchOptions();
     }, [fetchFunction, hasFetchedInitialData, fetchOptions]);
 
@@ -607,11 +636,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
                   onClick={() => !option.disabled && handleOptionSelect(option)}
                   onMouseEnter={() => setSelectedOptionIndex(currentGlobalIndex)}
                 >
-                  {multiple && (
-                    <div className="checkbox-indicator">
-                      {isSelected(option.value) && <Check size={14} />}
-                    </div>
-                  )}
                   {renderOptionIcon(option)}
                   {renderHighlight(option.label, searchText)}
                 </li>
@@ -639,11 +663,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
           onClick={() => !option.disabled && handleOptionSelect(option)}
           onMouseEnter={() => setSelectedOptionIndex(index)}
         >
-          {multiple && (
-            <div className="checkbox-indicator">
-              {isSelected(option.value) && <Check size={14} />}
-            </div>
-          )}
           {renderOptionIcon(option)}
           {renderHighlight(option.label, searchText)}
         </li>
@@ -651,7 +670,7 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
     };
 
     return (
-      <div className={cn('select-container', fullWidth ? 'full-width' : '')}>
+      <div ref={containerRef} className={cn('select-container', fullWidth ? 'full-width' : '')}>
         <div
           className={cn(
             'select-wrapper',
@@ -685,39 +704,85 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
             value={multiple ? JSON.stringify(currentValue) : String(currentValue)}
             disabled={disabled}
           />
-          <input
-            ref={inputRef}
-            type="text"
-            className={cn('select-input', disabled ? 'disabled' : '', className)}
-            value={displayValue}
-            onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onKeyDown={handleKeyPress}
-            onClick={handleSelectClick}
-            disabled={disabled}
-            placeholder={
-              dropdownVisible && searchable
-                ? 'Search...'
-                : !hasValue && !dropdownVisible && (!label || shrink || isFocused)
-                  ? placeholder
-                  : ''
-            }
-            readOnly={!searchable}
-            role="combobox"
-            aria-expanded={dropdownVisible}
-            aria-haspopup="listbox"
-            aria-controls={`${selectId}-listbox`}
-            aria-labelledby={label ? `${selectId}-label` : undefined}
-            aria-invalid={Boolean(error)}
-            aria-describedby={
-              cn(
-                error ? `${selectId}-error` : undefined,
-                helperText ? `${selectId}-helper` : undefined
-              ).trim() || undefined
-            }
-            style={selectStyles}
-          />
+          {multiple ? (
+            <div className="multiple-content">
+              {selectedOptions.map((option) => (
+                <div key={option.value} className="selected-tag">
+                  <span className="selected-tag-label">{option.label}</span>
+                  <div
+                    className="selected-tag-remove"
+                    onClick={(e) => handleRemoveTag(option.value, e)}
+                    role="button"
+                    tabIndex={-1}
+                    aria-label={`Remove ${option.label}`}
+                  >
+                    <X size={10} />
+                  </div>
+                </div>
+              ))}
+              <input
+                ref={inputRef}
+                type="text"
+                className={cn('select-input multiple-input', disabled ? 'disabled' : '', className)}
+                value={displayValue}
+                onChange={handleInputChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyPress}
+                onClick={handleSelectClick}
+                disabled={disabled}
+                placeholder={!hasValue && (!label || shrink || isFocused) ? placeholder : ''}
+                readOnly={!searchable}
+                role="combobox"
+                aria-expanded={dropdownVisible}
+                aria-haspopup="listbox"
+                aria-controls={`${selectId}-listbox`}
+                aria-labelledby={label ? `${selectId}-label` : undefined}
+                aria-invalid={Boolean(error)}
+                aria-describedby={
+                  cn(
+                    error ? `${selectId}-error` : undefined,
+                    helperText ? `${selectId}-helper` : undefined
+                  ).trim() || undefined
+                }
+                style={selectStyles}
+              />
+            </div>
+          ) : (
+            <input
+              ref={inputRef}
+              type="text"
+              className={cn('select-input', disabled ? 'disabled' : '', className)}
+              value={displayValue}
+              onChange={handleInputChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyPress}
+              onClick={handleSelectClick}
+              disabled={disabled}
+              placeholder={
+                dropdownVisible && searchable
+                  ? 'Search...'
+                  : !hasValue && !dropdownVisible && (!label || shrink || isFocused)
+                    ? placeholder
+                    : ''
+              }
+              readOnly={!searchable}
+              role="combobox"
+              aria-expanded={dropdownVisible}
+              aria-haspopup="listbox"
+              aria-controls={`${selectId}-listbox`}
+              aria-labelledby={label ? `${selectId}-label` : undefined}
+              aria-invalid={Boolean(error)}
+              aria-describedby={
+                cn(
+                  error ? `${selectId}-error` : undefined,
+                  helperText ? `${selectId}-helper` : undefined
+                ).trim() || undefined
+              }
+              style={selectStyles}
+            />
+          )}
           {clearable && hasValue && (
             <div
               className="select-icon right clear-icon clickable"
