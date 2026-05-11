@@ -15,6 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className = '',
       startIcon,
       endIcon,
+      radius = 'pill',
       type = 'button',
       ...rest
     },
@@ -25,6 +26,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const sizeClass = `${baseClass}--${size}`;
     const loadingClass = isLoading ? `${baseClass}--loading` : '';
     const fullWidthClass = fullWidth ? `${baseClass}--full-width` : '';
+    const radiusClass = radius === 'pill' ? `${baseClass}--radius-pill` : '';
 
     const combinedClassName = cn(
       baseClass,
@@ -32,6 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sizeClass,
       loadingClass,
       fullWidthClass,
+      radiusClass,
       className
     );
 

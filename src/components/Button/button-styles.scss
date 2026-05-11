@@ -43,8 +43,7 @@ $font-family:
   user-select: none;
   outline: none;
   max-width: $max-width;
-  width: 100%;
-  height: 50px;
+  width: auto;
   font-weight: 700;
 
   &:focus-visible {
@@ -220,6 +219,11 @@ $font-family:
 
   &--full-width {
     width: 100%;
+    max-width: 100%;
+  }
+
+  &--radius-pill {
+    border-radius: 50px;
   }
 
   &:disabled {

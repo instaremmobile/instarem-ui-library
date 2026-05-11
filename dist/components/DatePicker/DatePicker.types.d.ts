@@ -16,4 +16,6 @@ export interface DatePickerProps extends Omit<
   minDate?: Date;
   maxDate?: Date;
   format?: string;
+  name?: string;
+  id?: string;
 }

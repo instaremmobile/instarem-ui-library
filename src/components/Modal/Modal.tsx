@@ -35,6 +35,8 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
   ) => {
     const [isAnimating, setIsAnimating] = React.useState(false);
     const [shouldRender, setShouldRender] = React.useState(false);
+    const modalContentRef = React.useRef<HTMLDivElement>(null);
+    const previousFocusRef = React.useRef<Element | null>(null);
 
     const handleOverlayClick = React.useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
@@ -54,27 +56,63 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
       [isOpen, onClose]
     );
 
+    const FOCUSABLE_SELECTORS =
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const handleFocusTrap = React.useCallback((e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !modalContentRef.current) return;
+      const focusable = Array.from(
+        modalContentRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }, []);
+
     React.useEffect(() => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
+
       if (isOpen) {
         setShouldRender(true);
         onOpen?.();
-        // Small delay to ensure DOM is ready before starting animation
-        const timer = setTimeout(() => setIsAnimating(true), 10);
+        timer = setTimeout(() => {
+          setIsAnimating(true);
+          previousFocusRef.current = document.activeElement;
+          const focusable =
+            modalContentRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS);
+          focusable?.[0]?.focus();
+        }, 10);
         document.addEventListener('keydown', handleEscapekey);
+        document.addEventListener('keydown', handleFocusTrap);
         document.body.style.overflow = 'hidden';
-        return () => clearTimeout(timer);
       } else if (shouldRender) {
         setIsAnimating(false);
-        // Wait for animation to complete before unmounting
-        const timer = setTimeout(() => setShouldRender(false), 300);
-        return () => clearTimeout(timer);
+        timer = setTimeout(() => {
+          setShouldRender(false);
+          if (previousFocusRef.current instanceof HTMLElement) {
+            previousFocusRef.current.focus();
+          }
+        }, 300);
       }
 
       return () => {
+        if (timer) clearTimeout(timer);
         document.removeEventListener('keydown', handleEscapekey);
+        document.removeEventListener('keydown', handleFocusTrap);
         document.body.style.overflow = '';
       };
-    }, [isOpen, shouldRender, handleEscapekey]);
+    }, [isOpen, shouldRender, handleEscapekey, handleFocusTrap]);
 
     React.useImperativeHandle(ref, () => ({
       open: () => {},
@@ -94,12 +132,17 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(
         )}
         role="dialog"
         aria-modal="true"
+        aria-labelledby={title ? 'modal-title' : undefined}
       >
         <div className="modal__overlay" onClick={handleOverlayClick}>
-          <div className="modal__content">
+          <div className="modal__content" ref={modalContentRef}>
             {(title || showCloseButton) && (
               <div className="modal__header">
-                {title && <h2 className="modal__title">{title}</h2>}
+                {title && (
+                  <h2 id="modal-title" className="modal__title">
+                    {title}
+                  </h2>
+                )}
                 {!title && showCloseButton && <div />}
                 {showCloseButton && (
                   <button className="modal__close-button" onClick={onClose} aria-label="Close">

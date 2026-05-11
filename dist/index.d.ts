@@ -1,5 +1,4 @@
 import React$1 from 'react';
-import { RetryConfig as RetryConfig$1 } from '@lib';
 import { ClassValue } from 'clsx';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  radius?: 'default' | 'pill';
 }
 
 declare const Button: React$1.ForwardRefExoticComponent<
@@ -29,6 +29,13 @@ declare const Toggle: React$1.NamedExoticComponent<
   ToggleProps & React$1.RefAttributes<HTMLInputElement>
 >;
 
+interface RetryConfig$1 {
+  maxAttempt: number;
+  baseDelay: number;
+  maxDelay: number;
+  jitter: boolean;
+}
+
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string | undefined;
   error?: string | undefined;
@@ -45,6 +52,8 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   fetchFunction?: () => Promise<unknown>;
   retryConfig?: Partial<RetryConfig$1>;
   handleChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
+  enableShortcut?: boolean;
   outlined?: boolean;
   format?: (value: any) => string;
   parse?: (display: string) => any;
@@ -126,6 +135,8 @@ interface DatePickerProps extends Omit<
   minDate?: Date;
   maxDate?: Date;
   format?: string;
+  name?: string;
+  id?: string;
 }
 
 declare const DatePicker: React$1.NamedExoticComponent<

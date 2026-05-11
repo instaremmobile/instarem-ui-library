@@ -27,7 +27,8 @@ const DatePickerComponent = forwardRef<HTMLInputElement, DatePickerProps>(
     },
     ref
   ) => {
-    const inputId = id || useId();
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
     const [open, setOpen] = useState(false);
     const [tempValue, setTempValue] = useState<Date | null>(value);
 

@@ -8,13 +8,8 @@
   position: relative;
   font-family: 'hellix-regular' !important;
   &.full-width {
-    width: 450px;
-  }
-  @media (max-width: 768px) {
+    width: 100%;
     max-width: 100%;
-    &.full-width {
-      width: 100%;
-    }
   }
   @media (max-width: 480px) {
     .text-field-label {

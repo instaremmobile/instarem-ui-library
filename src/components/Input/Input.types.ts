@@ -16,6 +16,8 @@ export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElem
   fetchFunction?: () => Promise<unknown>;
   retryConfig?: Partial<RetryConfig>;
   handleChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
+  enableShortcut?: boolean;
   outlined?: boolean;
   format?: (value: any) => string;
   parse?: (display: string) => any;

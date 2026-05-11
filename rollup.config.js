@@ -26,10 +26,12 @@ module.exports = [
     },
     onwarn(warning, warn) {
       if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return;
       warn(warning);
     },
     plugins: [
       peerDepsExternal(),
+      typescriptPaths({ tsConfigPath: './tsconfig.json', preserveExtensions: true }),
       resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
       commonjs(),
       postcss({
@@ -52,6 +54,10 @@ module.exports = [
       file: 'dist/index.d.ts',
       format: 'es'
     },
-    plugins: [stripScss(), dts()]
+    plugins: [
+      typescriptPaths({ tsConfigPath: './tsconfig.json', preserveExtensions: true }),
+      stripScss(),
+      dts()
+    ]
   }
 ];

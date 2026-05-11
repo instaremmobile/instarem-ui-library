@@ -7,11 +7,12 @@ import React__default, {
   createElement,
   useState,
   useRef,
+  useImperativeHandle,
   useMemo,
   useCallback,
   cloneElement,
   useEffect,
-  useImperativeHandle,
+  useLayoutEffect,
   useContext,
   isValidElement,
   Children
@@ -837,7 +838,7 @@ function styleInject(css, ref) {
 }
 
 var css_248z$7 =
-  '.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: none;\n  border-radius: 4px;\n  font-family: "hellix-bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n  user-select: none;\n  outline: none;\n  max-width: 450px;\n  width: 100%;\n  height: 50px;\n  font-weight: 700;\n}\n.btn:focus-visible {\n  outline: 2px solid currentColor;\n  outline-offset: 2px;\n}\n.btn::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateX(-100%);\n  transition: transform 0.2s ease-in-out;\n}\n.btn__text {\n  position: relative;\n  z-index: 1;\n  transition: opacity 0.2s ease-in-out;\n}\n.btn__text--loading {\n  opacity: 0;\n}\n.btn__icon {\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.btn__icon--start {\n  margin-right: 4px;\n}\n.btn__icon--end {\n  margin-left: 4px;\n}\n.btn__icon svg {\n  width: 1em;\n  height: 1em;\n}\n.btn__spinner {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n}\n.btn__spinner-icon {\n  width: 1.2em;\n  height: 1.2em;\n  animation: spin 1s linear infinite;\n}\n.btn__spinner-icon circle {\n  animation: dash 1.5s ease-in-out infinite;\n}\n.btn--primary {\n  background-color: #fe0095;\n  color: #ffffff;\n}\n.btn--primary:hover:not(:disabled) {\n  background-color: rgb(203, 0, 119.0826771654);\n}\n.btn--primary:active:not(:disabled) {\n  background-color: rgb(177.5, 0, 104.124015748);\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(254, 0, 149, 0.2);\n}\n.btn--primary:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--secondary {\n  border: 2px solid #fe0095;\n  background-color: #ffffff;\n  color: #fe0095;\n}\n.btn--secondary:hover:not(:disabled) {\n  background-color: #e5e7eb;\n}\n.btn--secondary:disabled {\n  background-color: transparent !important;\n  cursor: not-allowed;\n  pointer-events: none;\n  color: #a9a9a9;\n  border: 2px solid #a9a9a9;\n}\n.btn--secondary:active:not(:disabled) {\n  background-color: #d1d5db;\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(107, 114, 128, 0.1);\n}\n.btn--secondary:focus-visible {\n  outline-color: #6b7280;\n}\n.btn--text {\n  background-color: transparent;\n  color: #007aff;\n}\n.btn--text:disabled {\n  color: #a9a9a9;\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: transparent !important;\n}\n.btn--text:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--small {\n  padding: 8px 16px;\n  font-size: 14px;\n  min-height: 36px;\n  gap: 6px;\n}\n.btn--medium {\n  padding: 12px 24px;\n  font-size: 16px;\n  min-height: 44px;\n  gap: 8px;\n}\n.btn--large {\n  padding: 16px 32px;\n  font-size: 18px;\n  min-height: 52px;\n  gap: 10px;\n}\n.btn--loading {\n  pointer-events: none;\n}\n.btn--full-width {\n  width: 100%;\n}\n.btn:disabled {\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: #a9a9a9;\n}\n.btn:disabled::before {\n  display: none;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dasharray: 1, 150;\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -35;\n  }\n  100% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -124;\n  }\n}\n@media (max-width: 768px) {\n  .btn--small {\n    padding: 10px 16px;\n    min-height: 40px;\n  }\n  .btn--medium {\n    padding: 14px 24px;\n    min-height: 48px;\n  }\n  .btn--large {\n    padding: 18px 32px;\n    min-height: 56px;\n  }\n}\n@media (max-width: 480px) {\n  .btn {\n    max-width: 100%;\n  }\n  .btn--small {\n    font-size: 14px;\n  }\n  .btn--medium {\n    font-size: 16px;\n  }\n  .btn--large {\n    font-size: 17px;\n  }\n}\n@media (prefers-contrast: high) {\n  .btn--primary {\n    border: 2px solid transparent;\n  }\n  .btn--primary:focus-visible {\n    outline-width: 3px;\n  }\n  .btn--secondary {\n    border: 2px solid #4b5563;\n  }\n  .btn--secondary:focus-visible {\n    outline-width: 3px;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .btn {\n    transition: none;\n  }\n  .btn::before {\n    display: none;\n  }\n  .btn:hover:not(:disabled) {\n    transform: none;\n  }\n  .btn:active:not(:disabled) {\n    transform: none;\n  }\n  .btn__spinner-icon {\n    animation: none;\n  }\n  .btn__spinner-icon circle {\n    animation: none;\n    stroke-dasharray: none;\n    stroke-dashoffset: 0;\n  }\n}';
+  '.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: none;\n  border-radius: 4px;\n  font-family: "hellix-bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  position: relative;\n  overflow: hidden;\n  white-space: nowrap;\n  user-select: none;\n  outline: none;\n  max-width: 450px;\n  width: auto;\n  font-weight: 700;\n}\n.btn:focus-visible {\n  outline: 2px solid currentColor;\n  outline-offset: 2px;\n}\n.btn::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateX(-100%);\n  transition: transform 0.2s ease-in-out;\n}\n.btn__text {\n  position: relative;\n  z-index: 1;\n  transition: opacity 0.2s ease-in-out;\n}\n.btn__text--loading {\n  opacity: 0;\n}\n.btn__icon {\n  display: inline-flex;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.btn__icon--start {\n  margin-right: 4px;\n}\n.btn__icon--end {\n  margin-left: 4px;\n}\n.btn__icon svg {\n  width: 1em;\n  height: 1em;\n}\n.btn__spinner {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n}\n.btn__spinner-icon {\n  width: 1.2em;\n  height: 1.2em;\n  animation: spin 1s linear infinite;\n}\n.btn__spinner-icon circle {\n  animation: dash 1.5s ease-in-out infinite;\n}\n.btn--primary {\n  background-color: #fe0095;\n  color: #ffffff;\n}\n.btn--primary:hover:not(:disabled) {\n  background-color: rgb(203, 0, 119.0826771654);\n}\n.btn--primary:active:not(:disabled) {\n  background-color: rgb(177.5, 0, 104.124015748);\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(254, 0, 149, 0.2);\n}\n.btn--primary:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--secondary {\n  border: 2px solid #fe0095;\n  background-color: #ffffff;\n  color: #fe0095;\n}\n.btn--secondary:hover:not(:disabled) {\n  background-color: #e5e7eb;\n}\n.btn--secondary:disabled {\n  background-color: transparent !important;\n  cursor: not-allowed;\n  pointer-events: none;\n  color: #a9a9a9;\n  border: 2px solid #a9a9a9;\n}\n.btn--secondary:active:not(:disabled) {\n  background-color: #d1d5db;\n  transform: translateY(0);\n  box-shadow: 0 2px 6px rgba(107, 114, 128, 0.1);\n}\n.btn--secondary:focus-visible {\n  outline-color: #6b7280;\n}\n.btn--text {\n  background-color: transparent;\n  color: #007aff;\n}\n.btn--text:disabled {\n  color: #a9a9a9;\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: transparent !important;\n}\n.btn--text:focus-visible {\n  outline-color: #fe0095;\n}\n.btn--small {\n  padding: 8px 16px;\n  font-size: 14px;\n  min-height: 36px;\n  gap: 6px;\n}\n.btn--medium {\n  padding: 12px 24px;\n  font-size: 16px;\n  min-height: 44px;\n  gap: 8px;\n}\n.btn--large {\n  padding: 16px 32px;\n  font-size: 18px;\n  min-height: 52px;\n  gap: 10px;\n}\n.btn--loading {\n  pointer-events: none;\n}\n.btn--full-width {\n  width: 100%;\n  max-width: 100%;\n}\n.btn--radius-pill {\n  border-radius: 50px;\n}\n.btn:disabled {\n  cursor: not-allowed;\n  pointer-events: none;\n  background-color: #a9a9a9;\n}\n.btn:disabled::before {\n  display: none;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dasharray: 1, 150;\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -35;\n  }\n  100% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -124;\n  }\n}\n@media (max-width: 768px) {\n  .btn--small {\n    padding: 10px 16px;\n    min-height: 40px;\n  }\n  .btn--medium {\n    padding: 14px 24px;\n    min-height: 48px;\n  }\n  .btn--large {\n    padding: 18px 32px;\n    min-height: 56px;\n  }\n}\n@media (max-width: 480px) {\n  .btn {\n    max-width: 100%;\n  }\n  .btn--small {\n    font-size: 14px;\n  }\n  .btn--medium {\n    font-size: 16px;\n  }\n  .btn--large {\n    font-size: 17px;\n  }\n}\n@media (prefers-contrast: high) {\n  .btn--primary {\n    border: 2px solid transparent;\n  }\n  .btn--primary:focus-visible {\n    outline-width: 3px;\n  }\n  .btn--secondary {\n    border: 2px solid #4b5563;\n  }\n  .btn--secondary:focus-visible {\n    outline-width: 3px;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .btn {\n    transition: none;\n  }\n  .btn::before {\n    display: none;\n  }\n  .btn:hover:not(:disabled) {\n    transform: none;\n  }\n  .btn:active:not(:disabled) {\n    transform: none;\n  }\n  .btn__spinner-icon {\n    animation: none;\n  }\n  .btn__spinner-icon circle {\n    animation: none;\n    stroke-dasharray: none;\n    stroke-dashoffset: 0;\n  }\n}';
 styleInject(css_248z$7);
 
 const Button$1 = React__default.forwardRef(
@@ -852,6 +853,7 @@ const Button$1 = React__default.forwardRef(
       className = '',
       startIcon,
       endIcon,
+      radius = 'pill',
       type = 'button',
       ...rest
     },
@@ -862,12 +864,14 @@ const Button$1 = React__default.forwardRef(
     const sizeClass = `${baseClass}--${size}`;
     const loadingClass = isLoading ? `${baseClass}--loading` : '';
     const fullWidthClass = fullWidth ? `${baseClass}--full-width` : '';
+    const radiusClass = radius === 'pill' ? `${baseClass}--radius-pill` : '';
     const combinedClassName = cn(
       baseClass,
       variantClass,
       sizeClass,
       loadingClass,
       fullWidthClass,
+      radiusClass,
       className
     );
     return jsxs('button', {
@@ -923,12 +927,16 @@ const Button$1 = React__default.forwardRef(
 Button$1.displayName = 'Button';
 
 var css_248z$6 =
-  '.toggle-switch {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n}\n.toggle-switch.disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n.toggle-switch__container {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.toggle-switch__input {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n  z-index: 99;\n}\n.toggle-switch__track {\n  width: 2.5rem;\n  height: 1.5rem;\n  background-color: #e5e7eb;\n  border-radius: 1.5rem;\n  transition: background-color 200ms ease-in-out;\n  border: 1px solid #f0f0f0;\n}\n.toggle-switch__input:checked + .toggle-switch__track {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n.toggle-switch__input:focus + .toggle-switch__track {\n  box-shadow: 0 0 0 2px rgba(254, 0, 149, 0.25);\n}\n.toggle-switch__thumb {\n  position: absolute;\n  top: 0.3rem;\n  left: 0.3rem;\n  width: 1rem;\n  height: 1rem;\n  background-color: #fe0095;\n  border-radius: 50%;\n  transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);\n  will-change: transform;\n}\n.toggle-switch__input:active + .toggle-switch__track .toggle-switch__thumb {\n  transform: scale(0.9);\n}\n.toggle-switch__input:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem);\n  background-color: white;\n}\n.toggle-switch__input:active:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem) scale(0.9);\n}\n.toggle-switch__label {\n  margin-left: 0.75rem;\n  font-size: 0.875rem;\n  font-weight: 500;\n  color: #a9a9a9;\n}';
+  '.toggle-switch {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n}\n.toggle-switch.disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n.toggle-switch__container {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.toggle-switch__control {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n}\n.toggle-switch__input {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n  z-index: 99;\n}\n.toggle-switch__track {\n  width: 2.5rem;\n  height: 1.5rem;\n  background-color: #e5e7eb;\n  border-radius: 1.5rem;\n  transition: background-color 200ms ease-in-out;\n  border: 1px solid #f0f0f0;\n}\n.toggle-switch__input:checked + .toggle-switch__track {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n.toggle-switch__input:focus + .toggle-switch__track {\n  box-shadow: 0 0 0 2px rgba(254, 0, 149, 0.25);\n}\n.toggle-switch__thumb {\n  position: absolute;\n  top: 0.3rem;\n  left: 0.3rem;\n  width: 1rem;\n  height: 1rem;\n  background-color: #fe0095;\n  border-radius: 50%;\n  transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);\n  will-change: transform;\n}\n.toggle-switch__input:active + .toggle-switch__track .toggle-switch__thumb {\n  transform: scale(0.9);\n}\n.toggle-switch__input:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem);\n  background-color: white;\n}\n.toggle-switch__input:active:checked + .toggle-switch__track .toggle-switch__thumb {\n  transform: translateX(1.005rem) scale(0.9);\n}\n.toggle-switch__label {\n  margin-left: 0.75rem;\n  font-size: 0.875rem;\n  font-weight: 500;\n  color: #a9a9a9;\n}';
 styleInject(css_248z$6);
 
 const ToggleComponent = forwardRef(
-  ({ id, className, onChange, labelPosition = 'right', checked, label, name, ...props }, ref) => {
-    const toggleId = id || useId$1();
+  (
+    { id, className, onChange, labelPosition = 'right', checked = false, label, name, ...props },
+    ref
+  ) => {
+    const generatedId = useId$1();
+    const toggleId = id ?? generatedId;
     return jsxs('label', {
       htmlFor: toggleId,
       className: 'toggle-switch__container',
@@ -937,7 +945,7 @@ const ToggleComponent = forwardRef(
           ? jsx$1('span', { className: 'toggle-switch__label', children: label })
           : null,
         jsxs('div', {
-          className: 'toggle-switch__container',
+          className: 'toggle-switch__control',
           children: [
             jsx$1('input', {
               ...props,
@@ -1079,16 +1087,6 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-
-/**
- * @license lucide-react v0.562.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const __iconNode$3 = [['path', { d: 'M20 6 9 17l-5-5', key: '1gmf2c' }]];
-const Check = createLucideIcon('check', __iconNode$3);
 
 /**
  * @license lucide-react v0.562.0 - ISC
@@ -2857,7 +2855,7 @@ var debounceExports = requireDebounce();
 var debounce$1 = /*@__PURE__*/ getDefaultExportFromCjs(debounceExports);
 
 var css_248z$5 =
-  '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .text-field-container {\n    max-width: 100%;\n  }\n  .text-field-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
+  '.text-field-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.text-field-container.full-width {\n  width: 100%;\n  max-width: 100%;\n}\n@media (max-width: 480px) {\n  .text-field-container .text-field-label {\n    font-size: 14px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 14px;\n  }\n}\n\n.text-field-container.borderless .input-field-wrapper {\n  border: none !important;\n  background: transparent !important;\n  box-shadow: none !important;\n  padding: 0 !important;\n}\n.text-field-container.borderless .text-field-input {\n  border: none !important;\n  background: transparent !important;\n  padding: 0 !important;\n  font-size: inherit;\n  font-family: inherit;\n}\n.text-field-container.borderless .text-field-input:focus {\n  outline: none !important;\n}\n.text-field-container.borderless .text-field-label {\n  display: none !important;\n}\n\n.input-field-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n}\n.input-field-wrapper.has-left-icon .text-field-label {\n  left: 30px;\n}\n.input-field-wrapper.has-right-icon .text-field-input {\n  padding-right: 40px;\n}\n.input-field-wrapper.focused {\n  border-color: black;\n}\n.input-field-wrapper.focused .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.shrink .text-field-input::placeholder {\n  color: #a9a9a9;\n}\n.input-field-wrapper.has-value {\n  border-color: black;\n}\n.input-field-wrapper.has-value .text-field-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.input-field-wrapper.error {\n  border-color: #f92929;\n}\n.input-field-wrapper.error .text-field-label {\n  color: #f92929;\n}\n.input-field-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.input-field-wrapper.disabled .text-field-label,\n.input-field-wrapper.disabled .text-field-input {\n  cursor: not-allowed;\n}\n.input-field-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.input-field-wrapper.outlined .text-field-label {\n  background-color: transparent;\n}\n.input-field-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.input-field-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.input-field-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .input-field-wrapper {\n    height: 45px;\n  }\n}\n\n.text-field-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.text-field-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.text-field-icon.clickable {\n  cursor: pointer;\n}\n.text-field-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.text-field-icon .icon {\n  transition: transform 0.2s ease;\n}\n.text-field-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .text-field-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.text-field-input {\n  height: 100%;\n  background: none;\n  padding: 8px 16px 6px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n}\n.text-field-input::placeholder {\n  color: transparent;\n}\n.text-field-input:focus::placeholder {\n  color: #9e9e9e;\n}\n@media (max-width: 480px) {\n  .text-field-input {\n    padding: 6px 12px 4px;\n    font-size: 14px;\n  }\n}\n\n.text-field-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .text-field-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.start-adornment {\n  font-size: 16px;\n  margin-right: 4px;\n}\n@media (max-width: 480px) {\n  .start-adornment {\n    font-size: 14px;\n  }\n}\n\n.end-adornment {\n  z-index: 1;\n  right: 12px;\n  font-size: 16px;\n}\n@media (max-width: 480px) {\n  .end-adornment {\n    font-size: 14px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.suggestions-list {\n  max-width: 450px;\n  width: 100%;\n  text-align: left;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-height: 200px;\n  margin: 8px 0 4px;\n  padding: 0;\n  list-style: none;\n  border-radius: 4px;\n  overflow-y: auto;\n  z-index: 1000;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n}\n@media (max-width: 768px) {\n  .suggestions-list {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .suggestions-list {\n    max-height: 180px;\n    margin: 6px 0 2px;\n  }\n}\n\n.suggestion-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  height: 50px;\n  padding: 0 16px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n}\n.suggestion-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.suggestion-item.selected {\n  background-color: #f5f5f5;\n}\n.suggestion-item:last-child {\n  border-bottom: none;\n}\n@media (max-width: 480px) {\n  .suggestion-item {\n    height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.suggestion-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n@media (max-width: 360px) {\n  .text-field-container .text-field-label {\n    font-size: 12px;\n  }\n  .text-field-container .text-field-input {\n    font-size: 12px;\n    padding: 4px 10px 2px;\n  }\n  .text-field-container .input-field-wrapper {\n    height: 40px;\n  }\n  .text-field-container .error-message,\n  .text-field-container .helper-text {\n    font-size: 10px;\n  }\n  .text-field-container .text-field-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .text-field-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .suggestion-item {\n    min-height: 44px; /* Minimum recommended touch target size */\n  }\n}';
 styleInject(css_248z$5);
 
 const InputField = forwardRef(
@@ -2886,6 +2884,8 @@ const InputField = forwardRef(
       fetchFunction,
       retryConfig = { maxAttempt: 5 },
       handleChange,
+      onValueChange,
+      enableShortcut = false,
       outlined = false,
       borderless = false,
       format,
@@ -2905,16 +2905,20 @@ const InputField = forwardRef(
     const [suggestionsVisible, setSuggestionsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isOffline, setIsOffline] = useState(!navigator.onLine);
-    const [retryAttempt, setRetryAttempt] = useState(0);
+    const retryAttemptRef = useRef(0);
     const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [displayText, setDisplayText] = useState(String(defaultValue ?? ''));
     const inputRef = useRef(null);
+    useImperativeHandle(ref, () => inputRef.current, []);
     const suggestionListRef = useRef(null);
+    const cursorRef = useRef(null);
+    const isFocusedRef = useRef(false);
     const currentValue = controlledValue !== undefined ? controlledValue : internalValue;
     const hasValue = Boolean(currentValue);
     const isControlled = controlledValue !== undefined;
-    const inputId = id || useId$1();
+    const generatedId = useId$1();
+    const inputId = id ?? generatedId;
     const networkManager = useMemo(() => NetworkManager.getInstance(), []);
     // Create a namespaced Trie instance for this component to prevent memory leaks
     const trieNamespace = useMemo(() => inputId, [inputId]);
@@ -3062,15 +3066,13 @@ const InputField = forwardRef(
           setInternalValue(isSearchable ? display : emitted);
         }
         handleChange?.(emitted);
-        const anyProps = props;
-        const fieldName = anyProps?.name;
-        anyProps?.onChange?.({ target: { value: emitted, name: fieldName } });
+        onValueChange?.(emitted);
         setSearchText('');
         setSuggestionsVisible(false);
         setSelectedSuggestionIndex(-1);
         inputRef.current?.focus();
       },
-      [isControlled, handleChange, isSearchable, props]
+      [isControlled, handleChange, onValueChange, isSearchable]
     );
     const handleKeyPress = useCallback(
       (event) => {
@@ -3162,7 +3164,14 @@ const InputField = forwardRef(
         handleChange?.(raw);
         if (formatOn === 'change') {
           const formatted = formatSafe(raw);
-          setDisplayText(formatted);
+          const isDeleting = nextDisplay.length < (displayText ?? '').length;
+          if (isDeleting && formatted.length >= (displayText ?? '').length);
+          else {
+            const selStart = event.target.selectionStart ?? 0;
+            const diff = formatted.length - nextDisplay.length;
+            cursorRef.current = Math.max(0, selStart + diff);
+            setDisplayText(formatted);
+          }
         }
       },
       [
@@ -3174,6 +3183,7 @@ const InputField = forwardRef(
         props,
         formatOn,
         formatSafe,
+        displayText,
         controlledValue,
         internalValue,
         rawOnChange,
@@ -3182,7 +3192,10 @@ const InputField = forwardRef(
     );
     const handleBlur = useCallback(
       (event) => {
+        isFocusedRef.current = false;
+        const blurTarget = event.target;
         setTimeout(() => {
+          if (isFocusedRef.current) return;
           setIsFocused(false);
           setSuggestionsVisible(false);
           setSelectedSuggestionIndex(-1);
@@ -3190,27 +3203,27 @@ const InputField = forwardRef(
             const raw = parseSafe(displayText ?? '');
             setDisplayText(formatSafe(raw));
           }
-          onBlur?.(event);
+          onBlur?.({ ...event, target: blurTarget });
         }, 150);
       },
       [onBlur, isSearchable, formatOn, parseSafe, displayText, formatSafe]
     );
     const handleFocus = useCallback(
       (event) => {
+        isFocusedRef.current = true;
         setIsFocused(true);
         onFocus?.(event);
         if (isSearchable) {
           setSuggestionsVisible(true);
           setSearchText(selectedFromValue?.label ?? String(currentValue ?? ''));
         } else if (formatOn === 'blur') {
-          const raw = parseSafe(displayText ?? '');
-          setDisplayText(String(raw ?? ''));
+          setDisplayText(String(currentValue ?? ''));
         }
       },
-      [onFocus, isSearchable, selectedFromValue, currentValue, formatOn, parseSafe, displayText]
+      [onFocus, isSearchable, selectedFromValue, currentValue, formatOn]
     );
     const fetchSuggestions = useCallback(async () => {
-      if (!fetchFunction || retryAttempt > retryConfig.maxAttempt) return;
+      if (!fetchFunction || retryAttemptRef.current > retryConfig.maxAttempt) return;
       const cacheKey = `suggestions-initial`;
       try {
         setIsLoading(true);
@@ -3222,11 +3235,11 @@ const InputField = forwardRef(
         const normalized = normalizeSuggestions(suggestionsResults);
         setOriginalFetchedSuggestions(normalized);
         setFilteredSuggestions(normalized);
-        setRetryAttempt(0);
+        retryAttemptRef.current = 0;
         setHasFetchedInitialData(true);
         normalized.forEach((item) => trie.insert(item.label));
       } catch (exception) {
-        setRetryAttempt((prev) => prev + 1);
+        retryAttemptRef.current += 1;
         if (isOffline) {
           const cached = networkManager.cache.get(cacheKey);
           if (cached?.length > 0) {
@@ -3238,7 +3251,7 @@ const InputField = forwardRef(
       } finally {
         setIsLoading(false);
       }
-    }, [fetchFunction, retryConfig, networkManager, isOffline, retryAttempt, normalizeSuggestions]);
+    }, [fetchFunction, retryConfig, networkManager, isOffline, normalizeSuggestions]);
     const renderSuggestions = useCallback((suggestion, query) => {
       if (!query) return jsx$1('span', { children: suggestion });
       const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -3253,6 +3266,7 @@ const InputField = forwardRef(
       });
     }, []);
     useEffect(() => {
+      if (!enableShortcut) return;
       const focusOnInput = (event) => {
         if (event.key === '/' && !isFocused) {
           event.preventDefault();
@@ -3261,7 +3275,7 @@ const InputField = forwardRef(
       };
       window.addEventListener('keydown', focusOnInput);
       return () => window.removeEventListener('keydown', focusOnInput);
-    }, [isFocused]);
+    }, [enableShortcut, isFocused]);
     useEffect(() => {
       const handleOnline = () => setIsOffline(false);
       const handleOffline = () => setIsOffline(true);
@@ -3272,7 +3286,7 @@ const InputField = forwardRef(
         window.removeEventListener('offline', handleOffline);
         handleFilterSuggestions.cancel();
       };
-    }, [isOffline]);
+    }, [handleFilterSuggestions]);
     useEffect(() => {
       if (fetchFunction && !hasFetchedInitialData) fetchSuggestions();
     }, [fetchFunction, hasFetchedInitialData, fetchSuggestions]);
@@ -3289,6 +3303,17 @@ const InputField = forwardRef(
         TrieManager.clear(trieNamespace);
       };
     }, [trieNamespace]);
+    useLayoutEffect(() => {
+      if (
+        cursorRef.current !== null &&
+        inputRef.current &&
+        document.activeElement === inputRef.current
+      ) {
+        const pos = cursorRef.current;
+        inputRef.current.setSelectionRange(pos, pos);
+        cursorRef.current = null;
+      }
+    });
     return jsxs('div', {
       className: cn(
         'text-field-container',
@@ -3314,7 +3339,7 @@ const InputField = forwardRef(
             jsx$1('input', {
               ...props,
               id: inputId,
-              ref: ref || inputRef,
+              ref: inputRef,
               className: cn('text-field-input', disabled ? 'disabled' : '', className),
               type: type,
               value: displayValue,
@@ -51532,7 +51557,8 @@ const DatePickerComponent = forwardRef(
     },
     ref
   ) => {
-    const inputId = id || useId$1();
+    const generatedId = useId$1();
+    const inputId = id ?? generatedId;
     const [open, setOpen] = useState(false);
     const [tempValue, setTempValue] = useState(value);
     const handleOpen = () => {
@@ -51616,6 +51642,8 @@ const Modal = React__default.forwardRef(
   ) => {
     const [isAnimating, setIsAnimating] = React__default.useState(false);
     const [shouldRender, setShouldRender] = React__default.useState(false);
+    const modalContentRef = React__default.useRef(null);
+    const previousFocusRef = React__default.useRef(null);
     const handleOverlayClick = React__default.useCallback(
       (e) => {
         if (closeOverlayClick && e.target === e.currentTarget) {
@@ -51632,26 +51660,56 @@ const Modal = React__default.forwardRef(
       },
       [isOpen, onClose]
     );
+    const FOCUSABLE_SELECTORS =
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const handleFocusTrap = React__default.useCallback((e) => {
+      if (e.key !== 'Tab' || !modalContentRef.current) return;
+      const focusable = Array.from(modalContentRef.current.querySelectorAll(FOCUSABLE_SELECTORS));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }, []);
     React__default.useEffect(() => {
+      let timer;
       if (isOpen) {
         setShouldRender(true);
         onOpen?.();
-        // Small delay to ensure DOM is ready before starting animation
-        const timer = setTimeout(() => setIsAnimating(true), 10);
+        timer = setTimeout(() => {
+          setIsAnimating(true);
+          previousFocusRef.current = document.activeElement;
+          const focusable = modalContentRef.current?.querySelectorAll(FOCUSABLE_SELECTORS);
+          focusable?.[0]?.focus();
+        }, 10);
         document.addEventListener('keydown', handleEscapekey);
+        document.addEventListener('keydown', handleFocusTrap);
         document.body.style.overflow = 'hidden';
-        return () => clearTimeout(timer);
       } else if (shouldRender) {
         setIsAnimating(false);
-        // Wait for animation to complete before unmounting
-        const timer = setTimeout(() => setShouldRender(false), 300);
-        return () => clearTimeout(timer);
+        timer = setTimeout(() => {
+          setShouldRender(false);
+          if (previousFocusRef.current instanceof HTMLElement) {
+            previousFocusRef.current.focus();
+          }
+        }, 300);
       }
       return () => {
+        if (timer) clearTimeout(timer);
         document.removeEventListener('keydown', handleEscapekey);
+        document.removeEventListener('keydown', handleFocusTrap);
         document.body.style.overflow = '';
       };
-    }, [isOpen, shouldRender, handleEscapekey]);
+    }, [isOpen, shouldRender, handleEscapekey, handleFocusTrap]);
     React__default.useImperativeHandle(ref, () => ({
       open: () => {},
       close: () => {
@@ -51668,17 +51726,20 @@ const Modal = React__default.forwardRef(
       ),
       role: 'dialog',
       'aria-modal': 'true',
+      'aria-labelledby': title ? 'modal-title' : undefined,
       children: jsx$1('div', {
         className: 'modal__overlay',
         onClick: handleOverlayClick,
         children: jsxs('div', {
           className: 'modal__content',
+          ref: modalContentRef,
           children: [
             (title || showCloseButton) &&
               jsxs('div', {
                 className: 'modal__header',
                 children: [
-                  title && jsx$1('h2', { className: 'modal__title', children: title }),
+                  title &&
+                    jsx$1('h2', { id: 'modal-title', className: 'modal__title', children: title }),
                   !title && showCloseButton && jsx$1('div', {}),
                   showCloseButton &&
                     jsx$1('button', {
@@ -51699,7 +51760,7 @@ const Modal = React__default.forwardRef(
 Modal.displayName = 'Modal Popup';
 
 var css_248z =
-  '.select-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.select-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .select-container {\n    max-width: 100%;\n  }\n  .select-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .select-container .select-label {\n    font-size: 14px;\n  }\n  .select-container .select-input {\n    font-size: 14px;\n  }\n}\n\n.select-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n  cursor: pointer;\n  background-color: white;\n}\n.select-wrapper.has-left-icon .select-label {\n  left: 30px;\n}\n.select-wrapper.has-right-icon .select-input {\n  padding-right: 40px;\n}\n.select-wrapper .selected-option-visual {\n  display: flex;\n  align-items: center;\n  padding-left: 12px;\n  flex-shrink: 0;\n}\n@media (max-width: 480px) {\n  .select-wrapper .selected-option-visual {\n    padding-left: 10px;\n  }\n}\n.select-wrapper.has-selected-visual .select-input {\n  padding-left: 4px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-input {\n    padding-left: 2px;\n  }\n}\n.select-wrapper.has-selected-visual .select-label {\n  left: 24px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-label {\n    left: 40px;\n  }\n}\n.select-wrapper.focused {\n  border-color: black;\n}\n.select-wrapper.focused .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.shrink .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.has-value {\n  border-color: black;\n}\n.select-wrapper.has-value .select-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.dropdown-visible {\n  border-color: black;\n}\n.select-wrapper.dropdown-visible .chevron-icon {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-wrapper.error {\n  border-color: #f92929;\n}\n.select-wrapper.error .select-label {\n  color: #f92929;\n}\n.select-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.select-wrapper.disabled .select-label,\n.select-wrapper.disabled .select-input {\n  cursor: not-allowed;\n}\n.select-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.select-wrapper.outlined .select-label {\n  background-color: transparent;\n}\n.select-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.select-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.select-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .select-wrapper {\n    height: 45px;\n  }\n}\n\n.select-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.select-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.chevron-icon {\n  right: 8px;\n  transition: transform 0.2s ease;\n  pointer-events: none;\n}\n.select-icon.chevron-icon.open {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-icon.clear-icon {\n  right: 32px;\n  z-index: 2;\n}\n.select-icon.clickable {\n  cursor: pointer;\n  z-index: 3;\n}\n.select-icon.clickable:hover {\n  color: #333333;\n}\n.select-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.select-icon .icon {\n  transition: transform 0.2s ease;\n}\n.select-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .select-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.select-input {\n  height: 100%;\n  background: none;\n  padding: 8px 40px 6px 12px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n  cursor: pointer;\n}\n.select-input[readonly] {\n  cursor: pointer;\n  user-select: none;\n}\n.select-input::placeholder {\n  color: #9e9e9e;\n}\n.select-input.disabled {\n  cursor: not-allowed;\n}\n@media (max-width: 480px) {\n  .select-input {\n    padding: 6px 36px 4px 12px;\n    font-size: 14px;\n  }\n}\n\n.select-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .select-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.dropdown-panel {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  max-width: 450px;\n  width: 100%;\n  margin: 8px 0 4px;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n  border-radius: 4px;\n  overflow: hidden;\n  z-index: 1000;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}\n@media (max-width: 768px) {\n  .dropdown-panel {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-panel {\n    margin: 6px 0 2px;\n  }\n}\n\n.dropdown-list {\n  max-height: 200px;\n  overflow-y: auto;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n@media (max-width: 480px) {\n  .dropdown-list {\n    max-height: 180px;\n  }\n}\n\n.dropdown-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  gap: 8px;\n  min-height: 50px;\n  padding: 0 12px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n  font-family: "hellix-regular";\n  font-size: 16px;\n  color: #333333;\n}\n.dropdown-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.dropdown-item.selected {\n  background-color: #f5f5f5;\n}\n.dropdown-item.active {\n  background-color: rgba(254, 0, 149, 0.1);\n  font-weight: 600;\n}\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n.dropdown-item.no-results {\n  cursor: default;\n  color: #9e9e9e;\n  justify-content: center;\n}\n.dropdown-item.no-results:hover {\n  background-color: transparent;\n}\n.dropdown-item.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.dropdown-item.category-header {\n  font-weight: 700;\n  font-family: "hellix-bold";\n  font-size: 14px;\n  text-transform: none;\n  letter-spacing: 0;\n  color: #333333;\n  background-color: #ffffff;\n  cursor: default;\n  min-height: 48px;\n  padding: 16px 12px 8px;\n  border-bottom: none;\n  pointer-events: none;\n  margin-top: 8px;\n}\n.dropdown-item.category-header:first-child {\n  margin-top: 0;\n}\n.dropdown-item.category-header:hover {\n  background-color: #ffffff;\n}\n@media (max-width: 480px) {\n  .dropdown-item.category-header {\n    min-height: 40px;\n    font-size: 13px;\n    padding: 12px 10px 6px;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-item {\n    min-height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.dropdown-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n.option-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  min-width: 20px;\n  flex-shrink: 0;\n  color: #757575;\n}\n.option-icon svg {\n  width: 20px;\n  height: 20px;\n}\n@media (max-width: 480px) {\n  .option-icon {\n    width: 18px;\n    height: 18px;\n    min-width: 18px;\n  }\n  .option-icon svg {\n    width: 18px;\n    height: 18px;\n  }\n}\n\n.option-image {\n  width: 36px;\n  height: 36px;\n  min-width: 36px;\n  flex-shrink: 0;\n  border-radius: 50%;\n  object-fit: cover;\n}\n@media (max-width: 480px) {\n  .option-image {\n    width: 32px;\n    height: 32px;\n    min-width: 32px;\n  }\n}\n\n.checkbox-indicator {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 18px;\n  height: 18px;\n  min-width: 18px;\n  border: 2px solid #a9a9a9;\n  border-radius: 3px;\n  background-color: white;\n  transition: all 0.2s ease;\n}\n.checkbox-indicator svg {\n  color: white;\n}\n@media (max-width: 480px) {\n  .checkbox-indicator {\n    width: 16px;\n    height: 16px;\n    min-width: 16px;\n  }\n  .checkbox-indicator svg {\n    width: 12px;\n    height: 12px;\n  }\n}\n\n.dropdown-item.active .checkbox-indicator {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n\n.loading-container {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #757575;\n}\n.loading-container .animate-spin {\n  animation: spin 1s linear infinite;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 360px) {\n  .select-container .select-label {\n    font-size: 12px;\n  }\n  .select-container .select-input {\n    font-size: 12px;\n    padding: 4px 32px 2px 10px;\n  }\n  .select-container .select-wrapper {\n    height: 40px;\n  }\n  .select-container .error-message,\n  .select-container .helper-text {\n    font-size: 10px;\n  }\n  .select-container .select-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .select-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .dropdown-item {\n    min-height: 44px;\n  }\n}';
+  '.select-container {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-direction: column;\n  width: 100%;\n  max-width: 450px;\n  position: relative;\n  font-family: "hellix-regular" !important;\n}\n.select-container.full-width {\n  width: 450px;\n}\n@media (max-width: 768px) {\n  .select-container {\n    max-width: 100%;\n  }\n  .select-container.full-width {\n    width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .select-container .select-label {\n    font-size: 14px;\n  }\n  .select-container .select-input {\n    font-size: 14px;\n  }\n}\n\n.select-wrapper {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 4px;\n  height: 50px;\n  width: 100%;\n  outline: none;\n  transition: padding 0.25s, border 0.25s ease;\n  border: 1px solid #a9a9a9;\n  color: #333333;\n  font-family: "hellix-regular";\n  cursor: pointer;\n  background-color: white;\n}\n.select-wrapper.has-left-icon .select-label {\n  left: 30px;\n}\n.select-wrapper.has-right-icon .select-input {\n  padding-right: 40px;\n}\n.select-wrapper .selected-option-visual {\n  display: flex;\n  align-items: center;\n  padding-left: 12px;\n  flex-shrink: 0;\n}\n@media (max-width: 480px) {\n  .select-wrapper .selected-option-visual {\n    padding-left: 10px;\n  }\n}\n.select-wrapper.has-selected-visual .select-input {\n  padding-left: 4px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-input {\n    padding-left: 2px;\n  }\n}\n.select-wrapper.has-selected-visual .select-label {\n  left: 24px;\n}\n@media (max-width: 480px) {\n  .select-wrapper.has-selected-visual .select-label {\n    left: 40px;\n  }\n}\n.select-wrapper.focused {\n  border-color: black;\n}\n.select-wrapper.focused .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.shrink .select-label {\n  color: black;\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.has-value {\n  border-color: black;\n}\n.select-wrapper.has-value .select-label {\n  transform: translateY(-25px) scale(0.75);\n}\n.select-wrapper.dropdown-visible {\n  border-color: black;\n}\n.select-wrapper.dropdown-visible .chevron-icon {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-wrapper.error {\n  border-color: #f92929;\n}\n.select-wrapper.error .select-label {\n  color: #f92929;\n}\n.select-wrapper.disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.select-wrapper.disabled .select-label,\n.select-wrapper.disabled .select-input {\n  cursor: not-allowed;\n}\n.select-wrapper.multiple {\n  height: auto;\n  min-height: 50px;\n  flex-wrap: wrap;\n  padding: 6px 40px 6px 8px;\n  gap: 4px;\n  align-items: center;\n  cursor: pointer;\n  box-sizing: border-box;\n}\n.select-wrapper.outlined {\n  border: none;\n  border-radius: 0;\n  border-bottom: 1px solid #a9a9a9;\n}\n.select-wrapper.outlined .select-label {\n  background-color: transparent;\n}\n.select-wrapper.outlined.error {\n  border-bottom: 1px solid #f92929;\n}\n.select-wrapper.outlined.focused {\n  border-bottom: 1px solid black;\n}\n.select-wrapper.outlined.has-value {\n  border-bottom: 1px solid black;\n}\n@media (max-width: 480px) {\n  .select-wrapper {\n    height: 45px;\n  }\n}\n\n.select-icon {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  color: #757575;\n  transition: color 0.2s ease, transform 0.2s ease;\n}\n.select-icon.left {\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.right {\n  position: absolute;\n  right: 12px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.select-icon.chevron-icon {\n  right: 8px;\n  transition: transform 0.2s ease;\n  pointer-events: none;\n}\n.select-icon.chevron-icon.open {\n  transform: translateY(-50%) rotate(180deg);\n}\n.select-icon.clear-icon {\n  right: 32px;\n  z-index: 2;\n}\n.select-icon.clickable {\n  cursor: pointer;\n  z-index: 3;\n}\n.select-icon.clickable:hover {\n  color: #333333;\n}\n.select-icon.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.select-icon .icon {\n  transition: transform 0.2s ease;\n}\n.select-icon .icon.disabled {\n  opacity: 0.5;\n}\n@media (max-width: 480px) {\n  .select-icon {\n    width: 20px;\n    height: 20px;\n  }\n}\n\n.select-input {\n  height: 100%;\n  background: none;\n  padding: 8px 40px 6px 12px;\n  border: none;\n  width: 100%;\n  caret-color: #fe0095;\n  outline: none;\n  font-size: 16px;\n  line-height: 1.5;\n  font-family: "hellix-regular";\n  color: #747474;\n  cursor: pointer;\n}\n.select-input[readonly] {\n  cursor: pointer;\n  user-select: none;\n}\n.select-input::placeholder {\n  color: #9e9e9e;\n}\n.select-input.disabled {\n  cursor: not-allowed;\n}\n@media (max-width: 480px) {\n  .select-input {\n    padding: 6px 36px 4px 12px;\n    font-size: 14px;\n  }\n}\n\n.multiple-content {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 4px;\n  align-items: center;\n  flex: 1;\n  min-width: 0;\n}\n\n.select-input.multiple-input {\n  height: auto;\n  min-width: 60px;\n  flex: 1;\n  padding: 2px 4px;\n  font-size: 13px;\n  width: auto;\n  border: none;\n  outline: none;\n  background: transparent;\n}\n\n.selected-tag {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  background-color: rgba(254, 0, 149, 0.08);\n  border: 1px solid rgba(254, 0, 149, 0.3);\n  border-radius: 4px;\n  padding: 2px 6px;\n  max-width: 140px;\n  flex-shrink: 0;\n}\n.selected-tag .selected-tag-label {\n  font-size: 12px;\n  color: #333333;\n  font-family: "hellix-regular";\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  max-width: 110px;\n}\n.selected-tag .selected-tag-remove {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  color: #a9a9a9;\n  flex-shrink: 0;\n  border-radius: 2px;\n  padding: 1px;\n}\n.selected-tag .selected-tag-remove:hover {\n  color: #fe0095;\n}\n\n.select-label {\n  position: absolute;\n  left: 8px;\n  top: 16px;\n  font-size: 16px;\n  color: #a9a9a9;\n  pointer-events: none;\n  transition: transform 0.2s ease, color 0.2s ease;\n  transform-origin: left top;\n  padding: 0 4px;\n  background-color: white;\n}\n@media (max-width: 480px) {\n  .select-label {\n    font-size: 14px;\n    top: 14px;\n  }\n}\n\n.error-message {\n  margin-top: 4px;\n  font-size: 16px;\n  color: #f92929;\n}\n@media (max-width: 480px) {\n  .error-message {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.helper-text {\n  color: #747474;\n  margin-top: 4px;\n  font-size: 14px;\n}\n@media (max-width: 480px) {\n  .helper-text {\n    font-size: 12px;\n    margin-top: 2px;\n  }\n}\n\n.dropdown-panel {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  width: 100%;\n  margin: 8px 0 4px;\n  background-color: #fff;\n  border: 1px solid #f0f0f0;\n  border-radius: 4px;\n  overflow: hidden;\n  z-index: 1000;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}\n@media (max-width: 768px) {\n  .dropdown-panel {\n    max-width: 100%;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-panel {\n    margin: 6px 0 2px;\n  }\n}\n\n.dropdown-list {\n  max-height: 200px;\n  overflow-y: auto;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n@media (max-width: 480px) {\n  .dropdown-list {\n    max-height: 180px;\n  }\n}\n\n.dropdown-item {\n  display: flex;\n  white-space: pre-wrap;\n  align-items: center;\n  gap: 8px;\n  min-height: 50px;\n  padding: 0 12px;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n  border-bottom: 1px solid #f9f9f9;\n  font-family: "hellix-regular";\n  font-size: 16px;\n  color: #333333;\n}\n.dropdown-item:hover {\n  background-color: rgba(72, 249, 254, 0.4);\n}\n.dropdown-item.selected {\n  background-color: #f5f5f5;\n}\n.dropdown-item.active {\n  background-color: rgba(254, 0, 149, 0.1);\n  font-weight: 600;\n}\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n.dropdown-item.no-results {\n  cursor: default;\n  color: #9e9e9e;\n  justify-content: center;\n}\n.dropdown-item.no-results:hover {\n  background-color: transparent;\n}\n.dropdown-item.disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  pointer-events: none;\n}\n.dropdown-item.category-header {\n  font-weight: 700;\n  font-family: "hellix-bold";\n  font-size: 14px;\n  text-transform: none;\n  letter-spacing: 0;\n  color: #333333;\n  background-color: #ffffff;\n  cursor: default;\n  min-height: 48px;\n  padding: 16px 12px 8px;\n  border-bottom: none;\n  pointer-events: none;\n  margin-top: 8px;\n}\n.dropdown-item.category-header:first-child {\n  margin-top: 0;\n}\n.dropdown-item.category-header:hover {\n  background-color: #ffffff;\n}\n@media (max-width: 480px) {\n  .dropdown-item.category-header {\n    min-height: 40px;\n    font-size: 13px;\n    padding: 12px 10px 6px;\n  }\n}\n@media (max-width: 480px) {\n  .dropdown-item {\n    min-height: 40px;\n    padding: 0 12px;\n    font-size: 14px;\n  }\n}\n\n.dropdown-item .highlight {\n  color: #fe0095;\n  font-weight: 700;\n  font-family: "hellix-bold";\n}\n\n.option-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  min-width: 20px;\n  flex-shrink: 0;\n  color: #757575;\n}\n.option-icon svg {\n  width: 20px;\n  height: 20px;\n}\n@media (max-width: 480px) {\n  .option-icon {\n    width: 18px;\n    height: 18px;\n    min-width: 18px;\n  }\n  .option-icon svg {\n    width: 18px;\n    height: 18px;\n  }\n}\n\n.option-image {\n  width: 36px;\n  height: 36px;\n  min-width: 36px;\n  flex-shrink: 0;\n  border-radius: 50%;\n  object-fit: cover;\n}\n@media (max-width: 480px) {\n  .option-image {\n    width: 32px;\n    height: 32px;\n    min-width: 32px;\n  }\n}\n\n.checkbox-indicator {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 18px;\n  height: 18px;\n  min-width: 18px;\n  border: 2px solid #a9a9a9;\n  border-radius: 3px;\n  background-color: white;\n  transition: all 0.2s ease;\n}\n.checkbox-indicator svg {\n  color: white;\n}\n@media (max-width: 480px) {\n  .checkbox-indicator {\n    width: 16px;\n    height: 16px;\n    min-width: 16px;\n  }\n  .checkbox-indicator svg {\n    width: 12px;\n    height: 12px;\n  }\n}\n\n.dropdown-item.active .checkbox-indicator {\n  background-color: #fe0095;\n  border-color: #fe0095;\n}\n\n.loading-container {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #757575;\n}\n.loading-container .animate-spin {\n  animation: spin 1s linear infinite;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 360px) {\n  .select-container .select-label {\n    font-size: 12px;\n  }\n  .select-container .select-input {\n    font-size: 12px;\n    padding: 4px 32px 2px 10px;\n  }\n  .select-container .select-wrapper {\n    height: 40px;\n  }\n  .select-container .error-message,\n  .select-container .helper-text {\n    font-size: 10px;\n  }\n  .select-container .select-icon {\n    width: 18px;\n    height: 18px;\n  }\n}\n@media (max-width: 768px) {\n  .select-icon.clickable {\n    min-width: 32px;\n    min-height: 32px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .dropdown-item {\n    min-height: 44px;\n  }\n}';
 styleInject(css_248z);
 
 const Select = forwardRef(
@@ -51739,8 +51800,6 @@ const Select = forwardRef(
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(defaultValue);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(-1);
-    const [filteredOptions, setFilteredOptions] = useState([]);
-    const [filteredCategories, setFilteredCategories] = useState([]);
     const [originalFetchedOptions, setOriginalFetchedOptions] = useState([]);
     const [originalFetchedCategories, setOriginalFetchedCategories] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -51750,6 +51809,7 @@ const Select = forwardRef(
     const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
     const [searchText, setSearchText] = useState('');
     const selectRef = useRef(null);
+    const containerRef = useRef(null);
     const dropdownListRef = useRef(null);
     const inputRef = useRef(null);
     const hasInitializedOptions = useRef(false);
@@ -51855,116 +51915,70 @@ const Select = forwardRef(
     }, [useCategories, allCategoriesForDisplay, allForDisplay, currentValue, multiple]);
     const displayValue = useMemo(() => {
       if (dropdownVisible && searchable) return searchText;
-      if (multiple && Array.isArray(currentValue)) {
-        return currentValue.length > 0 ? `${currentValue.length} selected` : '';
-      }
+      if (multiple) return '';
       return selectedOptions[0]?.label ?? '';
-    }, [dropdownVisible, searchable, searchText, multiple, currentValue, selectedOptions]);
+    }, [dropdownVisible, searchable, searchText, multiple, selectedOptions]);
     const getFlattenedOptions = useCallback((cats) => {
       return cats.flatMap((cat) => cat.options);
     }, []);
-    const handleFilterOptions = useMemo(() => {
-      return debounce$1((query) => {
-        const currentTrie = TrieManager.getOrCreate(trieNamespace);
-        if (useCategories) {
-          const allCats =
-            originalFetchedCategories.length > 0 ? originalFetchedCategories : categories;
-          if (query.trim()) {
-            const q = query.toLowerCase().trim();
-            const searchResults = currentTrie.search(query.trim(), {
-              maxDistance: 4,
-              matchType: 'partial'
-            });
-            // Collect all matching options with their scores
-            const allMatchedOptions = [];
-            allCats.forEach((cat) => {
-              cat.options.forEach((opt) => {
-                let score = 0;
-                const labelLower = opt.label.toLowerCase();
-                const valueLower = opt.value.toLowerCase();
-                // Exact match gets highest score
-                if (labelLower === q || valueLower === q) {
-                  score = 100;
-                }
-                // Starts with query gets high score
-                else if (labelLower.startsWith(q) || valueLower.startsWith(q)) {
-                  score = 80;
-                }
-                // Trie match gets medium-high score
-                else if (
-                  searchResults.some(
-                    (resultLabel) =>
-                      opt.label === resultLabel ||
-                      labelLower === resultLabel.toLowerCase() ||
-                      labelLower.includes(resultLabel.toLowerCase()) ||
-                      resultLabel.toLowerCase().includes(labelLower)
-                  )
-                ) {
-                  score = 60;
-                }
-                // Contains query gets medium score
-                else if (labelLower.includes(q) || valueLower.includes(q)) {
-                  score = 40;
-                }
-                if (score > 0) {
-                  allMatchedOptions.push({ option: opt, category: cat.category, score });
-                }
-              });
-            });
-            // Sort by score descending
-            allMatchedOptions.sort((a, b) => b.score - a.score);
-            // During search, show flat sorted list without category headers
-            // This ensures best matches appear at the top
-            const flatSortedOptions = allMatchedOptions.map(({ option }) => option);
-            setFilteredOptions(flatSortedOptions);
-            setFilteredCategories([]);
-          } else {
-            setFilteredCategories(allCats);
-            setFilteredOptions([]);
-          }
-        } else {
-          const allOpts =
-            originalFetchedOptions.length > 0 ? originalFetchedOptions : normalizeOptions(options);
-          if (query.trim()) {
-            const searchResults = currentTrie.search(query.trim(), {
-              maxDistance: 4,
-              matchType: 'partial'
-            });
-            const matched = [];
-            if (searchResults.length > 0) {
-              searchResults.forEach((resultLabel) => {
-                const hit = allOpts.find(
-                  (item) =>
-                    item.label === resultLabel ||
-                    item.label.toLowerCase() === resultLabel.toLowerCase() ||
-                    item.label.toLowerCase().includes(resultLabel.toLowerCase()) ||
-                    resultLabel.toLowerCase().includes(item.label.toLowerCase())
-                );
-                if (hit && !matched.find((o) => o.value === hit.value)) matched.push(hit);
-              });
-            }
-            if (matched.length === 0) {
-              const q = query.toLowerCase().trim();
-              setFilteredOptions(
-                allOpts.filter(
-                  (i) => i.label.toLowerCase().includes(q) || i.value.toLowerCase().includes(q)
-                )
-              );
-            } else {
-              setFilteredOptions(matched);
-            }
-          } else {
-            setFilteredOptions(allOpts);
-          }
+    const scoreMatch = useCallback((label, value, q) => {
+      const l = label.toLowerCase();
+      const v = value.toLowerCase();
+      if (l === q || v === q) return 100;
+      if (l.startsWith(q) || v.startsWith(q)) return 90;
+      if (l.includes(q) || v.includes(q)) return 70;
+      const labelWords = l.split(/\s+/);
+      const queryWords = q.split(/\s+/);
+      if (queryWords.every((qw) => labelWords.some((lw) => lw.startsWith(qw)))) return 50;
+      return 0;
+    }, []);
+    // filteredCategories: full category list when not searching; empty when searching
+    const filteredCategories = useMemo(() => {
+      if (!useCategories || searchText.trim()) return [];
+      return allCategoriesForDisplay;
+    }, [searchText, useCategories, allCategoriesForDisplay]);
+    // filteredOptions: flat filtered list for non-category mode, or flat search results in category mode
+    const filteredOptions = useMemo(() => {
+      const q = searchText.toLowerCase().trim();
+      if (useCategories) {
+        if (!q) return [];
+        const scored = allCategoriesForDisplay
+          .flatMap((cat) =>
+            cat.options.map((opt) => ({ opt, score: scoreMatch(opt.label, opt.value, q) }))
+          )
+          .filter(({ score }) => score > 0);
+        if (scored.length === 0) {
+          const trie = TrieManager.getOrCreate(trieNamespace);
+          const trieResults = new Set(
+            trie.search(q, { maxDistance: 1, matchType: 'partial' }).map((r) => r.toLowerCase())
+          );
+          return allCategoriesForDisplay.flatMap((cat) =>
+            cat.options.filter((opt) => trieResults.has(opt.label.toLowerCase()))
+          );
         }
-      }, 300);
+        scored.sort((a, b) => b.score - a.score);
+        return scored.map(({ opt }) => opt);
+      }
+      if (!q) return allForDisplay;
+      const scored = allForDisplay
+        .map((opt) => ({ opt, score: scoreMatch(opt.label, opt.value, q) }))
+        .filter(({ score }) => score > 0);
+      if (scored.length === 0) {
+        const trie = TrieManager.getOrCreate(trieNamespace);
+        const trieResults = new Set(
+          trie.search(q, { maxDistance: 1, matchType: 'partial' }).map((r) => r.toLowerCase())
+        );
+        return allForDisplay.filter((opt) => trieResults.has(opt.label.toLowerCase()));
+      }
+      scored.sort((a, b) => b.score - a.score);
+      return scored.map(({ opt }) => opt);
     }, [
+      searchText,
       useCategories,
-      originalFetchedCategories,
-      originalFetchedOptions,
-      categories,
-      options,
-      trieNamespace
+      allForDisplay,
+      allCategoriesForDisplay,
+      trieNamespace,
+      scoreMatch
     ]);
     const handleOptionSelect = useCallback(
       (selectedOpt) => {
@@ -51991,9 +52005,24 @@ const Select = forwardRef(
       },
       [multiple, currentValue, isControlled, onChange]
     );
+    const handleRemoveTag = useCallback(
+      (valueToRemove, event) => {
+        event.stopPropagation();
+        const currentValues = Array.isArray(currentValue) ? currentValue : [];
+        const newValues = currentValues.filter((v) => v !== valueToRemove);
+        if (!isControlled) {
+          setInternalValue(newValues);
+        }
+        onChange?.(newValues);
+      },
+      [currentValue, isControlled, onChange]
+    );
     const handleKeyPress = useCallback(
       (event) => {
-        const allOpts = useCategories ? getFlattenedOptions(filteredCategories) : filteredOptions;
+        const allOpts =
+          useCategories && filteredCategories.length > 0
+            ? getFlattenedOptions(filteredCategories)
+            : filteredOptions;
         switch (event.key) {
           case 'ArrowUp': {
             event.preventDefault();
@@ -52040,9 +52069,14 @@ const Select = forwardRef(
             break;
           }
           case 'Enter': {
-            if (dropdownVisible && selectedOptionIndex >= 0 && allOpts[selectedOptionIndex]) {
-              event.preventDefault();
-              handleOptionSelect(allOpts[selectedOptionIndex]);
+            event.preventDefault();
+            if (dropdownVisible) {
+              const targetIndex = selectedOptionIndex >= 0 ? selectedOptionIndex : 0;
+              const targetOpt = allOpts[targetIndex];
+              if (targetOpt) handleOptionSelect(targetOpt);
+            } else {
+              setDropdownVisible(true);
+              if (searchable) setTimeout(() => inputRef.current?.focus(), 0);
             }
             break;
           }
@@ -52092,15 +52126,13 @@ const Select = forwardRef(
             return;
           }
           setIsFocused(false);
-          if (!multiple) {
-            setDropdownVisible(false);
-          }
+          setDropdownVisible(false);
           setSelectedOptionIndex(-1);
           setSearchText('');
           onBlur?.(event);
         }, 150);
       },
-      [onBlur, multiple]
+      [onBlur]
     );
     const handleFocus = useCallback(
       (event) => {
@@ -52113,13 +52145,11 @@ const Select = forwardRef(
     const handleInputChange = useCallback(
       (event) => {
         if (!searchable) return;
-        const query = event.target.value;
-        setSearchText(query);
+        setSearchText(event.target.value);
         setDropdownVisible(true);
-        handleFilterOptions(query);
         setSelectedOptionIndex(-1);
       },
-      [searchable, handleFilterOptions]
+      [searchable]
     );
     const fetchOptions = useCallback(async () => {
       if (!fetchFunction || retryAttempt > retryConfig.maxAttempt) return;
@@ -52139,7 +52169,6 @@ const Select = forwardRef(
             options: normalizeOptions(cat.options || cat.items || [])
           }));
           setOriginalFetchedCategories(normalizedCats);
-          setFilteredCategories(normalizedCats);
           normalizedCats.forEach((cat) => {
             cat.options.forEach((item) => currentTrie.insert(item.label));
           });
@@ -52148,7 +52177,6 @@ const Select = forwardRef(
             Array.isArray(optionsResults) ? optionsResults : optionsResults?.data || []
           );
           setOriginalFetchedOptions(normalized);
-          setFilteredOptions(normalized);
           normalized.forEach((item) => currentTrie.insert(item.label));
         }
         setRetryAttempt(0);
@@ -52163,11 +52191,9 @@ const Select = forwardRef(
               options: normalizeOptions(cat.options)
             }));
             setOriginalFetchedCategories(normalizedCached);
-            setFilteredCategories(normalizedCached);
           } else if (cached?.length > 0) {
             const normalizedCached = normalizeOptions(cached);
             setOriginalFetchedOptions(normalizedCached);
-            setFilteredOptions(normalizedCached);
           }
         }
       } finally {
@@ -52213,51 +52239,59 @@ const Select = forwardRef(
       return () => {
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
-        handleFilterOptions.cancel();
       };
-    }, [handleFilterOptions]);
+    }, []);
+    useEffect(() => {
+      if (!dropdownVisible) return;
+      const handleClickOutside = (event) => {
+        if (containerRef.current && !containerRef.current.contains(event.target)) {
+          setDropdownVisible(false);
+          setSelectedOptionIndex(-1);
+          setSearchText('');
+          setIsFocused(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [dropdownVisible]);
     useEffect(() => {
       if (fetchFunction && !hasFetchedInitialData) fetchOptions();
     }, [fetchFunction, hasFetchedInitialData, fetchOptions]);
     useEffect(() => {
       if (!fetchFunction && !hasInitializedOptions.current) {
         hasInitializedOptions.current = true;
+        const currentTrie = TrieManager.getOrCreate(trieNamespace);
         if (useCategories) {
-          const currentTrie = TrieManager.getOrCreate(trieNamespace);
           categories.forEach((cat) => {
             cat.options.forEach((item) => currentTrie.insert(item.label));
           });
-          setFilteredCategories(categories);
         } else if (options.length > 0) {
-          const currentTrie = TrieManager.getOrCreate(trieNamespace);
-          const normalized = normalizeOptions(options);
-          normalized.forEach((item) => currentTrie.insert(item.label));
-          setFilteredOptions(normalized);
+          normalizeOptions(options).forEach((item) => currentTrie.insert(item.label));
         }
       }
-    }, [options, categories, fetchFunction, trieNamespace, useCategories]);
+    }, [options, categories, fetchFunction, trieNamespace, useCategories, normalizeOptions]);
     useEffect(() => {
       return () => {
         TrieManager.clear(trieNamespace);
       };
     }, [trieNamespace]);
+    const noResultsItem = jsx$1('li', {
+      role: 'option',
+      className: 'dropdown-item no-results',
+      children: isLoading
+        ? jsxs('div', {
+            className: 'loading-container',
+            children: [
+              jsx$1(LoaderCircle, { className: 'animate-spin', size: 16 }),
+              jsx$1('span', { children: 'Loading...' })
+            ]
+          })
+        : 'No Results'
+    });
     const renderOptions = () => {
-      if (useCategories) {
-        if (filteredCategories.length === 0) {
-          return jsx$1('li', {
-            role: 'option',
-            className: 'dropdown-item no-results',
-            children: isLoading
-              ? jsxs('div', {
-                  className: 'loading-container',
-                  children: [
-                    jsx$1(LoaderCircle, { className: 'animate-spin', size: 16 }),
-                    jsx$1('span', { children: 'Loading...' })
-                  ]
-                })
-              : 'No Results'
-          });
-        }
+      // Category mode with no active search: show grouped list
+      if (useCategories && !searchText.trim()) {
+        if (filteredCategories.length === 0) return noResultsItem;
         let globalIndex = 0;
         return filteredCategories.map((category, catIndex) =>
           jsxs(
@@ -52286,11 +52320,6 @@ const Select = forwardRef(
                       onClick: () => !option.disabled && handleOptionSelect(option),
                       onMouseEnter: () => setSelectedOptionIndex(currentGlobalIndex),
                       children: [
-                        multiple &&
-                          jsx$1('div', {
-                            className: 'checkbox-indicator',
-                            children: isSelected(option.value) && jsx$1(Check, { size: 14 })
-                          }),
                         renderOptionIcon(option),
                         renderHighlight(option.label, searchText)
                       ]
@@ -52304,21 +52333,8 @@ const Select = forwardRef(
           )
         );
       }
-      if (filteredOptions.length === 0) {
-        return jsx$1('li', {
-          role: 'option',
-          className: 'dropdown-item no-results',
-          children: isLoading
-            ? jsxs('div', {
-                className: 'loading-container',
-                children: [
-                  jsx$1(LoaderCircle, { className: 'animate-spin', size: 16 }),
-                  jsx$1('span', { children: 'Loading...' })
-                ]
-              })
-            : 'No Results'
-        });
-      }
+      // Flat list: non-category mode, or category mode during search
+      if (filteredOptions.length === 0) return noResultsItem;
       return filteredOptions.map((option, index) =>
         jsxs(
           'li',
@@ -52334,21 +52350,14 @@ const Select = forwardRef(
             'aria-disabled': option.disabled,
             onClick: () => !option.disabled && handleOptionSelect(option),
             onMouseEnter: () => setSelectedOptionIndex(index),
-            children: [
-              multiple &&
-                jsx$1('div', {
-                  className: 'checkbox-indicator',
-                  children: isSelected(option.value) && jsx$1(Check, { size: 14 })
-                }),
-              renderOptionIcon(option),
-              renderHighlight(option.label, searchText)
-            ]
+            children: [renderOptionIcon(option), renderHighlight(option.label, searchText)]
           },
           `${option.value}-${index}`
         )
       );
     };
     return jsxs('div', {
+      ref: containerRef,
       className: cn('select-container', fullWidth ? 'full-width' : ''),
       children: [
         jsxs('div', {
@@ -52387,37 +52396,96 @@ const Select = forwardRef(
               value: multiple ? JSON.stringify(currentValue) : String(currentValue),
               disabled: disabled
             }),
-            jsx$1('input', {
-              ref: inputRef,
-              type: 'text',
-              className: cn('select-input', disabled ? 'disabled' : '', className),
-              value: displayValue,
-              onChange: handleInputChange,
-              onFocus: handleFocus,
-              onBlur: handleBlur,
-              onKeyDown: handleKeyPress,
-              onClick: handleSelectClick,
-              disabled: disabled,
-              placeholder:
-                dropdownVisible && searchable
-                  ? 'Search...'
-                  : !hasValue && !dropdownVisible && (!label || shrink || isFocused)
-                    ? placeholder
-                    : '',
-              readOnly: !searchable,
-              role: 'combobox',
-              'aria-expanded': dropdownVisible,
-              'aria-haspopup': 'listbox',
-              'aria-controls': `${selectId}-listbox`,
-              'aria-labelledby': label ? `${selectId}-label` : undefined,
-              'aria-invalid': Boolean(error),
-              'aria-describedby':
-                cn(
-                  error ? `${selectId}-error` : undefined,
-                  helperText ? `${selectId}-helper` : undefined
-                ).trim() || undefined,
-              style: selectStyles
-            }),
+            multiple
+              ? jsxs('div', {
+                  className: 'multiple-content',
+                  children: [
+                    selectedOptions.map((option) =>
+                      jsxs(
+                        'div',
+                        {
+                          className: 'selected-tag',
+                          children: [
+                            jsx$1('span', {
+                              className: 'selected-tag-label',
+                              children: option.label
+                            }),
+                            jsx$1('div', {
+                              className: 'selected-tag-remove',
+                              onClick: (e) => handleRemoveTag(option.value, e),
+                              role: 'button',
+                              tabIndex: -1,
+                              'aria-label': `Remove ${option.label}`,
+                              children: jsx$1(X, { size: 10 })
+                            })
+                          ]
+                        },
+                        option.value
+                      )
+                    ),
+                    jsx$1('input', {
+                      ref: inputRef,
+                      type: 'text',
+                      className: cn(
+                        'select-input multiple-input',
+                        disabled ? 'disabled' : '',
+                        className
+                      ),
+                      value: displayValue,
+                      onChange: handleInputChange,
+                      onFocus: handleFocus,
+                      onBlur: handleBlur,
+                      onKeyDown: handleKeyPress,
+                      onClick: handleSelectClick,
+                      disabled: disabled,
+                      placeholder: !hasValue && (!label || shrink || isFocused) ? placeholder : '',
+                      readOnly: !searchable,
+                      role: 'combobox',
+                      'aria-expanded': dropdownVisible,
+                      'aria-haspopup': 'listbox',
+                      'aria-controls': `${selectId}-listbox`,
+                      'aria-labelledby': label ? `${selectId}-label` : undefined,
+                      'aria-invalid': Boolean(error),
+                      'aria-describedby':
+                        cn(
+                          error ? `${selectId}-error` : undefined,
+                          helperText ? `${selectId}-helper` : undefined
+                        ).trim() || undefined,
+                      style: selectStyles
+                    })
+                  ]
+                })
+              : jsx$1('input', {
+                  ref: inputRef,
+                  type: 'text',
+                  className: cn('select-input', disabled ? 'disabled' : '', className),
+                  value: displayValue,
+                  onChange: handleInputChange,
+                  onFocus: handleFocus,
+                  onBlur: handleBlur,
+                  onKeyDown: handleKeyPress,
+                  onClick: handleSelectClick,
+                  disabled: disabled,
+                  placeholder:
+                    dropdownVisible && searchable
+                      ? 'Search...'
+                      : !hasValue && !dropdownVisible && (!label || shrink || isFocused)
+                        ? placeholder
+                        : '',
+                  readOnly: !searchable,
+                  role: 'combobox',
+                  'aria-expanded': dropdownVisible,
+                  'aria-haspopup': 'listbox',
+                  'aria-controls': `${selectId}-listbox`,
+                  'aria-labelledby': label ? `${selectId}-label` : undefined,
+                  'aria-invalid': Boolean(error),
+                  'aria-describedby':
+                    cn(
+                      error ? `${selectId}-error` : undefined,
+                      helperText ? `${selectId}-helper` : undefined
+                    ).trim() || undefined,
+                  style: selectStyles
+                }),
             clearable &&
               hasValue &&
               jsx$1('div', {

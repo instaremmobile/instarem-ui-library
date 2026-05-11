@@ -8,4 +8,5 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   className?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  radius?: 'default' | 'pill';
 }
