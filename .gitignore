@@ -1,5 +1,8 @@
-dist
+
 node_modules
 .rollup.cache
 *storybook.log
 **/.DS_Store
+.vscode
+.idea
+coverage

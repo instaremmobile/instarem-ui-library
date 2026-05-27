@@ -1,5 +1,5 @@
 .checkbox-container {
-  font-family: "hellix-regular" !important;
+  font-family: 'hellix-regular' !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -9,6 +9,7 @@
     opacity: 0.6;
   }
 }
+
 .checkbox-input {
   position: absolute;
   opacity: 0;
@@ -21,15 +22,22 @@
   &:checked + .checkbox-custom {
     background-color: #fe0095;
     border-color: #fe0095;
+    // Add spring animation for checking
+    animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     &::after {
       opacity: 1;
+      // Delayed checkmark animation for better visual feedback
+      animation: checkmark-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
     }
   }
   &:indeterminate + .checkbox-custom {
     background-color: #fe0095;
     border-color: #fe0095;
+    // Add spring animation for indeterminate state
+    animation: checkbox-spring-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     &::before {
       opacity: 1;
+      animation: indeterminate-spring-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
     }
   }
   &:disabled + .checkbox-custom {
@@ -38,6 +46,7 @@
     cursor: not-allowed;
   }
 }
+
 .checkbox-custom {
   position: relative;
   width: 20px;
@@ -45,10 +54,12 @@
   border: 2px solid #333333;
   border-radius: 4px;
   background-color: white;
-  transition: all 0.2s ease;
+  // Enhanced transition with spring-like timing
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   flex-shrink: 0;
+
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 4px;
     left: 7px;
@@ -56,23 +67,27 @@
     height: 8px;
     border: solid white;
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg) scale(1);
+    transform: rotate(45deg) scale(0);
     opacity: 0;
-    transition: all 0.2s ease;
+    // Spring transition for checkmark
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 10px;
     height: 2px;
     background-color: white;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-    transition: all 0.2s ease;
+    // Spring transition for indeterminate line
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
+
 .checkbox-label {
   font-size: 14px;
   color: #333;
@@ -80,5 +95,91 @@
   user-select: none;
   &.disabled {
     color: #999;
+  }
+}
+
+// Spring animation keyframes
+@keyframes checkbox-spring-in {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmark-spring-in {
+  0% {
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate(45deg) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(45deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes indeterminate-spring-in {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkbox-spring-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .checkbox-custom {
+    transition: none;
+
+    &::after,
+    &::before {
+      transition: none;
+    }
+  }
+
+  .checkbox-input {
+    &:checked + .checkbox-custom,
+    &:indeterminate + .checkbox-custom {
+      animation: none;
+
+      &::after,
+      &::before {
+        animation: none;
+      }
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .checkbox-custom {
+    border-width: 3px;
   }
 }

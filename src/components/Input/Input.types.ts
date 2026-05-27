@@ -1,26 +1,30 @@
-import { RetryConfig } from "@lib";
+import { RetryConfig } from '@lib';
 
-export interface InputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string | undefined;
   error?: string | undefined;
   shrink?: boolean;
   helperText?: string | undefined;
   startAdornment?: IconProps;
   endAdornment?: IconProps;
-  onIconClick?: (
-    position: "left" | "right",
-    event: React.MouseEvent<HTMLDivElement>,
-  ) => void;
+  onIconClick?: (position: 'left' | 'right', event: React.MouseEvent<HTMLDivElement>) => void;
   iconSize?: number;
   clearable?: boolean;
   fullWidth?: boolean;
-  suggestions?: string[];
+  suggestions?: SuggestionType[];
   isSearchable?: boolean;
   fetchFunction?: () => Promise<unknown>;
   retryConfig?: Partial<RetryConfig>;
   handleChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
+  enableShortcut?: boolean;
   outlined?: boolean;
+  format?: (value: any) => string;
+  parse?: (display: string) => any;
+  formatOn?: 'change' | 'blur' | 'none';
+  borderless?: boolean;
+  rawOnChange?: boolean;
+  maxRawLength?: number;
 }
 
 export interface IconProps {
@@ -30,3 +34,10 @@ export interface IconProps {
   disabled?: boolean;
   className?: string;
 }
+
+export interface SuggestionTypeObject {
+  label: string;
+  value: string;
+}
+
+export type SuggestionType = SuggestionTypeObject;

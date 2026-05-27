@@ -6,15 +6,10 @@
   width: 100%;
   max-width: 450px;
   position: relative;
-  font-family: "hellix-regular" !important;
+  font-family: 'hellix-regular' !important;
   &.full-width {
-    width: 450px;
-  }
-  @media (max-width: 768px) {
+    width: 100%;
     max-width: 100%;
-    &.full-width {
-      width: 100%;
-    }
   }
   @media (max-width: 480px) {
     .text-field-label {
@@ -23,6 +18,30 @@
     .text-field-input {
       font-size: 14px;
     }
+  }
+}
+
+.text-field-container.borderless {
+  .input-field-wrapper {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .text-field-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: inherit;
+    font-family: inherit;
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+  .text-field-label {
+    display: none !important;
   }
 }
 
@@ -39,7 +58,7 @@
     border 0.25s ease;
   border: 1px solid #a9a9a9;
   color: #333333;
-  font-family: "hellix-regular";
+  font-family: 'hellix-regular';
 
   &.has-left-icon .text-field-label {
     left: 30px;
@@ -166,7 +185,7 @@
   outline: none;
   font-size: 16px;
   line-height: 1.5;
-  font-family: "hellix-regular";
+  font-family: 'hellix-regular';
   color: #747474;
 
   &::placeholder {
@@ -293,7 +312,7 @@
 .suggestion-item .highlight {
   color: #fe0095;
   font-weight: 700;
-  font-family: "hellix-bold";
+  font-family: 'hellix-bold';
 }
 
 @media (max-width: 360px) {

@@ -1,30 +1,32 @@
-import React from "react";
-import { cn } from "@lib";
-import { ButtonProps } from "./Button.types";
-import "./button-styles.scss";
+import React from 'react';
+import { cn } from '@lib';
+import { ButtonProps } from './Button.types';
+import './button-styles.scss';
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      variant = "primary",
-      size = "medium",
+      variant = 'primary',
+      size = 'medium',
       isLoading = false,
       disabled = false,
       fullWidth = false,
-      className = "",
+      className = '',
       startIcon,
       endIcon,
-      type = "button",
+      radius = 'pill',
+      type = 'button',
       ...rest
     },
-    ref,
+    ref
   ) => {
-    const baseClass = "btn";
+    const baseClass = 'btn';
     const variantClass = `${baseClass}--${variant}`;
     const sizeClass = `${baseClass}--${size}`;
-    const loadingClass = isLoading ? `${baseClass}--loading` : "";
-    const fullWidthClass = fullWidth ? `${baseClass}--full-width` : "";
+    const loadingClass = isLoading ? `${baseClass}--loading` : '';
+    const fullWidthClass = fullWidth ? `${baseClass}--full-width` : '';
+    const radiusClass = radius === 'pill' ? `${baseClass}--radius-pill` : '';
 
     const combinedClassName = cn(
       baseClass,
@@ -32,7 +34,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sizeClass,
       loadingClass,
       fullWidthClass,
-      className,
+      radiusClass,
+      className
     );
 
     return (
@@ -66,9 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             {startIcon}
           </span>
         )}
-        <span className={`btn__text ${isLoading ? "btn__text--loading" : ""}`}>
-          {children}
-        </span>
+        <span className={`btn__text ${isLoading ? 'btn__text--loading' : ''}`}>{children}</span>
         {endIcon && !isLoading && (
           <span className="btn__icon btn__icon--end" aria-hidden="true">
             {endIcon}
@@ -76,8 +77,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
-  },
+  }
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';
 export default Button;

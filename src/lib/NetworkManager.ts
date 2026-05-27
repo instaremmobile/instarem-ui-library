@@ -1,4 +1,4 @@
-import { CacheManager } from "./CacheManager";
+import { CacheManager } from './CacheManager';
 
 export interface RetryConfig {
   maxAttempt: number;
@@ -17,7 +17,7 @@ export class NetworkManager {
     maxAttempt: 5,
     baseDelay: 1000,
     maxDelay: 10000,
-    jitter: true,
+    jitter: true
   };
 
   constructor() {
@@ -33,8 +33,8 @@ export class NetworkManager {
   }
 
   private setupNetworkListeners(): void {
-    window.addEventListener("online", this.handleOnline.bind(this));
-    window.addEventListener("offline", this.handleOffline.bind(this));
+    window.addEventListener('online', this.handleOnline.bind(this));
+    window.addEventListener('offline', this.handleOffline.bind(this));
   }
 
   private async handleOnline(): Promise<void> {
@@ -53,7 +53,7 @@ export class NetworkManager {
         try {
           await callback();
         } catch (error) {
-          console.error("Retry queue processing error", error);
+          console.error('Retry queue processing error', error);
         }
       }
       if (callbacks.length === 0) {
@@ -63,10 +63,7 @@ export class NetworkManager {
   }
 
   private calculateDelay(attempt: number, config: RetryConfig): number {
-    const exponentialDelay = Math.min(
-      config.maxDelay,
-      config.baseDelay * Math.pow(2, attempt),
-    );
+    const exponentialDelay = Math.min(config.maxDelay, config.baseDelay * Math.pow(2, attempt));
     if (!config.jitter) return exponentialDelay;
     return exponentialDelay * (0.5 + Math.random() * 0.5);
   }
@@ -74,7 +71,7 @@ export class NetworkManager {
   async fetchWithRetry<T>(
     key: string,
     fetchFn: () => Promise<T>,
-    config: Partial<RetryConfig> = {},
+    config: Partial<RetryConfig> = {}
   ): Promise<T> {
     const retryConfig = { ...this.defaultRetryConfig, ...config };
     let attempt = 0;
@@ -86,11 +83,9 @@ export class NetworkManager {
         if (!this.isOnline) {
           const queuedKey = `${key}-${Date.now()}`;
           const queuedCallbacks = this.retryQueue.get(queuedKey) || [];
-          queuedCallbacks?.push(async () =>
-            this.fetchWithRetry(key, fetchFn, config),
-          );
+          queuedCallbacks?.push(async () => this.fetchWithRetry(key, fetchFn, config));
           this.retryQueue.set(queuedKey, queuedCallbacks);
-          throw new Error("Network is offline");
+          throw new Error('Network is offline');
         }
         const data = await fetchFn();
         this.cache.set(key, data);
@@ -101,10 +96,10 @@ export class NetworkManager {
           throw error;
         }
         await new Promise((resolve) =>
-          setTimeout(resolve, this.calculateDelay(attempt, retryConfig)),
+          setTimeout(resolve, this.calculateDelay(attempt, retryConfig))
         );
       }
     }
-    throw new Error("Max retry attempts reached");
+    throw new Error('Max retry attempts reached');
   }
 }

@@ -1,35 +1,27 @@
-import React, { useId, memo, forwardRef } from "react";
-import { cn } from "@lib";
-import { ToggleProps } from "./Toggle.types";
-import "./toggle-styles.scss";
+import React, { useId, memo, forwardRef } from 'react';
+import { cn } from '@lib';
+import { ToggleProps } from './Toggle.types';
+import './toggle-styles.scss';
 
 export const ToggleComponent = forwardRef<HTMLInputElement, ToggleProps>(
   (
-    {
-      id,
-      className,
-      onChange,
-      labelPosition = "right",
-      checked,
-      label,
-      name,
-      ...props
-    },
-    ref,
+    { id, className, onChange, labelPosition = 'right', checked = false, label, name, ...props },
+    ref
   ) => {
-    const toggleId = id || useId();
+    const generatedId = useId();
+    const toggleId = id ?? generatedId;
     return (
       <label htmlFor={toggleId} className="toggle-switch__container">
-        {label && labelPosition === "left" ? (
+        {label && labelPosition === 'left' ? (
           <span className="toggle-switch__label">{label}</span>
         ) : null}
-        <div className="toggle-switch__container">
+        <div className="toggle-switch__control">
           <input
             {...props}
             id={toggleId}
             ref={ref}
             type="checkbox"
-            className={cn("toggle-switch__input", className)}
+            className={cn('toggle-switch__input', className)}
             checked={checked}
             name={name}
             onChange={(event) => onChange?.(event.target.checked)}
@@ -38,14 +30,14 @@ export const ToggleComponent = forwardRef<HTMLInputElement, ToggleProps>(
             <div className="toggle-switch__thumb"></div>
           </div>
         </div>
-        {label && labelPosition === "right" ? (
+        {label && labelPosition === 'right' ? (
           <span className="toggle-switch__label">{label}</span>
         ) : null}
       </label>
     );
-  },
+  }
 );
 
-ToggleComponent.displayName = "Toggle";
+ToggleComponent.displayName = 'Toggle';
 const Toggle = memo(ToggleComponent);
 export { Toggle };

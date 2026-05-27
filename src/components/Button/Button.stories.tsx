@@ -1,95 +1,95 @@
-import React from "react";
-import { KeySquareIcon, LogIn, PlusIcon } from "lucide-react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import React from 'react';
+import { KeySquareIcon, LogIn, PlusIcon } from 'lucide-react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
-import Button from "./Button";
+import Button from './Button';
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: 'centered'
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
-  args: { onClick: fn() },
+  args: { onClick: fn() }
 };
 export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    children: "Button",
-  },
+    children: 'Button'
+  }
 };
 
 export const Secondary: Story = {
   args: {
-    children: "Add",
-    variant: "secondary",
-  },
+    children: 'Add',
+    variant: 'secondary'
+  }
 };
 
 export const Text: Story = {
   args: {
-    children: "Text Button",
-    variant: "text",
-  },
+    children: 'Text Button',
+    variant: 'text'
+  }
 };
 
 export const Large: Story = {
   args: {
-    children: "Button",
-    size: "large",
-  },
+    children: 'Button',
+    size: 'large'
+  }
 };
 
 export const FullWidth: Story = {
   args: {
-    children: "Button",
-    fullWidth: true,
-  },
+    children: 'Button',
+    fullWidth: true
+  }
 };
 export const WithStartIcon: Story = {
   args: {
-    children: "Text Button",
-    variant: "primary",
-    startIcon: <KeySquareIcon />,
-  },
+    children: 'Text Button',
+    variant: 'primary',
+    startIcon: <KeySquareIcon />
+  }
 };
 
 export const WithEndIcon: Story = {
   args: {
-    children: "Text Button",
-    variant: "primary",
-    endIcon: <KeySquareIcon />,
-  },
+    children: 'Text Button',
+    variant: 'primary',
+    endIcon: <KeySquareIcon />
+  }
 };
 
 export const IsLoading: Story = {
   args: {
-    children: "Text Button",
-    variant: "primary",
-    isLoading: true,
-  },
+    children: 'Text Button',
+    variant: 'primary',
+    isLoading: true
+  }
 };
 export const AllVariants: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        alignItems: 'center'
       }}
     >
       <div
         style={{
-          display: "flex",
-          gap: "16px",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          display: 'flex',
+          gap: '16px',
+          flexWrap: 'wrap',
+          justifyContent: 'center'
         }}
       >
         <Button variant="primary">Primary</Button>
@@ -98,10 +98,10 @@ export const AllVariants: Story = {
       </div>
       <div
         style={{
-          display: "flex",
-          gap: "16px",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          display: 'flex',
+          gap: '16px',
+          flexWrap: 'wrap',
+          justifyContent: 'center'
         }}
       >
         <Button variant="primary" isLoading>
@@ -122,33 +122,29 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: "All button variants and states showcase",
-      },
-    },
-  },
+        story: 'All button variants and states showcase'
+      }
+    }
+  }
 };
 export const AccessibilityExamples: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-        width: "100%",
-        maxWidth: "450px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        width: '100%',
+        maxWidth: '450px'
       }}
     >
-      <Button
-        variant="primary"
-        aria-label="Submit form"
-        title="Submit the current form"
-      >
+      <Button variant="primary" aria-label="Submit form" title="Submit the current form">
         Submit
       </Button>
       <Button variant="secondary" aria-describedby="help-text" disabled>
         Disabled Action
       </Button>
-      <p id="help-text" style={{ fontSize: "14px", color: "#666", margin: 0 }}>
+      <p id="help-text" style={{ fontSize: '14px', color: '#666', margin: 0 }}>
         This button is disabled because the form is incomplete.
       </p>
       <Button variant="text" isLoading aria-label="Saving changes, please wait">
@@ -159,22 +155,21 @@ export const AccessibilityExamples: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Examples showing proper accessibility attributes and ARIA labels",
-      },
-    },
-  },
+        story: 'Examples showing proper accessibility attributes and ARIA labels'
+      }
+    }
+  }
 };
 export const ResponsiveShowcase: Story = {
   render: () => (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "16px",
-        width: "100%",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '16px',
+        width: '100%'
       }}
     >
       <Button variant="primary" size="small" fullWidth>
@@ -192,11 +187,11 @@ export const ResponsiveShowcase: Story = {
     </div>
   ),
   parameters: {
-    layout: "padded",
+    layout: 'padded',
     docs: {
       description: {
-        story: "Responsive button showcase with different sizes and full width",
-      },
-    },
-  },
+        story: 'Responsive button showcase with different sizes and full width'
+      }
+    }
+  }
 };

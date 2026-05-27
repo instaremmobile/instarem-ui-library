@@ -1,7 +1,7 @@
-import React from "react";
-import { cn } from "@lib";
-import { RadioButtonProps } from "./RadioButton.types";
-import "./radio-button.scss";
+import React from 'react';
+import { cn } from '@lib';
+import { RadioButtonProps } from './RadioButton.types';
+import './radio-button.scss';
 
 const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (
@@ -11,17 +11,17 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       checked = false,
       disabled = false,
       label,
-      className = "",
-      size = "medium",
-      variant = "primary",
+      className = '',
+      size = 'medium',
+      variant = 'primary',
       onChange,
       onFocus,
       onBlur,
-      "aria-label": ariaLabel,
-      "aria-describedby": ariaDescribedBy,
+      'aria-label': ariaLabel,
+      'aria-describedby': ariaDescribedBy,
       ...props
     },
-    ref,
+    ref
   ) => {
     const id = React.useId();
     const inputId = `radio-${id}`;
@@ -34,26 +34,22 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       // Handle arrow key navigation within radio groups
       if (
-        event.key === "ArrowUp" ||
-        event.key === "ArrowDown" ||
-        event.key === "ArrowLeft" ||
-        event.key === "ArrowRight"
+        event.key === 'ArrowUp' ||
+        event.key === 'ArrowDown' ||
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight'
       ) {
         event.preventDefault();
 
         const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
         const radioArray = Array.from(radioGroup) as HTMLInputElement[];
-        const currentIndex = radioArray.findIndex(
-          (radio) => radio === event.target,
-        );
+        const currentIndex = radioArray.findIndex((radio) => radio === event.target);
 
         let nextIndex;
-        if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-          nextIndex =
-            currentIndex > 0 ? currentIndex - 1 : radioArray.length - 1;
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+          nextIndex = currentIndex > 0 ? currentIndex - 1 : radioArray.length - 1;
         } else {
-          nextIndex =
-            currentIndex < radioArray.length - 1 ? currentIndex + 1 : 0;
+          nextIndex = currentIndex < radioArray.length - 1 ? currentIndex + 1 : 0;
         }
 
         const nextRadio = radioArray[nextIndex];
@@ -67,12 +63,12 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
     return (
       <div
         className={cn(
-          "radio-button",
+          'radio-button',
           `radio-button--${size}`,
           `radio-button--${variant}`,
-          disabled ? "radio-button--disabled" : "",
-          checked ? "radio-button--checked" : "",
-          className,
+          disabled ? 'radio-button--disabled' : '',
+          checked ? 'radio-button--checked' : '',
+          className
         )}
       >
         <input
@@ -100,8 +96,8 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
         </label>
       </div>
     );
-  },
+  }
 );
 
-RadioButton.displayName = "RadioButton";
+RadioButton.displayName = 'RadioButton';
 export default RadioButton;

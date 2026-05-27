@@ -5,5 +5,5 @@ export const COLORS = {
   colorBlack: '#000',
   colorLinkText: '#007AFF',
   colorError: '#f92929',
-  colorBorderGrey: '#a9a9a9',
+  colorBorderGrey: '#a9a9a9'
 };

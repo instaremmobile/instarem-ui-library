@@ -1,164 +1,158 @@
-import React from "react";
-import { render, screen, act } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import RadioButton from "./RadioButton";
+import React from 'react';
+import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
+import RadioButton from './RadioButton';
 
-jest.mock("@lib", () => ({
-  cn: (...classes: string[]) => classes.filter(Boolean).join(" "),
+jest.mock('@lib', () => ({
+  cn: (...classes: string[]) => classes.filter(Boolean).join(' ')
 }));
 
-describe("RadioButton Component", () => {
+describe('RadioButton Component', () => {
   const defaultProps = {
-    name: "test-radio",
-    value: "test-value",
-    label: "Test Radio Button",
+    name: 'test-radio',
+    value: 'test-value',
+    label: 'Test Radio Button'
   };
 
-  describe("Basic Rendering", () => {
-    test("renders radio button with label", () => {
+  describe('Basic Rendering', () => {
+    test('renders radio button with label', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const radioButton = screen.getByRole("radio");
-      const label = screen.getByText("Test Radio Button");
+      const radioButton = screen.getByRole('radio');
+      const label = screen.getByText('Test Radio Button');
 
       expect(radioButton).toBeInTheDocument();
       expect(label).toBeInTheDocument();
     });
 
-    test("renders without label when label prop is not provided", () => {
+    test('renders without label when label prop is not provided', () => {
       render(<RadioButton name="test" value="test" />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       expect(radioButton).toBeInTheDocument();
-      expect(screen.queryByText("Test Radio Button")).not.toBeInTheDocument();
+      expect(screen.queryByText('Test Radio Button')).not.toBeInTheDocument();
     });
 
-    test("has correct name and value attributes", () => {
+    test('has correct name and value attributes', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const radioButton = screen.getByRole("radio");
-      expect(radioButton).toHaveAttribute("name", "test-radio");
-      expect(radioButton).toHaveAttribute("value", "test-value");
+      const radioButton = screen.getByRole('radio');
+      expect(radioButton).toHaveAttribute('name', 'test-radio');
+      expect(radioButton).toHaveAttribute('value', 'test-value');
     });
 
-    test("generates unique id for each instance", () => {
+    test('generates unique id for each instance', () => {
       render(
         <div>
           <RadioButton name="test1" value="value1" label="Label 1" />
           <RadioButton name="test2" value="value2" label="Label 2" />
-        </div>,
+        </div>
       );
 
-      const radioButtons = screen.getAllByRole("radio");
-      expect(radioButtons[0]).toHaveAttribute("id");
-      expect(radioButtons[1]).toHaveAttribute("id");
+      const radioButtons = screen.getAllByRole('radio');
+      expect(radioButtons[0]).toHaveAttribute('id');
+      expect(radioButtons[1]).toHaveAttribute('id');
       expect(radioButtons[0].id).not.toBe(radioButtons[1].id);
     });
   });
 
-  describe("Checked State", () => {
-    test("is unchecked by default", () => {
+  describe('Checked State', () => {
+    test('is unchecked by default', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       expect(radioButton).not.toBeChecked();
     });
 
-    test("can be checked when checked prop is true", () => {
+    test('can be checked when checked prop is true', () => {
       render(<RadioButton {...defaultProps} checked={true} />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       expect(radioButton).toBeChecked();
     });
 
-    test("applies checked class when checked", () => {
+    test('applies checked class when checked', () => {
       render(<RadioButton {...defaultProps} checked={true} />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--checked");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--checked');
     });
   });
 
-  describe("Disabled State", () => {
-    test("is enabled by default", () => {
+  describe('Disabled State', () => {
+    test('is enabled by default', () => {
       render(<RadioButton {...defaultProps} />);
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       expect(radioButton).not.toBeDisabled();
     });
 
-    test("can be disabled when disabled prop is true", () => {
+    test('can be disabled when disabled prop is true', () => {
       render(<RadioButton {...defaultProps} disabled={true} />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       expect(radioButton).toBeDisabled();
     });
 
-    test("applies disabled class when disabled", () => {
+    test('applies disabled class when disabled', () => {
       render(<RadioButton {...defaultProps} disabled={true} />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--disabled");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--disabled');
     });
   });
 
-  describe("Size and Variant Props", () => {
-    test("applies default size class (medium)", () => {
+  describe('Size and Variant Props', () => {
+    test('applies default size class (medium)', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--medium");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--medium');
     });
 
-    test("applies custom size class", () => {
+    test('applies custom size class', () => {
       render(<RadioButton {...defaultProps} size="large" />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--large");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--large');
     });
 
-    test("applies default variant class (primary)", () => {
+    test('applies default variant class (primary)', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--primary");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--primary');
     });
 
-    test("applies custom variant class", () => {
+    test('applies custom variant class', () => {
       render(<RadioButton {...defaultProps} variant="danger" />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("radio-button--danger");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('radio-button--danger');
     });
 
-    test("applies custom className", () => {
+    test('applies custom className', () => {
       render(<RadioButton {...defaultProps} className="custom-class" />);
 
-      const container = screen.getByRole("radio").closest(".radio-button");
-      expect(container).toHaveClass("custom-class");
+      const container = screen.getByRole('radio').closest('.radio-button');
+      expect(container).toHaveClass('custom-class');
     });
   });
 
-  describe("Event Handlers", () => {
-    test("does not call onChange when disabled", async () => {
+  describe('Event Handlers', () => {
+    test('does not call onChange when disabled', async () => {
       const user = userEvent.setup();
       const mockOnChange = jest.fn();
 
-      render(
-        <RadioButton
-          {...defaultProps}
-          disabled={true}
-          onChange={mockOnChange}
-        />,
-      );
+      render(<RadioButton {...defaultProps} disabled={true} onChange={mockOnChange} />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       await user.click(radioButton);
 
       expect(mockOnChange).not.toHaveBeenCalled();
     });
 
-    test("calls onFocus handler when focused", async () => {
+    test('calls onFocus handler when focused', async () => {
       const user = userEvent.setup();
       const mockOnFocus = jest.fn();
 
@@ -169,7 +163,7 @@ describe("RadioButton Component", () => {
       expect(mockOnFocus).toHaveBeenCalledTimes(1);
     });
 
-    test("calls onBlur handler when blurred", async () => {
+    test('calls onBlur handler when blurred', async () => {
       const user = userEvent.setup();
       const mockOnBlur = jest.fn();
 
@@ -181,33 +175,27 @@ describe("RadioButton Component", () => {
       expect(mockOnBlur).toHaveBeenCalledTimes(1);
     });
 
-    test("handles keyboard interaction (Space key)", async () => {
+    test('handles keyboard interaction (Space key)', async () => {
       const user = userEvent.setup();
       const mockOnChange = jest.fn();
 
-      render(
-        <RadioButton
-          {...defaultProps}
-          checked={false}
-          onChange={mockOnChange}
-        />,
-      );
+      render(<RadioButton {...defaultProps} checked={false} onChange={mockOnChange} />);
 
-      const radioButton = screen.getByRole("radio");
+      const radioButton = screen.getByRole('radio');
       radioButton.focus();
 
-      await user.keyboard(" ");
+      await user.keyboard(' ');
 
       expect(mockOnChange).toHaveBeenCalledTimes(1);
     });
 
-    test("handles keyboard interaction (Arrow keys for radio group)", async () => {
+    test('handles keyboard interaction (Arrow keys for radio group)', async () => {
       const user = userEvent.setup();
       const mockOnChange = jest.fn();
 
       // Test with a group of radio buttons
       const RadioGroup = () => {
-        const [selected, setSelected] = React.useState("option1");
+        const [selected, setSelected] = React.useState('option1');
 
         return (
           <div>
@@ -215,7 +203,7 @@ describe("RadioButton Component", () => {
               name="group"
               value="option1"
               label="Option 1"
-              checked={selected === "option1"}
+              checked={selected === 'option1'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSelected(e.target.value);
                 mockOnChange(e);
@@ -225,7 +213,7 @@ describe("RadioButton Component", () => {
               name="group"
               value="option2"
               label="Option 2"
-              checked={selected === "option2"}
+              checked={selected === 'option2'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSelected(e.target.value);
                 mockOnChange(e);
@@ -237,95 +225,88 @@ describe("RadioButton Component", () => {
 
       render(<RadioGroup />);
 
-      const option1 = screen.getByLabelText("Option 1");
+      const option1 = screen.getByLabelText('Option 1');
 
       option1.focus();
 
       await act(async () => {
-        await user.keyboard("{ArrowDown}");
+        await user.keyboard('{ArrowDown}');
         expect(mockOnChange).toHaveBeenCalledWith(
           expect.objectContaining({
             target: expect.objectContaining({
-              value: "option2",
-            }),
-          }),
+              value: 'option2'
+            })
+          })
         );
       });
     });
   });
 
-  describe("Accessibility", () => {
-    test("has proper accessibility attributes", () => {
+  describe('Accessibility', () => {
+    test('has proper accessibility attributes', () => {
       render(
         <RadioButton
           {...defaultProps}
           aria-label="Custom aria label"
           aria-describedby="description-id"
-        />,
+        />
       );
 
-      const radioButton = screen.getByRole("radio");
-      expect(radioButton).toHaveAttribute("aria-label", "Custom aria label");
-      expect(radioButton).toHaveAttribute("aria-describedby", "description-id");
+      const radioButton = screen.getByRole('radio');
+      expect(radioButton).toHaveAttribute('aria-label', 'Custom aria label');
+      expect(radioButton).toHaveAttribute('aria-describedby', 'description-id');
     });
 
-    test("label is properly associated with input", () => {
+    test('label is properly associated with input', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const radioButton = screen.getByRole("radio");
-      const label = screen.getByText("Test Radio Button");
+      const radioButton = screen.getByRole('radio');
+      const label = screen.getByText('Test Radio Button');
 
-      expect(radioButton).toHaveAttribute("id");
-      expect(label.closest("label")).toHaveAttribute("for", radioButton.id);
+      expect(radioButton).toHaveAttribute('id');
+      expect(label.closest('label')).toHaveAttribute('for', radioButton.id);
     });
 
-    test("can be clicked via label", async () => {
+    test('can be clicked via label', async () => {
       const user = userEvent.setup();
       const mockOnChange = jest.fn();
 
       render(<RadioButton {...defaultProps} onChange={mockOnChange} />);
 
-      const label = screen.getByText("Test Radio Button");
+      const label = screen.getByText('Test Radio Button');
       await user.click(label);
 
       expect(mockOnChange).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe("Forward Ref", () => {
-    test("forwards ref to input element", () => {
+  describe('Forward Ref', () => {
+    test('forwards ref to input element', () => {
       const ref = React.createRef<HTMLInputElement>();
 
       render(<RadioButton {...defaultProps} ref={ref} />);
 
       expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect(ref.current?.type).toBe("radio");
+      expect(ref.current?.type).toBe('radio');
     });
   });
 
-  describe("Additional Props", () => {
-    test("spreads additional props to input element", () => {
-      render(
-        <RadioButton
-          {...defaultProps}
-          data-testid="custom-radio"
-          title="Custom title"
-        />,
-      );
+  describe('Additional Props', () => {
+    test('spreads additional props to input element', () => {
+      render(<RadioButton {...defaultProps} data-testid="custom-radio" title="Custom title" />);
 
-      const radioButton = screen.getByRole("radio");
-      expect(radioButton).toHaveAttribute("data-testid", "custom-radio");
-      expect(radioButton).toHaveAttribute("title", "Custom title");
+      const radioButton = screen.getByRole('radio');
+      expect(radioButton).toHaveAttribute('data-testid', 'custom-radio');
+      expect(radioButton).toHaveAttribute('title', 'Custom title');
     });
   });
 
-  describe("Radio Button Group Behavior", () => {
-    test("works as controlled components in a group", async () => {
+  describe('Radio Button Group Behavior', () => {
+    test('works as controlled components in a group', async () => {
       const user = userEvent.setup();
       // simulate react functional component
       const RadioButtonGroup = () => {
-        const [accountType, setAccountType] =
-          React.useState<string>("individual");
+        const [accountType, setAccountType] = React.useState<string>('individual');
 
         return (
           <div>
@@ -333,19 +314,15 @@ describe("RadioButton Component", () => {
               name="accountType"
               value="individual"
               label="Individual"
-              checked={accountType === "individual"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setAccountType(e.target.value)
-              }
+              checked={accountType === 'individual'}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAccountType(e.target.value)}
             />
             <RadioButton
               name="accountType"
               value="business"
               label="Business"
-              checked={accountType === "business"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setAccountType(e.target.value)
-              }
+              checked={accountType === 'business'}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAccountType(e.target.value)}
             />
           </div>
         );
@@ -353,8 +330,8 @@ describe("RadioButton Component", () => {
 
       render(<RadioButtonGroup />);
 
-      const individualOption = screen.getByLabelText("Individual");
-      const businessOption = screen.getByLabelText("Business");
+      const individualOption = screen.getByLabelText('Individual');
+      const businessOption = screen.getByLabelText('Business');
 
       // Initially individual should be selected
       expect(individualOption).toBeChecked();
@@ -373,9 +350,9 @@ describe("RadioButton Component", () => {
       });
     });
 
-    test("maintains group behavior with external state management", async () => {
+    test('maintains group behavior with external state management', async () => {
       const user = userEvent.setup();
-      let currentValue = "option1";
+      let currentValue = 'option1';
       const mockOnChange = jest.fn((e) => {
         currentValue = e.target.value;
       });
@@ -386,21 +363,21 @@ describe("RadioButton Component", () => {
             name="group"
             value="option1"
             label="Option 1"
-            checked={currentValue === "option1"}
+            checked={currentValue === 'option1'}
             onChange={mockOnChange}
           />
           <RadioButton
             name="group"
             value="option2"
             label="Option 2"
-            checked={currentValue === "option2"}
+            checked={currentValue === 'option2'}
             onChange={mockOnChange}
           />
-        </div>,
+        </div>
       );
 
-      const option1 = screen.getByLabelText("Option 1");
-      const option2 = screen.getByLabelText("Option 2");
+      const option1 = screen.getByLabelText('Option 1');
+      const option2 = screen.getByLabelText('Option 2');
 
       // Initially option1 should be selected
       expect(option1).toBeChecked();
@@ -411,9 +388,9 @@ describe("RadioButton Component", () => {
       expect(mockOnChange).toHaveBeenCalledWith(
         expect.objectContaining({
           target: expect.objectContaining({
-            value: "option2",
-          }),
-        }),
+            value: 'option2'
+          })
+        })
       );
 
       // Rerender with updated state
@@ -423,17 +400,17 @@ describe("RadioButton Component", () => {
             name="group"
             value="option1"
             label="Option 1"
-            checked={currentValue === "option1"}
+            checked={currentValue === 'option1'}
             onChange={mockOnChange}
           />
           <RadioButton
             name="group"
             value="option2"
             label="Option 2"
-            checked={currentValue === "option2"}
+            checked={currentValue === 'option2'}
             onChange={mockOnChange}
           />
-        </div>,
+        </div>
       );
 
       // Now option2 should be selected
@@ -442,8 +419,8 @@ describe("RadioButton Component", () => {
     });
   });
 
-  describe("CSS Classes", () => {
-    test("applies all expected CSS classes", () => {
+  describe('CSS Classes', () => {
+    test('applies all expected CSS classes', () => {
       render(
         <RadioButton
           {...defaultProps}
@@ -451,27 +428,27 @@ describe("RadioButton Component", () => {
           variant="success"
           checked={true}
           className="custom-class"
-        />,
+        />
       );
 
-      const container = screen.getByRole("radio").closest(".radio-button");
+      const container = screen.getByRole('radio').closest('.radio-button');
       expect(container).toHaveClass(
-        "radio-button",
-        "radio-button--large",
-        "radio-button--success",
-        "radio-button--checked",
-        "custom-class",
+        'radio-button',
+        'radio-button--large',
+        'radio-button--success',
+        'radio-button--checked',
+        'custom-class'
       );
     });
 
-    test("applies base classes and input class", () => {
+    test('applies base classes and input class', () => {
       render(<RadioButton {...defaultProps} />);
 
-      const radioButton = screen.getByRole("radio");
-      expect(radioButton).toHaveClass("radio-button__input");
+      const radioButton = screen.getByRole('radio');
+      expect(radioButton).toHaveClass('radio-button__input');
 
-      const label = screen.getByText("Test Radio Button").closest("label");
-      expect(label).toHaveClass("radio-button__label");
+      const label = screen.getByText('Test Radio Button').closest('label');
+      expect(label).toHaveClass('radio-button__label');
     });
   });
 });

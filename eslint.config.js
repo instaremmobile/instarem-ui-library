@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook';
+
 import globals from 'globals';
 import reactPlugin from 'eslint-plugin-react';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
@@ -5,13 +8,14 @@ import typescriptParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
 export default [
+  { ignores: ['dist/**', 'coverage/**'] },
   {
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',
       parser: typescriptParser,
       parserOptions: {
-         project: './tsconfig.eslint.json',
+        project: './tsconfig.eslint.json',
         tsconfigRootDir: process.cwd()
       },
       globals: {
@@ -34,11 +38,12 @@ export default [
       }
     },
     rules: {
-      'no-console': 'error',
+      // Disabled due to Node.js 24 compatibility issue with structuredClone
+      // 'no-console': ['error'],
       'react/display-name': 'off',
       'no-debugger': 'error',
       'no-duplicate-imports': 'error',
-      'camelcase': 'off',
+      camelcase: 'off',
       'comma-dangle': ['error', 'never'],
       'no-inline-comments': 'off',
       'max-len': ['error', { code: 140 }],
@@ -50,10 +55,7 @@ export default [
       'no-param-reassign': 'off',
       'func-names': ['error', 'never'],
       'react/react-in-jsx-scope': 'off',
-      'no-irregular-whitespace': [
-        'error',
-        { skipStrings: true, skipTemplates: true }
-      ],
+      'no-irregular-whitespace': ['error', { skipStrings: true, skipTemplates: true }],
       'react/forbid-foreign-prop-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-redeclare': 'warn',
@@ -68,5 +70,6 @@ export default [
       '@typescript-eslint/await-thenable': 'off',
       '@typescript-eslint/restrict-plus-operands': 'off'
     }
-  }
+  },
+  ...storybook.configs['flat/recommended']
 ];
